@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Data literacy and an applied example of data science | FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Data literacy and an applied example of data science | FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Data literacy and an applied example of data science | FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dealing-with-multiple-factors.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-literacy-and-an-applied-example-of-data-science" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">11</span> Data literacy and an applied example of data science<a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy-and-an-applied-example-of-data-science" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup chunk is made visible for clarity</span></span>
+<span id="cb941-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb941-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb941-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb941-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb941-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb941-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)</span>
+<span id="cb941-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb941-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1414</span>)</span>
+<span id="cb941-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb941-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Some speciic text-mining tools</span></span>
+<span id="cb941-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb941-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb941-14"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(robotstxt)</span>
+<span id="cb941-15"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb941-16"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb941-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spacyr)</span></code></pre></div>
+<div id="text-mining-and-processing" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Text mining and processing<a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Today we’re going to walk through some work that’s been ongoing since (*gulp*)… 2019. Being a faculty member sometimes means that projects you’re excited about get put really on the back burner!</p>
+<p>The overall goal of this project <del>was</del>is to develop tools to analyze the <strong>flavor of cocktails</strong>, as described on a blog that I’ve been a big fan of since I graduated from undergrad–it’s called <a href="https://cocktailvirgin.blogspot.com/">Cocktail Virgin</a>, and the author(s) have posted and blogged about 1-3 cocktails per day since 2007! As an aside, if you want to learn to be a “mixologist”, this is a great resource. Love it to death.</p>
+<center>
+<div class="figure">
+<img src="Images/Week%2014/cocktail%20virgin%20screenshot.png" style="width:75.0%" alt="" />
+<p class="caption">The Cocktail Virgin website today.</p>
+</div>
+</center>
+<div id="introduction-the-data-source" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Introduction: the data source<a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The reason I thought this would be an interesting project are the following:</p>
+<ol style="list-style-type: decimal">
+<li>Cocktails are recipes for almost pure flavor–the flavor chemists in this room will tell you that ethanol is a better solvent for most flavor compounds than water, and the lack of other matrix effects means that the combinations of specific (mass-produced) ingredients allows for close-to-experimental control of flavor in cocktails.</li>
+<li>The Cocktail Virgin site has a very large database of cocktails (at last count &gt;5000, but since that was 6 months ago we might be &gt;6000 at this point).</li>
+<li>The format of the posts on the Cocktail Virgin site are very regular, which makes automatic text processing easier.</li>
+<li>The authors of Cocktail Virgin have always put a focus on flavor in their non-recipe text: they always talk about the way a cocktail <strong>smells</strong> and <strong>tastes</strong>. This makes it a potentially really interesting resource for connecting the ingredients in cocktails to the flavors in those cocktails, without spending thousands of dollars on experimentation.</li>
+</ol>
+<p>This last point is really what motivated me. Let’s take a look at a classic example, <a href="https://cocktailvirgin.blogspot.com/2020/09/the-herbivore.html">The Herbivore</a>, posted September 10, 2020. Ignoring the photo, we have the classic elements of a Cocktail Virgin post.</p>
+<ol style="list-style-type: decimal">
+<li>The title is the name of the cocktail:</li>
+</ol>
+<blockquote>
+<p>the herbivore</p>
+</blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>This is followed by a well-structured recipe for the cocktail</li>
+</ol>
+<blockquote>
+<p>1 1/2 oz Genever (Bols) <br>
+3/4 oz Cardamaro <br>
+1/4 oz Green Chartreuse <br>
+2 dash Celery Bitters <br></p>
+<p>Stir with ice, strain into a cocktail coupe and garnish with a lemon twist.</p>
+</blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>This is followed by several paragraphs of expository text that explains the origin of the drink, and comments on how it tastes:</li>
+</ol>
+<blockquote>
+<p>Two Thursdays ago, the cooler evening weather made me seek out a stirred drink. The one that stood out as right for the moment was the Herbivore by Juliet Ceballos of the City House Nashville that was published in Punch Drinks. The Herbivore seemed like a win for I have found that Genever and Cardamaro are a great duo in drinks like the Walking Spanish, Deck Hand, and the Kid with the Replaceable Head. Moreover, Green Chartreuse and celery bitters felt like wonderful accents to bring the balance a touch more to the herbaceous side. <br>
+The Herbavore proffered a lemon and malt aroma that gave way to a malt and grape sip. Next, Genever and herbal flavors on the swallow finished off with elegant Green Chartreuse and celery notes.</p>
+</blockquote>
+<ol start="4" style="list-style-type: decimal">
+<li>Finally (and you’ll see this is key), the drinks are very well “tagged” with generic ingredient information in the tags section of the website:</li>
+</ol>
+<blockquote>
+<p>ingredients: amaro, bitters (other), chartreuse (green), genever</p>
+</blockquote>
+<p>I really can’t emphasize enough how well-maintained the website is, and what a good resource it is for people who love making mixed drinks!</p>
+</div>
+<div id="getting-permission" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> Getting permission<a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>I reached out to Frederic Yarm, the primary owner of Cocktail Virgin, in 2018 to ask him if it would be alright for me to copy his website using some programmatic tools for research purposes. He gave me his permission, which was very kind!</p>
+<p>Technically, a lot of “text mining” or “web scraping” lives in a legal gray area. It is usually legal for us to use programs to copy this material, but subsequent use may or may not be legal.</p>
+</div>
+<div id="a-website-is-just-mark-up-language" class="section level3 hasAnchor" number="11.1.3">
+<h3><span class="header-section-number">11.1.3</span> A website is just (mark up) language<a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You all have learned Markdown this semester. We know that <code>knitr</code> takes <code>.Rmd</code> files and translated them into whatever we want–usually <code>.html</code> files. These are the raw stuff of websites–so websites are just text! We can take a look using the <strong>Inspect</strong> or <strong>Source</strong> tools built right into your browsers.</p>
+<p>While this may look like a mess of garbage, the key insight here is that the structure of HTML actually makes it easy to pull out the bits of a website you want (if the website is built as a “flat” HTML page). There are many good tutorials on this process, but I think the one from <a href="https://rvest.tidyverse.org/articles/rvest.html">Hadley Wickham</a> and the <a href="https://jakobtures.github.io/web-scraping/index.html#introduction">one from Jakob Tures</a> are probaly good places to start. [Stat545 also has a broader perspective on web data](<a href="https://stat545.com/web-data-slides.html" class="uri">https://stat545.com/web-data-slides.html</a>. I will just walk through my approach.</p>
+<p>We start with checking whether we’re actually allowed to scrape a website (I got explicit permission, but most sites also tell you):</p>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb942-1" aria-hidden="true" tabindex="-1"></a><span class="fu">robotstxt</span>(<span class="st">&quot;https://cocktailvirgin.blogspot.com&quot;</span>)</span></code></pre></div>
+<pre><code>## $domain
+## [1] &quot;https://cocktailvirgin.blogspot.com&quot;
+## 
+## $text
+## [robots.txt]
+## --------------------------------------
+## 
+## User-agent: Mediapartners-Google
+## Disallow: 
+## 
+## User-agent: *
+## Disallow: /search
+## Allow: /
+## 
+## Sitemap: https://cocktailvirgin.blogspot.com/sitemap.xml
+## 
+## 
+## 
+## 
+## 
+## 
+## $robexclobj
+## &lt;Robots Exclusion Protocol Object&gt;
+## $bots
+## [1] &quot;Mediapartners-Google&quot; &quot;*&quot;                   
+## 
+## $comments
+## [1] line    comment
+## &lt;0 rows&gt; (or 0-length row.names)
+## 
+## $permissions
+##      field            useragent   value
+## 1 Disallow Mediapartners-Google        
+## 2 Disallow                    * /search
+## 3    Allow                    *       /
+## 
+## $crawl_delay
+## [1] field     useragent value    
+## &lt;0 rows&gt; (or 0-length row.names)
+## 
+## $host
+## [1] field     useragent value    
+## &lt;0 rows&gt; (or 0-length row.names)
+## 
+## $sitemap
+##     field useragent                                           value
+## 1 Sitemap         * https://cocktailvirgin.blogspot.com/sitemap.xml
+## 
+## $other
+## [1] field     useragent value    
+## &lt;0 rows&gt; (or 0-length row.names)
+## 
+## $check
+## function (paths = &quot;/&quot;, bot = &quot;*&quot;) 
+## {
+##     spiderbar::can_fetch(obj = self$robexclobj, path = paths, 
+##         user_agent = bot)
+## }
+## &lt;bytecode: 0x7fb7525c84a8&gt;
+## &lt;environment: 0x7fb7525cb820&gt;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;robotstxt&quot;</code></pre>
+<p>For this example, we will look just at the recipe for The Herbivore.</p>
+<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb944-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb944-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rvest::read_html() is our workhorse function</span></span>
+<span id="cb944-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb944-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://cocktailvirgin.blogspot.com/2020/09/the-herbivore.html&quot;</span>)</span></code></pre></div>
+<p>Notice that our URL (“address”) is just a text string. We use <code>read_html()</code> on that URL to get the HTML from that address.</p>
+<p>Now we will write a bunch of utility functions that will extract bits of the page we care about, based on that structure. You may have even added these kinds of structures to your Markdown already, using tags like <code>{#tag}</code>!</p>
+<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb945-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are functions that will take a URL for a specific HTML page </span></span>
+<span id="cb945-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from cocktailvirgin.blogspot.com and extract bits of it I want.</span></span>
+<span id="cb945-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb945-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-4" aria-hidden="true" tabindex="-1"></a>get_body <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb945-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-6" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb945-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;#main&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;div.post-body&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>(<span class="at">trim =</span> T)</span>
+<span id="cb945-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb945-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb945-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-13" aria-hidden="true" tabindex="-1"></a>get_ingredients <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb945-14"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-15"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-15" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb945-16"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;.post-labels a&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-17"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>()</span>
+<span id="cb945-18"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-19"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb945-20"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb945-21"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-21" aria-hidden="true" tabindex="-1"></a>get_title <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb945-22"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-23"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-23" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb945-24"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;h3&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-25"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>(<span class="at">trim =</span> T)</span>
+<span id="cb945-26"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-27"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb945-28"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb945-29"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-29" aria-hidden="true" tabindex="-1"></a>get_date <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb945-30"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-31"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-31" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb945-32"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;.date-header&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-33"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>()</span>
+<span id="cb945-34"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-35"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb945-36"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb945-37"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-37" aria-hidden="true" tabindex="-1"></a>get_recipe <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb945-38"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-39"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-39" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb945-40"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;.recipeDirection&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-41"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>()</span>
+<span id="cb945-42"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-43"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-43" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb945-44"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb945-45"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-45" aria-hidden="true" tabindex="-1"></a>get_links <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb945-46"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-47"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-47" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb945-48"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;div.post-body&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-49"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;a&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb945-50"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_attr</span>(<span class="at">name =</span> <span class="st">&quot;href&quot;</span>)</span>
+<span id="cb945-51"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb945-52"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb945-52" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>When we run these on our extracted website <code>x</code>, we get useful things back out!</p>
+<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb946-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_title</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;the herbivore&quot;</code></pre>
+<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb948-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb948-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_ingredients</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;amaro&quot;              &quot;bitters (other)&quot;    &quot;chartreuse (green)&quot;
+## [4] &quot;genever&quot;</code></pre>
+<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb950-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb950-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_body</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;1 1/2 oz Genever (Bols)\n3/4 oz Cardamaro\n1/4 oz Green Chartreuse\n2 dash Celery Bitters\nStir with ice, strain into a cocktail coupe and garnish with a lemon twist.\nTwo Thursdays ago, the cooler evening weather made me seek out a stirred drink. The one that stood out as right for the moment was the Herbivore by Juliet Ceballos of the City House Nashville that was published in Punch Drinks. The Herbivore seemed like a win for I have found that Genever and Cardamaro are a great duo in drinks like the Walking Spanish, Deck Hand, and the Kid with the Replaceable Head. Moreover, Green Chartreuse and celery bitters felt like wonderful accents to bring the balance a touch more to the herbaceous side.\n\nThe Herbavore proffered a lemon and malt aroma that gave way to a malt and grape sip. Next, Genever and herbal flavors on the swallow finished off with elegant Green Chartreuse and celery notes.&quot;</code></pre>
+<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb952-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb952-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_date</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;Thursday, September 10, 2020&quot;</code></pre>
+<p>OK, that’s just one recipe. I said there were &gt;5000. How do we get them? Let me give you two clues that you should be able to put together:</p>
+<ol style="list-style-type: decimal">
+<li>The blog is sequential–it has a first post.</li>
+<li>Each post has a “Newer Post” link as part of the HTML. We can “Inspect” the HTML to find the ID of that link, and pull it. How could we then <strong>iterate</strong> through each page?</li>
+</ol>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb954-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb954-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb954-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb954-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&quot;.blog-pager-newer-link&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb954-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb954-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">&quot;href&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;https://cocktailvirgin.blogspot.com/2020/09/narragansett.html&quot;</code></pre>
+<p>So if we put this all together, we can write a script that is actually a little robot, built to extract each post and get out useful information.</p>
+</div>
+<div id="looking-at-some-actual-data" class="section level3 hasAnchor" number="11.1.4">
+<h3><span class="header-section-number">11.1.4</span> Looking at some actual data<a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One post isn’t that interesting. And working with all &gt;5000 would be a bit unwieldy for a class. So I built a random slice (<code>slice_sample()</code>!) of 100 posts from the dataset for us to play with. It’s stored not in a <code>.csv</code> or <code>.xlsx</code> file, but in a <code>.Rdata</code> file–we use <code>load()</code> to put this into memory.</p>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb956-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb956-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Files/Week 14/cocktailvirgin_demodata.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb957"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb957-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb957-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(demo_posts)</span></code></pre></div>
+<pre><code>## Rows: 100
+## Columns: 7
+## $ post_id     &lt;dbl&gt; 1619, 4685, 4206, 1023, 1818, 4983, 1042, 3991, 1905, 2097…
+## $ title       &lt;chr&gt; &quot;\ndown at the dinghy\n&quot;, &quot;\ntransatlantic orbit\n&quot;, &quot;\nlo…
+## $ body        &lt;chr&gt; &quot;2 oz Bushmills Irish Whiskey\n1/2 oz Yellow Chartreuse\n1…
+## $ ingredients &lt;chr&gt; &quot;#chez henri ### #hawthorne ### chartreuse (yellow) ### le…
+## $ links       &lt;chr&gt; &quot;http://lemixeur.blogspot.com/2012/04/le-mixeur-sharky-nin…
+## $ URL         &lt;chr&gt; &quot;https://cocktailvirgin.blogspot.com/2012/04/down-at-dingh…
+## $ date        &lt;chr&gt; &quot;Friday, April 20, 2012&quot;, &quot;Friday, September 27, 2019&quot;, &quot;S…</code></pre>
+<p>Now that’s some data! Let’s take a look first at the “ingredients” used in this set of drinks.</p>
+<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s look at the ingredients (based on tags) for this set of drinks</span></span>
+<span id="cb959-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-2" aria-hidden="true" tabindex="-1"></a>demo_posts <span class="sc">%&gt;%</span></span>
+<span id="cb959-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">title =</span> <span class="fu">str_squish</span>(title)) <span class="sc">%&gt;%</span> <span class="co"># get rid of whitespace in names</span></span>
+<span id="cb959-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(ingredients, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">*[^original|^hot]&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># here we are removing some posts that are not recipes</span></span>
+<span id="cb959-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> ingredient,</span>
+<span id="cb959-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">input =</span> ingredients,</span>
+<span id="cb959-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">token =</span> <span class="st">&quot;regex&quot;</span>,</span>
+<span id="cb959-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">pattern =</span> <span class="st">&quot; ### &quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># when I scraped these reviews I piled tags into a single column, separated by &quot; </span><span class="al">###</span><span class="co"> &quot; for easy later parsing</span></span>
+<span id="cb959-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(ingredient, <span class="st">&quot;#|</span><span class="sc">\\</span><span class="st">*&quot;</span>)) <span class="ot">-&gt;</span> <span class="co"># and finally we are removing symbols the author used to mark &quot;non-ingredient&quot; tags</span></span>
+<span id="cb959-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-10" aria-hidden="true" tabindex="-1"></a>  demo_ingredients</span>
+<span id="cb959-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb959-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-12" aria-hidden="true" tabindex="-1"></a>demo_ingredients <span class="sc">%&gt;%</span></span>
+<span id="cb959-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb959-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ingredient, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 94 × 2
+##    ingredient              n
+##    &lt;chr&gt;               &lt;int&gt;
+##  1 lime juice             31
+##  2 rum                    27
+##  3 bitters (angostura)    24
+##  4 gin                    22
+##  5 lemon juice            22
+##  6 simple syrup           15
+##  7 vermouth (sweet)       12
+##  8 pineapple juice        11
+##  9 whiskey (rye)          11
+## 10 campari                 9
+## # … with 84 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Above, you see a new function, which is the <code>tidytext::unnest_tokens()</code> function. This comes from a reading I highly recommend to anyone interested in learning the basics of text analysis: <a href="https://www.tidytextmining.com/">Text Mining with R</a> <span class="citation">(<a href="#ref-silge2022" role="doc-biblioref">Silge and Robinson 2022</a>)</span>. Rather than reinvent the wheel, I will <a href="https://www.tidytextmining.com/tidytext.html#the-unnest_tokens-function">quote the authors</a> on what a “token” is in text analysis:</p>
+<blockquote>
+<p>A token is a meaningful unit of text, most often a word, that we are interested in using for further analysis, and tokenization is the process of splitting text into tokens.</p>
+</blockquote>
+<p>So <code>unnest_tokens()</code> splits a character vector (a column in a tibble that stores text) into many, individual “tokens”, which are the main unit of analysis for text analysis. The most common way to do this is to split at “whitespace”–spaces and hard returns, while eliminating punctuation. This gives us a rough “token ~ word” equivalence. A side effect of using <code>unnest_tokens()</code> is that it “tidies” our tibble–we get a one-line-per-token format:</p>
+<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb961-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb961-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is now a much longer tibble!</span></span>
+<span id="cb961-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb961-2" aria-hidden="true" tabindex="-1"></a>demo_ingredients <span class="sc">%&gt;%</span></span>
+<span id="cb961-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb961-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, ingredient)</span></code></pre></div>
+<pre><code>## # A tibble: 471 × 2
+##    title               ingredient          
+##    &lt;chr&gt;               &lt;chr&gt;               
+##  1 down at the dinghy  chartreuse (yellow) 
+##  2 down at the dinghy  lemon juice         
+##  3 down at the dinghy  simple syrup (other)
+##  4 down at the dinghy  whiskey             
+##  5 transatlantic orbit apricot liqueur     
+##  6 transatlantic orbit batavia arrack      
+##  7 transatlantic orbit bitters (angostura) 
+##  8 transatlantic orbit bitters (aromatic)  
+##  9 transatlantic orbit gin                 
+## 10 transatlantic orbit grapefruit juice    
+## # … with 461 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>In many ways unnest_tokens() is kind of like a purpose-built version of <code>pivot_longer()</code>.</p>
+<p>In this particular case, I used some optional arguments to <code>unnest_tokens()</code> to tell it to split at the <code>###</code> symbol. This is because when I scraped these recipes, I used that as a separator for the ingredients listed as tags in the HTML files. If we wanted, for example, to split up the post <code>body</code> column (where the recipe and descriptions are), we could just use the plain function:</p>
+<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb963-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb963-1" aria-hidden="true" tabindex="-1"></a>demo_posts <span class="sc">%&gt;%</span></span>
+<span id="cb963-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb963-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> token, <span class="at">input =</span> body) <span class="sc">%&gt;%</span></span>
+<span id="cb963-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb963-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, token)</span></code></pre></div>
+<pre><code>## # A tibble: 24,501 × 2
+##    title                    token     
+##    &lt;chr&gt;                    &lt;chr&gt;     
+##  1 &quot;\ndown at the dinghy\n&quot; 2         
+##  2 &quot;\ndown at the dinghy\n&quot; oz        
+##  3 &quot;\ndown at the dinghy\n&quot; bushmills 
+##  4 &quot;\ndown at the dinghy\n&quot; irish     
+##  5 &quot;\ndown at the dinghy\n&quot; whiskey   
+##  6 &quot;\ndown at the dinghy\n&quot; 1         
+##  7 &quot;\ndown at the dinghy\n&quot; 2         
+##  8 &quot;\ndown at the dinghy\n&quot; oz        
+##  9 &quot;\ndown at the dinghy\n&quot; yellow    
+## 10 &quot;\ndown at the dinghy\n&quot; chartreuse
+## # … with 24,491 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>However, you might notice that now the first few lines are all bits of recipe (“2 oz of this, 1 tbsp of that, etc”). I started this off by saying we were interested in sensory terms (smell, flavor, aroma, mouthfeel, etc). When we look back at the actual website, we see that there is clearly a formatting distinction between the recipe and the rest of the post, where the descriptions occur.</p>
+<p>We can use a tool called a “<a href="https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions">Regular Expression</a>” to separate out our raw text into (approximately) recipes and descriptions</p>
+<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb965-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now let&#39;s look at splitting apart the recipes (first part of the posts) from</span></span>
+<span id="cb965-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the descriptions and commentary</span></span>
+<span id="cb965-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-3" aria-hidden="true" tabindex="-1"></a>demo_posts <span class="sc">%&gt;%</span></span>
+<span id="cb965-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">title =</span> <span class="fu">str_squish</span>(title)) <span class="sc">%&gt;%</span></span>
+<span id="cb965-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(ingredients, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">*[^original|^hot]&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb965-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># here we are splitting at the first period followed by a new-line (\n), which in about 95% of the articles seems to be the normal split point</span></span>
+<span id="cb965-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col =</span> body, </span>
+<span id="cb965-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;recipe&quot;</span>, <span class="st">&quot;description&quot;</span>), </span>
+<span id="cb965-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">n&quot;</span>, <span class="at">extra =</span> <span class="st">&quot;merge&quot;</span>) <span class="ot">-&gt;</span> </span>
+<span id="cb965-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-10" aria-hidden="true" tabindex="-1"></a>  demo_posts_separated</span>
+<span id="cb965-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb965-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb965-12" aria-hidden="true" tabindex="-1"></a>demo_posts_separated<span class="sc">$</span>title[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;down at the dinghy&quot;</code></pre>
+<div class="sourceCode" id="cb967"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb967-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb967-1" aria-hidden="true" tabindex="-1"></a>demo_posts_separated<span class="sc">$</span>recipe[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;2 oz Bushmills Irish Whiskey\n1/2 oz Yellow Chartreuse\n1/2 oz Cucumber Syrup (1:1)\n1/2 oz Lemon Juice\nShake with ice and strain into a flute (or cocktail) glass&quot;</code></pre>
+<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb969-1" aria-hidden="true" tabindex="-1"></a>demo_posts_separated<span class="sc">$</span>description[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;One of the surprise winners of the Le Mixeur Sharky Nine Stories event for me was bartender Rob Kraemer&#39;s Down at the Dinghy.  The drink was named after the J.D. Salinger story where a boy overhears two house servants talking about the family, and he hurries to the pier where he tries to run away in a boat.  With Chartreuse and cucumber juice, the drink reminded me of LUPEC&#39;s Irma la Douce, and with whiskey and a vegetable juice syrup, it shared some similarities to Rob&#39;s Lamplighter at Chez Henri.\n\nThe Down at the Dinghy began with a soft Irish whiskey and cucumber aroma that was complemented by savory herbal notes from the Yellow Chartreuse.  A malty cucumber-flavored sip had some crisp citrus notes from the lemon juice, and this led into a savory Yellow Chartreuse swallow that displayed the drink&#39;s sweetness.&quot;</code></pre>
+<p>Now we’re ready to do some analysis!</p>
+</div>
+<div id="using-basic-text-analysis-to-find-descriptions" class="section level3 hasAnchor" number="11.1.5">
+<h3><span class="header-section-number">11.1.5</span> Using basic text analysis to find descriptions<a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’re going to make a big assumption about how flavors are described in English in order to do some quick text analysis. Specifically, we know empirically that most descriptive terms–“sweet”, “sour”, “rose”–are either adjectives or nouns. So if we can find a tool that will identify tokens as <strong>Parts of Speech</strong> (POS) for us, we will be able to just select those POS we want and get a rough idea of the descriptive language in the <code>description</code> we’ve extracted for each cocktail. We can then see, for example, which descriptive terms are associated with which cocktail ingredients.</p>
+<p>We are going to make use of a freely available piece of software called <a href="https://spacy.io/"><code>spaCy</code></a>, which is actually a Python-based neural network trained to do a whole suite of text analysis tasks. Happily, there is a nice interface for it in R called <code>spacyr</code>, which we will use to access it.</p>
+<p><strong>NB:</strong> You will need to not only install the <code>spacyr</code> package, but also run <code>spacyr::spacy_install()</code> if you want to run this code. The defaults are fine for this demo.</p>
+<div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb971-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_initialize</span>()</span>
+<span id="cb971-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the TIF format (https://github.com/ropensci/tif) required by spacyr: two-columns, one with a document ID and the other with the full text</span></span>
+<span id="cb971-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-3" aria-hidden="true" tabindex="-1"></a>demo_posts_separated <span class="sc">%&gt;%</span></span>
+<span id="cb971-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">doc_id =</span> post_id,</span>
+<span id="cb971-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">text =</span> description) <span class="sc">%&gt;%</span> </span>
+<span id="cb971-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># spaCy is a pre-trained neural-network for Natural Language Processing, here we request additional attributes: is it a stopword and is it like a number?</span></span>
+<span id="cb971-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spacy_parse</span>(<span class="at">additional_attributes =</span> <span class="fu">c</span>(<span class="st">&quot;is_stop&quot;</span>, <span class="st">&quot;like_num&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb971-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="ot">-&gt;</span></span>
+<span id="cb971-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-9" aria-hidden="true" tabindex="-1"></a>  demo_posts_parsed</span>
+<span id="cb971-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-10" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_finalize</span>()</span>
+<span id="cb971-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb971-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb971-12" aria-hidden="true" tabindex="-1"></a>demo_posts_parsed</span></code></pre></div>
+<pre><code>## # A tibble: 16,434 × 9
+##    doc_id sentence_id token_id token    lemma    pos   entity    is_stop like_…¹
+##    &lt;chr&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;lgl&gt;   &lt;lgl&gt;  
+##  1 1619             1        1 One      one      NUM   &quot;CARDINA… TRUE    TRUE   
+##  2 1619             1        2 of       of       ADP   &quot;&quot;        TRUE    FALSE  
+##  3 1619             1        3 the      the      DET   &quot;&quot;        TRUE    FALSE  
+##  4 1619             1        4 surprise surprise NOUN  &quot;&quot;        FALSE   FALSE  
+##  5 1619             1        5 winners  winner   NOUN  &quot;&quot;        FALSE   FALSE  
+##  6 1619             1        6 of       of       ADP   &quot;&quot;        TRUE    FALSE  
+##  7 1619             1        7 the      the      DET   &quot;&quot;        TRUE    FALSE  
+##  8 1619             1        8 Le       Le       PROPN &quot;&quot;        FALSE   FALSE  
+##  9 1619             1        9 Mixeur   Mixeur   PROPN &quot;NORP_B&quot;  FALSE   FALSE  
+## 10 1619             1       10 Sharky   Sharky   PROPN &quot;&quot;        FALSE   FALSE  
+## # … with 16,424 more rows, and abbreviated variable name ¹​like_num
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>We see that <code>spaCy</code> outputs another tidy-type data structure, where we now have a one-token-per-line dataframe (we cast it into a tibble for our own preferences), which lists each word in its in-context form (“One”) as well as it’s <strong>lemma</strong> or dictionary form (“one”), with information about its POS as well as some other properties we might care about.</p>
+<p>We then need to do some wrangling to re-attach our parsed data to our original data, which has <strong>metadata</strong> (factors, treatments, or other information) that we are interested in, like the ingredients, title, date, and URL:</p>
+<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-1" aria-hidden="true" tabindex="-1"></a>demo_posts_parsed <span class="sc">%&gt;%</span> </span>
+<span id="cb973-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># these conditions are that the part-of-speech is adjective, the lemma is not a &quot;named entity&quot; (like a proper noun), and is not a stop-word or number, and is not a singe character</span></span>
+<span id="cb973-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pos <span class="sc">==</span> <span class="st">&quot;ADJ&quot;</span>,</span>
+<span id="cb973-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-4" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>is_stop,</span>
+<span id="cb973-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-5" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>like_num,</span>
+<span id="cb973-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-6" aria-hidden="true" tabindex="-1"></a>         entity <span class="sc">==</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb973-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">str_length</span>(lemma) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb973-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(doc_id, token, lemma) <span class="sc">%&gt;%</span></span>
+<span id="cb973-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># here we rejoin the parsed tokens with the original data</span></span>
+<span id="cb973-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(demo_posts_separated <span class="sc">%&gt;%</span> </span>
+<span id="cb973-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">post_id =</span> <span class="fu">as.character</span>(post_id)), </span>
+<span id="cb973-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;doc_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;post_id&quot;</span>)) <span class="ot">-&gt;</span> </span>
+<span id="cb973-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb973-13" aria-hidden="true" tabindex="-1"></a>  demo_posts_tokenized</span></code></pre></div>
+<p>Now, for each post we have:</p>
+<ol style="list-style-type: decimal">
+<li>Cleaned up metadata</li>
+<li>Separated recipes and descriptions</li>
+<li>Tidy-by-token information about adjectives used in the description</li>
+</ol>
+<p>We’re ready to do some analysis!</p>
+</div>
+<div id="quantifying-text-data" class="section level3 hasAnchor" number="11.1.6">
+<h3><span class="header-section-number">11.1.6</span> Quantifying text data<a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, let’s just look at the most frequent adjectives used in this dataset:</p>
+<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb974-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb974-1" aria-hidden="true" tabindex="-1"></a>demo_posts_tokenized <span class="sc">%&gt;%</span></span>
+<span id="cb974-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb974-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(lemma, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 258 × 2
+##    lemma      n
+##    &lt;chr&gt;  &lt;int&gt;
+##  1 herbal    37
+##  2 bitter    25
+##  3 orange    25
+##  4 dry       20
+##  5 sweet     17
+##  6 dark      16
+##  7 floral    11
+##  8 good      11
+##  9 little    11
+## 10 nutty     10
+## # … with 248 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Now, we’re going to do something a little more interesting: we’re going to use the per-ingredient neat dataframe we created earlier to add descriptions to each drink by descriptor, and then use that data to ask which ingredients are associated with each description:</p>
+<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb976-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-1" aria-hidden="true" tabindex="-1"></a>demo_ingredients <span class="sc">%&gt;%</span></span>
+<span id="cb976-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">post_id =</span> <span class="fu">as.character</span>(post_id), title, ingredient) <span class="sc">%&gt;%</span></span>
+<span id="cb976-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(demo_posts_parsed <span class="sc">%&gt;%</span></span>
+<span id="cb976-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(pos <span class="sc">==</span> <span class="st">&quot;ADJ&quot;</span>,</span>
+<span id="cb976-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-5" aria-hidden="true" tabindex="-1"></a>                     <span class="sc">!</span>is_stop,</span>
+<span id="cb976-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-6" aria-hidden="true" tabindex="-1"></a>                     <span class="sc">!</span>like_num,</span>
+<span id="cb976-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-7" aria-hidden="true" tabindex="-1"></a>                     entity <span class="sc">==</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb976-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">str_length</span>(lemma) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb976-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(doc_id, token, lemma),</span>
+<span id="cb976-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;post_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;doc_id&quot;</span>)) <span class="ot">-&gt;</span></span>
+<span id="cb976-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-11" aria-hidden="true" tabindex="-1"></a>  demo_descriptors</span>
+<span id="cb976-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb976-13" aria-hidden="true" tabindex="-1"></a>demo_descriptors</span></code></pre></div>
+<pre><code>## # A tibble: 3,457 × 5
+##    post_id title              ingredient          token  lemma 
+##    &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;               &lt;chr&gt;  &lt;chr&gt; 
+##  1 1619    down at the dinghy chartreuse (yellow) soft   soft  
+##  2 1619    down at the dinghy chartreuse (yellow) savory savory
+##  3 1619    down at the dinghy chartreuse (yellow) herbal herbal
+##  4 1619    down at the dinghy chartreuse (yellow) crisp  crisp 
+##  5 1619    down at the dinghy chartreuse (yellow) savory savory
+##  6 1619    down at the dinghy lemon juice         soft   soft  
+##  7 1619    down at the dinghy lemon juice         savory savory
+##  8 1619    down at the dinghy lemon juice         herbal herbal
+##  9 1619    down at the dinghy lemon juice         crisp  crisp 
+## 10 1619    down at the dinghy lemon juice         savory savory
+## # … with 3,447 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Finally, we will use a methodology called <a href="https://www.tidytextmining.com/tfidf.html">“Term Frequency/Inverse Document-Frequency” (TF-IDF)</a> to give us an idea of which descriptive adjective is more associated with particular ingredients.</p>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-1" aria-hidden="true" tabindex="-1"></a>demo_descriptors <span class="sc">%&gt;%</span></span>
+<span id="cb978-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ingredient, lemma, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb978-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># TF-IDF is a metric that looks at the (log) ratio of frequency of term in a document (here an ingredient) to frequency of the term across the whole corpus</span></span>
+<span id="cb978-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(<span class="at">term =</span> lemma, <span class="at">document =</span> ingredient, <span class="at">n =</span> n) <span class="ot">-&gt;</span></span>
+<span id="cb978-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-5" aria-hidden="true" tabindex="-1"></a>  demo_tf_idf</span>
+<span id="cb978-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb978-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb978-7" aria-hidden="true" tabindex="-1"></a>demo_tf_idf</span></code></pre></div>
+<pre><code>## # A tibble: 2,554 × 6
+##    ingredient          lemma      n     tf   idf tf_idf
+##    &lt;chr&gt;               &lt;chr&gt;  &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 bitters (angostura) herbal    12 0.0741 0.466 0.0345
+##  2 rum                 dark      12 0.0638 0.782 0.0499
+##  3 gin                 herbal    10 0.0543 0.466 0.0253
+##  4 gin                 orange    10 0.0543 0.693 0.0377
+##  5 lemon juice         herbal    10 0.0617 0.466 0.0288
+##  6 lime juice          dark      10 0.0463 0.782 0.0362
+##  7 lime juice          herbal    10 0.0463 0.466 0.0216
+##  8 benedictine         herbal     9 0.141  0.466 0.0655
+##  9 rum                 herbal     9 0.0479 0.466 0.0223
+## 10 vermouth (sweet)    herbal     9 0.125  0.466 0.0582
+## # … with 2,544 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb980-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-1" aria-hidden="true" tabindex="-1"></a>demo_tf_idf <span class="sc">%&gt;%</span> </span>
+<span id="cb980-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ingredient) <span class="sc">%&gt;%</span></span>
+<span id="cb980-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lemma =</span> <span class="fu">reorder_within</span>(lemma, <span class="at">by =</span> tf_idf, <span class="at">within =</span> ingredient)) <span class="sc">%&gt;%</span></span>
+<span id="cb980-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">wt =</span> tf_idf) <span class="sc">%&gt;%</span></span>
+<span id="cb980-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ingredient <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gin&quot;</span>, <span class="st">&quot;rum&quot;</span>, <span class="st">&quot;campari&quot;</span>, <span class="st">&quot;whiskey (rye)&quot;</span>, <span class="st">&quot;scotch&quot;</span>, <span class="st">&quot;vermouth (sweet)&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb980-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb980-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lemma =</span> <span class="fu">reorder</span>(lemma, tf_idf)) <span class="sc">%&gt;%</span></span>
+<span id="cb980-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lemma, <span class="at">y =</span> tf_idf)) <span class="sc">+</span> </span>
+<span id="cb980-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">fill =</span> ingredient <span class="sc">%&gt;%</span> as.factor), <span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb980-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb980-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span> </span>
+<span id="cb980-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>ingredient, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb980-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb980-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="11-data-literacy_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>We can see some patterns that, in my opinion, give us a taste of both the possibilities and the perils of this kind of analysis. I will just give a brief set of thoughts:</p>
+<ol style="list-style-type: decimal">
+<li>It appears that this fairly basic workflow gives us some real information about the tastes of cocktail ingredients–there are many descriptive terms when we ID adjectives in the tokens found in these blog posts.</li>
+<li>The terms we find associated with particular products matches expert knowledge.</li>
+<li>This is a really rough workflow: we see lots of terms we don’t want, we haven’t picked a big dataset, etc.</li>
+<li>Is our expertise biasing our opinion of how good these results are?</li>
+</ol>
+<p>And I will just end with a question that I’d love your thoughts on:</p>
+<blockquote>
+<p>What advantages and disadvantages do we see from turning language–these complex blog posts–into data we can count? What do we gain, what do we lose, how do we communicate this kind of work?</p>
+</blockquote>
+<p>Ok, I lied, one more question:</p>
+<blockquote>
+<p>What else would you like to see? What next?</p>
+</blockquote>
+</div>
+</div>
+<div id="data-literacy" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Data literacy<a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sources" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Introduction<a href="data-literacy-and-an-applied-example-of-data-science.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’re going to end our last new material/lecture (!!!) for the semester talking about some larger issues within data science. I hope that through this semester you have come to feel some confidence in your ability to tackle basic data-analytics tasks using a coding approach (with R, but also with whatever software you end up using in the future). While there is an infinite amount left for you to learn about coding for research, that is because there is an infinite amount for <strong>me</strong> to learn, as well. I am constantly learning (and <em>re</em>learning) new tricks and methods. With a basic understanding of good coding practice, control flow, and data simulation and wrangling, I honestly think you can tackle any problems that come your way. Therefore, today we’re going to frame the class and discussion a little bit differently, because I want to focus on what I am calling <strong>data literacy</strong>. While I am going to use coding examples throughout to illustrate the discussion, today isn’t going to be about learning new skills. It’s going to be about becoming better producers (and consumers) of quantitative information–better scientists!</p>
+<p>I think of <strong>data literacy</strong> as a combination of critical thinking about how data are <em>produced, managed, analyzed, and interpreted</em> and a concern with the <em>ethics</em> surrounding each step of the process. As scientists we are often privileged to not engage directly with the ethics of what we’re doing–sure, we have to write IRBs when we do human-subjects research or IACUCs when we work with animals, but we treat our work as inherently a net positive: <strong>producing new knowledge is fundamentally a worthwhile goal</strong>. In general, I agree with this statement, but I think when we embrace it <em>un</em>critically, we end up not considering a host of the aspects of how and why we are doing the work we do, and who it ultimately serves.</p>
+<p>I will also give a big caveat to the way I am approaching this topic: data literacy is a really huge topic that deserves a class on its own (and if you’re interested in these general ideas, please come talk to me, read the references given here, and consider taking some courses in the <a href="https://liberalarts.vt.edu/departments-and-schools/department-of-science-technology-and-society.html">Virginia Tech STS Department</a>). In addition, my hope is that by learning how the sausage is made (how many times have I repeated “there is no right answer?” in this putatively quantitative course so far?) you will have developed some critical abilities already. So I am going to present a few provocative examples at various levels that will hopefully get you thinking a bit more about how we can do data analysis better: more humbly, more accurately to reality, and more sensitively to our work’s impact on the world.</p>
+<p>To this end, here are a number of resources I suggest you read to get some insight into the topics I am going to only address really briefly today:</p>
+<ul>
+<li>Books:
+<ul>
+<li><a href="https://data-feminism.mitpress.mit.edu/">Data Feminism</a>, a book and web project by two data-science researchers in the digital humanities that gives some really good principles for thinking about and with data.</li>
+<li><a href="https://www.callingbullshit.org/">Calling Bullshit</a>, a website and book developed by two University of Washington professors that is entertaining and gives good, non-technical introductions to many aspects of data literacy.</li>
+<li><a href="https://www.amazon.com/Counting-Numbers-Decide-What-Matters/dp/1631495925">Counting</a>, a book by Brandeis professor emerita Deborah Stone that gives a non-technical introduction to the politics of making numbers</li>
+</ul></li>
+<li>Short reads:
+<ul>
+<li><a href="https://www.biochemia-medica.com/en/journal/27/2/10.11613/BM.2017.029/fullArticle">Beall on open-access journals</a>, an article by an academic librarian on the corrosive effects of “pressure to publish” and open-access journals on intellectual and academic discourse</li>
+<li><a href="https://www.callingbullshit.org/case_studies/case_study_gender_gap_running.html">The gender gap and the 100-meter dash</a>, a wonderful application of basic critical thinking with data applied to a prestigious academic article.</li>
+<li><a href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/6EB60C0EAB17A50F89038721F3379A9A/S1049096517001767a.pdf/div-class-title-the-2017-james-madison-award-lecture-the-ethics-of-counting-div.pdf">“The Ethics of Counting”</a> a lecture on the topic of the ethics and politics of making numbers by Deborah <span class="citation">Stone (<a href="#ref-stone2018a" role="doc-biblioref">2018</a>)</span></li>
+<li>“Inference for a Bernoulli process (a Bayesian view)”, by <span class="citation">Lindley and Phillips (<a href="#ref-lindley1976" role="doc-biblioref">1976</a>)</span>, is the most technical article I suggest, but it does offer a remarkably good introduction to Bayesian statistics and thinking, as well as pointing out some key epistemological holes in the frequentist models</li>
+</ul></li>
+</ul>
+<p>We’re going to start by surfacing many of the issues that point towards the need for data literacy by discussing a particular issue for psychological and social science in recent years: the <strong>replicability crisis</strong>. After presenting an overview of the topic, this is going to lead us pretty naturally into our next major topic: the <strong><em>p</em>-value</strong> and the larger role of <strong>Null-Hypothesis Statistical Testing</strong> (also often put in the same bucket as “frequentist statistics”, as opposed to “Bayesian statistics”) in the replicability crisis and mishaps in data analysis in general. Finally, we will zoom out further and think about the politics of <strong>counting</strong> <span class="citation">(credit for this general framework to Deborah <a href="#ref-stone2020" role="doc-biblioref">Stone 2020</a>)</span>: what do numbers actually <em>mean</em>?</p>
+</div>
+<div id="the-replicability-crisis" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> The replicability crisis<a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We will begin with a startling article published more than a decade ago by John <span class="citation">Ioannidis (<a href="#ref-ioannidis2005" role="doc-biblioref">2005</a>)</span>: “Why most published research findings are false”. In that article, the author provided statistical evidence based in meta-analytical techniques that the generally accepted practice of using the classic <span class="math inline">\(p &lt; 0.05\)</span> formulation as evidence of a true effect in a quantitative, scientific study was more often than not leading researchers to declare that there was a significant effect when in fact there was not: a <strong>false positive</strong>. In the decade that followed, rigorous replication studies verified these concerns (with any number of caveats): for example, in psychology, in general reported effects are larger than those found in replicated studies when any effect is found, and in many studies it is impossible to replicate the original results at all <span class="citation">(<a href="#ref-osc2015" role="doc-biblioref">Collaboration 2015</a>)</span>. There have been many hypotheses put forward for these problems, including (but almost certainly not limited to):</p>
+<ol style="list-style-type: decimal">
+<li><strong>Publication (positivity) bias</strong>: in general it is much more difficult to publish a negative (“nonsignificant”) result than it is to publish a significant one. Because academic success and grant funding is predicated on publication, there is pressure to “find” significance. This is a powerful and problematic force in science, and should be taken extremely seriously.
+<ol style="list-style-type: decimal">
+<li>Related but different is a bias <em>against</em> replication studies, because they tell us “what we already know” (if they reproduce the results) or they produce negative results. This means that in general false positives may remain undiscovered until they become conventional wisdom, at which point disproving them becomes a “positive” result.</li>
+<li>This publication bias also leads to a bias in the kinds of studies that are conducted: this is a type of <a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><strong>selection bias</strong></a>. Imagine you are (like me!) a junior, pre-tenured faculty member, or (like you!) graduate students. Are you going to be willing to conduct research that may be unpublishable? Didn’t think so.</li>
+<li>These pressures combine with a culture of celebrity and newsworthiness to overvalue sensational (but perhaps unlikely) scientific results that can form the basis of TED Talks, little news segments, etc. We need to be especially skeptical of these kinds of results: a key principle we might hold dear is “extraordinary claims require extraordinary evidence” <span class="citation">(<a href="#ref-bergstrom2021" role="doc-biblioref">Bergstrom and West 2021</a>)</span>.</li>
+</ol></li>
+<li>“Science” has grown exponentially as an activity over the last century. The sheer volume of the research enterprise has led to the publication of many more results.
+<ol style="list-style-type: decimal">
+<li>By definition, a larger number of these results will be false positives, even if the proportion doesn’t change…</li>
+<li>…but the <em>proportion</em> is much higher than we might reasonably expect, which points to other systemic problems.</li>
+</ol></li>
+<li><strong>Statistical incompetence</strong>: We all know that statistics are hard, right? We also know specifically (because I’ve said so in this class!) that we often pick and choose statistical and analytical heuristics (“models”) for convenience, not because they are correct. This leads to all kinds of problems that might result in problems with conclusions, of course.
+<ol style="list-style-type: decimal">
+<li><p>Picking the “wrong” statistical test. I hope that this class has given you a taste of an alternative picture of statistics, but often we as scientists learn a set of statistical tests as heuristics: we don’t learn the whys or hows, we just learn to apply an algebraic calculation and the magical statistics machine tells us whether our results are significant. In this context, we instead worry about whether our statistical test is “right”, instead of worrying about “what do the data actually tell us”.</p>
+<center>
+<div class="figure">
+<img src="Images/Week%2010/which_test_flowchart.png" style="width:90.0%" alt="" />
+<p class="caption">Remember this mess? After talking with me about whether your project requires regression or ANOVA, does this really inspire confidence?</p>
+</div>
+</center></li>
+<li><p>Inappropriate study designs. We are constrained in resources–time, money, help, samples. We often run studies that don’t really represent an ideal: not enough subjects, samples, treatments, whatever. There are many valid reasons for this, but it leads us to make compromises that then ramify out through our conclusions.</p></li>
+</ol></li>
+<li>Epistemological vagueness around distinctions between <em>correlation</em>, <em>inference</em>, and <em>causality</em>: we have already been introducede to the idea that our intuitions around patterns and causation are not great as humans, and this problem is actually made worse by the machinery we have for statistics. In general, once we have data, we can run all sorts of tests–whether statistical or simulations or both–on those data. But <em>none</em> of those tests can establish causality. It turns out that <strong>causal modeling</strong> is a topic in-and-of-itself, and too few scientists actually consider the (usually implicit) causal models that their statistical models instantiate <span class="citation">(<a href="#ref-mcelreath2020" role="doc-biblioref">McElreath 2020</a>)</span>.
+<ol style="list-style-type: decimal">
+<li>I like <a href="https://www.callingbullshit.org/case_studies/case_study_traffic_improvements.html">the non-technical discussion given in the Calling Bullshit case studies</a> explaining how we build causal models in our head by telling ourselves stories.</li>
+<li>…and here I will get more specific: from the sub-point about “wrong” statistical tests about, let me say what I personally believe to be a major problem causing this (and other!) crises: we have a blind faith in the framework of “Null Hypothesis Statistical Testing” and the associated <em>p</em>-values and confidence intervals.</li>
+</ol></li>
+</ol>
+<p>Regardless of the exact whys (and it is almost certainly a combination of these and other factors), science as an enterprise is starting to grapple with how to adapt to all of these problems, but we’re definitely not there yet. For example, the American Statistical Association published a statement about <em>p</em>-values that essentially told people that, yes, we shouldn’t over-rely on them, but they’re fine when used in moderation <span class="citation">(<a href="#ref-wasserstein2016" role="doc-biblioref">Wasserstein and Lazar 2016</a>)</span>. Personally, I find this unsatisfying, but there is certainly awareness of the issue.</p>
+<div id="how-can-we-avoid-falling-into-the-replication-trap" class="section level4 hasAnchor" number="11.2.2.1">
+<h4><span class="header-section-number">11.2.2.1</span> How can we avoid falling into the replication trap?<a href="data-literacy-and-an-applied-example-of-data-science.html#how-can-we-avoid-falling-into-the-replication-trap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>So if all of science if facing a crisis with replicability, does that mean we just give up on science?</p>
+<p>…</p>
+<p>Obviously not. Let’s remind ourselves that science is not infallible and science is not really a belief system–so all of those houses with these signs are making a kind of weird leap:</p>
+<div class="figure">
+<img src="Images/Week%2014/kristin_joiner_image.jpg" alt="" />
+<p class="caption">Yes and yes, but also…?</p>
+</div>
+<p>Science is, at its heart, the <strong>process</strong> of formulating a testable proposition, testing it, and reporting the results to a broader community, which then starts the cycle again. We accrete a body of theory and knowledge. We don’t “mine facts” that exist “out there”. So science doesn’t depend on belief–it is a process.</p>
+<p>More importantly, the process of science itself should make us critical thinkers. That should mean we have curious, open minds that act like Bayesians (see below), rather than rigid thinkers who operate on hard and fast rules we come to believe without thinking about them–this makes us <a href="https://en.wikipedia.org/wiki/Martinet#In_English">martinets</a>.</p>
+<p>Anyway, that is to say that problems with replication and with a process of statistical proof–which is a process of <strong>probabilistic</strong> proof—are not flaws that undermine our system of making knowledge. Rather, they point to maybe a problem in what we’ve come to accept as <em>sufficient</em> evidence in adding to our body of knowledge.</p>
+<p>How can we avoid making it worse? We all operate within a system that isn’t working as it should, so our individual power to make change is limited, but I think that we can incorporate some basic ethics of research data production and consumption:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Be realistic (humble?) about the meaning of your data.</strong> This applies both to the analysis and to the communication of your work.</li>
+<li>I don’t want to hear any more about how a tiny experiment is generalizable. It gives us an intriguing further hypothesis to test!</li>
+<li>Allow multiple interpretations and frameworks for the same phenomena to give overlapping information, from which we are able to gain a richer, more faithful model (this comes from <a href="https://data-feminism.mitpress.mit.edu/pub/2wu7aft8/release/3">Data Feminism</a> and adapts the philosopher of science Sandra Harding)</li>
+<li>Be critical about the how and why of data (and science) production–sources matter.</li>
+<li>Don’t just listen to me–read <a href="data-literacy-and-an-applied-example-of-data-science.html#sources">better-written and better-explained sources</a> on how to do data better, and put them into action.</li>
+</ol>
+</div>
+</div>
+<div id="null" class="section level3 hasAnchor" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> Some quick thoughts on (Null) Hypothesis Testing (NHST)<a href="data-literacy-and-an-applied-example-of-data-science.html#null" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p><span class="math inline">\(H_0: \mu_1 = \mu_2\)</span></p>
+<p><span class="math inline">\(H_a: \mu_1 ≠ \mu_2\)</span></p>
+</blockquote>
+<p>We are all familiar with these kinds of formalized hypotheses. They are taught as part of basic statistics classes (I teach about them in my undergrad sensory class, FST 3024). They set up a dichotomy: <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span> are mutually exclusive, and so, we reason, if we can “reject” <span class="math inline">\(H_0\)</span> we can tentatively proceed with <span class="math inline">\(H_a\)</span>.</p>
+<p>There are many, many, many problems with this approach, it turns out, as Bayesian statistical methodologist John <span class="citation">Kruschke (<a href="#ref-kruschke2010" role="doc-biblioref">2010</a>)</span> points out:</p>
+<blockquote>
+<p>In collecting
+data, you take care to insulate the data from your intentions. For example, double-blind procedures in
+clinical trials insulate the data from experimenter intentions. As another example, in field research,
+the observers construct elaborate ‘duck blinds’ to minimize the impact of the observer on the data. After
+carefully collecting the data, you then go through the ritual invocation of p &lt; 0.05. Did you know
+that the computation of the p value depends crucially on the covert intentions of the analyst, or the analyst’s
+interpretations of the unknowable intentions of the data collector? This is true despite the emphasis by the
+data collector to make the data unaffected by his/her intentions, as will be shown below. Moreover, for any
+set of data, an intention can be found for which p is not less than 0.05.</p>
+</blockquote>
+<p>The basic argument <span class="citation">Kruschke (<a href="#ref-kruschke2010" role="doc-biblioref">2010</a>)</span> is making is that NHST has–in an attempt to provide an accessible heuristic for decision-making for the conscientious, working researcher–elided away the idea of uncertainty. We all know the chant:</p>
+<blockquote>
+<p>… <span class="math inline">\(p&lt;0.05\)</span>, we reject the null hypothesis.</p>
+</blockquote>
+<p>But this means we don’t take into account any information we have on the credibility of our <span class="math inline">\(H_a\)</span>, or anything we know about the quality of the experiment, or anything else we, experts in this research might know.</p>
+<center>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/frequentists_vs_bayesians.png" style="width:60.0%" alt="" />
+<p class="caption">Bet you $50 the sun hasn’t exploded</p>
+</div>
+</center>
+<p>Furthermore, this approach transforms what is really a judgment about probability–<strong>a description of our uncertainty</strong>–into a binary, black and white situation: if <span class="math inline">\(p&lt;0.05\)</span> (or any other value), we reject <span class="math inline">\(H_0\)</span>. This just isn’t good reasoning.</p>
+<div id="torture-the-data-until-it-gives-you-the-p-values-you-want" class="section level4 hasAnchor" number="11.2.3.1">
+<h4><span class="header-section-number">11.2.3.1</span> Torture the data until it gives you the p-values you want<a href="data-literacy-and-an-applied-example-of-data-science.html#torture-the-data-until-it-gives-you-the-p-values-you-want" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As an example of this problem, consider the following. I am going to generate 21, 100-number draws from the normal distribution. These are, by definition, random numbers.</p>
+<div class="sourceCode" id="cb981"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb981-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb981-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb981-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb981-2" aria-hidden="true" tabindex="-1"></a>random_data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb981-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb981-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">20</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, <span class="fu">paste0</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)))</span>
+<span id="cb981-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb981-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> random_data))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ random_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.65406 -0.73172 -0.01457  0.68195  2.23725 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)     0.074130   0.110066   0.674  0.50259   
+## random_datax1  -0.053767   0.118302  -0.454  0.65072   
+## random_datax2  -0.090543   0.114024  -0.794  0.42953   
+## random_datax3   0.140844   0.117021   1.204  0.23235   
+## random_datax4   0.309496   0.106952   2.894  0.00492 **
+## random_datax5  -0.209708   0.121470  -1.726  0.08818 . 
+## random_datax6   0.113280   0.121736   0.931  0.35493   
+## random_datax7  -0.010036   0.105058  -0.096  0.92414   
+## random_datax8  -0.037409   0.111719  -0.335  0.73863   
+## random_datax9  -0.141300   0.110750  -1.276  0.20575   
+## random_datax10  0.179297   0.103636   1.730  0.08752 . 
+## random_datax11  0.032130   0.113646   0.283  0.77813   
+## random_datax12 -0.001519   0.116344  -0.013  0.98961   
+## random_datax13  0.104850   0.118515   0.885  0.37900   
+## random_datax14 -0.153986   0.116616  -1.320  0.19050   
+## random_datax15 -0.282690   0.118447  -2.387  0.01940 * 
+## random_datax16  0.171123   0.103183   1.658  0.10120   
+## random_datax17 -0.079469   0.121520  -0.654  0.51504   
+## random_datax18 -0.015800   0.120713  -0.131  0.89619   
+## random_datax19  0.110788   0.124440   0.890  0.37601   
+## random_datax20  0.170602   0.115921   1.472  0.14507   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.052 on 79 degrees of freedom
+## Multiple R-squared:  0.228,  Adjusted R-squared:  0.03261 
+## F-statistic: 1.167 on 20 and 79 DF,  p-value: 0.3049</code></pre>
+<p>What happens when we look for significant <span class="math inline">\(p&lt;0.05\)</span> relationships?</p>
+<p><img src="11-data-literacy_files/figure-html/nonsense%20pairs%20plot-1.png" width="576" /></p>
+<p>This is the kind of data-mining that seems ridiculous… until we start modeling the relationships among hundreds of predictors without some process for validating our findings. Our intentions, implicitly, which are erased by NHST, are that we want to find significance. So we keep testing <em>until</em> we find some (likely coincidental) relationships. This is a form of the next sort of problem we’re going to discuss: observer or selection bias.</p>
+</div>
+</div>
+<div id="selection" class="section level3 hasAnchor" number="11.2.4">
+<h3><span class="header-section-number">11.2.4</span> Observer (selection) bias<a href="data-literacy-and-an-applied-example-of-data-science.html#selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>Calling Bullshit</em> <span class="citation">(<a href="#ref-bergstrom2021" role="doc-biblioref">Bergstrom and West 2021</a>)</span> gives one of the best explanations of the phenomenon of selection bias that I’m aware of. Like most of you, I am more familiar with the idea of a <strong>confounding factor</strong>: a variable we fail to include in our analysis that explains a spurious relationship. This is the classic shark and ice-cream relationship:</p>
+<center>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/confounding_variables.png" alt="" />
+<p class="caption">Take that vanilla cone back out of the water!</p>
+</div>
+</center>
+<p>But this XKCD comic points to the other problem–what are called <a href="https://en.wikipedia.org/wiki/Berkson%27s_paradox">“colliders” in causal theory</a>. The idea is kind of counterintuitive, so this is why I think that the long discussion in <em>Calling Bullshit</em> is worth paying attention to. It is framed, as things so often are, in terms of dating:</p>
+<p>A common complaint is that niceness and attractiveness seem to be anticorrelated in a dating pool: nice people are less attractive, and less attractive people are nicer. While it is possible that social reinforcement might explain rudeness in more attractive people (for example), this is equally likely to be a form of <strong>selection bias</strong> or a <strong>statistical collider</strong>. We can use data science to simulate the situation.</p>
+<p>Let’s have someone named “A” as our example. Let’s assume the (probable reality) that niceness and attractiveness are fully uncorrelated. <em>But</em> also assume that A has some basic threshold for niceness and for attractiveness: A simply won’t date people who are both unattractive and mean. Furthermore, let’s assume that A isn’t a celebrity–they have an upper limit on their own datability. These simple constraints, as we’ll see, are enough to induce a negative correlation between niceness and attractiveness <strong>in the group of people available for A to date</strong>.</p>
+<div class="sourceCode" id="cb983"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb983-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s make a bunch of prospective mates</span></span>
+<span id="cb983-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-2" aria-hidden="true" tabindex="-1"></a>dating_app <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">attractive =</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>),</span>
+<span id="cb983-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nice =</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>),</span>
+<span id="cb983-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">datability =</span> attractive <span class="sc">+</span> nice)</span>
+<span id="cb983-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb983-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-6" aria-hidden="true" tabindex="-1"></a>the_pool <span class="ot">&lt;-</span> dating_app <span class="sc">%&gt;%</span></span>
+<span id="cb983-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> attractive, <span class="at">y =</span> nice)) <span class="sc">+</span> </span>
+<span id="cb983-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&quot;italic(r) == 0.006&quot;</span>, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb983-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb983-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb983-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-13" aria-hidden="true" tabindex="-1"></a>datable <span class="ot">&lt;-</span> dating_app <span class="sc">%&gt;%</span></span>
+<span id="cb983-14"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> attractive, <span class="at">y =</span> nice)) <span class="sc">+</span> </span>
+<span id="cb983-15"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-16"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(datability <span class="sc">&gt;=</span> <span class="dv">8</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb983-17"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(datability <span class="sc">&gt;=</span> <span class="dv">8</span>), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb983-18"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> <span class="dv">8</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-19"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&quot;italic(r) == -0.29&quot;</span>, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb983-20"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb983-21"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb983-22"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-22" aria-hidden="true" tabindex="-1"></a>gettable <span class="ot">&lt;-</span> dating_app <span class="sc">%&gt;%</span></span>
+<span id="cb983-23"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> attractive, <span class="at">y =</span> nice)) <span class="sc">+</span> </span>
+<span id="cb983-24"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-25"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(datability <span class="sc">&lt;=</span> <span class="dv">14</span>), <span class="at">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb983-26"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(datability <span class="sc">&lt;=</span> <span class="dv">14</span>), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb983-27"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> <span class="dv">14</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-28"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&quot;italic(r) == -0.14&quot;</span>, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb983-29"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb983-30"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb983-31"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-31" aria-hidden="true" tabindex="-1"></a>the_actual_pool <span class="ot">&lt;-</span> dating_app <span class="sc">%&gt;%</span></span>
+<span id="cb983-32"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> attractive, <span class="at">y =</span> nice)) <span class="sc">+</span> </span>
+<span id="cb983-33"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-34"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(datability <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">&amp;</span> datability <span class="sc">&lt;=</span> <span class="dv">14</span>), <span class="at">color =</span> <span class="st">&quot;violet&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="st">&quot;.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb983-35"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(datability <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">&amp;</span> datability <span class="sc">&lt;=</span> <span class="dv">14</span>), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;violet&quot;</span>) <span class="sc">+</span></span>
+<span id="cb983-36"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> <span class="dv">8</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-37"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> <span class="dv">14</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb983-38"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&quot;italic(r) == -0.53&quot;</span>, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb983-39"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb983-40"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb983-41"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb983-42"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-42" aria-hidden="true" tabindex="-1"></a>(the_pool <span class="sc">+</span> datable) <span class="sc">/</span> (gettable <span class="sc">+</span> the_actual_pool) <span class="sc">+</span></span>
+<span id="cb983-43"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb983-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">caption =</span> <span class="st">&quot;After Bergstrom &amp; West (2021)&quot;</span>)</span></code></pre></div>
+<p><img src="11-data-literacy_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb984-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb984-1" aria-hidden="true" tabindex="-1"></a>dating_app <span class="sc">%&gt;%</span></span>
+<span id="cb984-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb984-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(datability <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">&amp;</span> datability <span class="sc">&lt;=</span> <span class="dv">14</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb984-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb984-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(nice <span class="sc">~</span> attractive, <span class="at">data =</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb984-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb984-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nice ~ attractive, data = .)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7750 -1.0262 -0.0619  1.0082  4.2828 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  8.14460    0.05725  142.27   &lt;2e-16 ***
+## attractive  -0.52252    0.01023  -51.09   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.372 on 6789 degrees of freedom
+## Multiple R-squared:  0.2777, Adjusted R-squared:  0.2776 
+## F-statistic:  2610 on 1 and 6789 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This may seem like a cute example, but let’s try looking at real-world consequences. Adapting a similar example from <span class="citation">McElreath (<a href="#ref-mcelreath2020" role="doc-biblioref">2020</a>)</span>, we could apply this same reasoning to looking at grant funding (or your grades!). We know that often rubrics for funding require rating proposals on a number of (ideally uncorrelated) aspects. For example, a simple rubric might evaluate proposals on <strong>how neat it is</strong> and <strong>scientific quality</strong>. These are not necessarily correlated (as you will know if you read the popular scientific press releases), so we are once again in a similar situation. Each of these could be rated on a 10-pt scale, and the funders might decide that they will only consider funding proposals that have a combined score of over 15. We are back in the same situation again, but in an even worse position:</p>
+<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb986-1"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-1" aria-hidden="true" tabindex="-1"></a>funding <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">neat =</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb986-2"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">quality =</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb986-3"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">score =</span> neat <span class="sc">+</span> quality)</span>
+<span id="cb986-4"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb986-5"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-5" aria-hidden="true" tabindex="-1"></a>funding <span class="sc">%&gt;%</span></span>
+<span id="cb986-6"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> neat, <span class="at">y =</span> quality)) <span class="sc">+</span> </span>
+<span id="cb986-7"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb986-8"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(score <span class="sc">&gt;=</span> <span class="dv">15</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb986-9"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(score <span class="sc">&gt;=</span> <span class="dv">15</span>), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb986-10"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&quot;italic(r) == -0.94&quot;</span>, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb986-11"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">15</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb986-12"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb986-13"><a href="data-literacy-and-an-applied-example-of-data-science.html#cb986-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;After McElreath (2020)&quot;</span>)</span></code></pre></div>
+<p><img src="11-data-literacy_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>We’ve now created a situation in which if research we fund is neat, it is likely of lower scientific quality, and vice versa, through a simple (and unintentional) selection effect.</p>
+</div>
+</div>
+<div id="counting" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Counting<a href="data-literacy-and-an-applied-example-of-data-science.html#counting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, because we’re way over time, I just want to use the previous examples to point out something important. No-one questioned my construction of my niceness/attractiveness or neat/quality metrics. But these are political choices by themselves. How do we assign people into numbers for their personality and appearance qualities? How do we make rubrics in the first place to make categories for funding? There is no objective reality in these decisions–they are the result of some sort of implicit or explicit social consensus. They change based on context–cultural, social, temporal. Take the infamous 3/5 compromise, proposed into law by the third president, James Madison. To quote Deborah <span class="citation">Stone (<a href="#ref-stone2018a" role="doc-biblioref">2018</a>)</span>:</p>
+<blockquote>
+<p>Numbers get their authority from people who are able to exert rhetorical and political power to assign words to things and things to categories.</p>
+<p>When the delegates at the Constitutional Convention discussed how to count the population in the federal census, the most contentious issue was whether to count slaves as property, in which case their owners would be taxed on them; or to count them as people, in which case the states where they lived would get more representatives in Congress. In the infamous compromise ultimately written into the US Constitution, slaves were counted as three-fifths of a person. In The Federalist No. 54, James Madison defended the rightness of this way of counting:</p>
+<p>“[T]he Federal Constitution therefore, decides with great propriety on the case of our slaves, when it views them in the mixt character of persons and property. This is in fact their true character.” (Madison, Federalist Papers No 54)</p>
+<p>…</p>
+<p>When we left off talking about validity, I asked you to explain what you cut—what didn’t get into the heap of peas to be counted. Now I want to ask you to justify your cuts.</p>
+</blockquote>
+<p>I encourage–no, I <em>ask</em>–you to take a look at the whole lecture, as I think the question of <strong>how</strong> we count is something we should really be asking ourselves more as data-literate scientists.</p>
+<p>And with that, we’re done!</p>
+</div>
+<div id="references-8" class="section level2 unnumbered hasAnchor">
+<h2>References<a href="data-literacy-and-an-applied-example-of-data-science.html#references-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Anscombe, Francis J. 1973. <span>“Graphs in Statistical Analysis.”</span> <em>The American Statistician</em> 27 (1): 17–21.
+</div>
+<div class="csl-entry">
+Bergstrom, Carl T., and Jevin D. West. 2021. <em>Calling <span>Bullshit</span></em>. <span>New York</span>: <span>Random House</span>.
+</div>
+<div class="csl-entry">
+Bruce, Peter, and Andrew Bruce. 2017. <em>Practical <span>Statistics</span> for <span>Data Scientists</span></em>. <span>Sebastopol</span>: <span>O’Reilly</span>.
+</div>
+<div class="csl-entry">
+Collaboration, Open Science. 2015. <span>“Estimating the Reproducibility of Psychological Science.”</span> Doi:10.1126/Science.Aac4716. <em>Science</em> 349 (6251): aac4716.
+</div>
+<div class="csl-entry">
+D’Ignazio, Catherine, and Lauren F. Klein. 2020. <em>Data <span>Feminism</span></em>. <span>Boston</span>: <span>MIT Press</span>.
+</div>
+<div class="csl-entry">
+Friendly, Michael, and Howard Wainer. 2021. <em>A <span>History</span> of <span>Data Visualization</span> and <span>Graphic Communication</span></em>. <span>Cambridge</span>: <span>Harvard University Press</span>.
+</div>
+<div class="csl-entry">
+Healy, Kieran. 2019. <em>Data <span>Visualization</span>: <span>A Practical Introduction</span></em>. <span>Princeton</span>: <span>Princeton University Press</span>.
+</div>
+<div class="csl-entry">
+Howell, David C. 2010. <em>Statistical Methods for Psychology</em>. 7th ed. <span>Australia : Belmont, CA</span>: <span>Thomson Wadsworth</span>.
+</div>
+<div class="csl-entry">
+Ioannidis, John P. A. 2005. <span>“Why <span>Most Published Research Findings Are False</span>.”</span> <em>PLOS Medicine</em> 2 (8): e124. <a href="https://doi.org/10.1371/journal.pmed.0020124">https://doi.org/10.1371/journal.pmed.0020124</a>.
+</div>
+<div class="csl-entry">
+Kruschke, John K. 2010. <span>“Bayesian Data Analysis.”</span> <em>WIREs Cognitive Science</em> 1 (5): 658–76. <a href="https://doi.org/10.1002/wcs.72">https://doi.org/10.1002/wcs.72</a>.
+</div>
+<div class="csl-entry">
+Lindley, Dennis V., and Lawrence D. Phillips. 1976. <span>“Inference for a <span>Bernoulli</span> Process (a <span>Bayesian</span> View).”</span> <em>The American Statistician</em> 30 (3): 112–19.
+</div>
+<div class="csl-entry">
+Ma, Sihui, Andrew P. Neilson, Jacob Lahne, Gregory M. Peck, Sean F. O’Keefe, and Amanda C. Stewart. 2018. <span>“Free Amino Acid Composition of Apple Juices with Potential for Cider Making as Determined by <span>UPLC-PDA</span>.”</span> <em>Journal of the Institute of Brewing</em> 124 (4): 467–76. <a href="https://doi.org/10.1002/jib.519">https://doi.org/10.1002/jib.519</a>.
+</div>
+<div class="csl-entry">
+McElreath, Richard. 2020. <em>Statistical <span>Rethinking</span></em>. Second. <span>Boca Raton</span>: <span>CRC Press</span>.
+</div>
+<div class="csl-entry">
+Phetxumphou, Katherine, Allison N Cox, and Jacob Lahne. 2020. <span>“Development and <span>Characterization</span> of a <span>Check-All-That-Apply</span> (<span>CATA</span>) <span>Lexicon</span> for <span>Virginia Hard</span> (<span>Alcoholic</span>) <span>Ciders</span>.”</span> <em>Journal of the American Society of Brewing Chemists</em>, 1–10. <a href="https://doi.org/10.1080/03610470.2020.1768784">https://doi.org/10.1080/03610470.2020.1768784</a>.
+</div>
+<div class="csl-entry">
+Shah, Chirag. 2020. <em>A Hands-on Introduction to Data Science</em>. <span>Cambridge</span>: <span>Cambridge University Press</span>.
+</div>
+<div class="csl-entry">
+Silge, Julia, and David Robinson. 2022. <em>Text <span>Mining</span> with <span>R</span></em>. <span>O’Reilly</span>.
+</div>
+<div class="csl-entry">
+Stone, Deborah. 2018. <span>“The 2017 <span>James Madison Award Lecture</span>: <span>The Ethics</span> of <span>Counting</span>.”</span> <em>PS: Political Science &amp; Politics</em> 51 (01): 7–16. <a href="https://doi.org/10.1017/S1049096517001767">https://doi.org/10.1017/S1049096517001767</a>.
+</div>
+<div class="csl-entry">
+———. 2020. <em>Counting: <span>How</span> We Use Numbers to Decide What Matters</em>. <span>New York</span>: <span>W. W. Norton &amp; Company</span>.
+</div>
+<div class="csl-entry">
+Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The <span>ASA Statement</span> on p-<span>Values</span>: <span>Context</span>, <span>Process</span>, and <span>Purpose</span>.”</span> <em>The American Statistician</em> 70 (2): 129–33. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for <span>Data Science</span></em>. <span>Sebastopol</span>: <span>O’Reilly</span>.
+</div>
+<div class="csl-entry">
+Yeung, Henry F., Kumpol Homwongpanich, Elizabeth Michniuk, Dominic Rovai, Massimo Migliore, Amy Lammert, and Jacob Lahne. 2021. <span>“A Tale of 3 Scales: <span>How</span> Do the 9-Pt, <span>Labeled Affective Magnitude</span>, and Unstructured <span>Visual Analog</span> Scales Differentiate Real Product Sets of Fresh Berries?”</span> <em>Food Quality and Preference</em> 88 (March): 104109. <a href="https://doi.org/10.1016/j.foodqual.2020.104109">https://doi.org/10.1016/j.foodqual.2020.104109</a>.
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bergstrom2021" class="csl-entry">
+Bergstrom, Carl T., and Jevin D. West. 2021. <em>Calling <span>Bullshit</span></em>. <span>New York</span>: <span>Random House</span>.
+</div>
+<div id="ref-osc2015" class="csl-entry">
+Collaboration, Open Science. 2015. <span>“Estimating the Reproducibility of Psychological Science.”</span> Doi:10.1126/Science.Aac4716. <em>Science</em> 349 (6251): aac4716.
+</div>
+<div id="ref-ioannidis2005" class="csl-entry">
+Ioannidis, John P. A. 2005. <span>“Why <span>Most Published Research Findings Are False</span>.”</span> <em>PLOS Medicine</em> 2 (8): e124. <a href="https://doi.org/10.1371/journal.pmed.0020124">https://doi.org/10.1371/journal.pmed.0020124</a>.
+</div>
+<div id="ref-kruschke2010" class="csl-entry">
+Kruschke, John K. 2010. <span>“Bayesian Data Analysis.”</span> <em>WIREs Cognitive Science</em> 1 (5): 658–76. <a href="https://doi.org/10.1002/wcs.72">https://doi.org/10.1002/wcs.72</a>.
+</div>
+<div id="ref-lindley1976" class="csl-entry">
+Lindley, Dennis V., and Lawrence D. Phillips. 1976. <span>“Inference for a <span>Bernoulli</span> Process (a <span>Bayesian</span> View).”</span> <em>The American Statistician</em> 30 (3): 112–19.
+</div>
+<div id="ref-mcelreath2020" class="csl-entry">
+McElreath, Richard. 2020. <em>Statistical <span>Rethinking</span></em>. Second. <span>Boca Raton</span>: <span>CRC Press</span>.
+</div>
+<div id="ref-silge2022" class="csl-entry">
+Silge, Julia, and David Robinson. 2022. <em>Text <span>Mining</span> with <span>R</span></em>. <span>O’Reilly</span>.
+</div>
+<div id="ref-stone2018a" class="csl-entry">
+Stone, Deborah. 2018. <span>“The 2017 <span>James Madison Award Lecture</span>: <span>The Ethics</span> of <span>Counting</span>.”</span> <em>PS: Political Science &amp; Politics</em> 51 (01): 7–16. <a href="https://doi.org/10.1017/S1049096517001767">https://doi.org/10.1017/S1049096517001767</a>.
+</div>
+<div id="ref-stone2020" class="csl-entry">
+———. 2020. <em>Counting: <span>How</span> We Use Numbers to Decide What Matters</em>. <span>New York</span>: <span>W. W. Norton &amp; Company</span>.
+</div>
+<div id="ref-wasserstein2016" class="csl-entry">
+Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The <span>ASA Statement</span> on p-<span>Values</span>: <span>Context</span>, <span>Process</span>, and <span>Purpose</span>.”</span> <em>The American Statistician</em> 70 (2): 129–33. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dealing-with-multiple-factors.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/11-data-literacy.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="day-1---welcome-to-fst-5984-2022.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">FST 5984: SS Data Analytics for Food and Ag Science</h1>
+<h2 class="subtitle"><em>Compiled course lectures from Spring 2022</em></h2>
+<p class="author"><em>Jacob Lahne</em></p>
+<p class="date"><em>2022-07-19</em></p>
+</div>
+<div id="preface" class="section level1 unnumbered hasAnchor">
+<h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This <strong>bookdown</strong> compiles lectures I wrote for my first attempt to teach a Data Science course to Food and Ag Science students at Virginia Tech. In general, the material here is aimed at advanced undergrads or first-year graduate students who are working in quantitative sciences, have taken 1-2 statistics courses, but do not have formal experience with coding or data science.</p>
+<p>If you want to know more about the course, you can take a look at the short description and learning objectives below:</p>
+<div id="course-description" class="section level2 unnumbered hasAnchor">
+<h2>Course description<a href="index.html#course-description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Programming, algorithmic thinking, and data analysis for research projects in food and agricultural sciences. Writing R scripts to import, clean, and wrangle data. Data visualization, exploratory data analysis, and inference using programmatic approaches.</p>
+<p>Data Analytics for Food and Ag Science introduces graduate students in Food Science &amp; Technology to modern principles of coding for data wrangling and analysis. Students will develop competency in the R programming and data analysis language. They will learn basic principles of coding including control loops and functions, apply these skills to the acquisition, importing, and cleaning of data, and develop intuitive approaches to the exploratory and inferential analysis of data from food and agricultural sciences. Students will apply these competencies to several experiential projects in which they will be responsible for both defining and achieving analytical goals related to data they are assigned and will generate themselves.</p>
+</blockquote>
+</div>
+<div id="course-learning-objectives" class="section level2 unnumbered hasAnchor">
+<h2>Course Learning Objectives<a href="index.html#course-learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Achieve fluency in the use of R for data analysis including proficient use of integrated development environment tools, data transformation, control flow logic, troubleshooting, and debugging.</li>
+<li>Implement transparent, reproducible data analysis workflows for agricultural applications including data collection and manipulation, visualization, statistical analyses, and presentation of conclusions.</li>
+<li>Differentiate among appropriate analytical techniques to make informed operational decisions in agricultural settings.</li>
+<li>Develop long-term durability in problem solving and critical thinking by “learning to learn” different techniques and strategies for data analysis.</li>
+</ol>
+</div>
+<div id="what-should-i-do-with-this-material" class="section level2 unnumbered hasAnchor">
+<h2>What should I do with this material?<a href="index.html#what-should-i-do-with-this-material" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This is the first time I have built a bookdown. The material here is the first time I taught a course on coding, and the first time I tried to teach it using R Markdown. That’s a lot of firsts! I am sure I have made many weird choices (read: mistakes), and so this is very much a “learn by doing” situation for me.</p>
+<p>Please feel free to use this material if it’s helpful for you. I would appreciate feedback on it–you can email me at <strong>jlahne at vt dot edu</strong> with comments, suggestions, or to let me know how you’re using the material.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="day-1---welcome-to-fst-5984-2022.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

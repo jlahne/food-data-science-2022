@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Inference from data | FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Inference from data | FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Inference from data | FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="advancing-our-wrangling.html"/>
+<link rel="next" href="the-linear-model---regression-and-anova.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inference-from-data" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Inference from data<a href="inference-from-data.html#inference-from-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Welcome back! I know everyone has just been counting the days to get back in the classroom. Me too!</p>
+<p>This week we’re going to be starting on the second half of the class, in which we move from the basics of <em>how</em> to code for research–learning how R works, learning basic concepts of control flow and data wrangling–to the <em>why</em> of our coding work: analyzing data. This will be the focus of the rest of the class! In the last few weeks you actually started to learn a lot about how to do exploratory and descriptive data analysis: how to make basic, useful exploratory plots, how to generate summaries of data that tell you something about what you’ve got. You also have spent some time putting together your first data-analysis report, which made use of those skills.</p>
+<p>So this week we will start with a summary of what <strong>inferential</strong> data analysis is, and why we might want to employ it in our work. We’ll start off with an application to motivate the discussion: looking at some data from Michael Wesolowski’s thesis on <em>Salmonella</em> inhibition with ethanol vapor. Then, we’ll step back and talk about how small experiments like this one can be used for <em>inferring</em> knowledge about more general situations. We’ll talk about heuristic (traditional) statistical approaches and resampling approaches to inference. Finally, we’ll talk about the counterexample of how we usually learn and think about statistical inference in science, and how it contrasts with what we’re doing here.</p>
+<div id="motivation-inference-from-experiments" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Motivation: inference from experiments<a href="inference-from-data.html#motivation-inference-from-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Today we’re going to work with a subset of data from Michael Wesolowski’s 2017 thesis work on the effect of ethanol vapor on <em>Salmonell</em> spp. on produce. Michael ran a number of experiments, but we are going to consider just the experiment on the effect of <em>exposure time</em> on <em>Salmonella</em> CFUs on tomatoes. This is the first column of data in the <code>Thesis Data Mastersheet.xls</code> data file which you can download from a few places on Canvas, in particular the <code>Files/Week 10</code> directory in the course setup package.</p>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="inference-from-data.html#cb789-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tomato_salmonella)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 9
+##   `Time (sec)` `Trial #` Replicate Plate…¹ Count Addit…² Total…³ Total…⁴ Log C…⁵
+##   &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 0                    1 A               1 352     0.01  1.10e-4  3.20e6    6.51
+## 2 0                    1 A               2 51      0.001 1.10e-5  4.64e6    6.67
+## 3 0                    1 B               1 52      0.001 1.10e-5  4.73e6    6.68
+## 4 0                    1 B               2 75      0.001 1.10e-5  6.82e6    6.83
+## 5 0                    1 C               1 53      0.001 1.10e-5  4.82e6    6.68
+## 6 0                    1 C               2 55      0.001 1.10e-5  5.00e6    6.70
+## # … with abbreviated variable names ¹​`Plate #`, ²​`Additional Dilution`,
+## #   ³​`Total Dilution`, ⁴​`Total CFU/mL`, ⁵​`Log CFU/mL`</code></pre>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="inference-from-data.html#cb791-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(tomato_salmonella)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 8.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">tomato_salmonella</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">72</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">6</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="13%" />
+<col width="19%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Time (sec)</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Replicate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Count</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">30</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="17%" />
+<col width="8%" />
+<col width="12%" />
+<col width="9%" />
+<col width="9%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="8%" />
+<col width="9%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Trial #</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">0.82</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">3.00</td>
+<td align="right">3.00</td>
+<td align="left">▇▁▇▁▇</td>
+</tr>
+<tr class="even">
+<td align="left">Plate #</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.50</td>
+<td align="right">0.50</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.50</td>
+<td align="right">2.00</td>
+<td align="right">2.00</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">Additional Dilution</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.08</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.08</td>
+<td align="right">0.10</td>
+<td align="right">0.10</td>
+<td align="right">0.10</td>
+<td align="left">▂▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td align="left">Total Dilution</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="left">▂▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">Total CFU/mL</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1132885.96</td>
+<td align="right">2181060.41</td>
+<td align="right">909.92</td>
+<td align="right">909.92</td>
+<td align="right">909.92</td>
+<td align="right">450864.42</td>
+<td align="right">7279344.86</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">Log CFU/mL</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.17</td>
+<td align="right">1.55</td>
+<td align="right">2.96</td>
+<td align="right">2.96</td>
+<td align="right">2.96</td>
+<td align="right">5.19</td>
+<td align="right">6.86</td>
+<td align="left">▇▁▂▁▃</td>
+</tr>
+</tbody>
+</table>
+<p>The key independent variable in this experiment (one part of the thesis) is the time for which the tomatoes were exposed to ethanol vapor–<code>Time (sec)</code>–and the dependent (outcome variable) is the total number of colony forming units/mL, which we will express on a log scale–<code>Log CFU/ml</code>. The question Michael had was whether the treatment decreased the number of colony-forming units (CFUs) on the surface of the tomatoes. We can get an intuition for the answer to that question by looking at the mean and SD for each time exposure:</p>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="inference-from-data.html#cb792-1" aria-hidden="true" tabindex="-1"></a>tomato_salmonella <span class="sc">%&gt;%</span></span>
+<span id="cb792-2"><a href="inference-from-data.html#cb792-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb792-3"><a href="inference-from-data.html#cb792-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>),</span>
+<span id="cb792-4"><a href="inference-from-data.html#cb792-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   `Time (sec)`  mean    sd
+##   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+## 1 0             6.60 0.220
+## 2 10            3.25 0.671
+## 3 15            3.32 0.686
+## 4 5             3.53 0.831</code></pre>
+<p>It certainly <em>looks</em> like any time exposure to ethanol vapor reduces the number of CFUs on the tomatoes. It isn’t so clear that longer exposures lead to further decreases, though.</p>
+<p>We have two questions we might want to answer from this simple example:</p>
+<ol style="list-style-type: decimal">
+<li>What are the confidence intervals around our point-estimates of group means?</li>
+<li>Is the difference we observed important? Are we seeing a real effect?</li>
+</ol>
+<p>Let’s use what we’ve learned about simulation and random sampling to answer each of these questions using a <em>coding</em> approach, and then circle back to a <em>statistical heuristic</em> approach.</p>
+</div>
+<div id="a-resampling-approach-to-statistics" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> “A resampling approach” to statistics<a href="inference-from-data.html#a-resampling-approach-to-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Today we are going to learn some approaches to thinking about inference with data that don’t rely on assumptions about formula or rules. These are called “resampling” approaches to statistics, and they instead rely on us being a bit clever about using computational power to do simulations onour datasets. This sounds fancy and intimidating, and I am pleased to say that while it may be a little bit alien, it is not!</p>
+<p>As a caveat, however, I will note that we are going to just learn about the basics of these approaches today (and in this class in general). There are whole books on this topic, and more sophisticated simulationist approaches like Bayesian statistics are going to be the most precise and powerful models <span class="citation">(for example see <a href="#ref-mcelreath2020" role="doc-biblioref">McElreath 2020</a>)</span>. My hope is that giving you a taste of a simulationist approach shows you how powerful <em>you</em> are once you know the basics of coding for research!</p>
+<div id="confidence-intervals-around-group-means-the-bootstrap" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Confidence intervals around group means (the “bootstrap”)<a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first questions we have is about our sample means, which are “point estimtes” for the actual, population mean. What am I saying here? Well, let’s take a minute to unpack the idea of a <em>point estimate</em>, and then apply it to our example.</p>
+<p>First, let’s imagine we have the normal distribution:</p>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="inference-from-data.html#cb794-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> </span>
+<span id="cb794-2"><a href="inference-from-data.html#cb794-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
+<span id="cb794-3"><a href="inference-from-data.html#cb794-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(<span class="at">fun =</span> dnorm, <span class="at">n =</span> <span class="dv">101</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb794-4"><a href="inference-from-data.html#cb794-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb794-5"><a href="inference-from-data.html#cb794-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb794-6"><a href="inference-from-data.html#cb794-6" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="08-intro-to-inference_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>This is our <strong>population</strong> distribution. We know that its true <strong>population mean</strong> is 0, and its true <strong>population standard deviation</strong> is 1, <u>by definition</u>. Now, let’s pull 3 <em>samples</em> of 100 observations from the normal distribution with <code>mean = 0</code> and <code>sd = 1</code>, and take a look at where they go on the graph:</p>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="inference-from-data.html#cb795-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb795-2"><a href="inference-from-data.html#cb795-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">x2 =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb795-3"><a href="inference-from-data.html#cb795-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">x3 =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb795-4"><a href="inference-from-data.html#cb795-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(normal_samples)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 8.2: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">normal_samples</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">100</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">x1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-0.14</td>
+<td align="right">0.94</td>
+<td align="right">-2.19</td>
+<td align="right">-0.83</td>
+<td align="right">-0.19</td>
+<td align="right">0.59</td>
+<td align="right">2.22</td>
+<td align="left">▃▆▇▆▁</td>
+</tr>
+<tr class="even">
+<td align="left">x2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-0.09</td>
+<td align="right">0.97</td>
+<td align="right">-2.32</td>
+<td align="right">-0.88</td>
+<td align="right">0.06</td>
+<td align="right">0.66</td>
+<td align="right">2.07</td>
+<td align="left">▂▆▆▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">x3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.03</td>
+<td align="right">0.97</td>
+<td align="right">-2.44</td>
+<td align="right">-0.53</td>
+<td align="right">0.07</td>
+<td align="right">0.74</td>
+<td align="right">2.43</td>
+<td align="left">▁▃▇▅▁</td>
+</tr>
+</tbody>
+</table>
+<p>We can see what is happening here by plotting these onto our normal distribution:</p>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="inference-from-data.html#cb796-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> </span>
+<span id="cb796-2"><a href="inference-from-data.html#cb796-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(normal_samples<span class="sc">$</span>x1), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb796-3"><a href="inference-from-data.html#cb796-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(normal_samples<span class="sc">$</span>x2), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb796-4"><a href="inference-from-data.html#cb796-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(normal_samples<span class="sc">$</span>x3), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) </span></code></pre></div>
+<p><img src="08-intro-to-inference_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Even though our samples are coming from the exact same population, they have different means (and standard deviations) because of <em>sampling error</em>. Although, as a side note, I will say that “error” makes it sound like something we can fix–in fact, this variation is fundamental and cannot be avoided.</p>
+<p>To conclude: even when we are sampling from a perfectly defined and known population, our samples will only <em>approximate</em> that population. But in the long term, if we draw enough samples they will end up <em>in the limit</em> being unbiased approximations. Armed with that knowledge, let’s return to our example.</p>
+<div id="a-bootstrapping-example" class="section level4 hasAnchor" number="8.2.1.1">
+<h4><span class="header-section-number">8.2.1.1</span> A bootstrapping example<a href="inference-from-data.html#a-bootstrapping-example" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In this example, for each exposure-time treatment, we have 18 observations (with some more internal replication structure that we will ignore here). Thus, when we calculate our point-estimate summary statistics, we are basing that estimated group mean (or SD or whatever) on those 18 observations. But how would it change if we had 18 <em>other</em> observations? What we <em>know</em> is our sampling-error biased mean, and what we want to get a better picture of is the population these means came from. In our explanation above, what this is equivalent to is trying to infer the shape of the normal distribution with only 1 of the 100-sample draws (that we showed were full of errors). How can we do this?</p>
+<p>The answer here is that we can use an approach called “<strong>resampling</strong>” to build a simulated population from our observed sample, and then use that population to understand how representative our observed point-estimate statistics are. This sounds complicated, but in practice it is very intuitive. The description from <span class="citation">Bruce and Bruce (<a href="#ref-bruce2017" role="doc-biblioref">2017</a>)</span> for the steps to do this is quite clear (paraphrased here in almost pseudocode):</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>From your sample, draw a sample of the same size <em>with replacement</em>.</li>
+<li>Record the mean, SD, or other relevant statistic from your “resampled” sample and record the information.</li>
+<li>Repeate steps 1-2 a large number of times (a typical number is <span class="math inline">\(N=10,000\)</span>, but this can vary depending on computational intensivity)</li>
+<li>Use the new dataset of statistics to calculate a confidence interval or to draw boxplots or histograms to compare to your point estimate.</li>
+</ol>
+</blockquote>
+<p>The reason this approach works well is the “with replacement” bit. This means that, rather than just shuffling our data, we will be sometimes drawing the same sample multiple times. Over the long run, this creates a population that would plausibly generate our sample, as shown in <span class="citation">Bruce and Bruce (<a href="#ref-bruce2017" role="doc-biblioref">2017</a>)</span>:</p>
+<div class="figure">
+<img src="Images/Week%2010/bootstrap.png" alt="" />
+<p class="caption">Schematic example of bootstrapping <span class="citation">(<a href="#ref-bruce2017" role="doc-biblioref">Bruce and Bruce 2017, 58</a>)</span></p>
+</div>
+<p>Again, this sounds like we’re doing something mystically complicated, but the steps above are each things we already know how to do. Let’s take a look in practice, with our dataset. We have 4 different means we want to resample, one for each of the different treatments. We’ll write a little <code>for</code> loop to do this for us (although you could check out the <code>boot</code> package for more functionality).</p>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb797-1"><a href="inference-from-data.html#cb797-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we set a number of iterations for the bootstrap.  If your computer is slower, consider setting this to 100 just for the example.</span></span>
+<span id="cb797-2"><a href="inference-from-data.html#cb797-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb797-3"><a href="inference-from-data.html#cb797-3" aria-hidden="true" tabindex="-1"></a>boot_reps <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb797-4"><a href="inference-from-data.html#cb797-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb797-5"><a href="inference-from-data.html#cb797-5" aria-hidden="true" tabindex="-1"></a><span class="co"># for each step of the loop, we will generate a new sample for each of our</span></span>
+<span id="cb797-6"><a href="inference-from-data.html#cb797-6" aria-hidden="true" tabindex="-1"></a><span class="co"># treatments and take its mean</span></span>
+<span id="cb797-7"><a href="inference-from-data.html#cb797-7" aria-hidden="true" tabindex="-1"></a>booted_means <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">numeric</span>(boot_reps),</span>
+<span id="cb797-8"><a href="inference-from-data.html#cb797-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">numeric</span>(boot_reps),</span>
+<span id="cb797-9"><a href="inference-from-data.html#cb797-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">10</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">numeric</span>(boot_reps),</span>
+<span id="cb797-10"><a href="inference-from-data.html#cb797-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">15</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">numeric</span>(boot_reps))</span>
+<span id="cb797-11"><a href="inference-from-data.html#cb797-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>boot_reps){</span>
+<span id="cb797-12"><a href="inference-from-data.html#cb797-12" aria-hidden="true" tabindex="-1"></a>  this_loop_means <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb797-13"><a href="inference-from-data.html#cb797-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each step, we will make our lives easier (in terms of typing) by stepping through a loop of the treatments</span></span>
+<span id="cb797-14"><a href="inference-from-data.html#cb797-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(time <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>)){</span>
+<span id="cb797-15"><a href="inference-from-data.html#cb797-15" aria-hidden="true" tabindex="-1"></a>    tomato_salmonella <span class="sc">%&gt;%</span></span>
+<span id="cb797-16"><a href="inference-from-data.html#cb797-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span> <span class="sc">==</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb797-17"><a href="inference-from-data.html#cb797-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb797-18"><a href="inference-from-data.html#cb797-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="at">x =</span> ., <span class="at">size =</span> <span class="dv">18</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="co"># this is the &quot;bootstrap&quot; step, note replace = TRUE</span></span>
+<span id="cb797-19"><a href="inference-from-data.html#cb797-19" aria-hidden="true" tabindex="-1"></a>      mean <span class="sc">%&gt;%</span></span>
+<span id="cb797-20"><a href="inference-from-data.html#cb797-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(this_loop_means, .) <span class="ot">-&gt;</span> <span class="co"># don&#39;t forget to store the results of the loop somewhere!</span></span>
+<span id="cb797-21"><a href="inference-from-data.html#cb797-21" aria-hidden="true" tabindex="-1"></a>      this_loop_means </span>
+<span id="cb797-22"><a href="inference-from-data.html#cb797-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb797-23"><a href="inference-from-data.html#cb797-23" aria-hidden="true" tabindex="-1"></a>  booted_means[i, ] <span class="ot">&lt;-</span> this_loop_means</span>
+<span id="cb797-24"><a href="inference-from-data.html#cb797-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now we have a big (10,000 row) data frame, in which each row is a plausible simulation of means we could have gotten if our experimental sample had been different, but drawn from the same population! Let’s go ahead and do a little basic data exploration on this dataset. I think the easiest way to look at this is using <em>box plots</em>:</p>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="inference-from-data.html#cb798-1" aria-hidden="true" tabindex="-1"></a>booted_means <span class="sc">%&gt;%</span></span>
+<span id="cb798-2"><a href="inference-from-data.html#cb798-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">boot_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb798-3"><a href="inference-from-data.html#cb798-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;exposure_time&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;logCFU&quot;</span>, <span class="sc">-</span>boot_id) <span class="sc">%&gt;%</span></span>
+<span id="cb798-4"><a href="inference-from-data.html#cb798-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exposure_time =</span> <span class="fu">as.numeric</span>(exposure_time)) <span class="sc">%&gt;%</span></span>
+<span id="cb798-5"><a href="inference-from-data.html#cb798-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> exposure_time, <span class="at">y =</span> logCFU, <span class="at">group =</span> exposure_time)) <span class="sc">+</span></span>
+<span id="cb798-6"><a href="inference-from-data.html#cb798-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb798-7"><a href="inference-from-data.html#cb798-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">tibble</span>(<span class="at">exposure_time =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>), </span>
+<span id="cb798-8"><a href="inference-from-data.html#cb798-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">logCFU =</span> tomato_salmonella <span class="sc">%&gt;%</span> </span>
+<span id="cb798-9"><a href="inference-from-data.html#cb798-9" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb798-10"><a href="inference-from-data.html#cb798-10" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb798-11"><a href="inference-from-data.html#cb798-11" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">pull</span>(mean)),</span>
+<span id="cb798-12"><a href="inference-from-data.html#cb798-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb798-13"><a href="inference-from-data.html#cb798-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="08-intro-to-inference_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>It looks like while with no ethanol vapor we have quite a narrow range of <em>Salmonella</em> CFUs, with exposure variation grows quite a bit! In addition, it seems like our good results for a 5-second exposure, while certainly not a fluke, are somewhat unexpectedly on the low end of CFUs we’d expect to observe if we ran the same study again. Similarly, our 15-second exposure appears to be somewhat pessimistic! Thus, sampling error might explain the odd trend we observe in our actual results of increased CFUs with increased ethanol vapor exposure.</p>
+<p>We can look at this numerically as well:</p>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="inference-from-data.html#cb799-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual observed means</span></span>
+<span id="cb799-2"><a href="inference-from-data.html#cb799-2" aria-hidden="true" tabindex="-1"></a>tomato_salmonella <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(mean)</span></code></pre></div>
+<pre><code>## [1] 6.604979 3.247841 3.315539 3.526595</code></pre>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="inference-from-data.html#cb801-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And our bootstrapped ranges</span></span>
+<span id="cb801-2"><a href="inference-from-data.html#cb801-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(booted_means)</span></code></pre></div>
+<pre><code>##        0               5               10              15       
+##  Min.   :6.444   Min.   :3.042   Min.   :2.959   Min.   :2.959  
+##  1st Qu.:6.571   1st Qu.:3.408   1st Qu.:3.143   1st Qu.:3.225  
+##  Median :6.608   Median :3.527   Median :3.248   Median :3.315  
+##  Mean   :6.605   Mean   :3.529   Mean   :3.247   Mean   :3.315  
+##  3rd Qu.:6.639   3rd Qu.:3.644   3rd Qu.:3.353   3rd Qu.:3.405  
+##  Max.   :6.740   Max.   :4.126   Max.   :3.852   Max.   :3.857</code></pre>
+<p>This tells us that, while our results are significant, we should have some caution in making strong inferences about a time-order effect. As responsible scientists, reporting these kinds of ranges will be very valuable for our audiences, letting them understand the <em>context</em> in which our reported results originate.</p>
+</div>
+<div id="advantages-of-the-bootstrap" class="section level4 hasAnchor" number="8.2.1.2">
+<h4><span class="header-section-number">8.2.1.2</span> Advantages of the bootstrap<a href="inference-from-data.html#advantages-of-the-bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>You may ask yourself why do this kind of work to generate a confidence interval, when we already have a formula for that: <span class="math inline">\(CI = \bar{x} ± 1.96*se\)</span>, where <span class="math inline">\(se = \sigma/\sqrt{n}\)</span> is the standard error of the mean. We can alter this for small samples by replacing <span class="math inline">\(1.96\)</span> with the 95th-percentile value for the appropriate <span class="math inline">\(t\)</span>-distribution. But this approach assumes that you understand the underlying random (“stochastic”) process that generates your data–this is called a <strong>parametric</strong> approach because it assumes that you know the function and parameters (the normal distribution) that generates your observations.</p>
+<p>Hold on, what did I just say? The above means that we are assuming that a <em>bell-shaped</em> curve (normal or <span class="math inline">\(t\)</span>) generated our obesrvations. If we drew enough, we’d end up seeing that familiar normal bell-curve.</p>
+<p>This is a very strong assumption that, prior to wide availability of computational power, was necessary. But it’s not a <em>good</em> assumption. Let’s take a quick look at our data and see if it looks normal:</p>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="inference-from-data.html#cb803-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set your boot reps to something appropriate</span></span>
+<span id="cb803-2"><a href="inference-from-data.html#cb803-2" aria-hidden="true" tabindex="-1"></a>boot_reps <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Again, if your computer is slow consider setting this to 100 instead just for the example</span></span>
+<span id="cb803-3"><a href="inference-from-data.html#cb803-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb803-4"><a href="inference-from-data.html#cb803-4" aria-hidden="true" tabindex="-1"></a>boot_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">boot_id =</span> <span class="dv">1</span><span class="sc">:</span>boot_reps) <span class="co"># this is just a place to put the observations</span></span>
+<span id="cb803-5"><a href="inference-from-data.html#cb803-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb803-6"><a href="inference-from-data.html#cb803-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(time <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>)){</span>
+<span id="cb803-7"><a href="inference-from-data.html#cb803-7" aria-hidden="true" tabindex="-1"></a>  tomato_salmonella <span class="sc">%&gt;%</span></span>
+<span id="cb803-8"><a href="inference-from-data.html#cb803-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span> <span class="sc">==</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb803-9"><a href="inference-from-data.html#cb803-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb803-10"><a href="inference-from-data.html#cb803-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample</span>(<span class="at">x =</span> ., <span class="at">size =</span> boot_reps, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb803-11"><a href="inference-from-data.html#cb803-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cbind</span>(boot_samples, .) <span class="ot">-&gt;</span> <span class="co"># don&#39;t forget to save it</span></span>
+<span id="cb803-12"><a href="inference-from-data.html#cb803-12" aria-hidden="true" tabindex="-1"></a>    boot_samples</span>
+<span id="cb803-13"><a href="inference-from-data.html#cb803-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb803-14"><a href="inference-from-data.html#cb803-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb803-15"><a href="inference-from-data.html#cb803-15" aria-hidden="true" tabindex="-1"></a>boot_samples <span class="sc">%&gt;%</span></span>
+<span id="cb803-16"><a href="inference-from-data.html#cb803-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">`</span><span class="at">10</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">`</span><span class="at">15</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb803-17"><a href="inference-from-data.html#cb803-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;exposure_time&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;logCFU&quot;</span>, <span class="sc">-</span>boot_id) <span class="sc">%&gt;%</span></span>
+<span id="cb803-18"><a href="inference-from-data.html#cb803-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exposure_time =</span> <span class="fu">as.numeric</span>(exposure_time)) <span class="ot">-&gt;</span></span>
+<span id="cb803-19"><a href="inference-from-data.html#cb803-19" aria-hidden="true" tabindex="-1"></a>  boot_samples</span>
+<span id="cb803-20"><a href="inference-from-data.html#cb803-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb803-21"><a href="inference-from-data.html#cb803-21" aria-hidden="true" tabindex="-1"></a>boot_samples <span class="sc">%&gt;%</span></span>
+<span id="cb803-22"><a href="inference-from-data.html#cb803-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> logCFU)) <span class="sc">+</span> </span>
+<span id="cb803-23"><a href="inference-from-data.html#cb803-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb803-24"><a href="inference-from-data.html#cb803-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>exposure_time, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb803-25"><a href="inference-from-data.html#cb803-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="08-intro-to-inference_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>This is plainly not data drawn from a normal distribution.</p>
+<p>The advantage of the bootstrap is that it is <em>nonparametric</em>: it makes no assumptions about how the data are generated and works equally well for any kind of statistic or any kind of data. It just requires writing some pseudocode to properly generate the loop, and then you have an <em>empirical</em> distribution for your data. Neat!</p>
+</div>
+</div>
+<div id="is-that-difference-important-permutation-tests" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Is that difference important (permutation tests)?<a href="inference-from-data.html#is-that-difference-important-permutation-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So far we have used resampling to mostly answer questions about our point-estimates: how reliable and stable are our sample statistics? But when we think about <em>inference</em>, we usually are trying to connect a cause to an effect. In our example, we might want to ask questions like:</p>
+<ol style="list-style-type: decimal">
+<li>Does any ethanol vapor exposure reduce the number of CFUs on the surface of tomatoes?</li>
+<li>Are the differences among our treatments meaningful?</li>
+</ol>
+<p>These are the kinds of questions that lead to testable hypotheses. In future classes, we are going to touch on models of statistical analysis like the <strong>linear model</strong> which give us formulas to deal with these questions. In particular, we might use <strong>ANOVA</strong> (<strong>AN</strong>alysis <strong>O</strong>f <strong>VA</strong>riance) to answer #1, and <strong>linear regression</strong> to answer the second question. But today we’re going to just use some raw computational power to do so.</p>
+<div id="does-ethanol-vapor-reduce-the-number-of-cfus-on-the-surface-of-tomatoes" class="section level4 hasAnchor" number="8.2.2.1">
+<h4><span class="header-section-number">8.2.2.1</span> Does ethanol vapor reduce the number of CFUs on the surface of tomatoes?<a href="inference-from-data.html#does-ethanol-vapor-reduce-the-number-of-cfus-on-the-surface-of-tomatoes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We already know that we have a total of 72 observations in our dataset, with 18 for each treatment. That means in one treatment we have no ethanol exposure, and we have increasing duration of ethanol-vapor exposure in the other treatments. Let’s calculate our point-estimates of the mean log CFUs for each treatment again:</p>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="inference-from-data.html#cb804-1" aria-hidden="true" tabindex="-1"></a>tomato_salmonella <span class="sc">%&gt;%</span></span>
+<span id="cb804-2"><a href="inference-from-data.html#cb804-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb804-3"><a href="inference-from-data.html#cb804-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_CFUs =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   `Time (sec)` mean_CFUs
+##   &lt;chr&gt;            &lt;dbl&gt;
+## 1 0                 6.60
+## 2 10                3.25
+## 3 15                3.32
+## 4 5                 3.53</code></pre>
+<p>It does certainly look like having no ethanol exposure leads to almost 3 orders of magnitude more CFUs (because we’re in log units) than any timed exposure to ethanol vapor. We can use basic logic to frame a <em>counterfactual</em>–“if ethanol exposure has no effect, would we see the same difference in log CFUs?” And our ability to manipulate data with code allows us to do exactly this!</p>
+<p>Specifically, we are going to manipulate our data set so as to “redo” our experiment thousands of times. In each case, we are going to take our 72 observations–the measured log CFUs–and randomly reassign them to the 72 experimental conditions–our ethanol-vapor time exposures–that <em>could</em> have generated them. This will give us 18 new observations for each time treatment, for which we will take a new point-estimate mean. We will then repeat this many times (usually thousands) to get a distribution of <strong>permuted means</strong>. Finally, we will compare our <em>actual observations</em> of mean log CFUs to the permuted means to determine if our observations show a particularly extreme value.</p>
+<p>Let’s see how this works in practice, and then we will return to outline the general steps of a Permutation Test from <span class="citation">Bruce and Bruce (<a href="#ref-bruce2017" role="doc-biblioref">2017</a>)</span>.</p>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="inference-from-data.html#cb806-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first, just to show how this works, let&#39;s do it once:</span></span>
+<span id="cb806-2"><a href="inference-from-data.html#cb806-2" aria-hidden="true" tabindex="-1"></a>permutation_example <span class="ot">&lt;-</span> tomato_salmonella <span class="sc">%&gt;%</span></span>
+<span id="cb806-3"><a href="inference-from-data.html#cb806-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb806-4"><a href="inference-from-data.html#cb806-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">sample</span>(tomato_salmonella<span class="sc">$</span><span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> <span class="co"># unlike bootstrapping we use replace = FALSE to just permute our sample</span></span>
+<span id="cb806-5"><a href="inference-from-data.html#cb806-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">actual_time =</span> <span class="dv">1</span>, <span class="at">logCFU =</span> <span class="dv">2</span>, <span class="at">permuted_time =</span> <span class="dv">3</span>)</span>
+<span id="cb806-6"><a href="inference-from-data.html#cb806-6" aria-hidden="true" tabindex="-1"></a>permutation_example</span></code></pre></div>
+<pre><code>## # A tibble: 72 × 3
+##    actual_time logCFU permuted_time
+##    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;        
+##  1 0             6.51 0            
+##  2 0             6.67 10           
+##  3 0             6.68 10           
+##  4 0             6.83 10           
+##  5 0             6.68 0            
+##  6 0             6.70 0            
+##  7 0             6.75 0            
+##  8 0             6.78 15           
+##  9 0             6.36 15           
+## 10 0             6.39 0            
+## # … with 62 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>We can then compare our observed means to our permuted means:</p>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="inference-from-data.html#cb808-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Our actual observations</span></span>
+<span id="cb808-2"><a href="inference-from-data.html#cb808-2" aria-hidden="true" tabindex="-1"></a>permutation_example <span class="sc">%&gt;%</span></span>
+<span id="cb808-3"><a href="inference-from-data.html#cb808-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(actual_time) <span class="sc">%&gt;%</span></span>
+<span id="cb808-4"><a href="inference-from-data.html#cb808-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(logCFU))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   actual_time  mean
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 0            6.60
+## 2 10           3.25
+## 3 15           3.32
+## 4 5            3.53</code></pre>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="inference-from-data.html#cb810-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Our permuted observations </span></span>
+<span id="cb810-2"><a href="inference-from-data.html#cb810-2" aria-hidden="true" tabindex="-1"></a>permutation_example <span class="sc">%&gt;%</span></span>
+<span id="cb810-3"><a href="inference-from-data.html#cb810-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(permuted_time) <span class="sc">%&gt;%</span></span>
+<span id="cb810-4"><a href="inference-from-data.html#cb810-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(logCFU))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   permuted_time  mean
+##   &lt;chr&gt;         &lt;dbl&gt;
+## 1 0              4.94
+## 2 10             4.47
+## 3 15             4.14
+## 4 5              3.15</code></pre>
+<p>It is immediately apparent that the difference between the groups is less extreme in or permuted example. This makes sense: some observations that actually came from the high-log CFU 0-second treatment have now been assigned to other times, while some from the low-log CFU treatments have been assigned to 0 seconds. But just a single comparison isn’t enough to prove anything. What we will do is repeat this experiment thousands of times:</p>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="inference-from-data.html#cb812-1" aria-hidden="true" tabindex="-1"></a>permutation_reps <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># set this to 100 or so if your computer is slow for the demo</span></span>
+<span id="cb812-2"><a href="inference-from-data.html#cb812-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb812-3"><a href="inference-from-data.html#cb812-3" aria-hidden="true" tabindex="-1"></a>permuted_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">time =</span> <span class="fu">character</span>(),</span>
+<span id="cb812-4"><a href="inference-from-data.html#cb812-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mean_logCFUs =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb812-5"><a href="inference-from-data.html#cb812-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">permutation_id =</span> <span class="fu">numeric</span>()</span>
+<span id="cb812-6"><a href="inference-from-data.html#cb812-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb812-7"><a href="inference-from-data.html#cb812-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>permutation_reps){</span>
+<span id="cb812-8"><a href="inference-from-data.html#cb812-8" aria-hidden="true" tabindex="-1"></a>  permuted_times <span class="ot">&lt;-</span> <span class="fu">sample</span>(tomato_salmonella<span class="sc">$</span><span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>) <span class="co"># make a scrambled set of treatments</span></span>
+<span id="cb812-9"><a href="inference-from-data.html#cb812-9" aria-hidden="true" tabindex="-1"></a>  permuted_means <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">time =</span> permuted_times,</span>
+<span id="cb812-10"><a href="inference-from-data.html#cb812-10" aria-hidden="true" tabindex="-1"></a>                           <span class="at">logCFUs =</span> tomato_salmonella<span class="sc">$</span><span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb812-11"><a href="inference-from-data.html#cb812-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb812-12"><a href="inference-from-data.html#cb812-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean_logCFUs =</span> <span class="fu">mean</span>(logCFUs)) <span class="sc">%&gt;%</span></span>
+<span id="cb812-13"><a href="inference-from-data.html#cb812-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">permutation_id =</span> i) <span class="co"># keep track of the permutation rep that generated these means</span></span>
+<span id="cb812-14"><a href="inference-from-data.html#cb812-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb812-15"><a href="inference-from-data.html#cb812-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Don&#39;t forget to actually store the reps of the for() loop!</span></span>
+<span id="cb812-16"><a href="inference-from-data.html#cb812-16" aria-hidden="true" tabindex="-1"></a>  permuted_samples <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(permuted_samples, </span>
+<span id="cb812-17"><a href="inference-from-data.html#cb812-17" aria-hidden="true" tabindex="-1"></a>                                permuted_means)</span>
+<span id="cb812-18"><a href="inference-from-data.html#cb812-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now we can ask the question we care about of these simulated data: how many times are our <em>actual</em> observed means different from the permuted means?</p>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="inference-from-data.html#cb813-1" aria-hidden="true" tabindex="-1"></a>actual_means <span class="ot">&lt;-</span> tomato_salmonella <span class="sc">%&gt;%</span></span>
+<span id="cb813-2"><a href="inference-from-data.html#cb813-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Time (sec)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb813-3"><a href="inference-from-data.html#cb813-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_CFUs =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Log CFU/mL</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb813-4"><a href="inference-from-data.html#cb813-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">time =</span> <span class="dv">1</span>, <span class="at">mean_logCFUs =</span> mean_CFUs) <span class="sc">%&gt;%</span></span>
+<span id="cb813-5"><a href="inference-from-data.html#cb813-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time))</span>
+<span id="cb813-6"><a href="inference-from-data.html#cb813-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb813-7"><a href="inference-from-data.html#cb813-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, let&#39;s take a look at the 0-second treatment</span></span>
+<span id="cb813-8"><a href="inference-from-data.html#cb813-8" aria-hidden="true" tabindex="-1"></a>permuted_samples <span class="sc">%&gt;%</span></span>
+<span id="cb813-9"><a href="inference-from-data.html#cb813-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb813-10"><a href="inference-from-data.html#cb813-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_logCFUs)) <span class="sc">+</span> </span>
+<span id="cb813-11"><a href="inference-from-data.html#cb813-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb813-12"><a href="inference-from-data.html#cb813-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> actual_means, <span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb813-13"><a href="inference-from-data.html#cb813-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>time) <span class="sc">+</span></span>
+<span id="cb813-14"><a href="inference-from-data.html#cb813-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="08-intro-to-inference_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>It certainly looks like our observed values are more extreme than the permuted values!</p>
+<p>We can get a numerical result for this by asking what proportion of our permuted results are larger or smaller than our observed values. For our purposes, we mostly care about just the untreated (0 second) tomatoes, and in this case we want to know if our observed mean logCFU values are larger than we’d expect to see if ethanol treatment weren’t having an effect.</p>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="inference-from-data.html#cb814-1" aria-hidden="true" tabindex="-1"></a>actual_value <span class="ot">&lt;-</span> actual_means <span class="sc">%&gt;%</span> <span class="fu">filter</span>(time <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(mean_logCFUs)</span>
+<span id="cb814-2"><a href="inference-from-data.html#cb814-2" aria-hidden="true" tabindex="-1"></a>permuted_samples <span class="sc">%&gt;%</span></span>
+<span id="cb814-3"><a href="inference-from-data.html#cb814-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb814-4"><a href="inference-from-data.html#cb814-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bigger =</span> mean_logCFUs <span class="sc">&gt;</span> actual_value) <span class="sc">%&gt;%</span></span>
+<span id="cb814-5"><a href="inference-from-data.html#cb814-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_bigger =</span> <span class="fu">sum</span>(bigger))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   total_bigger
+##          &lt;int&gt;
+## 1            0</code></pre>
+<p>So we can see that in 1000 permuted samples we never saw average log CFUs larger than our observed value. This is strong evidence that ethanol treatment has <em>some</em> effect on <em>Salmonella</em> CFUs.</p>
+<p>This approach is a specific application of that given by <span class="citation">Bruce and Bruce (<a href="#ref-bruce2017" role="doc-biblioref">2017, 89</a>, with some paraphrasing)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Create a place to store your permuted results!</li>
+<li>Get your tidy dataset into a form that is amenable to using a <code>for()</code> loop and <code>filter()</code> and <code>group_by()</code> commands</li>
+<li>Select the treatment variable you are investigating and then shuffle it (break the link between it and the observed variable)</li>
+<li>Calculate the statistic of interest for your analysis (usually a mean, but not necessarily) for each permuted group</li>
+<li>Remember to store your results and the relevant associated data (often storing a <code>permutation_id</code> is useful, as we see below)</li>
+<li>Repeat steps 2-5 some large number of times (often 1000, but it can be done more if you have the time and computational power)</li>
+<li>Compare the distribution of permuted results to your observed results</li>
+</ol>
+</div>
+<div id="are-the-differences-among-our-treatments-meaningful" class="section level4 hasAnchor" number="8.2.2.2">
+<h4><span class="header-section-number">8.2.2.2</span> Are the differences among our treatments meaningful?<a href="inference-from-data.html#are-the-differences-among-our-treatments-meaningful" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We don’t just care about a single treatment–we are interested in whether these is meaningful variation among all of our treatments. We are going to end today with a preview of the approach we can take towards this question, with a resampling/permutation approach to <strong>ANOVA</strong>.</p>
+<p>ANOVA is a procedure you’ve learned about before, and it relies on the simple observation that, if some grouping variable (“treatment”) is important, there will be less variation <em>within</em> groups than there is <em>between</em> different groups. This intution is shown here (with the assumption of normality that is important for linear-model ANOVA statistics):</p>
+<div class="figure">
+<img src="Images/Week%2010/ANOVA%20diagram.png" alt="" />
+<p class="caption">ANOVA diagram, from <a href="https://www.researchgate.net/figure/Graphical-representation-of-the-rationale-behind-the-analysis-of-variance-ANOVA-A_fig2_329788831">Gabriel Liguori</a></p>
+</div>
+<p>We are going to take a simple approach to answering the basic question of one-way ANOVA (where a single experimental variable is manipulated) using our resampled data. We already generated the data we need:</p>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="inference-from-data.html#cb816-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(permuted_samples)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-16">Table 8.3: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">permuted_samples</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">4000</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="13%" />
+<col width="19%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">time</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="10%" />
+<col width="15%" />
+<col width="7%" />
+<col width="7%" />
+<col width="5%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="8%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mean_logCFUs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.17</td>
+<td align="right">0.31</td>
+<td align="right">3.14</td>
+<td align="right">3.95</td>
+<td align="right">4.16</td>
+<td align="right">4.39</td>
+<td align="right">5.61</td>
+<td align="left">▁▇▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">permutation_id</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">500.50</td>
+<td align="right">288.71</td>
+<td align="right">1.00</td>
+<td align="right">250.75</td>
+<td align="right">500.50</td>
+<td align="right">750.25</td>
+<td align="right">1000.00</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+</tbody>
+</table>
+<p>We are going to compare the variation between groups in our actual sample to the variation between groups in our permutations. Our question is: is the observed variation between groups in actuality larger than it would be if the treatments were in fact meaningless? Our measure of variation is going to be simple <em>variance</em>: <code>var()</code>. Let’s see how this works:</p>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="inference-from-data.html#cb817-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Our observed between-group variation</span></span>
+<span id="cb817-2"><a href="inference-from-data.html#cb817-2" aria-hidden="true" tabindex="-1"></a>actual_means <span class="sc">%&gt;%</span></span>
+<span id="cb817-3"><a href="inference-from-data.html#cb817-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">actual_variance =</span> <span class="fu">var</span>(mean_logCFUs))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   actual_variance
+##             &lt;dbl&gt;
+## 1            2.64</code></pre>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="inference-from-data.html#cb819-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Our permuted samples variation</span></span>
+<span id="cb819-2"><a href="inference-from-data.html#cb819-2" aria-hidden="true" tabindex="-1"></a>permuted_samples <span class="sc">%&gt;%</span></span>
+<span id="cb819-3"><a href="inference-from-data.html#cb819-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(permutation_id) <span class="sc">%&gt;%</span> <span class="co"># we want to calculate variance within each permutation rep %&gt;%</span></span>
+<span id="cb819-4"><a href="inference-from-data.html#cb819-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">permuted_variance =</span> <span class="fu">var</span>(mean_logCFUs)) <span class="sc">%&gt;%</span></span>
+<span id="cb819-5"><a href="inference-from-data.html#cb819-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> permuted_variance)) <span class="sc">+</span> </span>
+<span id="cb819-6"><a href="inference-from-data.html#cb819-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb819-7"><a href="inference-from-data.html#cb819-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">0</span>, <span class="at">x =</span> actual_variance), </span>
+<span id="cb819-8"><a href="inference-from-data.html#cb819-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> actual_means <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">actual_variance =</span> <span class="fu">var</span>(mean_logCFUs)), </span>
+<span id="cb819-9"><a href="inference-from-data.html#cb819-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb819-10"><a href="inference-from-data.html#cb819-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="08-intro-to-inference_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>It is very apparent that the between-group variation in our real sample is much larger than any of the permuted between-group variations. I leave it to you to work out how to get the actual proportion of permuted samples that it is larger than.</p>
+<p>As a final note, our permutation approach here does not require any of the assumptions that ANOVA typically makes. It does not matter that (as we showed above) our data is very non-normal. Instead, we have just reasoned out a way to examine sources of variation and compare them without making any assumptions of how or why our data is shaped how it is. However, please do note that working out these permutations for complex designs is quite difficult, and often computationally expensive. When your designs become more complex, better-designed models for simulation like Bayesian approaches <span class="citation">(<a href="#ref-mcelreath2020" role="doc-biblioref">McElreath 2020</a>)</span> will work much better!</p>
+</div>
+</div>
+</div>
+<div id="what-do-we-know-about-statistics" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> What do we know about statistics?<a href="inference-from-data.html#what-do-we-know-about-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, as we move into inference, I want to quickly review some ideas about statistical inference for scientific research that we typically take for granted.</p>
+<p>We usually learn about statistics in conjunction with the <em>scientific method</em> in a research-methods or stats class:</p>
+<div class="figure">
+<img src="Images/Week%2010/Scientific%20method.png" id="sciencemethod" alt="" />
+<p class="caption">The scientific method, image by <a href="https://www.thoughtco.com/scientific-method-p2-373335">J.R. Bee</a></p>
+</div>
+<p>(OK, I just can’t stop myself here, but this is one of the problems with our framework, as we’ll see below. The “Conclusion” in this cartoon actually is never reached in our idea of the Null Hypothesis Test, because all we can do is reject the null. This is counterintuitive and also not a necessary part of the scientific method.)</p>
+<p>Typically, the basic stats classes we all take in our undergrad and grad careers follow a trajectory that is something like this:</p>
+<ol style="list-style-type: decimal">
+<li>Talk about probability, usually using coin flips and dice rolls.<br />
+</li>
+<li>Talk about “the scientific method”, <a href="inference-from-data.html#sciencemethod">as above</a>.</li>
+<li>Introduce the idea of a hypothesis as a falsifiable statement. Concentrate on the counterintuitive but key idea of the <strong>null hypothesis</strong>.</li>
+<li>Talk about how to calculate key statistics about samples: central tendencies (means, medians, etc), variations (variance, deviation).<br />
+</li>
+<li>Introduce probability distributions based on situations, typically:</li>
+<li>The binomial distribution for coin flips.</li>
+<li>The normal distribution for something like heights of students in the class. Don’t forget about the <em>t</em>-distribution, too…</li>
+<li>Maybe some more esoteric distributions like the Poisson distribution or the <span class="math inline">\(\xi^2\)</span>-distribution.</li>
+<li>Introduce a bunch of heuristic calculations for how to take a sample you think comes from some distribution to the theoretical null distribution. These are statistical tests.</li>
+<li>This is where you usually learn about a menu of tests that you select based on how you believe your sample is distributed, your specific null hypothesis, etc, sch as the following:</li>
+</ol>
+<div class="figure">
+<img src="Images/Week%2010/which_test_flowchart.png" alt="" />
+<p class="caption">Flowchart for selecting a statistical test, taken from the <a href="https://onishlab.colostate.edu/summer-statistics-workshop-2019/which_test_flowchart/">Nishimura Lab</a>.</p>
+</div>
+<p>I think we have all seen a chart like this one, and we’ve all experienced the problem of asking a question like:</p>
+<blockquote>
+<p>OK, I collected the data from my experiment. Now which is the <em>right</em> statistical test to conduct?</p>
+<p>…</p>
+<p>Uh…</p>
+</blockquote>
+<p>In order to use this kind of chart, we need to make a lot of assumptions. We have to have a well-defined, falsifiable hypothesis (which we should really have before we start collecting data, but…), we need to understand the various tests enough to understand how to use them, and we need to understand the various assumptions underlying each test (this is the point at which we tend to fail the most often).</p>
+<p>I don’t like these charts and this melange of statistical methods for all of these reasons! In particular, I dislike them because the assumptions that underlie the tests are important, but because they are rarely achieved in practice our tests are often failing in unpredictable ways. But even more so, I dislike them because, for many simple problems, <strong>we simply do not need to be going to all this trouble</strong>.</p>
+<p>These types of charts, and the statistical tests they lead to, are the result of the need for heuristic approaches to statistics: as we talked about in Week 3, statistics originated in the 17th centuries with studies of probability in the absence of simulation. It was simply not practical to simulate “null” distributions, so early theorists developed very clever, computationally tractable approaches that avoided the need for simulation. But now we have computers. And we have learned to write simple code to make simulations for ourselves, which can often (much more intelligibly) help us explore our data and test our hypotheses.</p>
+<p>So, on that note, and with what we’ve learned today, I look forward to trying out applications of this code with you on Thursday!</p>
+</div>
+<div id="references-5" class="section level2 unnumbered hasAnchor">
+<h2>References<a href="inference-from-data.html#references-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bruce2017" class="csl-entry">
+Bruce, Peter, and Andrew Bruce. 2017. <em>Practical <span>Statistics</span> for <span>Data Scientists</span></em>. <span>Sebastopol</span>: <span>O’Reilly</span>.
+</div>
+<div id="ref-mcelreath2020" class="csl-entry">
+McElreath, Richard. 2020. <em>Statistical <span>Rethinking</span></em>. Second. <span>Boca Raton</span>: <span>CRC Press</span>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="advancing-our-wrangling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-linear-model---regression-and-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/08-intro-to-inference.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

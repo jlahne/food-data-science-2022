@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Extending R with packages and R Markdown | FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Extending R with packages and R Markdown | FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Extending R with packages and R Markdown | FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="day-1---welcome-to-fst-5984-2022.html"/>
+<link rel="next" href="control-flow-and-functions.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="extending-r-with-packages-and-r-markdown" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Extending R with packages and R Markdown<a href="extending-r-with-packages-and-r-markdown.html#extending-r-with-packages-and-r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Welcome to week 2 of the semester.</p>
+<p>This week we’re going to be focusing on a couple of topics. First, we’re going to go into R Markdown a little bit more–you’ve already encountered R Markdown, of course, in the lecture notes and assignments, but I want to give you some more experience with what it can do.</p>
+<p>Then we’re going to talk about extending R–in particular how to install, use, and uninstall packages. We’re also going to review how to get help and learn more about R.</p>
+<p>Finally, we’ll spend some time getting into the guts of R with more advanced types of R objects: the matrices, data.frames, and lists that be a key part of what will make R actually do things efficiently for us as a data-analysis tool.</p>
+<div id="all-about-r-markdown" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> All about R Markdown<a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, we’re going to talk about these crazy documents you’ve gotten used to looking at in the first couple days of class. We’ve already introduced the idea of R Markdown documents in this class, and <a href="https://rmarkdown.rstudio.com/docs/">it’s pretty easy to make a new one</a> that will act ok without messing around with default settings. But what are they actually, and why are we using them instead of text files (.txt), word documents (.doc/.docx), or even nice, quiet PDFs (actually called by the extension, .pdf, but stands for “Portable Document File”).</p>
+<p>R Markdown, to <a href="https://rmarkdown.rstudio.com/docs/">quote the project page</a>,</p>
+<blockquote>
+<p>helps you create dynamic analysis documents that combine code, rendered output (such as figures), and prose. You bring your data, code, and ideas, and R Markdown renders your content into a polished document that can be used to:</p>
+<ul>
+<li><p>Do data science interactively within the RStudio IDE,</p></li>
+<li><p>Reproduce your analyses,</p></li>
+<li><p>Collaborate and share code with others, and</p></li>
+<li><p>Communicate your results with others.</p></li>
+</ul>
+<p>R Markdown documents can be rendered to many output formats including HTML documents, PDFs, Word files, slideshows, and more, allowing you to focus on the content while R Markdown takes care of your presentation.</p>
+</blockquote>
+<p>The idea for <strong>R</strong> Markdown comes from the more general idea of (Markdown)[<a href="https://daringfireball.net/projects/markdown/" class="uri">https://daringfireball.net/projects/markdown/</a>], which was introduced way back in the prehistoric year of 2004. To paraphrase the original idea, Markdown is a way to write in <strong>plain text</strong> (not using a word-processor like Microsoft Word) that can then be rendered into <strong>formatted HTML</strong> using a programming language (in this case Perl, which is a character-oriented scripting language). The name <strong>“Markdown”</strong> is a reference to that HTML-relationship. HTML stands for “HyperText Mark<strong>up</strong> Language”–so Mark<strong>down</strong> is the simple way to write formatted documents in HTML (and, as we’ll see, way way more). The key reason for Markdown, according to the authors, is to <strong>make easy-(-ish, in my opinion)-to-write documents that are readable as plaintext, but that can be rendered into pretty HTML documents.</strong></p>
+<p>Why am I telling you these details? In general, I think that the problem with coding and programming languages (and their cousins and relatives, like R Markdown) is that they are often presented as “easy to use” things without any context, and the context itself dictates why they behave in certain ways. So it matters that R Markdown has this close relationship to HTML–it is why we will see later that it outputs by default <strong>as HTML</strong> files, and also why (we won’t cover this as much) we can use HTML and CSS (Cascading Style Sheets) to provide granular formatting and rendering to our documents. History and context matter!</p>
+<div id="what-is-an-r-script" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> What is an R script?<a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>But to really understand R Markdown, we should contrast it to an R Script. Everyone should go ahead and open an R Script now, by going to <code>File &gt; New File &gt; R Script</code> or by pressing <strong>cmd + shift + N</strong> (cmd = ctrl on Windows).</p>
+<div class="figure">
+<img src="Images/Week%202/new%20R%20script.png" alt="" />
+<p class="caption">MacOS menu for creating a new R script.</p>
+</div>
+<p>One of the key differences in an R Script is that there is no such thing as narrative plain text. An R Script <em>is</em> a plain-text (unformatted) file, which is meant to have every character <strong>literally interpreted</strong> by the R interpreter. Every thing you write in an R Script is an instruction to R. So, to check this out, <strong>in your R script</strong>, try typing “This line cannot be executed”. Then highlight it, and select the “Run” button in the right-hand side of the script pane. What happens?</p>
+<p>For reference, the way to insert some plain text into your R Scripts is to use <strong>comments</strong>. Every programming language has a special character that tells the interpreter “ignore this line”. In R it is the “#”, or hash(tag) symbol. One or more hashes will tell R to ignore everything after them.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="extending-r-with-packages-and-r-markdown.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This whole line will be ignored</span></span>
+<span id="cb84-2"><a href="extending-r-with-packages-and-r-markdown.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print(&quot;hello world&quot;) # This line will also be completely ignored</span></span>
+<span id="cb84-3"><a href="extending-r-with-packages-and-r-markdown.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;goodbye world&quot;</span>) <span class="co"># Only text AFTER the hashtag is ignored.</span></span></code></pre></div>
+<pre><code>## [1] &quot;goodbye world&quot;</code></pre>
+<p><strong>Commenting your code is a really good idea, because when you come back in 6 months you’ll be able to understand what the heck you were doing!</strong></p>
+<p>Meanwhile, in this R Markdown file, we can write whatever we want! R Markdown, by default, assumes that text is just text. It is <em>not</em> interpreted by default. Rather, the rendering engine for R Markdown will look for key characters that indicate that something is code (as well as other key characters for formatting that we’ll learn about today) and treat those specific parts of the document as code, but otherwise just let us write narrative text. This allows us to write nice-looking reports and documents in R Markdown that still can run code–so these are perfect for writing lab reports (hint hint) as well as for doing “reproducible” research. Many of the websites and interactive textbooks I have linked to so far are written in R Markdown.</p>
+<p>But R Markdown is useful because it goes beyond HTML to outputting into many of the more “typical” document formats that we use professionally all the time. R Markdown uses something called <a href="https://pandoc.org/index.html">pandoc</a> to easily convert your easy-to-write text .Rmd file into Word documents, PDFs, even slides. We’ll play with some of these options today as demos.</p>
+<p>Why, then, do we not just use R Markdown for <em>everything</em> we do in R? Why do R scripts exist at all? The answer, which will only become more apparent as you get more comfortable using R and doing coding, is that a plain script has “low overhead”–we don’t have to do code chunks and mess with a bunch of formatting to make our code work. We can just open it up, write a few lines, and hit “Run”. So we like R Scripts when we are doing real data exploration or analysis. But once we have or workflow down and our problem solved, it’s a good idea to turn back to R Markdown to make a shareable, reproducible, understandable version of our code.</p>
+</div>
+<div id="how-do-we-make-an-r-markdown-document" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> How do we make an R Markdown document?<a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The simplest way to make an R Markdown document is a lot like making a new R Script: <code>File &gt; New File &gt; R Markdown...</code>. This will bring up a menu with some options to select from, which should look very much like this on your computer:</p>
+<div class="figure">
+<img src="Images/Week%202/new%20Markdown%20document.png" alt="" />
+<p class="caption">Menu with options for a new Markdown document.</p>
+</div>
+<p>Notice that you immediately have a lot of options. This can be a little scary, but you can change all of the options afterwards by editing the YAML Header (which we go over below). So don’t feel like you have to be too careful when you’re doing this. The advantage of using this interactive menu is that it will autopopulate the document header (the YAML header) for you, so you don’t have to memorize options. It will <em>also</em> autopopulate some examples of R Markdown <strong>syntax</strong> for you into the document. This is nice when you’re just learning R Markdown, but it quickly gets annoying.</p>
+<p>Therefore, there are a couple other ways to get a blank R Markdown document. The first and easiest to remember is to select “Create Empty Document” on that same menu. But another way that I like is to create a new R Script and then to change the <em>type</em> of document in RStudio using the little menu at the bottom right of your Source pane. What this is doing is telling RStudio how to treat a particular document.</p>
+<div class="figure">
+<img src="Images/Week%202/change%20document%20type%20in%20RStudio.png" alt="" />
+<p class="caption">How to select different document types in RStudio.</p>
+</div>
+<p>You’ll notice there are a <em>lot</em> of options in here, but we’re going to ignore them for now.</p>
+</div>
+<div id="elements-of-r-markdown-documents" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Elements of R Markdown documents<a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Like any new tool, R Markdown offers a huge selection of options. This can be really hard for the new user, and so I recommend getting to grips with some basic tools and then learning the rest as you go. Another moment of honesty: this is how I learned (and continue to learn, in fact) R Markdown. I am not at all a master of this technology–in this class I am certain that we will encounter situations together in which my response will be “Huh! Let’s figure out <em>why</em> it did <em>that</em>.”</p>
+<p>We’re going to first talk about basic text formatting, which is super easy and fun in R Markdown. Then we’ll cover how to include code in your document. Then we’ll talk about this mysterious “YAML Header”, which defines how the document will be rendered into HTML, Word, etc. Then we’ll talk a little bit about inserting external stuff into the document (like links or images).</p>
+<div id="text-body" class="section level4 hasAnchor" number="2.1.3.1">
+<h4><span class="header-section-number">2.1.3.1</span> Text body<a href="extending-r-with-packages-and-r-markdown.html#text-body" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>One of the nicest things about R Markdown is how easy it is to do basic text formatting. There are really only a few basic formatting “tags” that make text render nicely when knit, and you might even know the basics from some online tools, which increasingly use Markdown conventions for easy formatting.</p>
+<div id="emphasis" class="section level5 hasAnchor" number="2.1.3.1.1">
+<h5><span class="header-section-number">2.1.3.1.1</span> Emphasis<a href="extending-r-with-packages-and-r-markdown.html#emphasis" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><em>Italics</em> and <strong>Bold</strong> text are the most basic things to do in Markdown. To make italics, surround the text you want to make into italics with either stars (“*”) or underscores (“_”) <strong>on both sides</strong>. So, for example, “_italic_” = <em>italic</em> when rendered. To make something bold, use two of the same symbol, either stars or underscores (e.g., “__”, “**”).</p>
+</div>
+<div id="inline-code" class="section level5 hasAnchor" number="2.1.3.1.2">
+<h5><span class="header-section-number">2.1.3.1.2</span> Inline code<a href="extending-r-with-packages-and-r-markdown.html#inline-code" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Similarly, to make something render as code (with text highlighting and monospaced characters), use the backtick “`” symbol to surround the text. So “`print()`” = <code>print()</code>.</p>
+<p>To make code actually run, you have to tell R Markdown that the code in the the backticks is actually R code, by following the opening (first) backtick with <code>r</code>. Then when the R Markdown is rendered, it will actually process the command: <code>sqrt(27234) =</code> 165.0272705.</p>
+</div>
+<div id="lists" class="section level5 hasAnchor" number="2.1.3.1.3">
+<h5><span class="header-section-number">2.1.3.1.3</span> Lists<a href="extending-r-with-packages-and-r-markdown.html#lists" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>To make a list in Markdown, you need a newline (enter/return), followed by exactly how you’d expect a list to look: numbers or bullets start each next line, followed by a space and then the list contents. So, for example:</p>
+<ul>
+<li>We can use</li>
+<li>Bullets</li>
+</ul>
+<p>Or even</p>
+<ul>
+<li>We can use</li>
+<li>dashes</li>
+<li>Mixed with</li>
+<li>Bullets</li>
+</ul>
+<p>Numbered lists just need a format like <code>&lt;number&gt;.</code> followed by a space. Note that you don’t have to increment the numbers yourself. You can just have <code>1.</code> on the start of each line, and R Markdown will do the rest for you.</p>
+<ol style="list-style-type: decimal">
+<li>This</li>
+<li>Is</li>
+<li>A</li>
+<li>Numbered list</li>
+</ol>
+<p>To indent a list item, you only need to provide at least 1 tab character (= 4 spaces) <em>before</em> the bullet or number.</p>
+<ol style="list-style-type: decimal">
+<li>This is an item
+<ol style="list-style-type: decimal">
+<li>Followed by a subitem</li>
+<li>and another subitem</li>
+</ol></li>
+<li>And now we’re back!</li>
+</ol>
+</div>
+<div id="headers" class="section level5 hasAnchor" number="2.1.3.1.4">
+<h5><span class="header-section-number">2.1.3.1.4</span> Headers<a href="extending-r-with-packages-and-r-markdown.html#headers" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>To make headers (like those you use in Word), you start a line with a “#” character. You use 1 for a Level 1 (biggest) header, 2 for a Level 2 header, and so on. Note that if you have a numbered Table of Contents (as in this document), R Markdown will automatically number it based on these headers.</p>
+<div id="this-is-an-example-level-5-header-but-it-doesnt-have-any-content" class="section level6 hasAnchor" number="2.1.3.1.4.1">
+<h6><span class="header-section-number">2.1.3.1.4.1</span> This is an example Level 5 header, but it doesn’t have any content<a href="extending-r-with-packages-and-r-markdown.html#this-is-an-example-level-5-header-but-it-doesnt-have-any-content" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+</div>
+</div>
+<div id="escape-character" class="section level5 hasAnchor" number="2.1.3.1.5">
+<h5><span class="header-section-number">2.1.3.1.5</span> Escape character: <code>\</code><a href="extending-r-with-packages-and-r-markdown.html#escape-character" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>If you look carefully at the R Markdown for this document (it will not be visible in the HTML or PDF render), you’ll notice that when I give examples of the special characters in R Markdown (like “_”) it is preceded with a “\” in the raw R Markdown. The backslash character is a common programming language <a href="https://en.wikipedia.org/wiki/Backslash">“escape character”</a>. It tells the interpreter that is reading the text to ignore the immediately following character, which is mostly necessary when that next character does <strong>something</strong> programmatic in the language. For example, if we didn’t write “\_” then R Markdown would try to make the underscore into an italics mark, rather than printing it as a visible character. By <em>escaping</em> it using the backslash “\”, we tell it to treat it instead as the plain character version. This isn’t super critical to memorize, but when you see this character in raw code you can understand what it’s doing there.</p>
+</div>
+</div>
+<div id="code-chunks" class="section level4 hasAnchor" number="2.1.3.2">
+<h4><span class="header-section-number">2.1.3.2</span> Code chunks<a href="extending-r-with-packages-and-r-markdown.html#code-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>OK, so you’ve gotten some nice formatting into your document, but so far we haven’t done anything that you couldn’t do as easily with Word. What’s the point of this? Well, the big selling point of R Markdown is that it <strong>integrates with your interactively processed code</strong>. So you don’t copy paste results out of R into your report–you just include the code in the right place, and the ANOVA table, plot, or what have you will pop into place. And if you change your data or need to rerun the analysis, you change only that section, and everything else will update.</p>
+<p><strong>Code chunks</strong> are the heart of this capability. We are only going to cover the basics right now, and we will add functionality as we go on. The R Markdown documentation linked in your reading for this week gives a lot more detail.</p>
+<p>At its most basic, a code chunk in Markdown is a set of lines surrounded by triple backticks: <code>```</code>. So this is a code chunk</p>
+<pre><code>print(&quot;code goes here&quot;)</code></pre>
+<p>But the above code chunk is a generic, multiline code chunk. It tells R Markdown to render the text within as monospace, but it doesn’t actually execute the code (or give you the option to do so). In order to make this into actual, runnable R code, we have to tell R Markdown that this is an <strong>R</strong> code chunk, using the code chunk header brackets after the first triple backticks: <code>```{r}</code> This is the equivalent of telling R that the inline code you have typed is executable, as we learned above.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="extending-r-with-packages-and-r-markdown.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;This is a code chunk that will execute&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;This is a code chunk that will execute&quot;</code></pre>
+<p>Typing out triple backticks, then “{r}”, then, another set of triple backticks is a real pain in the butt. Happily, RStudio has a keyboard shortcut for that: cmd + alt + I (use ctrl instead of cmd on Windows).</p>
+<p>The chunk header brackets allow you to also set up options for that chunk. Options are set by naming them, and setting them to a value: for example, <code>echo=FALSE</code>. There are many, and I will not be covering them comprehensively but introducing them as I need them. However, a couple key ones are useful, especially those options that dictate whether, for a particular chunk, the code <strong>runs</strong>, or whether the code gives <strong>output</strong>, <strong>errors</strong>, or <strong>messages</strong>. Here are some examples, but I like the <a href="https://r4ds.had.co.nz/r-markdown.html#code-chunks">detail given in R for Data Science’s section on this</a>.</p>
+<p>Sometimes you don’t want your chunk to run at all–in that case you’d tell it to not evaluate, using the <code>eval=FALSE</code> option:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="extending-r-with-packages-and-r-markdown.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="fu">sqrt</span>(<span class="fu">factorial</span>(i)) <span class="co"># This is a pointlessly long calculation for demonstration purposes only</span></span></code></pre></div>
+<p>On the other hand, sometimes you want a code chunk to execute, but you don’t want to show the code itself. This might happen because you want to just store some results in memory, or more frequently because you want to show a table or plot made by the code. In that case, you can set the <code>echo=FALSE</code> option.</p>
+<p><img src="02-Packages-and-Markdown_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>In these R Markdown documents I make liberal use of another option: <code>error=TRUE</code>. This tells R to keep knitting the document, even if that chunk returns an error:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="extending-r-with-packages-and-r-markdown.html#cb90-1" aria-hidden="true" tabindex="-1"></a>This is nonsense</span></code></pre></div>
+<pre><code>## Error: &lt;text&gt;:1:6: unexpected symbol
+## 1: This is
+##          ^</code></pre>
+<p>What do you think would happen if I didn’t use the <code>error=TRUE</code> option? Try editing your version of this document to find out.</p>
+<div id="setup-chunk" class="section level5 hasAnchor" number="2.1.3.2.1">
+<h5><span class="header-section-number">2.1.3.2.1</span> Setup chunk<a href="extending-r-with-packages-and-r-markdown.html#setup-chunk" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>A particularly useful set of options is found in the <strong>default setup chunk</strong> that RStudio will make you if you make a new R Markdown document. It demonstrates two useful attributes: a name (<code>setup</code>) and the <code>include=FALSE</code> option. In fact, you won’t be able to see the chunk in this rendered output, but open the raw .Rmd file and it will be right below this, with the header written as follows: <code>{r setup, include = FALSE}</code>.</p>
+<p>Working backwards, the <code>include = FALSE</code> option tells R to run the chunk, but to not give any output and not to print the chunk in the rendered document. So it is useful for setup: for any packages you need to load, datasets you need to load, etc. Stuff the rest of your document will need.</p>
+<p>Chunks can be named by following the <code>r</code> in the header with a space and the name. Any characters can go in the name, although generally we don’t include spaces because they can cause errors in other places if you try to use advanced methods to refer back to the chunks. You can name chunks <em>anything</em>: doing so is useful because if you give them descriptive names, you know what they’re supposed to do when you come back to the document later.</p>
+</div>
+</div>
+<div id="yaml-header" class="section level4 hasAnchor" number="2.1.3.3">
+<h4><span class="header-section-number">2.1.3.3</span> YAML Header<a href="extending-r-with-packages-and-r-markdown.html#yaml-header" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>At the top of this R Markdown file is a funny bit of syntax that looks more like code than it does like plain text, but isn’t R Syntax. Here it is for reference (in an unsigned code chunk!):</p>
+<pre><code>---
+title: &quot;2 - Packages and R Markdown&quot;
+author: &quot;JL&quot;
+date: &quot;10/11/2021&quot;
+output: 
+    html_document:
+        toc: true
+        number_sections: true
+        toc_float: true
+---</code></pre>
+<p>This is called the <a href="https://en.wikipedia.org/wiki/YAML"><strong>YAML Header</strong></a>—“YAML” stands for “<strong>Y</strong>et <strong>A</strong>nother <strong>M</strong>arkup <strong>L</strong>anguage”, although recently it has been renamed as “YAML Ain’t Markup Language”–both are stupid programming jokes. More importantly, this header is a compact way of <em>defining how the R Markdown document will render</em>. I am not at all an expert on YAML, so I will use this section to give a few pointers and some tips on how to make this bit of code work for you.</p>
+<p>YAML is very unlike R syntax in several key ways (technically it is more like Python, but that is probably not meaningful to most of us). It is a set of <strong>key/value pairs</strong>, which are defined as <code>&lt;key&gt;: &lt;value&gt;</code>. What this means is that, in our example above, the value of <code>title:</code> is set to <code>"2 - Packages and R Markdown</code>. This is different from how we’d set a variable called <code>title</code> in R–<strong>can you remember how to do this?</strong>.</p>
+<p>You’ll notice that the first few lines of the YAML header directly translate to the output of this R Markdown document—it has “JL” as the author, the title specified, etc. But the more mysterious section is the <code>output:</code> section. There are two things to observe here. First, notice the way that this is <strong>structured by whitespaces</strong>: sure, it looks like the output type is <code>html_document</code>, but that is <strong>also</strong> followed by a colon (<code>:</code>), and then several further keys that are set. Those following “keys” are indented under the <code>html_document:</code> key, showing us that they are part of that general key-value pair set. What this tells us is that these are variables specific to the <code>html_document</code> output type. In fact, they are numbering the section headers for us automatically, creating a table of contents (<code>toc: true</code>) and making that table of contents float on the side and update nicely.</p>
+<p>If we wanted to output this R Markdown as a PDF we’d add a <code>pdf_document</code> value to the <code>output:</code> section. If we wanted to make this into slides (yes, that’s possible!), we’d add the correct call (e.g., <code>output: ioslides_presentation</code>). But these are all specific use cases, and as I said, <strong>I am not an expert</strong>. I find the <a href="https://zsmith27.github.io/rmarkdown_crash-course/lesson-4-yaml-headers.html">YAML section in this crash course</a> super helpful to get started.</p>
+<p>The key things to remember about YAML:</p>
+<ul>
+<li>It uses syntax in which whitespace (spaces and new lines/returns) are meaningful, so be careful</li>
+<li>Note the different capitalization</li>
+<li>Options for different outputs in R Markdown are specific to the type of output, so you will have to read the help files/search the internet</li>
+</ul>
+</div>
+<div id="links-images-etc" class="section level4 hasAnchor" number="2.1.3.4">
+<h4><span class="header-section-number">2.1.3.4</span> Links, images, etc<a href="extending-r-with-packages-and-r-markdown.html#links-images-etc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>One of the wonderful things about (R) Markdown is how easy it is to drop links and images into the document. The syntax for web links is super simple. To make a link you pick some text you want to make into a link, surround it by square braces(<code>[]</code>), and then follow those braces immediately with a set of parentheses (<code>()</code>) containing the link. So, for example, <a href="https://en.wikipedia.org/wiki/Siamese_cat#/media/File:Siam_lilacpoint.jpg">this link</a> goes to a picture of a Siamese cat, and is written like this: <code>[this link](https://en.wikipedia.org/wiki/Siamese_cat#/media/File:Siam_lilacpoint.jpg)</code>. Super easy.</p>
+<p>Even nicer, adding images works very similarly. To insert an image, you use an exclamation point followed by square braces (<code>![]</code>), followed by parentheses again (<code>()</code>), but instead of a hyperlink those parentheses should include the <strong>file path to your image</strong>. So, for example, here is a picture of my cat, Guybrush Meepwood:</p>
+<div class="figure">
+<img src="Images/Week%202/Little%20guy.JPG" alt="" />
+<p class="caption">The cutest cat.</p>
+</div>
+<p>And it’s written like this: <code>![The cutest cat.](Images/Week 2/Little guy.JPG)</code>. Anything you put in the brackets becomes the caption for the picture. <strong>NB:</strong> in order to render the caption correctly, make sure to remember to add a return (newline) after the image link.</p>
+<p>You can also use the image linking format to link to web images, so we can add that picture of a random Siamese cat from the static hyperlink we used for a text link above:</p>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Siam_lilacpoint.jpg" alt="" />
+<p class="caption">A less cute cat.</p>
+</div>
+</div>
+<div id="tables" class="section level4 hasAnchor" number="2.1.3.5">
+<h4><span class="header-section-number">2.1.3.5</span> Tables<a href="extending-r-with-packages-and-r-markdown.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Tables are also <em>sort of</em> easy to make in R Markdown… if you’re outputting them from R. So, say you have a data table, like the famous <code>mtcars</code> dataset, included in base R. The simple <code>kable()</code> function, found in the <code>knitr</code> package (which is actually what is making our R Markdown files, see below) renders tabular data into a nice format by default.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="extending-r-with-packages-and-r-markdown.html#cb93-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ])</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="25%" />
+<col width="7%" />
+<col width="5%" />
+<col width="8%" />
+<col width="5%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="4%" />
+<col width="4%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108.0</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258.0</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225.0</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Duster 360</td>
+<td align="right">14.3</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">245</td>
+<td align="right">3.21</td>
+<td align="right">3.570</td>
+<td align="right">15.84</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 240D</td>
+<td align="right">24.4</td>
+<td align="right">4</td>
+<td align="right">146.7</td>
+<td align="right">62</td>
+<td align="right">3.69</td>
+<td align="right">3.190</td>
+<td align="right">20.00</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 230</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">140.8</td>
+<td align="right">95</td>
+<td align="right">3.92</td>
+<td align="right">3.150</td>
+<td align="right">22.90</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 280</td>
+<td align="right">19.2</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+<td align="right">123</td>
+<td align="right">3.92</td>
+<td align="right">3.440</td>
+<td align="right">18.30</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>This is a huge area that I am also not super expert in, but you could be the next data-table wizard. Maybe start <a href="https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/">here</a>?</p>
+</div>
+</div>
+<div id="knitting-r-markdown-documents" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> “Knitting” R Markdown documents<a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The jargon for transforming a raw text file (like this one) into a rendered document through RStudio is called <strong>“knitting”</strong>. This is why the <code>knitr</code> package mentioned above is named as such. The easiest way to do so is to click the button labeled “Knit” at the top of your Source editor in RStudio:</p>
+<p><img src="Images/Week%202/knitting.png" alt="click this button to knit" />
+When that button is clicked, it will knit to the type of output you specified in the YAML header (remember that?)–but you can also use the little triangle button next to the “Knit” to select other output options. Note that if you knit to a different option than already is specified in your header, RStudio will add an output key/value to your YAML header, and so next time you knit it will compile documents in <em>all formats</em> you have ever specified. You can of course go back and edit your YAML header to fix this if you didn’t want that to happen.</p>
+<div id="file-output-of-knitting" class="section level4 hasAnchor" number="2.1.4.1">
+<h4><span class="header-section-number">2.1.4.1</span> File output of knitting<a href="extending-r-with-packages-and-r-markdown.html#file-output-of-knitting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Knitting creates new files of the type you have specified. By default, these will live in the same directory as the current Markdown file. So when you knit, you will end up with a file with the same <em>name</em> but the new file extension you specified (e.g., if <code>output: html_document</code> is the option you set, you will end up with a file called <code>&lt;name of markdown file&gt;.html</code> in the same directory). You can change the output directory if you like to keep things clean.</p>
+<p>Generally, HTML documents are the fastest to knit, and PDF and Word documents (and other formats) will require more processing. Therefore, I tend to use HTML as the default output.</p>
+</div>
+<div id="previewing-in-rstudio-version-1.4" class="section level4 hasAnchor" number="2.1.4.2">
+<h4><span class="header-section-number">2.1.4.2</span> Previewing (in RStudio version &gt; 1.4)<a href="extending-r-with-packages-and-r-markdown.html#previewing-in-rstudio-version-1.4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>You can also check to make sure your R Markdown is going to render properly by using the <a href="https://rstudio.github.io/visual-markdown-editing/#/markdown?id=line-wrapping">RStudio Visual Markdown Editor</a>, which turns R Markdown into something closer to a Word Processor. To access this mode, click the little compass icon at the top of the source editor:</p>
+<div class="figure">
+<img src="Images/Week%202/visual%20editor.png" alt="" />
+<p class="caption">Click this button to access the RStudio Visual Markdown Editor</p>
+</div>
+<p><strong>Important:</strong> this does <em>not</em> knit your document—it gives you a preview of what it will look like, but it does not create a document that is rendered and ready for sharing.</p>
+<p><strong>Also important:</strong> this will give you a warning the first time you use it noting that it will transform your Markdown to properly formatted syntax. This may cause some errors. For example, I have seen the following:</p>
+<ul>
+<li>Changing unsigned code blocks (e.g., those marked by <code>```</code> without the “{r}”) to completely unindented. This would screw up, for example, the YAML example above.</li>
+<li>Changing spaces in file names (e.g., <code>.../Files/Week 2/</code>) to <code>%20</code>, which I believe is a version of the HTML unicode. This is undesirable behavior and I had to fix it.</li>
+</ul>
+<p>This may feel like a great way to check your work, but I don’t personally like using this editor to write R Markdown–I find it obscures important details of what’s going on in the base file. I also got sick of fixing the changes it made to my code.</p>
+</div>
+<div id="outputting-to-more-exotic-formats-like-slides-etc" class="section level4 hasAnchor" number="2.1.4.3">
+<h4><span class="header-section-number">2.1.4.3</span> Outputting to more exotic formats (like slides, etc)<a href="extending-r-with-packages-and-r-markdown.html#outputting-to-more-exotic-formats-like-slides-etc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As mentioned above, R Markdown can output to all kinds of formats. All you have to do is add the appropriate value/key pair to the YAML header. So, for example, if we add <code>output: ioslides_presentation</code> to the top of this document, we will get an automatically formatted <a href="https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html">ioslides presentation</a> (an HTML slide deck). R Markdown will make some automatic decisions on how to make slides (based on the headers we’ve indicated with various <code>#</code> marks). It won’t look good as it is (I have way too much text), but this shows how easily we can flip between different formats.</p>
+</div>
+</div>
+<div id="joplin---an-easy-way-to-learn-basic-markdown" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Joplin - an easy way to learn basic Markdown<a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We are coming to the end of our crash course in R Markdown. Learning R Markdown will be a great way for you to develop a skill that will be super useful in many future parts of your career. But it will take practice.</p>
+<p>To be completely honest, I have tried to learn R Markdown several times, and it wasn’t until this class that I really started to learn how to use it effectively. This is a common phenomenon: having to use something is the best way to actually learn it. This is why at Virginia Tech we are trying to emphasize experiential learning.</p>
+<p>In preparation for this class, I started using a virtual notebook/labbook that is based on Markdown (not R Markdown, but as we discused they are closely related “flavors”), called <a href="https://joplinapp.org/"><strong>Joplin</strong></a>. It has a couple of other fantastic features that I love (it syncs across devices, lets you easily organize notes, create checklists, etc) that are cool, but I mainly like it because it’s been a great way to practice Markdown. Maybe it will be something useful for you?</p>
+</div>
+</div>
+<div id="extending-r---packages" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Extending R - Packages<a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In one of the code chunks above, I wrote something we haven’t seen before: <code>knitr::kable(mtcars)</code>. The latter half of this looks familiar–it’s just a function that we are using on <code>mtcars</code>. What’s with the <code>::</code>? It indicates that the function <code>kable()</code> is part of the <code>knitr</code> <strong>package</strong>–and we are using the <code>::</code> syntax to access the function without loading the package into memory (more on this in a minute).</p>
+<p>You can see all the packages that are currently installed in your version of R by looking at the “Packages” Pane in RStudio, and you can see what packages you’ve loaded in this session by running <code>sessionInfo()</code>.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="extending-r-with-packages-and-r-markdown.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.2.1 (2022-06-23)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Catalina 10.15.7
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] bookdown_0.27   digest_0.6.29   R6_2.5.1        jsonlite_1.8.0 
+##  [5] magrittr_2.0.3  evaluate_0.15   highr_0.9       stringi_1.7.8  
+##  [9] cachem_1.0.6    rlang_1.0.4     cli_3.3.0       rstudioapi_0.13
+## [13] jquerylib_0.1.4 bslib_0.4.0     rmarkdown_2.14  tools_4.2.1    
+## [17] stringr_1.4.0   xfun_0.31       yaml_2.3.5      fastmap_1.1.0  
+## [21] compiler_4.2.1  htmltools_0.5.3 knitr_1.39      sass_0.4.2</code></pre>
+<p>In this list, the “attached” lists are the loaded packages. The “namespace” list is a programming convention you can safely ignore for now.</p>
+<div id="what-are-packages" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> What are packages?<a href="extending-r-with-packages-and-r-markdown.html#what-are-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In R, <strong>packages</strong> are sets of functions and data that offer new functionality. Because R is open source, anyone can create new R packages. That sounds great in practice, but what’s to guarantee that packages work as advertised (i.e., do the analysis that they are supposed to, or even more fundamentally don’t harm your computer)? Like many open-source projects, R relies on centralized volunteers to check R packages. The <a href="https://cran.r-project.org/">CRAN (Comprehensive R Archive Network)</a>, which distributes R itself, also checks and distributes user-submitted packages. When you install packages in R Studio, by default you are installing them from CRAN.</p>
+<p>There are other <strong>repositories</strong> that focus on different disciplinary expertise–the most significant one I know of is <a href="https://www.bioconductor.org/">Bioconductor</a>, which focuses on biostatistical and genomic packages.</p>
+<p>You can also install packages directly, either by downloading them or from user-hosted repositories. Most commonly this would be from something like github, where alpha and beta versions of software are often hosted by developers prior to CRAN submission. Usually this requires using a different installer function (e.g., <code>devtools::install_github()</code>), and we won’t cover that explicitly here.</p>
+</div>
+<div id="installing-packages" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Installing packages<a href="extending-r-with-packages-and-r-markdown.html#installing-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are two main ways to install packages. The “point-and-click” way is to use the Tools &gt; Install Packages… command in RStudio:</p>
+<div class="figure">
+<img src="Images/Week%202/install%20packages.png" alt="" />
+<p class="caption">Menu command for installing packages</p>
+</div>
+<p>The advantage to this approach is that RStudio will help you autofill package names, and it will also let you install multiple packages by just putting commas between them. The disadvantage is that you don’t learn what is actually going on. The menu command is just a shortcut for the base R command:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="extending-r-with-packages-and-r-markdown.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>) <span class="co"># The name of the package goes in quotes here</span></span></code></pre></div>
+<p>Note that this code chunk has <code>eval=FALSE</code> set, because it’s rude to install packages on someone else’s computer without their permission. **In your console, go ahead and install the <code>tidyverse</code> package. It will install a set of packages that are “dependencies”. We will be using these later in the course.</p>
+<p>The menu command is fine to use, but it’s good to know how to do this on your own. It helps you understand when something doesn’t work correctly.</p>
+</div>
+<div id="using-packages" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Using packages<a href="extending-r-with-packages-and-r-markdown.html#using-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Technically, once a package is installed in your version of R through the above commands, it is available to use. So if you want to use <code>kable()</code>, you can always type <code>knitr::kable()</code>. But that’s pretty tedious! It is much better to <strong>attach</strong> (load) packages when you need them, and then you can call their functions (and datasets) directly. To do this, all you need to do is use the <code>library(&lt;unquoted name of package&gt;)</code> command. So, for example, let’s try using <code>kable()</code> without loading <code>knitr</code>, then see what happens once we load it properly.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="extending-r-with-packages-and-r-markdown.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(mtcars)</span></code></pre></div>
+<pre><code>## Error in kable(mtcars): could not find function &quot;kable&quot;</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="extending-r-with-packages-and-r-markdown.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># load the knitr package, note the lack of quotes around &lt;knitr&gt;</span></span>
+<span id="cb99-2"><a href="extending-r-with-packages-and-r-markdown.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(mtcars)</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="27%" />
+<col width="6%" />
+<col width="5%" />
+<col width="8%" />
+<col width="5%" />
+<col width="6%" />
+<col width="8%" />
+<col width="8%" />
+<col width="4%" />
+<col width="4%" />
+<col width="6%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108.0</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258.0</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225.0</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Duster 360</td>
+<td align="right">14.3</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">245</td>
+<td align="right">3.21</td>
+<td align="right">3.570</td>
+<td align="right">15.84</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 240D</td>
+<td align="right">24.4</td>
+<td align="right">4</td>
+<td align="right">146.7</td>
+<td align="right">62</td>
+<td align="right">3.69</td>
+<td align="right">3.190</td>
+<td align="right">20.00</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 230</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">140.8</td>
+<td align="right">95</td>
+<td align="right">3.92</td>
+<td align="right">3.150</td>
+<td align="right">22.90</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 280</td>
+<td align="right">19.2</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+<td align="right">123</td>
+<td align="right">3.92</td>
+<td align="right">3.440</td>
+<td align="right">18.30</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 280C</td>
+<td align="right">17.8</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+<td align="right">123</td>
+<td align="right">3.92</td>
+<td align="right">3.440</td>
+<td align="right">18.90</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 450SE</td>
+<td align="right">16.4</td>
+<td align="right">8</td>
+<td align="right">275.8</td>
+<td align="right">180</td>
+<td align="right">3.07</td>
+<td align="right">4.070</td>
+<td align="right">17.40</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Merc 450SL</td>
+<td align="right">17.3</td>
+<td align="right">8</td>
+<td align="right">275.8</td>
+<td align="right">180</td>
+<td align="right">3.07</td>
+<td align="right">3.730</td>
+<td align="right">17.60</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Merc 450SLC</td>
+<td align="right">15.2</td>
+<td align="right">8</td>
+<td align="right">275.8</td>
+<td align="right">180</td>
+<td align="right">3.07</td>
+<td align="right">3.780</td>
+<td align="right">18.00</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Cadillac Fleetwood</td>
+<td align="right">10.4</td>
+<td align="right">8</td>
+<td align="right">472.0</td>
+<td align="right">205</td>
+<td align="right">2.93</td>
+<td align="right">5.250</td>
+<td align="right">17.98</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Lincoln Continental</td>
+<td align="right">10.4</td>
+<td align="right">8</td>
+<td align="right">460.0</td>
+<td align="right">215</td>
+<td align="right">3.00</td>
+<td align="right">5.424</td>
+<td align="right">17.82</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Chrysler Imperial</td>
+<td align="right">14.7</td>
+<td align="right">8</td>
+<td align="right">440.0</td>
+<td align="right">230</td>
+<td align="right">3.23</td>
+<td align="right">5.345</td>
+<td align="right">17.42</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Fiat 128</td>
+<td align="right">32.4</td>
+<td align="right">4</td>
+<td align="right">78.7</td>
+<td align="right">66</td>
+<td align="right">4.08</td>
+<td align="right">2.200</td>
+<td align="right">19.47</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Honda Civic</td>
+<td align="right">30.4</td>
+<td align="right">4</td>
+<td align="right">75.7</td>
+<td align="right">52</td>
+<td align="right">4.93</td>
+<td align="right">1.615</td>
+<td align="right">18.52</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Toyota Corolla</td>
+<td align="right">33.9</td>
+<td align="right">4</td>
+<td align="right">71.1</td>
+<td align="right">65</td>
+<td align="right">4.22</td>
+<td align="right">1.835</td>
+<td align="right">19.90</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Toyota Corona</td>
+<td align="right">21.5</td>
+<td align="right">4</td>
+<td align="right">120.1</td>
+<td align="right">97</td>
+<td align="right">3.70</td>
+<td align="right">2.465</td>
+<td align="right">20.01</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Dodge Challenger</td>
+<td align="right">15.5</td>
+<td align="right">8</td>
+<td align="right">318.0</td>
+<td align="right">150</td>
+<td align="right">2.76</td>
+<td align="right">3.520</td>
+<td align="right">16.87</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">AMC Javelin</td>
+<td align="right">15.2</td>
+<td align="right">8</td>
+<td align="right">304.0</td>
+<td align="right">150</td>
+<td align="right">3.15</td>
+<td align="right">3.435</td>
+<td align="right">17.30</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Camaro Z28</td>
+<td align="right">13.3</td>
+<td align="right">8</td>
+<td align="right">350.0</td>
+<td align="right">245</td>
+<td align="right">3.73</td>
+<td align="right">3.840</td>
+<td align="right">15.41</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Pontiac Firebird</td>
+<td align="right">19.2</td>
+<td align="right">8</td>
+<td align="right">400.0</td>
+<td align="right">175</td>
+<td align="right">3.08</td>
+<td align="right">3.845</td>
+<td align="right">17.05</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Fiat X1-9</td>
+<td align="right">27.3</td>
+<td align="right">4</td>
+<td align="right">79.0</td>
+<td align="right">66</td>
+<td align="right">4.08</td>
+<td align="right">1.935</td>
+<td align="right">18.90</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Porsche 914-2</td>
+<td align="right">26.0</td>
+<td align="right">4</td>
+<td align="right">120.3</td>
+<td align="right">91</td>
+<td align="right">4.43</td>
+<td align="right">2.140</td>
+<td align="right">16.70</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Lotus Europa</td>
+<td align="right">30.4</td>
+<td align="right">4</td>
+<td align="right">95.1</td>
+<td align="right">113</td>
+<td align="right">3.77</td>
+<td align="right">1.513</td>
+<td align="right">16.90</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Ford Pantera L</td>
+<td align="right">15.8</td>
+<td align="right">8</td>
+<td align="right">351.0</td>
+<td align="right">264</td>
+<td align="right">4.22</td>
+<td align="right">3.170</td>
+<td align="right">14.50</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Ferrari Dino</td>
+<td align="right">19.7</td>
+<td align="right">6</td>
+<td align="right">145.0</td>
+<td align="right">175</td>
+<td align="right">3.62</td>
+<td align="right">2.770</td>
+<td align="right">15.50</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Maserati Bora</td>
+<td align="right">15.0</td>
+<td align="right">8</td>
+<td align="right">301.0</td>
+<td align="right">335</td>
+<td align="right">3.54</td>
+<td align="right">3.570</td>
+<td align="right">14.60</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Volvo 142E</td>
+<td align="right">21.4</td>
+<td align="right">4</td>
+<td align="right">121.0</td>
+<td align="right">109</td>
+<td align="right">4.11</td>
+<td align="right">2.780</td>
+<td align="right">18.60</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>Note that you can also load packages using point-and-click, by going to the Packages Pane in RStudio and clicking on the white box next to a package name. This is fine for working interactively, but obviously won’t work if you want to send someone an R Script that needs to load some packages. It will also be tedious if you are doing the same workflow multiple times. Better to learn how to use the <code>library()</code> function!</p>
+</div>
+<div id="detaching-unloading-packages" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Detaching (unloading) packages<a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Soemtimes you want to <strong>detach</strong> (unload) packages. The technically correct way to do so is to call <code>detach(package:&lt;package name&gt;)</code>, which is slightly more tedious to type.</p>
+<p>You can also detach packages by unchecking the box next to their name in the RStudio Packages Pane.</p>
+</div>
+<div id="uninstalling-packages" class="section level3 hasAnchor" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Uninstalling packages<a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>And sometimes you want to completely remove a package from R. The most frequent reason for wanting to do this is when you start getting persistent errors. This can happen because you have an old version of a package, or it installed improperly (this will often be accompanied by install error messages in the console). You might also want to reinstall a package and be certain that the old version is gone. Generally you dont’ need to manually uninstall a package, but the simple command is just the opposite of installation: <code>remove.packages("&lt;package name&gt;")</code>.</p>
+<p>You can also use the Package Pane to remove packages by clicking the “X” to the far right of the package name. Since removing packages isn’t something you do all that often, using the point-and-click shortcut is no problem.</p>
+</div>
+<div id="getting-help---a-deeper-drive" class="section level3 hasAnchor" number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> Getting help - a deeper drive<a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With more packages you’re going to more frequently run into the need to look up how to do things, which means dealing with help files. As a reminder, typing <code>?&lt;search term&gt;</code> will make the help documentation for whatever you’ve searched for appear. But what if you don’t know what to search for?</p>
+<p>By typing <code>??&lt;search term&gt;</code> you will search <strong>all</strong> help files for the search term. R will return a list of matching articles to you in the help pane. This is considerably slower, since it’s searching hundreds or thousands of text files. Try typing <code>??install</code> into your console to see how this works.</p>
+<p>You will notice that there are two types of results in the help list for install. The help pages should be familiar. But what are “vignettes”? Try clicking on one to find out.</p>
+<p>Vignettes are formatted, conversational walkthroughs that are increasingly common (and helpful!) for R packages. Rather than explaining a single function they usually explain some aspect of a package, and how to use it. And, even better for our purposes, they are written in R Markdown. Click the “source” link next to the vignette name in order to see how the author wrote it in R Markdown. This is a great way to learn new tricks.</p>
+<p>While you can find vignettes as we just did, a better way is to use the function <code>browseVignettes()</code>. This opens a web browser window that lists <strong>all</strong> vignettes installed on your computer. You can then use cmd/ctrl + F to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.</p>
+<p>Your first major assignment in the class will be to write your own vignette for a task or functionality. We will talk about this more in the next week.</p>
+</div>
+</div>
+<div id="complex-r-objects" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Complex R Objects<a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To summarize where we ended up last week: we went over data types for variables. Who can list the basic data types we reviewed?</p>
+<p>We also went over the basics of functions, which we’ll come back to pretty much every week.</p>
+<p>So far this week we’ve spent a lot of time on “meta” topics–tools for interacting with R and with our coding and data. We haven’t actually learned that much more about how R works than we ended up knowing last week.</p>
+<p>Let’s change that!</p>
+<div id="vectors-a-review" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Vectors: a review<a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Last week we mentioned vectors very briefly. But vectors are really at the heart of what makes R useful. A vector is an <strong>ordered list of the same kind of variable</strong>. Let’s take a look at two different vectors to make this idea concrete.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="extending-r-with-packages-and-r-markdown.html#cb100-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
+<span id="cb100-2"><a href="extending-r-with-packages-and-r-markdown.html#cb100-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb100-3"><a href="extending-r-with-packages-and-r-markdown.html#cb100-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>## [1]   1   1   2   1 100</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="extending-r-with-packages-and-r-markdown.html#cb102-1" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
+<p>The <code>c()</code> function is R’s shortcut for making vectors, as shown above. In strict programming terms, both <code>a</code> and <code>b</code> are <strong>atomic vectors</strong> because all of their elements are of the same type (what kind of vector is a? what kind of vector is b?).</p>
+<p>If you don’t know what kind of vector a given vector is, you can use the <code>typeof()</code> function to ask R.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="extending-r-with-packages-and-r-markdown.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(a)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="extending-r-with-packages-and-r-markdown.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(b)</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="extending-r-with-packages-and-r-markdown.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(a) <span class="sc">==</span> <span class="fu">typeof</span>(b)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Another property vectors have is <strong>length</strong>. Length is just how many elements are in the list. For these vectors it’s easy to see the length, but we will often deal with long vectors we don’t want to count by hand. We can query the length of any vector (and even of complex objects) using the <code>length()</code> command.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="extending-r-with-packages-and-r-markdown.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="extending-r-with-packages-and-r-markdown.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(b)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="extending-r-with-packages-and-r-markdown.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a) <span class="sc">==</span> <span class="fu">length</span>(b)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Interestingly, in R most things are vectors. So R, behind the scenes, thinks that <code>100</code> is a <code>numeric</code> vector of <code>length = 1</code>:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="extending-r-with-packages-and-r-markdown.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="extending-r-with-packages-and-r-markdown.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>We can add elements to pre-existing vectors, or even combine two pre-existing vectors, using the same <code>c()</code> function.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="extending-r-with-packages-and-r-markdown.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(a, <span class="dv">101</span>)</span></code></pre></div>
+<pre><code>## [1]   1   1   2   1 100 101</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="extending-r-with-packages-and-r-markdown.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(b, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE</code></pre>
+<p>If we try to put things that are of different <code>type</code> in the same vector, R will either try to “coerce” them into being the same type (remember R will change <code>TRUE</code> to <code>1</code> if we try to add it, for example) or give us an error. The fact that, usually, R will <strong>not</strong> give an error can sometimes be a problem, because it might change things to characters or add up logical vectors when you don’t want it to!</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="extending-r-with-packages-and-r-markdown.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(a, b)</span></code></pre></div>
+<pre><code>##  [1]   1   1   2   1 100   1   0   1   1   0</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="extending-r-with-packages-and-r-markdown.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(a, <span class="st">&quot;ring&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;1&quot;    &quot;1&quot;    &quot;2&quot;    &quot;1&quot;    &quot;100&quot;  &quot;ring&quot;</code></pre>
+</div>
+<div id="vector-math" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Vector math<a href="extending-r-with-packages-and-r-markdown.html#vector-math" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R will happily do math with vectors for you, which will save a lot of time. But there are some pitfalls to think about. I’m going to just give the basic intro to this topic, and I recommend <a href="https://r4ds.had.co.nz/vectors.html">Hadley Wickham’s summary of the topic</a> to give you an idea of some of the possible problems.</p>
+<div id="piecewise-scalar-math" class="section level4 hasAnchor" number="2.3.2.1">
+<h4><span class="header-section-number">2.3.2.1</span> Piecewise (scalar) math<a href="extending-r-with-packages-and-r-markdown.html#piecewise-scalar-math" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A <strong>scalar</strong> is a 1-item vector: <code>1</code> is a scalar (as is <code>"dog"</code>, technically, but we can’t do normal math with it). The basic arithmetic we’re used to is scalar mathematics. But vector math is a more powerful, compact form, and is useful for data analysis, as we’ll see.</p>
+<p>When we take a scalar and do basic mathematical operations in R, it acts <strong>piece-wise</strong>: the operation is applied to each object in the vector.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="extending-r-with-packages-and-r-markdown.html#cb128-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1]  11  11  12  11 110</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="extending-r-with-packages-and-r-markdown.html#cb130-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">*</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1]   10   10   20   10 1000</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="extending-r-with-packages-and-r-markdown.html#cb132-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">-</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1]  0  0  1  0 99</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="extending-r-with-packages-and-r-markdown.html#cb134-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1]  0.1  0.1  0.2  0.1 10.0</code></pre>
+<p>The reverse also applies, with an asterisk: you will always end up with a vector, never with a scalar.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="extending-r-with-packages-and-r-markdown.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> a</span></code></pre></div>
+<pre><code>## [1] 10.0 10.0  5.0 10.0  0.1</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="extending-r-with-packages-and-r-markdown.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> a</span></code></pre></div>
+<pre><code>## [1]   10   10   20   10 1000</code></pre>
+</div>
+<div id="vector-math-1" class="section level4 hasAnchor" number="2.3.2.2">
+<h4><span class="header-section-number">2.3.2.2</span> Vector math<a href="extending-r-with-packages-and-r-markdown.html#vector-math-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This is not a linear algebra class, so I will not be going into the rules of vector (and matrix) algebra. But you should know that all operations are not equivalent. Here is an example to give you fair warning.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="extending-r-with-packages-and-r-markdown.html#cb140-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb140-2"><a href="extending-r-with-packages-and-r-markdown.html#cb140-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb140-3"><a href="extending-r-with-packages-and-r-markdown.html#cb140-3" aria-hidden="true" tabindex="-1"></a>x <span class="sc">*</span> y <span class="co"># scalar (pointwise) multiplication = c(1 * 4, 2 * 5, 3 * 6)</span></span></code></pre></div>
+<pre><code>## [1]  4 10 18</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="extending-r-with-packages-and-r-markdown.html#cb142-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%*%</span> y <span class="co"># matrix multiplication with two column vectors = 1 * 4 + 2 * 5 + 3 * 6</span></span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]   32</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="extending-r-with-packages-and-r-markdown.html#cb144-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%*%</span> <span class="fu">t</span>(y) <span class="co"># matrix multiplication with a column and a row vector</span></span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    4    5    6
+## [2,]    8   10   12
+## [3,]   12   15   18</code></pre>
+</div>
+</div>
+<div id="indexing-getting-elements-from-a-vector" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> “Indexing”: getting elements from a vector<a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is a good place to (re)introduce the key programming concept of <strong>indexing</strong>. Ordered lists like vectors (and actual lists, as well as matrices, arrays, and data frames below) are <strong>indexed</strong>. For a vector, which is an ordered list, the index is the number of an entry. So, if we look back at our <code>a</code> vector, we can pull out each entry by its corresponding <strong>index</strong>.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="extending-r-with-packages-and-r-markdown.html#cb146-1" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>## [1]   1   1   2   1 100</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="extending-r-with-packages-and-r-markdown.html#cb148-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="extending-r-with-packages-and-r-markdown.html#cb150-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="extending-r-with-packages-and-r-markdown.html#cb152-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="extending-r-with-packages-and-r-markdown.html#cb154-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="extending-r-with-packages-and-r-markdown.html#cb156-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<p>As you might guess, the R operator to extract an item from a vector is <code>[]</code>. If you write <code>a[2]</code>, you can read this as <strong>the second item in <code>a</code></strong>.</p>
+<p>The <code>[]</code> operators have even more functionality. We can use a <em>vector of indices</em> (!!!) to get just those objects from our first vector.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="extending-r-with-packages-and-r-markdown.html#cb158-1" aria-hidden="true" tabindex="-1"></a>index_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>) <span class="co"># say we want the first, third, and fifth items</span></span>
+<span id="cb158-2"><a href="extending-r-with-packages-and-r-markdown.html#cb158-2" aria-hidden="true" tabindex="-1"></a>a[index_vector]</span></code></pre></div>
+<pre><code>## [1]   1   2 100</code></pre>
+<p>We can also use negative indices to <em>drop</em> objects from our vector.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="extending-r-with-packages-and-r-markdown.html#cb160-1" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="dv">2</span>] <span class="co"># drop the second object from a</span></span></code></pre></div>
+<pre><code>## [1]   1   2   1 100</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="extending-r-with-packages-and-r-markdown.html#cb162-1" aria-hidden="true" tabindex="-1"></a>a[<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">5</span>)] <span class="co"># drop the first and fifth objects from a</span></span></code></pre></div>
+<pre><code>## [1] 1 2 1</code></pre>
+<p>Note that you can’t combine positive and negative indices for subsetting in one step.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="extending-r-with-packages-and-r-markdown.html#cb164-1" aria-hidden="true" tabindex="-1"></a>a[<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">5</span>)]</span></code></pre></div>
+<pre><code>## Error in a[c(1, -5)]: only 0&#39;s may be mixed with negative subscripts</code></pre>
+<p>We can also use a vector of the same length but of type <code>logical</code> to select or drop specific entries.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="extending-r-with-packages-and-r-markdown.html#cb166-1" aria-hidden="true" tabindex="-1"></a>c_logical <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb166-2"><a href="extending-r-with-packages-and-r-markdown.html#cb166-2" aria-hidden="true" tabindex="-1"></a>a[c_logical]</span></code></pre></div>
+<pre><code>## [1]   1   1 100</code></pre>
+<p>This seems a little bit useless, but in fact it will be super helpful when we start using <strong>logical operators</strong> in coding. Here is an example: if we don’t know what numbers are in <code>a</code>, but we know they should be small, we might want to drop any numbers that are “too large”</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="extending-r-with-packages-and-r-markdown.html#cb168-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">&lt;</span> <span class="dv">10</span> <span class="co"># R has all the classic comparison operators, &quot;&lt;&quot; means &quot;less than&quot;</span></span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="extending-r-with-packages-and-r-markdown.html#cb170-1" aria-hidden="true" tabindex="-1"></a>a[a <span class="sc">&lt;</span> <span class="dv">10</span>] <span class="co"># give us everything in a &lt; 10</span></span></code></pre></div>
+<pre><code>## [1] 1 1 2 1</code></pre>
+<p><strong>Important but advanced</strong>: in programming terms, R is 1-indexed, meaning that <code>a[1]</code> gives the first object in <code>a</code>. This is <em>not</em> the case in many programming languages, including Python, which are <em>0</em>-indexed, meaning that you’d write <code>a[0]</code> to get the first item in <code>a</code>. This is important to know if you continue on in other programming languages for research.</p>
+</div>
+<div id="multidimensional-vectors-matrices-and-arrays" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Multidimensional vectors: Matrices and Arrays<a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Most of you have encountered a <strong>matrix</strong> before. Matrices are 2-dimensional arrays (usually of numbers). The main reason we care about matrices is that they are efficient ways of organizing and analyzing numerical results.</p>
+<p>In R, matrices are simply vectors (long lists of numbers) with a set number of rows and columns. Because they are really just augmented vectors, matrices (and arrays) are <strong>atomic</strong>: they can only have one type of data in them.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="extending-r-with-packages-and-r-markdown.html#cb172-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb172-2"><a href="extending-r-with-packages-and-r-markdown.html#cb172-2" aria-hidden="true" tabindex="-1"></a>c</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="extending-r-with-packages-and-r-markdown.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(c)</span></code></pre></div>
+<pre><code>## [1] 2 3</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="extending-r-with-packages-and-r-markdown.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(c)</span></code></pre></div>
+<pre><code>##  num [1:2, 1:3] 1 2 3 4 5 6</code></pre>
+<p>The <code>dim()</code> function means “dimensions”, and tells you what the dimensions of an object are. So here <code>dim(c)</code> tells us that <code>c</code> has 2 dimensions: 2 rows and 3 columns. If you call <code>str()</code> on a matrix, you get both an idea of what’s in it as well as the dimensions.</p>
+<p>If you are used to matrix algebra, one of the weird things that R does is that it, by default, fills matrices <em>column</em>-wise. In the example above, <code>c</code> is filled from top to bottom, left to right. This is contrary to most matrix math. It can be overridden by specifying <code>matrix(byrow = TRUE)</code>, but in practice it doesn’t matter as long as you’re aware of it.</p>
+<p>The main reason to bring up matrices is to talk about indexing. Now, rather than saying “give us the fourth item in <code>a</code>”, we might want to say “give us the first item in the second row of <code>c</code>”. As you might guess, we will use the <code>[]</code> operator. The only difference is that we will <strong>provide an index for each dimension</strong>.</p>
+<p>To index in this way, you separate each dimension you are wanting to index by <code>,</code>. <strong>If you leave a dimension blank, you will get everything back in that dimension.</strong></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="extending-r-with-packages-and-r-markdown.html#cb178-1" aria-hidden="true" tabindex="-1"></a>c[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># get the first row, second column entry</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="extending-r-with-packages-and-r-markdown.html#cb180-1" aria-hidden="true" tabindex="-1"></a>c[<span class="dv">1</span>, ] <span class="co"># get the first row</span></span></code></pre></div>
+<pre><code>## [1] 1 3 5</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="extending-r-with-packages-and-r-markdown.html#cb182-1" aria-hidden="true" tabindex="-1"></a>c[, <span class="dv">2</span>] <span class="co"># get the second column</span></span></code></pre></div>
+<pre><code>## [1] 3 4</code></pre>
+<p>You can also use logical vectors for subsetting, as with vectors.</p>
+<p><strong>Arrays</strong> are vectors with more than 2 dimensions. So a 3-dimensional array can be thought of as a vector of matrices. These are also called <strong>tensors</strong> in the machine learning community. They are important for programming and for a number of advanced data analyses, but we will not be working with them as much initially.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="extending-r-with-packages-and-r-markdown.html#cb184-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb184-2"><a href="extending-r-with-packages-and-r-markdown.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(d) <span class="co"># d is a &quot;cube&quot; - 2 matrices, each 2 x 2</span></span></code></pre></div>
+<pre><code>## [1] 2 2 2</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="extending-r-with-packages-and-r-markdown.html#cb186-1" aria-hidden="true" tabindex="-1"></a>d <span class="co"># when you ask R to print an array, it will print it as matrix slices</span></span></code></pre></div>
+<pre><code>## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="extending-r-with-packages-and-r-markdown.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d) <span class="co"># as with most R objects, str() probably gives the most concise, useful information</span></span></code></pre></div>
+<pre><code>##  num [1:2, 1:2, 1:2] 1 2 3 4 5 6 7 8</code></pre>
+<p>We index arrays the same way we would matrices, just adding an extra <code>,</code> for each additional dimension. But it gets harder to keep track of, and keeping good notes and experimenting to make sure you’re doing what you think you’re doing is key.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="extending-r-with-packages-and-r-markdown.html#cb190-1" aria-hidden="true" tabindex="-1"></a>d[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>] <span class="co"># get the number in the first row of the second column in the first matrix</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="extending-r-with-packages-and-r-markdown.html#cb192-1" aria-hidden="true" tabindex="-1"></a>d[, , <span class="dv">1</span>] <span class="co"># get the first matrix &quot;slice&quot;</span></span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="extending-r-with-packages-and-r-markdown.html#cb194-1" aria-hidden="true" tabindex="-1"></a>d[<span class="dv">1</span>, <span class="dv">1</span>, ] <span class="co"># get the number at the first row and first column for both matrices</span></span></code></pre></div>
+<pre><code>## [1] 1 5</code></pre>
+</div>
+<div id="lists-non-atomic-vectors" class="section level3 hasAnchor" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Lists: non-atomic vectors<a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you want to keep different things in one vector, R provides a non-atomic vector type called a <code>list</code>, which is made using the <code>list()</code> function.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="extending-r-with-packages-and-r-markdown.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="cn">TRUE</span>, <span class="st">&quot;dog&quot;</span>, 3L, <span class="fl">3.45</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] TRUE
+## 
+## [[2]]
+## [1] &quot;dog&quot;
+## 
+## [[3]]
+## [1] 3
+## 
+## [[4]]
+## [1] 3.45</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="extending-r-with-packages-and-r-markdown.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 2
+## 
+## [[3]]
+## [1] 3
+## 
+## [[4]]
+## [1] 4</code></pre>
+<p>Lists do not coerce data of different type, because they store each vector in its own, distinct slot. If we remember that R treats individual data as 1-length vectors (e.g., <code>"dog"</code> is a 1-length character vector), we can understand that <strong>lists are “vectors of vectors”</strong>. Each item in the list is a vector.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="extending-r-with-packages-and-r-markdown.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb200-2"><a href="extending-r-with-packages-and-r-markdown.html#cb200-2" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;dog&quot;</span>,</span>
+<span id="cb200-3"><a href="extending-r-with-packages-and-r-markdown.html#cb200-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1 2 3 4
+## 
+## [[2]]
+## [1] &quot;dog&quot;
+## 
+## [[3]]
+## [1]  TRUE FALSE</code></pre>
+<p>We can even make a list of lists</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="extending-r-with-packages-and-r-markdown.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb202-2"><a href="extending-r-with-packages-and-r-markdown.html#cb202-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)),</span>
+<span id="cb202-3"><a href="extending-r-with-packages-and-r-markdown.html#cb202-3" aria-hidden="true" tabindex="-1"></a>     <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [[1]][[1]]
+## [1] 1
+## 
+## [[1]][[2]]
+## [1] 2
+## 
+## [[1]][[3]]
+## [1] 3
+## 
+## 
+## [[2]]
+## [[2]][[1]]
+## [1] &quot;dog&quot; &quot;cat&quot;
+## 
+## 
+## [[3]]
+## [1] TRUE</code></pre>
+<p>This makes lists rather difficult to conceptualize, but very easy and flexible to store items in.</p>
+<div id="the-str-function" class="section level4 hasAnchor" number="2.3.5.1">
+<h4><span class="header-section-number">2.3.5.1</span> The <code>str()</code> function<a href="extending-r-with-packages-and-r-markdown.html#the-str-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Because the way that R prints lists by default is hard to understand, an important function for dealing with them is <code>str()</code>, which you can remember as meaning <strong>structure</strong>. If we look at the last (slightly pathological) list I created,</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="extending-r-with-packages-and-r-markdown.html#cb204-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb204-2"><a href="extending-r-with-packages-and-r-markdown.html#cb204-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)),</span>
+<span id="cb204-3"><a href="extending-r-with-packages-and-r-markdown.html#cb204-3" aria-hidden="true" tabindex="-1"></a>          <span class="cn">TRUE</span>)</span>
+<span id="cb204-4"><a href="extending-r-with-packages-and-r-markdown.html#cb204-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(l)</span></code></pre></div>
+<pre><code>## List of 3
+##  $ :List of 3
+##   ..$ : num 1
+##   ..$ : num 2
+##   ..$ : num 3
+##  $ :List of 1
+##   ..$ : chr [1:2] &quot;dog&quot; &quot;cat&quot;
+##  $ : logi TRUE</code></pre>
+<p>This is much clearer! We have a list that contains another list with 3 items, a vector of characters, and a single logical variable.</p>
+<p>We can also use <code>str()</code> on any R object, and it is usually quite helpful in letting us understand <em>what</em> we’re looking at.</p>
+</div>
+<div id="naming-and-indexing-lists" class="section level4 hasAnchor" number="2.3.5.2">
+<h4><span class="header-section-number">2.3.5.2</span> Naming and indexing lists<a href="extending-r-with-packages-and-r-markdown.html#naming-and-indexing-lists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can actually make named atomic lists, but they are not as common. When we start working with lists, because of their structure, it is often useful to name the elements of our list. Let’s make our pathological list a little easier to understand by giving each of its elements a name.</p>
+<p><strong>Important</strong>: Names for lists (and data frames, below) don’t get quoted, even though they are character strings. This is because they are names (a type of R object that is distinct but rarely created explicitly).</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="extending-r-with-packages-and-r-markdown.html#cb206-1" aria-hidden="true" tabindex="-1"></a>named_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">numbers =</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb206-2"><a href="extending-r-with-packages-and-r-markdown.html#cb206-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pets =</span> <span class="fu">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>),</span>
+<span id="cb206-3"><a href="extending-r-with-packages-and-r-markdown.html#cb206-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cats_are_best =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb206-4"><a href="extending-r-with-packages-and-r-markdown.html#cb206-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(named_list)</span></code></pre></div>
+<pre><code>## List of 3
+##  $ numbers      :List of 3
+##   ..$ : num 1
+##   ..$ : num 2
+##   ..$ : num 3
+##  $ pets         : chr [1:2] &quot;dog&quot; &quot;cat&quot;
+##  $ cats_are_best: logi TRUE</code></pre>
+<p>Now we have an idea of what all of the sublists hold. How can we get them back out of our list? Through indexing, of course.</p>
+<p>The indexing function for lists works a little differently than for atomic vectors and arrays… or rather, it works logically if you look in a certain light, and otherwise is super confusing.</p>
+<p>Let’s say we want to get our character vector of pets. That’s the second item in our list, right?</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="extending-r-with-packages-and-r-markdown.html#cb208-1" aria-hidden="true" tabindex="-1"></a>named_list[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## $pets
+## [1] &quot;dog&quot; &quot;cat&quot;</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="extending-r-with-packages-and-r-markdown.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(named_list[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## List of 1
+##  $ pets: chr [1:2] &quot;dog&quot; &quot;cat&quot;</code></pre>
+<p>This is still a list! It turns out that <code>[]</code> for lists returns the same general shape of list with a subset of the original items. If we want to “pop out” our original vector, we need to use the <code>[[]]</code> operator, which can be read as “go down one level”.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="extending-r-with-packages-and-r-markdown.html#cb212-1" aria-hidden="true" tabindex="-1"></a>named_list[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;dog&quot; &quot;cat&quot;</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="extending-r-with-packages-and-r-markdown.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(named_list[[<span class="dv">2</span>]])</span></code></pre></div>
+<pre><code>##  chr [1:2] &quot;dog&quot; &quot;cat&quot;</code></pre>
+<p>There we go. Honestly, this behavior is one of the hardest things about lists, and will take trial and error to get used to.</p>
+<p>Happily, if you have a named list, you can use a syntactical shortcut provided by R to do this more easily. The <code>$</code> operator is kind of like <code>[[]]</code>, except instead of indexing you give it a name. So we can just ask for our vector of pets back:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="extending-r-with-packages-and-r-markdown.html#cb216-1" aria-hidden="true" tabindex="-1"></a>named_list<span class="sc">$</span>pets</span></code></pre></div>
+<pre><code>## [1] &quot;dog&quot; &quot;cat&quot;</code></pre>
+<p>As you will see, <code>$</code> gets used a lot with data frames.</p>
+</div>
+</div>
+<div id="data.frame-tables-of-data" class="section level3 hasAnchor" number="2.3.6">
+<h3><span class="header-section-number">2.3.6</span> <code>data.frame</code>: Tables of data<a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, with that background behind us, we can talk about the special kind of list known as data frames. Data frames are as close as (base) R gets to the familiar, tabular data from Excel. Think of a data frame as a “rectangular list”–it’s a list of columns. Each column has to have the same number of rows. But each column can have its own data type–so you can have a column of names (character), then a column of ages (integer), then a column of heights and a column of weights (numeric). Like so:</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="extending-r-with-packages-and-r-markdown.html#cb218-1" aria-hidden="true" tabindex="-1"></a>cats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;Margot&quot;</span>, <span class="st">&quot;Nick&quot;</span>, <span class="st">&quot;Guybrush&quot;</span>),</span>
+<span id="cb218-2"><a href="extending-r-with-packages-and-r-markdown.html#cb218-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ages =</span> <span class="fu">c</span>(13L, 14L, 2L),</span>
+<span id="cb218-3"><a href="extending-r-with-packages-and-r-markdown.html#cb218-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb218-4"><a href="extending-r-with-packages-and-r-markdown.html#cb218-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">14</span>))</span>
+<span id="cb218-5"><a href="extending-r-with-packages-and-r-markdown.html#cb218-5" aria-hidden="true" tabindex="-1"></a>cats</span></code></pre></div>
+<pre><code>##      names ages heights weights
+## 1   Margot   13       2      10
+## 2     Nick   14       2       9
+## 3 Guybrush    2       3      14</code></pre>
+<p>Oh, did you think this was a data frame of <em>people</em>?</p>
+<p>We’ve actually already seen a data frame: <code>mtcars</code>.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="extending-r-with-packages-and-r-markdown.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="extending-r-with-packages-and-r-markdown.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(mtcars)</span></code></pre></div>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>Data frames are extremely useful for storing data. Because they are rectangular, we can index them as we normally do with matrices:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="extending-r-with-packages-and-r-markdown.html#cb224-1" aria-hidden="true" tabindex="-1"></a>cats[<span class="dv">2</span>, <span class="dv">4</span>] <span class="co"># get Nick&#39;s weight</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="extending-r-with-packages-and-r-markdown.html#cb226-1" aria-hidden="true" tabindex="-1"></a>cats[<span class="dv">3</span>, ] <span class="co"># get all of Little Guy&#39;s vital stats</span></span></code></pre></div>
+<pre><code>##      names ages heights weights
+## 3 Guybrush    2       3      14</code></pre>
+<p>But we can also use list-type <code>$</code> indexing to get our named variables</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="extending-r-with-packages-and-r-markdown.html#cb228-1" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>names <span class="co"># what are my cats&#39; names?</span></span></code></pre></div>
+<pre><code>## [1] &quot;Margot&quot;   &quot;Nick&quot;     &quot;Guybrush&quot;</code></pre>
+<p>An augmented class of dataframes that we are going to be learning about extensively in the next classes is the <strong>tibble</strong>. This is a <code>tidyverse</code> convention for an augmented, well-behaving data frame. We can make a tibble by just calling the <code>tibble::tibble()</code> function on an existing data frame:</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="extending-r-with-packages-and-r-markdown.html#cb230-1" aria-hidden="true" tabindex="-1"></a>cat_tbl <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(cats)</span>
+<span id="cb230-2"><a href="extending-r-with-packages-and-r-markdown.html#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cat_tbl)</span></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="extending-r-with-packages-and-r-markdown.html#cb232-1" aria-hidden="true" tabindex="-1"></a>cat_tbl <span class="co"># but they print nicer</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##   names     ages heights weights
+##   &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Margot      13       2      10
+## 2 Nick        14       2       9
+## 3 Guybrush     2       3      14</code></pre>
+<p>If you read the section of <a href="https://r4ds.had.co.nz/vectors.html">R for Data Science</a> I have suggested for this class, you will see a lot of reference to tibbles. This section here is mostly to let you know that they are close (mostly improved) cousins to the data frame.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="day-1---welcome-to-fst-5984-2022.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="control-flow-and-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-Packages-and-Markdown.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

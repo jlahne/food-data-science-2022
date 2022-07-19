@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 The linear model - regression and ANOVA | FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 The linear model - regression and ANOVA | FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 The linear model - regression and ANOVA | FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="inference-from-data.html"/>
+<link rel="next" href="dealing-with-multiple-factors.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-linear-model---regression-and-anova" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> The linear model - regression and ANOVA<a href="the-linear-model---regression-and-anova.html#the-linear-model---regression-and-anova" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="the-linear-model---regression-and-anova.html#cb820-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup chunk is made visible for clarity</span></span>
+<span id="cb820-2"><a href="the-linear-model---regression-and-anova.html#cb820-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb820-3"><a href="the-linear-model---regression-and-anova.html#cb820-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb820-4"><a href="the-linear-model---regression-and-anova.html#cb820-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb820-5"><a href="the-linear-model---regression-and-anova.html#cb820-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb820-6"><a href="the-linear-model---regression-and-anova.html#cb820-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb820-7"><a href="the-linear-model---regression-and-anova.html#cb820-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)</span>
+<span id="cb820-8"><a href="the-linear-model---regression-and-anova.html#cb820-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb820-9"><a href="the-linear-model---regression-and-anova.html#cb820-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb820-10"><a href="the-linear-model---regression-and-anova.html#cb820-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure out a dataset we want to use here</span></span>
+<span id="cb820-11"><a href="the-linear-model---regression-and-anova.html#cb820-11" aria-hidden="true" tabindex="-1"></a>berry_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Files/Week 11/berry_data.csv&quot;</span>)</span></code></pre></div>
+<p>Last week we got a taste of statistical inference, along with a brief preview of <em>Analysis of Variance</em>. This week we’re going to review (because you learned these in statistics, <em>right</em>?) the concept of the linear model–very broadly–which encompasses both simple and multiple regression as well as one-way and multi-way ANOVA.</p>
+<p>Today we’re going to start by talking about the general problem of predicting one continuous (interval or ratio) variable from another. This is the classical recipe for <strong>linear regression</strong>–we’ll talk about the <code>lm()</code> function in R, how to interpret results, and look into a bootstrapping approach for estimating stability of our estimates and a permutation approach that will help us see whether our results are significant.</p>
+<p>We will spend some time looking at how to plot results from linear regression using a combination of <code>geom_point()</code>/<code>geom_jitter()</code> and <code>geom_smooth()</code>, as well as faceting. We’ll spend relatively little time on the assumptions we should really examine, but I’ll try to mention them.</p>
+<p>Then we will spend a little while talking about a particularly vexing kind of variable type you may already have encountered in R: <code>factor</code>-type data. These data are key in both the analysis and the plotting of ANOVA.</p>
+<p>Then we’ll look at a very closely related problem: how to predict a continuous (interval or ratio) variable from a discrete (interval or ordinal) predictor. This is the classic recipe for <strong>ANOVA</strong>, and we will look at the <code>aov()</code> function (a thin wrapper for the <code>lm()</code>) as well as pointing towards some other, more powerful packages (including the <code>afex</code> package). We’ll also revisit our permutation approach for ANOVA.</p>
+<p>We will also spend some time on plotting results from ANOVA, with a special focus on interaction (mean-effect) plots. These plots give powerful visualizations of both the main effects (treatment effects) and interaction effects (differential effects of one treatment based on levels of another treatment).</p>
+<p>We will <strong>not</strong> be looking in any detail at multiple regression or multiway ANOVA this week; that material will be introduced next week, when we will think more broadly about different methods for exploring how complex, interacting independent variables can be investigated in our models.</p>
+<div id="dataset-example-for-today" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Dataset example for today<a href="the-linear-model---regression-and-anova.html#dataset-example-for-today" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The data we’ll be working with today is from research I conducted with Driscoll’s, Inc. in 2019 (just months before the pandemic). It is a subset of data from a Central Location Test on berry liking, in which we asked subjects to rate their liking on different sets of berries (blackberries, blueberries, strawberries, raspberries) using different kinds of <em>rating scales</em>. Some of the results of the study were published in a paper by <span class="citation">Yeung et al. (<a href="#ref-yeung2021" role="doc-biblioref">2021</a>)</span>. If you’re really interested in the details you can find them there, as well as some examples of applied bootstrapping and permutation tests!</p>
+<p>Today, however, we’re just interested in using the data to explore some applications of the linear model. Let’s take a look at our data:</p>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb821-1"><a href="the-linear-model---regression-and-anova.html#cb821-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 8.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">Piped data</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">3350</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">8</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="13%" />
+<col width="19%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">age</td>
+<td align="right">270</td>
+<td align="right">0.92</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">270</td>
+<td align="right">0.92</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">berry</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">9</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="13%" />
+<col width="9%" />
+<col width="13%" />
+<col width="10%" />
+<col width="9%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">subject</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">1075965.50</td>
+<td align="right">136631.18</td>
+<td align="right">1031946</td>
+<td align="right">1032642</td>
+<td align="right">1033289</td>
+<td align="right">1034014</td>
+<td align="right">1522576</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">sample</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3.40</td>
+<td align="right">1.66</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="left">▇▃▃▃▃</td>
+</tr>
+<tr class="odd">
+<td align="left">9pt_overall</td>
+<td align="right">905</td>
+<td align="right">0.73</td>
+<td align="right">5.68</td>
+<td align="right">2.10</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="left">▂▅▂▇▅</td>
+</tr>
+<tr class="even">
+<td align="left">us_overall</td>
+<td align="right">790</td>
+<td align="right">0.76</td>
+<td align="right">8.49</td>
+<td align="right">3.81</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">9</td>
+<td align="right">11</td>
+<td align="right">15</td>
+<td align="left">▃▅▇▇▅</td>
+</tr>
+<tr class="odd">
+<td align="left">lms_overall</td>
+<td align="right">848</td>
+<td align="right">0.75</td>
+<td align="right">20.24</td>
+<td align="right">43.74</td>
+<td align="right">-100</td>
+<td align="right">-9</td>
+<td align="right">26</td>
+<td align="right">56</td>
+<td align="right">100</td>
+<td align="left">▁▃▆▇▃</td>
+</tr>
+</tbody>
+</table>
+<p>This data is semi-tidy: each row has 3 observations on it: the rating of the berry by the particular subject in terms of the 9-pt hedonic scale (<code>9pt_overall</code>), the Labeled Magnitude Scale (<code>lms_overall</code>) and the Unstructured Line Scale (<code>us_overall</code>). The first of these 3 scales produces ordinal data that is often treated as interval-level, and the latter two are reputed to produce interval-level data (again, see <span class="citation">Yeung et al. (<a href="#ref-yeung2021" role="doc-biblioref">2021</a>)</span> for details on some of these assumptions and their validity in this dataset).</p>
+<p>You’ll notice we have some missing data in our dataset. We can take a closer look at this using the <code>naniar</code> package (which is great for dealing with the common situation of missing data):</p>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="the-linear-model---regression-and-anova.html#cb822-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb822-2"><a href="the-linear-model---regression-and-anova.html#cb822-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>(<span class="at">cluster =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>It looks like we have some big chunks of missing data (because of the way the data were collected: subjects did not have to attend every session). This is not a situation made-up for your benefit, just a characteristic of these data!</p>
+<p>We are going to use these data to investigate the relationships among the scales, as well as predicting liking outcomes from categorical variables like age-category and gender.</p>
+</div>
+<div id="review-of-measurement-levels" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Review of measurement levels<a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Typically, we talk about four “levels of measurement” in regards to data that dictate what kinds of analysis we should conduct (although we can do whatever we want, with sometimes disastrous results):</p>
+<div class="figure">
+<img src="Images/Week%2011/measurement%20levels.png" alt="" />
+<p class="caption">Classical levels of measurement are nominal, ordinal, interval, and ratio</p>
+</div>
+<p>The borders between these categories is not as hard and fast as we’d wish. For example, the famous 9-pt hedonic scale (well, famous in my discipline!) is really an ordinal response scale:</p>
+<div class="figure">
+<img src="Files/Week%2011/Some%20sensory%20scales.png" alt="" />
+<p class="caption">Some scales used in sensory evaluation including the 9-pt hedonic scale</p>
+</div>
+<p>We can have different kinds of variables in all different roles in our datasets. For example, in this dataset we have both nominal and ordinal predictors (independent or experimental variables):</p>
+<ul>
+<li>Berry type (nominal)</li>
+<li>Gender (nominal)</li>
+<li>Age (ordinal)</li>
+<li>Berry sample ID (nominal, even though it is listed as an integer)</li>
+<li>Subject ID (nominal, even though given as numeric)</li>
+</ul>
+<p>We also have ordinal and interval-level outcomes (dependent or measured variables):</p>
+<ul>
+<li>9-pt scale (ordinal, treated as interval)</li>
+<li>Labeled Affective Magnitude Scale (interval, although often claimed to be ratio)</li>
+<li>Visual Analog Scale (interval)</li>
+</ul>
+<p>Technically, the choice of what statistical model we can fit to our data depends on the types of data we have! Frequently, we will violate the rules, but knowing that they exist will let us understand what risks we are taking.</p>
+<p>With that, let’s talk about one of the most frequent situations we encounter in research: predicting the value of one interval/ratio-level variable from another. This is linear regression.</p>
+</div>
+<div id="linear-regression" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Linear regression<a href="the-linear-model---regression-and-anova.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s begin by taking a quick look at the correlations among the various forms of measured liking for our <code>berry_data</code>:</p>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="the-linear-model---regression-and-anova.html#cb823-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb823-2"><a href="the-linear-model---regression-and-anova.html#cb823-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;overall&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb823-3"><a href="the-linear-model---regression-and-anova.html#cb823-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>##             9pt_overall us_overall lms_overall
+## 9pt_overall   1.0000000  0.2550950   0.2573497
+## us_overall    0.2550950  1.0000000   0.2687089
+## lms_overall   0.2573497  0.2687089   1.0000000</code></pre>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="the-linear-model---regression-and-anova.html#cb825-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb825-2"><a href="the-linear-model---regression-and-anova.html#cb825-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;overall&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb825-3"><a href="the-linear-model---regression-and-anova.html#cb825-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb825-4"><a href="the-linear-model---regression-and-anova.html#cb825-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> .panel_x, <span class="at">y =</span> .panel_y), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb825-5"><a href="the-linear-model---regression-and-anova.html#cb825-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> .panel_x, <span class="at">y =</span> .panel_y), <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb825-6"><a href="the-linear-model---regression-and-anova.html#cb825-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_matrix</span>(<span class="fu">vars</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb825-7"><a href="the-linear-model---regression-and-anova.html#cb825-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We can see that while there are positive relationships among our variables, they are not as strongly correlated as we might assume for instruments that putatively measure the same underlying construct (overall liking). This is going to be our justification for exploring linear regression with what otherwise seems like it would be a kind of silly example.</p>
+<p>We already learned that correlation (usually represented with the symbols <span class="math inline">\(r\)</span> or <span class="math inline">\(\rho\)</span>) represents the strength of linear association between two numeric variables. Correlations fall into the range <span class="math inline">\([-1, 1]\)</span>:</p>
+<ul>
+<li><span class="math inline">\(-1\)</span> indicates perfect anticorrelation: when <span class="math inline">\(x\)</span> goes up, <span class="math inline">\(y\)</span> goes down</li>
+<li><span class="math inline">\(0\)</span> indicates no relationship between the variables</li>
+<li><span class="math inline">\(1\)</span> indicates perfect correlation: when <span class="math inline">\(x\)</span> goes up, <span class="math inline">\(y\)</span> goes up</li>
+</ul>
+<p>However, while correlation can give us an idea of the strength of a relationship, it doesn’t quantify the relationship. Informally (as I do most things in this class, because I’m not a statistician!), this is exactly what <strong>linear regression</strong> does: in its simple form, linear regression quantifies the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> whose strength is represented by the correlation <span class="math inline">\(r\)</span>.</p>
+<div id="bivariate-2-variable-relationships-imply-a-third-variable" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Bivariate (2-variable) relationships imply a third variable<a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we begin to explore these models, a quick aside: these kinds of bivariate relationships always imply a third, implicit variable: the pairing variable, which is often give as <span class="math inline">\(i\)</span>, as in the index for pairs of variables: <span class="math inline">\((x_1, y_1), (x_2, y_2), ..., (x_i, y_i)\)</span>. This seems like something trivial to point out, but it is actually important and can be kind of puzzle.</p>
+<p>For example, this is the problem with apparent (false) historical correlations:</p>
+<div class="figure">
+<img src="https://www.statology.org/wp-content/uploads/2021/08/corrCause1.png" alt="" />
+<p class="caption">Tight association between shark attacks and ice-cream consumption, <a href="https://www.statology.org/correlation-does-not-imply-causation-examples/">from Statology</a>.</p>
+</div>
+<p>The real, underlying relationship is between shark attacks and time, and between ice-cream consumption and time, but timepoint is being used as the pairing variable and so it creates a false correlation between the two other variables.</p>
+<p>We often assume that our underlying pairing variable, <span class="math inline">\(i\)</span>, is a meaningless index, but it can often have consequences for our data. It is always worth at least explicitly stating <em>how</em> our data is structured to help us understand these (and other) kinds of errors we might encounter.</p>
+</div>
+<div id="simple-linear-regression" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Simple linear regression<a href="the-linear-model---regression-and-anova.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With that all in mind, let’s state that the overall goal of linear regression is to obtain an estimate of the effect of one (usually continuous or interval/ratio) variable, <span class="math inline">\(x\)</span>, on the value of another (continuous) variable, <span class="math inline">\(y\)</span>. In order to estimate this relationship, we need some set of paired <span class="math inline">\(\{(x_i, y_i)\}\)</span> so that we can estimate the relationship. We typically write this relationship as:</p>
+<center>
+<span class="math inline">\(\hat{y}_i = \beta*x_i + \alpha\)</span>
+</center>
+<p>In plain English, we are saying that from each observed <span class="math inline">\(x_i\)</span>, we generate an estimate for <span class="math inline">\(y_i\)</span>, which we write as <span class="math inline">\(\hat{y}_i\)</span>, meaning it is an estimate that contains error, by multiplying <span class="math inline">\(x_i\)</span> by some quantity <span class="math inline">\(\beta\)</span> and adding a constant quantity <span class="math inline">\(\alpha\)</span>. Typically, we calculate both <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> through <strong>Ordinary Least Squares</strong>, which gives us an exact numerical solution in order to minimize the quantity <span class="math inline">\(\sum{(y_i-\hat{y}_i)^2}\)</span>, which is the difference between our estimated and observed values.</p>
+<p>I will not be deriving this method <em>at all</em> in this class.</p>
+<p>I had to memorize the derivation (based in linear algebra) once, and I have mostly forgotten it. It is not too tricky, and it is interesting for the right sort of person, but it isn’t super pertinent to our everyday job of analyzing data as scientists. Instead, we’re going to take a look at how to run linear regression in R, how to interpret and plot the output, and some basic considerations.</p>
+<p>The command for the <strong>l</strong>inear <strong>m</strong>odel in R (which includes both regression and ANOVA) is <code>lm()</code>. With our data, we can write the following:</p>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="the-linear-model---regression-and-anova.html#cb826-1" aria-hidden="true" tabindex="-1"></a>berry_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">~</span> lms_overall, <span class="at">data =</span> berry_data) <span class="co"># note that this is not a pipe-friendly function, need to use &quot;data = .&quot;</span></span>
+<span id="cb826-2"><a href="the-linear-model---regression-and-anova.html#cb826-2" aria-hidden="true" tabindex="-1"></a>berry_lm</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = `9pt_overall` ~ lms_overall, data = berry_data)
+## 
+## Coefficients:
+## (Intercept)  lms_overall  
+##     5.34898      0.01254</code></pre>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="the-linear-model---regression-and-anova.html#cb828-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(berry_lm)</span></code></pre></div>
+<pre><code>## [1] &quot;lm&quot;</code></pre>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="the-linear-model---regression-and-anova.html#cb830-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(berry_lm)</span></code></pre></div>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>Notice that when we print <code>berry_lm</code> we just get a simple couple lines to the console: a list of the “function call” which tells us the model we fit, and estimates for the coefficients. In this case, we have only an <code>(Intercept)</code> coefficient, which is our <span class="math inline">\(\alpha\)</span>, and an <code>lms_overall</code> coefficient, which is our <span class="math inline">\(\beta\)</span>.</p>
+<p>This doesn’t provide us with any information on whether this model is a good model. In order to get that information, we are going to do two things: examine a summary table of the output and make some visual plots to explore the model.</p>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="the-linear-model---regression-and-anova.html#cb832-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can get a pretty informative summary of our lm objects by using summary()</span></span>
+<span id="cb832-2"><a href="the-linear-model---regression-and-anova.html#cb832-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(berry_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = `9pt_overall` ~ lms_overall, data = berry_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.6032 -1.5622  0.3626  1.6510  4.8927 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 5.348976   0.051718  103.43   &lt;2e-16 ***
+## lms_overall 0.012542   0.001082   11.59   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.041 on 1893 degrees of freedom
+##   (1455 observations deleted due to missingness)
+## Multiple R-squared:  0.06623,    Adjusted R-squared:  0.06574 
+## F-statistic: 134.3 on 1 and 1893 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This gives us the same information and more! We can see, for example, that a <em>t</em>-test run on the <code>lms_overall</code> <span class="math inline">\(\beta\)</span> coefficient is apparently “significant” (more on this later), and we also can learn that despite this our model is pretty awful: the <span class="math inline">\(R^2\)</span>, which estimates for us <strong>how much variability in <span class="math inline">\(y\)</span> is explained by our model</strong> and in simple regression is literally the squared correlation coefficient (<span class="math inline">\(r^2\)</span>), is very low! Even though our model is a significant fit, we really aren’t explaining much at all about the variability of the results.</p>
+<p>Why is this? Let’s take a look at our actual data:</p>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="the-linear-model---regression-and-anova.html#cb834-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb834-2"><a href="the-linear-model---regression-and-anova.html#cb834-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lms_overall, <span class="at">y =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb834-3"><a href="the-linear-model---regression-and-anova.html#cb834-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
+<span id="cb834-4"><a href="the-linear-model---regression-and-anova.html#cb834-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>) <span class="sc">+</span> <span class="co"># geom_smooth adds a fitted model estimate to the plot</span></span>
+<span id="cb834-5"><a href="the-linear-model---regression-and-anova.html#cb834-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We can see that, while there is indeed an underlying positive trend, it is quite weak: we have a lot of low values of <code>9pt_overall</code> for high values of <code>lms_overall</code>, and vice versa.</p>
+<p>We can use <strong>extractor functions</strong> to get some more useful information from our model to help us understand what’s going on. We use <code>coefficients()</code> to get the coefficients of the model (<span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> in this case) if we want to use them somewhere else (for example in bootstrapping, see below).</p>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="the-linear-model---regression-and-anova.html#cb835-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(berry_lm)</span></code></pre></div>
+<pre><code>## (Intercept) lms_overall 
+##  5.34897610  0.01254223</code></pre>
+<p>We can extract predicted values for the model using the <code>predict()</code> function. We can also use this function to predict values for <em>new</em> <span class="math inline">\(x\)</span> values which we want to estimate our expected <span class="math inline">\(y\)</span> values for by providing them in the <code>newdata =</code> argument (as a vector). We can also get fitted (predicted) <span class="math inline">\(\hat{y}\)</span> values using the <code>fitted()</code> function.</p>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="the-linear-model---regression-and-anova.html#cb837-1" aria-hidden="true" tabindex="-1"></a>predicted_y <span class="ot">&lt;-</span> <span class="fu">predict</span>(berry_lm) <span class="sc">%&gt;%</span></span>
+<span id="cb837-2"><a href="the-linear-model---regression-and-anova.html#cb837-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;observation&quot;</span>)</span></code></pre></div>
+<p>We can use this to take a look at our model’s effectiveness visually. We’re going to</p>
+<ol style="list-style-type: decimal">
+<li>Select the observed <code>9pt_overall</code> values from our data</li>
+<li>Get the predicted observations from our model</li>
+<li>Join them into a single data table</li>
+<li>Plot them against each other</li>
+</ol>
+<p>If the resulting plot is close to a diagonal line, we’ll know that our model is performing well, because ideally we want the error (<span class="math inline">\(y_i-\hat{y}_i\)</span>) to be very small!</p>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="the-linear-model---regression-and-anova.html#cb838-1" aria-hidden="true" tabindex="-1"></a>predicted_y <span class="sc">%&gt;%</span></span>
+<span id="cb838-2"><a href="the-linear-model---regression-and-anova.html#cb838-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we create a new observation variable to filter our left_join</span></span>
+<span id="cb838-3"><a href="the-linear-model---regression-and-anova.html#cb838-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(berry_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">observation =</span> <span class="fu">as.character</span>(<span class="fu">row_number</span>()))) <span class="sc">%&gt;%</span> </span>
+<span id="cb838-4"><a href="the-linear-model---regression-and-anova.html#cb838-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb838-5"><a href="the-linear-model---regression-and-anova.html#cb838-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb838-6"><a href="the-linear-model---regression-and-anova.html#cb838-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb838-7"><a href="the-linear-model---regression-and-anova.html#cb838-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb838-8"><a href="the-linear-model---regression-and-anova.html#cb838-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Predicted value&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Observed value&quot;</span>)</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Unfortunately, it is clear that our model really doesn’t do much to predict the variation in our outcome variable. Equivalently, there is only a weak relationship between our predicted <span class="math inline">\(\hat{y}_i\)</span> values and our actual <span class="math inline">\(y_i\)</span> values.</p>
+<p>This is just one of the interesting things we found out in this study!</p>
+<div id="bonus-whats-the-underlying-implied-variables-in-this-model" class="section level4 hasAnchor" number="9.3.2.1">
+<h4><span class="header-section-number">9.3.2.1</span> Bonus: what’s the underlying (implied) variable(s) in this model?<a href="the-linear-model---regression-and-anova.html#bonus-whats-the-underlying-implied-variables-in-this-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>After spending a little bit of time on thinking about implicit links caused by the indexing variable, we immediately skimmed over what <span class="math inline">\(i\)</span> <em>means</em> in this study Looking back at our <code>skim()</code>, what variable(s) links the observations of <code>9pt_overall</code> and <code>lms_overall</code>?</p>
+<pre><code># Give your answers here!</code></pre>
+</div>
+<div id="a-resampling-approach-to-estimating-quality-of-regression" class="section level4 hasAnchor" number="9.3.2.2">
+<h4><span class="header-section-number">9.3.2.2</span> A resampling approach to estimating quality of regression<a href="the-linear-model---regression-and-anova.html#a-resampling-approach-to-estimating-quality-of-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Given how bad our model explanation is, and how little effect <code>lms_overall</code> seems to have (we could read our model as saying that our estimated <code>9pt_overall</code> score increases by 0.013 points for every 1 point increase in <code>lms_overall</code>), it is curious that we are so certain that our observed effect is significant. What does this mean?</p>
+<p>First, we might want to ask about the stability of our estimate. We can use this via bootstrapping, just as we did for means and variances in the last class.</p>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="the-linear-model---regression-and-anova.html#cb840-1" aria-hidden="true" tabindex="-1"></a>bootstrapped_betas <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">1000</span>)</span>
+<span id="cb840-2"><a href="the-linear-model---regression-and-anova.html#cb840-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb840-3"><a href="the-linear-model---regression-and-anova.html#cb840-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Resample our data with replacement</span></span>
+<span id="cb840-4"><a href="the-linear-model---regression-and-anova.html#cb840-4" aria-hidden="true" tabindex="-1"></a>  bootstrap_data <span class="ot">&lt;-</span> berry_data[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(berry_data), <span class="at">replace =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb840-5"><a href="the-linear-model---regression-and-anova.html#cb840-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># run the same model on the new sample</span></span>
+<span id="cb840-6"><a href="the-linear-model---regression-and-anova.html#cb840-6" aria-hidden="true" tabindex="-1"></a>  bootstrap_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">~</span> lms_overall, <span class="at">data =</span> bootstrap_data)</span>
+<span id="cb840-7"><a href="the-linear-model---regression-and-anova.html#cb840-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the lms_overall (beta) coefficient</span></span>
+<span id="cb840-8"><a href="the-linear-model---regression-and-anova.html#cb840-8" aria-hidden="true" tabindex="-1"></a>  bootstrapped_betas[i] <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(bootstrap_model)[<span class="dv">2</span>]</span>
+<span id="cb840-9"><a href="the-linear-model---regression-and-anova.html#cb840-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb840-10"><a href="the-linear-model---regression-and-anova.html#cb840-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb840-11"><a href="the-linear-model---regression-and-anova.html#cb840-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can plot the distribution of these beta coefficients and compare them to our observed coefficient</span></span>
+<span id="cb840-12"><a href="the-linear-model---regression-and-anova.html#cb840-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb840-13"><a href="the-linear-model---regression-and-anova.html#cb840-13" aria-hidden="true" tabindex="-1"></a>bootstrapped_betas <span class="sc">%&gt;%</span></span>
+<span id="cb840-14"><a href="the-linear-model---regression-and-anova.html#cb840-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb840-15"><a href="the-linear-model---regression-and-anova.html#cb840-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb840-16"><a href="the-linear-model---regression-and-anova.html#cb840-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb840-17"><a href="the-linear-model---regression-and-anova.html#cb840-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">coefficients</span>(berry_lm)[<span class="dv">2</span>], <span class="at">y =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb840-18"><a href="the-linear-model---regression-and-anova.html#cb840-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() </span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="the-linear-model---regression-and-anova.html#cb841-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(bootstrapped_betas, <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
+<pre><code>##         5%        95% 
+## 0.01060681 0.01449443</code></pre>
+<p>There is an almost 40% difference between our bootstrapped confidence-interval’s upper and lower bounds, which is not super tight. We could also use a permutation approach to consider the significance of our estimate. When we break the implied pairing between our two variables (disrupt the <span class="math inline">\(i\)</span> variable), what do we learn? Unlike our last example, in which we considered complete permutations, here we are also going to do an estimated or “bootstrapped permutation” test. We will only run 1000 of the almost infinitely large possible reorderings of the <span class="math inline">\(i\)</span> variable:</p>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="the-linear-model---regression-and-anova.html#cb843-1" aria-hidden="true" tabindex="-1"></a>permuted_betas <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">1000</span>)</span>
+<span id="cb843-2"><a href="the-linear-model---regression-and-anova.html#cb843-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb843-3"><a href="the-linear-model---regression-and-anova.html#cb843-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Scramble our data (not just resample)</span></span>
+<span id="cb843-4"><a href="the-linear-model---regression-and-anova.html#cb843-4" aria-hidden="true" tabindex="-1"></a>  permuted_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sample</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb843-5"><a href="the-linear-model---regression-and-anova.html#cb843-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">lms_overall =</span> berry_data<span class="sc">$</span>lms_overall)</span>
+<span id="cb843-6"><a href="the-linear-model---regression-and-anova.html#cb843-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run the same model on the new sample</span></span>
+<span id="cb843-7"><a href="the-linear-model---regression-and-anova.html#cb843-7" aria-hidden="true" tabindex="-1"></a>  bootstrap_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">~</span> lms_overall, <span class="at">data =</span> permuted_data)</span>
+<span id="cb843-8"><a href="the-linear-model---regression-and-anova.html#cb843-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the lms_overall (beta) coefficient</span></span>
+<span id="cb843-9"><a href="the-linear-model---regression-and-anova.html#cb843-9" aria-hidden="true" tabindex="-1"></a>  permuted_betas[i] <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(bootstrap_model)[<span class="dv">2</span>]</span>
+<span id="cb843-10"><a href="the-linear-model---regression-and-anova.html#cb843-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb843-11"><a href="the-linear-model---regression-and-anova.html#cb843-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb843-12"><a href="the-linear-model---regression-and-anova.html#cb843-12" aria-hidden="true" tabindex="-1"></a>permuted_betas <span class="sc">%&gt;%</span></span>
+<span id="cb843-13"><a href="the-linear-model---regression-and-anova.html#cb843-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb843-14"><a href="the-linear-model---regression-and-anova.html#cb843-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb843-15"><a href="the-linear-model---regression-and-anova.html#cb843-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb843-16"><a href="the-linear-model---regression-and-anova.html#cb843-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">coefficients</span>(berry_lm)[<span class="dv">2</span>], <span class="at">y =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb843-17"><a href="the-linear-model---regression-and-anova.html#cb843-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb843-18"><a href="the-linear-model---regression-and-anova.html#cb843-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Permuted beta coefficient&quot;</span>, <span class="at">y =</span> <span class="st">&quot;count&quot;</span>)</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Happily, it does appear that the relationship, while weak, is indeed stronger than we’d expect to observe if there were no relationship between our subjects’ reported liking on 2 scales! That’s a relief.</p>
+</div>
+</div>
+<div id="checking-your-model" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Checking your model<a href="the-linear-model---regression-and-anova.html#checking-your-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ve spent a little bit of time talking about how to interpret a model and how to investigate whether it is telling us anything useful. But an important facet of using any statistical model (that I am barely going to touch on) is investigating the fit of the model. The <code>lm()</code> function tries to help you out with this: by using <code>plot()</code> on an <code>lm</code> object, you can see a set of plots that give you information about model fit.</p>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="the-linear-model---regression-and-anova.html#cb844-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(berry_lm)</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/figures-side-1.png" width="50%" /><img src="09-linear-model_files/figure-html/figures-side-2.png" width="50%" /><img src="09-linear-model_files/figure-html/figures-side-3.png" width="50%" /><img src="09-linear-model_files/figure-html/figures-side-4.png" width="50%" /></p>
+<p>Each of these plots gives you information about how well the model fits. In this set, I tend to look most at the first two plots: the fitted values against the residuals and the QQ-plot of theoretical quantiles vs standardized residuals.</p>
+<ol style="list-style-type: decimal">
+<li>The first plot tells us whether there is a systematic pattern in (mis)-fitting our data. The question is whether the model fits worse (bigger absolute residuals) at some set of fitted values than at others. It does appear that there is a systematic relationship between fitted values and residuals (<span class="math inline">\(y_i - \hat{y_i}\)</span>), which tells us that this model is not unbiased: it will tend to predict more extreme values at either end of the range of our predicted values.</li>
+<li>The second plot tells us something about the normality of our data. It orders the residuals from lowest to highest, and then assigns them to quantiles of the normal distribution. Then, it plots those assigned quantiles against the actual normalized residuals. In a well-fitting model, the residuals should cling pretty close to a straight line–in our model, we see the same systematic deviation at both low and high levels (in this case represented as quantiles). This is an indicator of non-normality in our data, which in turn means our estimates are probably bad.</li>
+</ol>
+<p>The last 2 plots give more technical information about the model fit (and look <em>wild</em> for this model), and I will not go into them here.</p>
+<p>Beyond these simple plots, there are many important different ways to assess a model. But we will not go into them here, because we start to get into statistical assumptions, and I think you should learn about these methods from someone who is more expert in them. My goal is to equip you with the tools to manipulate data and execute these analyses, and interpretation is best left to the domain experts!</p>
+</div>
+</div>
+<div id="a-note-about-causality" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> A note about causality<a href="the-linear-model---regression-and-anova.html#a-note-about-causality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We are all familiar with the phrase “correlation does not imply causation”. But why do we say this so frequently?</p>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/correlation.png" alt="" />
+<p class="caption"><a href="https://xkcd.com/552/">XKCD can’t say for certain</a> whether statistics classes work.</p>
+</div>
+<p>Without getting too into the weeds (save that for Week 14!), we know a few things that should make us cautious!</p>
+<ul>
+<li>Correlation is symmetrical: <code>cor(x, y) == cor(y, x)</code>. So we can’t say anything about what is causing what!</li>
+<li>Correlation is a binary relationship: we only look at <code>cor(x, y)</code>, so if <span class="math inline">\(z\)</span> is causing both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we will see a strong correlation but won’t know why.</li>
+<li>Human brains seem to be simultaneous pattern-recognition and hypothesis-generation machines. So when we see associations (like correlations) we immediately make up plausible theories for them. We need to be cautious about our intuitions in the presence of these kinds of data explorations!</li>
+</ul>
+</div>
+<div id="a-coding-digression-factor" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> A coding digression: <code>factor</code><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So far we have talked about using one continuous variable to explain/predict variation in another continuous variable. Often, however, we will have <strong>categorical</strong> variables whose effect on some outcome variable <span class="math inline">\(y\)</span> we want to explore. In this case, we are going to end up working with a king of <code>R</code> data type we haven’t really explore yet: <code>factor</code>.</p>
+<p>I always recommend reading in the weekly assignment, but I am going to call it out here as well to remind you to check these out: the <a href="https://r4ds.had.co.nz/factors.html">R4DS chapter on factors</a> <span class="citation">(<a href="#ref-wickham2017" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span> is probably the best resource for this class. The links at the “Learning More” section of that chapter are great resources for those of you interested in the programming history of <code>R</code></p>
+<p>The short story behind the existence of factors is that they are memory- and computationally-efficient ways to deal with limited sets of (possible non-numeric) labels, which to us are strings like <code>"male"</code>, <code>"female"</code>, <code>"red</code>“, etc. In early <code>R</code> history it was not really necessary to deal with strings much, and so it was easier to largely treat them as labels for underlying integers. This is something we all do frequently in our own data-management without thinking about: think about how in an Excel lab notebook we fill the cells in a column like”Income level” by writing a value like “2”, which <em>represents</em> something like “$20-$30,000/year”. This is the idea behind how <code>R</code> treats <code>factor</code> data.</p>
+<p>A <code>factor</code> data type is a set of (small) integers with an attribute tag of <code>levels</code> that correspond to those labels. We’re going to examine this in the context of the <code>berry_data</code>.</p>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="the-linear-model---regression-and-anova.html#cb845-1" aria-hidden="true" tabindex="-1"></a>berry_types <span class="ot">&lt;-</span> berry_data<span class="sc">$</span>berry</span>
+<span id="cb845-2"><a href="the-linear-model---regression-and-anova.html#cb845-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(berry_types) <span class="co"># we don&#39;t want to print all 3000+ duplicates</span></span></code></pre></div>
+<pre><code>## [1] &quot;raspberry&quot;  &quot;blackberry&quot; &quot;blueberry&quot;  &quot;strawberry&quot;</code></pre>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="the-linear-model---regression-and-anova.html#cb847-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(berry_types)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="the-linear-model---regression-and-anova.html#cb849-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(berry_types)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>It is clear that we could do some kind of transformation where we tell <code>R</code> that <code>1 = "raspberry"</code>, etc to make integer labels for our berry types, and then <code>R</code> would only have to deal with numbers and a map that tells it which number corresponds to each unique character string in <code>berry_types</code>. This is what a factor does.</p>
+<p>In the language of <code>factor</code>, the label values are called <code>levels</code>.</p>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="the-linear-model---regression-and-anova.html#cb851-1" aria-hidden="true" tabindex="-1"></a>berry_levels <span class="ot">&lt;-</span> <span class="fu">unique</span>(berry_types)</span>
+<span id="cb851-2"><a href="the-linear-model---regression-and-anova.html#cb851-2" aria-hidden="true" tabindex="-1"></a>berry_factor <span class="ot">&lt;-</span> <span class="fu">factor</span>(berry_types, <span class="at">levels =</span> berry_levels)</span>
+<span id="cb851-3"><a href="the-linear-model---regression-and-anova.html#cb851-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(berry_factor)</span></code></pre></div>
+<pre><code>##  Factor w/ 4 levels &quot;raspberry&quot;,&quot;blackberry&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="the-linear-model---regression-and-anova.html#cb853-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(berry_factor)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb855-1"><a href="the-linear-model---regression-and-anova.html#cb855-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(berry_factor)</span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb857-1"><a href="the-linear-model---regression-and-anova.html#cb857-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(berry_factor)</span></code></pre></div>
+<pre><code>## $levels
+## [1] &quot;raspberry&quot;  &quot;blackberry&quot; &quot;blueberry&quot;  &quot;strawberry&quot;
+## 
+## $class
+## [1] &quot;factor&quot;</code></pre>
+<p>We can get the levels back out of a <code>factor</code> by using <code>levels()</code></p>
+<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb859-1"><a href="the-linear-model---regression-and-anova.html#cb859-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(berry_factor)</span></code></pre></div>
+<pre><code>## [1] &quot;raspberry&quot;  &quot;blackberry&quot; &quot;blueberry&quot;  &quot;strawberry&quot;</code></pre>
+<p>When we try to add a non-included level to a factor, R automatically coerces it to an <code>NA</code>.</p>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="the-linear-model---regression-and-anova.html#cb861-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;raspberry&quot;</span>, <span class="st">&quot;blueberry&quot;</span>, <span class="st">&quot;cherry&quot;</span>), <span class="at">levels =</span> berry_levels)</span></code></pre></div>
+<pre><code>## [1] raspberry blueberry &lt;NA&gt;     
+## Levels: raspberry blackberry blueberry strawberry</code></pre>
+<p>Thus, a <code>factor</code> is <code>R</code>’s way of creating a map between (computationally expensive) strings and inexpensive, easy to manipulate integers. Many modern (<code>tidyverse</code>-type) functions no longer use factors as extensively, but a lot of base <code>R</code> functions do use them (in particular the <code>aov()</code> and <code>lm()</code> functions we are using a lot today). They either will request factors or convert strings to factors in the background silently.</p>
+<p>Another place that factors can be quite useful is in <code>ggplot2</code>. If we have an integer label (like <code>sample</code> in <code>berry_data</code>, which represents a sample #), by default it will be treated as numeric:</p>
+<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="the-linear-model---regression-and-anova.html#cb863-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb863-2"><a href="the-linear-model---regression-and-anova.html#cb863-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lms_overall, <span class="at">y =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">color =</span> sample)) <span class="sc">+</span> </span>
+<span id="cb863-3"><a href="the-linear-model---regression-and-anova.html#cb863-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
+<span id="cb863-4"><a href="the-linear-model---regression-and-anova.html#cb863-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Notice the gradient assigned to the color mapping for <code>sample</code>. If we tell <code>R</code> that <code>sample</code> is a <code>factor</code> (by using the <code>as.factor()</code> coercion function), <code>ggplot()</code> will recognize this and give us a much more useful (discrete) color mapping:</p>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="the-linear-model---regression-and-anova.html#cb864-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb864-2"><a href="the-linear-model---regression-and-anova.html#cb864-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample =</span> <span class="fu">as.factor</span>(sample)) <span class="sc">%&gt;%</span></span>
+<span id="cb864-3"><a href="the-linear-model---regression-and-anova.html#cb864-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lms_overall, <span class="at">y =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">color =</span> sample)) <span class="sc">+</span> </span>
+<span id="cb864-4"><a href="the-linear-model---regression-and-anova.html#cb864-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
+<span id="cb864-5"><a href="the-linear-model---regression-and-anova.html#cb864-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Now that you’ve been introduced to <code>factor</code> data, you may have questions about, for example, how to add or subtract levels to a <code>factor</code>, or how to reorder those levels. Please consult the <a href="https://r4ds.had.co.nz/factors.html">R4DS chapter on factors</a> <span class="citation">(<a href="#ref-wickham2017" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span> to learn more–it is easy but slightly fiddly. And now, if you encounter weird effects in your treatment of string data, you’ll know why!</p>
+</div>
+<div id="analysis-of-variance-anova" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Analysis of variance (ANOVA)<a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that we’ve introduced a new type of data in <code>R</code>, let’s justify it’s use! Often, we want to explain the variation in a (continuous) <span class="math inline">\(y\)</span> variable by the effect of a <strong>categorical</strong> <span class="math inline">\(x\)</span> variable–in base <code>R</code> like <code>lm()</code> these are usually treated (or coerced to) <code>factor</code> data. Happily, unless we want to make changes to levels, we can let <code>R</code> handle this behind the scenes.</p>
+<p>When we have some <span class="math inline">\(x\)</span> variable that can only take on a set of discrete values, this is a <strong>categorical</strong> predictor, and our linear regression becomes instead <strong>An</strong>alysis <strong>o</strong>f <strong>Va</strong>riance: ANOVA. In ANOVA, we are interested in the effect of category membership <span class="math inline">\(\{x_1, x_2, ..., x_n\}\)</span> on our predicted outcome variable <span class="math inline">\(y\)</span>. Instead of our classic regression linear equation, we tend to write ANOVA something like the following:</p>
+<center>
+<span class="math inline">\(\hat{y}_i = \mu + \tau_k\)</span>
+</center>
+<p>We are familiar with the LHS of this equation–our <em>estimate</em> for a particular, observed <span class="math inline">\(y_i\)</span> is indicated as <span class="math inline">\(\hat{y}_i\)</span>. The RHS looks a bit different: it is read as “the grand mean” (<span class="math inline">\(\mu\)</span>) “plus the group mean of the level of <span class="math inline">\(x_i\)</span>” (which is written here as <span class="math inline">\(\tau_k\)</span>, because we often talk about these as <strong>t</strong>reatment means).</p>
+<p>This bit of mathiness can be rephrased intuitively as “our estimate of a particular <span class="math inline">\(y\)</span>-value is the sum of the average of <span class="math inline">\(y\)</span> plus the average effect of the treatment variable <span class="math inline">\(x\)</span>”. Even though this sounds like a different problem, it’s actually our same equation from linear regression reframed for a situation in which <span class="math inline">\(x\)</span> can only take on a delimited set of values. We have an example(s) of this in our <code>berry_data</code> set that will give us some context in this question.</p>
+<div id="one-way-anova" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> One-way ANOVA<a href="the-linear-model---regression-and-anova.html#one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In its simplest form, ANOVA is used to relate a single outcome <span class="math inline">\(y\)</span> and a single predictor <span class="math inline">\(x\)</span>. We still have the implicit <span class="math inline">\(i\)</span> variable that links our pairs of observations <span class="math inline">\((x_i, y_i)\)</span>, but now <span class="math inline">\(x_i \in \{x_1, x_2, ..., x_n\}\)</span>–it does not have an unlimted number of values it can take on, as it does in standard linear regression. Thus, our <span class="math inline">\(\beta\)</span> from linear regression is replaced by a set of <span class="math inline">\(\tau_k\)</span> values that represent the average effect for each possible group <span class="math inline">\(x_i\)</span> can be in. But we could as easily write <span class="math inline">\(\beta_k\)</span>–the meaning is the same. It is just convention.</p>
+<p>In <code>berry_data</code>, <code>berry</code> is a categorical variable that represents berry type: it can be one of four values.</p>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="the-linear-model---regression-and-anova.html#cb865-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(berry_data<span class="sc">$</span>berry)</span></code></pre></div>
+<pre><code>## [1] &quot;raspberry&quot;  &quot;blackberry&quot; &quot;blueberry&quot;  &quot;strawberry&quot;</code></pre>
+<p>Let’s model <code>us_overall</code> (scaled overall liking) on <code>berry</code>. This model asks: does the type of berry predict or explain a significant amount of liking? Can we say something about probable liking level if we know what type of berry the subject is tasting?</p>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="the-linear-model---regression-and-anova.html#cb867-1" aria-hidden="true" tabindex="-1"></a>berry_aov <span class="ot">&lt;-</span> berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb867-2"><a href="the-linear-model---regression-and-anova.html#cb867-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(us_overall <span class="sc">~</span> berry, <span class="at">data =</span> .)</span>
+<span id="cb867-3"><a href="the-linear-model---regression-and-anova.html#cb867-3" aria-hidden="true" tabindex="-1"></a>berry_aov</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = us_overall ~ berry, data = .)
+## 
+## Coefficients:
+##     (Intercept)   berryblueberry   berryraspberry  berrystrawberry  
+##         7.93878          1.30880          0.94541         -0.08662</code></pre>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="the-linear-model---regression-and-anova.html#cb869-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(berry_aov)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = us_overall ~ berry, data = .)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.2476 -2.8522  0.1478  3.0612  7.1478 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      7.93878    0.17031  46.614  &lt; 2e-16 ***
+## berryblueberry   1.30880    0.22804   5.739 1.06e-08 ***
+## berryraspberry   0.94541    0.22154   4.267 2.05e-05 ***
+## berrystrawberry -0.08662    0.21934  -0.395    0.693    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.77 on 2556 degrees of freedom
+##   (790 observations deleted due to missingness)
+## Multiple R-squared:  0.0246, Adjusted R-squared:  0.02346 
+## F-statistic: 21.49 on 3 and 2556 DF,  p-value: 9.602e-14</code></pre>
+<p>Notice we can just use our standard <code>lm()</code> function, even though our <span class="math inline">\(x\)</span> variable, <code>berry</code>, is categorical. The model object and <code>summary()</code> for <code>berry_aov</code> has coefficients for 3/4 berry types–this is because R is converting <code>berry</code> to a <code>factor</code> in the background, which makes <code>blackberry</code> the first level (it is alphabetically first), and so the coefficients in the model are the values for a <strong>change from <code>blackberry</code></strong> (the average liking for which is in the <code>(Intercept)</code> term). So <code>blueberry</code> is liked on average almost 1.31 pts on the line scale more than <code>blackberry</code>, whereas <code>strawberry</code> is liked slightly less on average by about 0.09 pts on the line scale. We also see our typical <em>t</em>-test estimates for significance for each level, but these are a bit harder to interpret for this model because these are actually each the same <span class="math inline">\(x\)</span> variable.</p>
+<p>Therefore, we might want to use the <code>anova()</code> function, which is a version of <code>summary()</code> specific for ANOVA.</p>
+<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="the-linear-model---regression-and-anova.html#cb871-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(berry_aov)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: us_overall
+##             Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## berry        3    916 305.423  21.489 9.602e-14 ***
+## Residuals 2556  36328  14.213                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>This tells us that the <span class="math inline">\(x\)</span> variable <code>berry</code> is overall significant, but doesn’t tell us about specific factor levels. We can get to this from the very start by using the <code>aov()</code> function, which is a version of <code>lm()</code> for ANOVA:</p>
+<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="the-linear-model---regression-and-anova.html#cb873-1" aria-hidden="true" tabindex="-1"></a>berry_aov_2 <span class="ot">&lt;-</span> berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb873-2"><a href="the-linear-model---regression-and-anova.html#cb873-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(us_overall <span class="sc">~</span> berry, <span class="at">data =</span> .) <span class="co"># here</span></span>
+<span id="cb873-3"><a href="the-linear-model---regression-and-anova.html#cb873-3" aria-hidden="true" tabindex="-1"></a>berry_aov_2</span></code></pre></div>
+<pre><code>## Call:
+##    aov(formula = us_overall ~ berry, data = .)
+## 
+## Terms:
+##                    berry Residuals
+## Sum of Squares    916.27  36327.52
+## Deg. of Freedom        3      2556
+## 
+## Residual standard error: 3.769966
+## Estimated effects may be unbalanced
+## 790 observations deleted due to missingness</code></pre>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="the-linear-model---regression-and-anova.html#cb875-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(berry_aov_2)</span></code></pre></div>
+<pre><code>##               Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+## berry          3    916  305.42   21.49 9.6e-14 ***
+## Residuals   2556  36328   14.21                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 790 observations deleted due to missingness</code></pre>
+<p>The proper way to report this kind of model is “there was a significant effect of berry type on overall liking as measured by an unstructured line scale”.</p>
+</div>
+<div id="posthoc-testing" class="section level3 hasAnchor" number="9.6.2">
+<h3><span class="header-section-number">9.6.2</span> Posthoc testing<a href="the-linear-model---regression-and-anova.html#posthoc-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In ANOVA, we typically are interested in whether there are significant differences <em>among</em> our treatment levels: sure, we have estimates for <span class="math inline">\(\tau_{strawberry}\)</span>, <span class="math inline">\(\tau_{raspberry}\)</span>, etc, but are they actually different from each other?</p>
+<p>To answer these questions, we often use what are called <strong>posthoc tests</strong>, which have names like “Fisher’s Least Significant Difference” (Fisher’s LSD) or “Tukey’s Honestly Significant Difference” (Tukey’s HSD). I think the easiest way to calculate these are from the <code>agricolae</code> package.</p>
+<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="the-linear-model---regression-and-anova.html#cb877-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(agricolae)</span>
+<span id="cb877-2"><a href="the-linear-model---regression-and-anova.html#cb877-2" aria-hidden="true" tabindex="-1"></a><span class="fu">LSD.test</span>(<span class="at">y =</span> berry_aov_2, <span class="at">trt =</span> <span class="st">&quot;berry&quot;</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+## Study: berry_aov_2 ~ &quot;berry&quot;
+## 
+## LSD t Test for us_overall 
+## 
+## Mean Square Error:  14.21265 
+## 
+## berry,  means and individual ( 95 %) CI
+## 
+##            us_overall      std   r      LCL      UCL Min Max
+## blackberry   7.938776 4.058913 490 7.604816 8.272735   0  15
+## blueberry    9.247573 3.679441 618 8.950203 9.544943   0  15
+## raspberry    8.884181 3.540931 708 8.606354 9.162008   0  15
+## strawberry   7.852151 3.857093 744 7.581128 8.123173   0  15
+## 
+## Alpha: 0.05 ; DF Error: 2556
+## Critical Value of t: 1.960893 
+## 
+## Groups according to probability of means differences and alpha level( 0.05 )
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##            us_overall groups
+## blueberry    9.247573      a
+## raspberry    8.884181      a
+## blackberry   7.938776      b
+## strawberry   7.852151      b</code></pre>
+<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="the-linear-model---regression-and-anova.html#cb879-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(<span class="at">y =</span> berry_aov_2, <span class="at">trt =</span> <span class="st">&quot;berry&quot;</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+## Study: berry_aov_2 ~ &quot;berry&quot;
+## 
+## HSD Test for us_overall 
+## 
+## Mean Square Error:  14.21265 
+## 
+## berry,  means
+## 
+##            us_overall      std   r Min Max
+## blackberry   7.938776 4.058913 490   0  15
+## blueberry    9.247573 3.679441 618   0  15
+## raspberry    8.884181 3.540931 708   0  15
+## strawberry   7.852151 3.857093 744   0  15
+## 
+## Alpha: 0.05 ; DF Error: 2556 
+## Critical Value of Studentized Range: 3.63555 
+## 
+## Groups according to probability of means differences and alpha level( 0.05 )
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##            us_overall groups
+## blueberry    9.247573      a
+## raspberry    8.884181      a
+## blackberry   7.938776      b
+## strawberry   7.852151      b</code></pre>
+<p>The key output of these kinds of tests are the “letters”–the groups labeled with the same letter are close enough to each other based on the test’s criteria to be considered not significantly different.</p>
+<p>All of these methods have various responses to the problem of familywise error: when we run multiple tests on the same set of data, we are increasing our chance of finding a relationship that is just coincidental. This is often referred to as “p-hacking” or “significance mining”. We will return to this issue in Week 14, but this XKCD actually very aptly sums up the problem:</p>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/significant.png" alt="" />
+<p class="caption">Watch out for those <a href="https://xkcd.com/882/">green jellybeans</a>!</p>
+</div>
+<p>I will say this: <strong>do not use Fisher’s LSD</strong>. It is frequently used in published papers, and it is very very prone to this kind of error. While there is no perfect approach, Tukey’s HSD (and other methods) are less likely to give this kind of false positive.</p>
+</div>
+<div id="plotting-anova-results" class="section level3 hasAnchor" number="9.6.3">
+<h3><span class="header-section-number">9.6.3</span> Plotting ANOVA results<a href="the-linear-model---regression-and-anova.html#plotting-anova-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Because ANOVA is based on categorical data, it doesn’t look very good to plot that data in scatterplots. Generally, boxplots or barplots will be the most effective visual representation of data from ANOVA. The following visualizations were adapted to some degree from <a href="https://philippmasur.de/2018/11/26/visualizing-interaction-effects/">Philipp Masur’s blog</a>:</p>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="the-linear-model---regression-and-anova.html#cb881-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb881-2"><a href="the-linear-model---regression-and-anova.html#cb881-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> berry, <span class="at">y =</span> us_overall)) <span class="sc">+</span> </span>
+<span id="cb881-3"><a href="the-linear-model---regression-and-anova.html#cb881-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> berry), <span class="at">notch =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb881-4"><a href="the-linear-model---regression-and-anova.html#cb881-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb881-5"><a href="the-linear-model---regression-and-anova.html#cb881-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="the-linear-model---regression-and-anova.html#cb882-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb882-2"><a href="the-linear-model---regression-and-anova.html#cb882-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> berry, <span class="at">y =</span> us_overall)) <span class="sc">+</span></span>
+<span id="cb882-3"><a href="the-linear-model---regression-and-anova.html#cb882-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">fill =</span> berry), <span class="at">fun.y =</span> mean, <span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>) <span class="sc">+</span></span>
+<span id="cb882-4"><a href="the-linear-model---regression-and-anova.html#cb882-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_boot, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb882-5"><a href="the-linear-model---regression-and-anova.html#cb882-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
+<p>Another classic plot for ANOVA that will become even more powerful when we begin to examine multiway analyses is the interaction plot, which is really a dot + line plot representing the same data as the bar plot:</p>
+<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb883-1"><a href="the-linear-model---regression-and-anova.html#cb883-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb883-2"><a href="the-linear-model---regression-and-anova.html#cb883-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We will make our own summary table rather than do transformations in ggplot</span></span>
+<span id="cb883-3"><a href="the-linear-model---regression-and-anova.html#cb883-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span></span>
+<span id="cb883-4"><a href="the-linear-model---regression-and-anova.html#cb883-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(us_overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb883-5"><a href="the-linear-model---regression-and-anova.html#cb883-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_liking =</span> <span class="fu">sd</span>(us_overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb883-6"><a href="the-linear-model---regression-and-anova.html#cb883-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> berry, <span class="at">y =</span> mean_liking, <span class="at">color =</span> berry, <span class="at">group =</span> berry)) <span class="sc">+</span></span>
+<span id="cb883-7"><a href="the-linear-model---regression-and-anova.html#cb883-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb883-8"><a href="the-linear-model---regression-and-anova.html#cb883-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean_liking)) <span class="sc">+</span></span>
+<span id="cb883-9"><a href="the-linear-model---regression-and-anova.html#cb883-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_liking <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> se_liking, <span class="at">ymax =</span> mean_liking <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> se_liking), <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb883-10"><a href="the-linear-model---regression-and-anova.html#cb883-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+<div id="resampling-approaches-to-anova" class="section level3 hasAnchor" number="9.6.4">
+<h3><span class="header-section-number">9.6.4</span> Resampling approaches to ANOVA<a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We actually learned about resampling approaches to ANOVA in last class, but let’s take a quick look at how we can modify our regression approach to get a better alternative to our posthoc tests.</p>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="the-linear-model---regression-and-anova.html#cb884-1" aria-hidden="true" tabindex="-1"></a>bootstrapped_means <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">berry =</span> <span class="fu">character</span>(),</span>
+<span id="cb884-2"><a href="the-linear-model---regression-and-anova.html#cb884-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">mean_liking =</span> <span class="fu">numeric</span>(),</span>
+<span id="cb884-3"><a href="the-linear-model---regression-and-anova.html#cb884-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">boot_id =</span> <span class="fu">numeric</span>())</span>
+<span id="cb884-4"><a href="the-linear-model---regression-and-anova.html#cb884-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb884-5"><a href="the-linear-model---regression-and-anova.html#cb884-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb884-6"><a href="the-linear-model---regression-and-anova.html#cb884-6" aria-hidden="true" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb884-7"><a href="the-linear-model---regression-and-anova.html#cb884-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span></span>
+<span id="cb884-8"><a href="the-linear-model---regression-and-anova.html#cb884-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The following line resamples to get the same size of data frame with replacement</span></span>
+<span id="cb884-9"><a href="the-linear-model---regression-and-anova.html#cb884-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb884-10"><a href="the-linear-model---regression-and-anova.html#cb884-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(us_overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb884-11"><a href="the-linear-model---regression-and-anova.html#cb884-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">boot_id =</span> i) <span class="sc">%&gt;%</span></span>
+<span id="cb884-12"><a href="the-linear-model---regression-and-anova.html#cb884-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(bootstrapped_means, .) <span class="ot">-&gt;</span></span>
+<span id="cb884-13"><a href="the-linear-model---regression-and-anova.html#cb884-13" aria-hidden="true" tabindex="-1"></a>    bootstrapped_means</span>
+<span id="cb884-14"><a href="the-linear-model---regression-and-anova.html#cb884-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb884-15"><a href="the-linear-model---regression-and-anova.html#cb884-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb884-16"><a href="the-linear-model---regression-and-anova.html#cb884-16" aria-hidden="true" tabindex="-1"></a>bootstrapped_means <span class="sc">%&gt;%</span></span>
+<span id="cb884-17"><a href="the-linear-model---regression-and-anova.html#cb884-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> berry, <span class="at">y =</span> mean_liking)) <span class="sc">+</span> </span>
+<span id="cb884-18"><a href="the-linear-model---regression-and-anova.html#cb884-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb884-19"><a href="the-linear-model---regression-and-anova.html#cb884-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> berry_data <span class="sc">%&gt;%</span> </span>
+<span id="cb884-20"><a href="the-linear-model---regression-and-anova.html#cb884-20" aria-hidden="true" tabindex="-1"></a>               <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span> </span>
+<span id="cb884-21"><a href="the-linear-model---regression-and-anova.html#cb884-21" aria-hidden="true" tabindex="-1"></a>               <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(us_overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb884-22"><a href="the-linear-model---regression-and-anova.html#cb884-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb884-23"><a href="the-linear-model---regression-and-anova.html#cb884-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="the-linear-model---regression-and-anova.html#cb885-1" aria-hidden="true" tabindex="-1"></a>bootstrapped_means <span class="sc">%&gt;%</span></span>
+<span id="cb885-2"><a href="the-linear-model---regression-and-anova.html#cb885-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span></span>
+<span id="cb885-3"><a href="the-linear-model---regression-and-anova.html#cb885-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">`</span><span class="at">5%</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">quantile</span>(mean_liking, <span class="fl">0.05</span>),</span>
+<span id="cb885-4"><a href="the-linear-model---regression-and-anova.html#cb885-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(mean_liking),</span>
+<span id="cb885-5"><a href="the-linear-model---regression-and-anova.html#cb885-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">95%</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">quantile</span>(mean_liking, <span class="fl">0.95</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 4
+##   berry       `5%`  mean `95%`
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 blackberry  7.66  7.94  8.24
+## 2 blueberry   9.00  9.25  9.49
+## 3 raspberry   8.66  8.88  9.10
+## 4 strawberry  7.62  7.85  8.07</code></pre>
+</div>
+</div>
+<div id="incorporating-multiple-predictors" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> Incorporating multiple predictors<a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As a tease of our material for next week, we can always include multiple predictors in linear regression and ANOVA. This lets us simultaneously estimate the effect of multiple predictors on some outcome. So, just for fun, let’s estimate the effect of berry type and subject age on over all berry liking.</p>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="the-linear-model---regression-and-anova.html#cb887-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb887-2"><a href="the-linear-model---regression-and-anova.html#cb887-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(us_overall <span class="sc">~</span> berry <span class="sc">*</span> age, <span class="at">data =</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb887-3"><a href="the-linear-model---regression-and-anova.html#cb887-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## berry          3    849  283.10  19.970 8.78e-13 ***
+## age            2    188   93.77   6.615  0.00137 ** 
+## berry:age      6     51    8.52   0.601  0.72949    
+## Residuals   2388  33852   14.18                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 950 observations deleted due to missingness</code></pre>
+<p>We can see that there is an overall effect of berry that remains even when the significant effect of age is also in the model. There doesn’t appear to be an <strong>interactive effect</strong> of berry and age, as shown by the third line for <code>berry:age</code>. We’ll talk about this in more detail tomorrow, but this plot should give an idea of what that means:</p>
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb889-1"><a href="the-linear-model---regression-and-anova.html#cb889-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb889-2"><a href="the-linear-model---regression-and-anova.html#cb889-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> us_overall, <span class="at">color =</span> berry)) <span class="sc">+</span> </span>
+<span id="cb889-3"><a href="the-linear-model---regression-and-anova.html#cb889-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb889-4"><a href="the-linear-model---regression-and-anova.html#cb889-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="09-linear-model_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>Often, when model multiple regression and ANOVA, we are not only interested in predicting <span class="math inline">\(y\)</span>, but in determining which different <span class="math inline">\(x\)</span>s <em>matter</em>. This is the topic we will explore next week!</p>
+</div>
+<div id="references-6" class="section level2 unnumbered hasAnchor">
+<h2>References<a href="the-linear-model---regression-and-anova.html#references-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-wickham2017" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for <span>Data Science</span></em>. <span>Sebastopol</span>: <span>O’Reilly</span>.
+</div>
+<div id="ref-yeung2021" class="csl-entry">
+Yeung, Henry F., Kumpol Homwongpanich, Elizabeth Michniuk, Dominic Rovai, Massimo Migliore, Amy Lammert, and Jacob Lahne. 2021. <span>“A Tale of 3 Scales: <span>How</span> Do the 9-Pt, <span>Labeled Affective Magnitude</span>, and Unstructured <span>Visual Analog</span> Scales Differentiate Real Product Sets of Fresh Berries?”</span> <em>Food Quality and Preference</em> 88 (March): 104109. <a href="https://doi.org/10.1016/j.foodqual.2020.104109">https://doi.org/10.1016/j.foodqual.2020.104109</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inference-from-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dealing-with-multiple-factors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-linear-model.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

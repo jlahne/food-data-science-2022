@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Advancing our wrangling | FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Advancing our wrangling | FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Advancing our wrangling | FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="describing-your-data.html"/>
+<link rel="next" href="inference-from-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="advancing-our-wrangling" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Advancing our wrangling<a href="advancing-our-wrangling.html#advancing-our-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The week after Spring Break is a good time for wrapping up loose ends and taking a breath. The goal for this week is to go over some final loose ends for data wrangling and basic exploration, then to pivot to your presentation of your first data analysis projects. Following this week we’re going to be turning to (statistical) inference and modeling, while of course continuing to struggle with and develop skills in data wrangling and visualization. So today we have a bit of a hodgepodge.</p>
+<p>We’re going to start by quickly reviewing concepts of control flow, and then looking at some common, powerful alternatives you’ll encounter for “vectorizing” operations in R. Then, we’re going to talk about some basic concepts of “relational data” (if you’ve ever used SQL or <code>=VLOOKUP()</code>/<code>=HLOOKUP()</code> functions in Excel you’ll know what we’re talking about). Finally, we’ll talk a little bit about “readable” programs and scripts, with some notes on how it’s a good idea to keep notes for yourselves and other for reproducible research.</p>
+<div id="todays-data" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Today’s data<a href="advancing-our-wrangling.html#todays-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’re going to use data from a paper my group published on developing a “Check All That Applies” (CATA) scale for hard ciders <span class="citation">(<a href="#ref-phetxumphou2020" role="doc-biblioref">Phetxumphou, Cox, and Lahne 2020</a>)</span>. The dataset we are going to be using consists of two tables: a table of the CATA attributes (and metadata) on a per-panelist, per-sample basis (<code>CiderCataAttributes.csv</code>; this table could be thought of as “semi-tidy”) and a table of rated liking (on a 9-pt scale) on a per-panelist basis (<code>cider_liking.csv</code>; this is a wide dataset).</p>
+<p>We are going to import and tidy the data here.</p>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="advancing-our-wrangling.html#cb696-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For the cider CATA table</span></span>
+<span id="cb696-2"><a href="advancing-our-wrangling.html#cb696-2" aria-hidden="true" tabindex="-1"></a>cider_cata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Files/Week 9/CiderCataAttributes.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb696-3"><a href="advancing-our-wrangling.html#cb696-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample_Name, Panelist_Name, FermentedApples<span class="sc">:</span>Smooth)</span>
+<span id="cb696-4"><a href="advancing-our-wrangling.html#cb696-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb696-5"><a href="advancing-our-wrangling.html#cb696-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For the liking table</span></span>
+<span id="cb696-6"><a href="advancing-our-wrangling.html#cb696-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb696-7"><a href="advancing-our-wrangling.html#cb696-7" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Files/Week 9/cider_liking.csv&quot;</span>)</span></code></pre></div>
+<p>Our data looks like this right off the bat:</p>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="advancing-our-wrangling.html#cb697-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are too many columns in cider_cata to display nicely</span></span>
+<span id="cb697-2"><a href="advancing-our-wrangling.html#cb697-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cider_cata) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">28</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Sample_Name
+</th>
+<th style="text-align:left;">
+Panelist_Name
+</th>
+<th style="text-align:right;">
+FermentedApples
+</th>
+<th style="text-align:right;">
+OverripeApples
+</th>
+<th style="text-align:right;">
+FreshApples
+</th>
+<th style="text-align:right;">
+Smooth
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Buskeys
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Blue Bee
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Potters
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cobbler Mountain
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Big Fish
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="advancing-our-wrangling.html#cb698-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cider_liking) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Panelist_Name
+</th>
+<th style="text-align:right;">
+Bold rock
+</th>
+<th style="text-align:right;">
+Buskeys
+</th>
+<th style="text-align:right;">
+Blue Bee
+</th>
+<th style="text-align:right;">
+Potters
+</th>
+<th style="text-align:right;">
+Cobbler Mountain
+</th>
+<th style="text-align:right;">
+Big Fish
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Renata Vieira Carneiro
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jennifer Acuff
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lily Yang
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brandon Lester
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Harry Schonberger
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can also tidy up the data (get it into long form) as good practice and because it’ll make our lives easier for certain things, later.</p>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="advancing-our-wrangling.html#cb699-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy the CATA data</span></span>
+<span id="cb699-2"><a href="advancing-our-wrangling.html#cb699-2" aria-hidden="true" tabindex="-1"></a>cider_cata <span class="sc">%&gt;%</span></span>
+<span id="cb699-3"><a href="advancing-our-wrangling.html#cb699-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;cata_attribute&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;checked&quot;</span>, <span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;Sample_Name&quot;</span>, <span class="st">&quot;Panelist_Name&quot;</span>)) <span class="ot">-&gt;</span></span>
+<span id="cb699-4"><a href="advancing-our-wrangling.html#cb699-4" aria-hidden="true" tabindex="-1"></a>  tidy_cider_cata</span>
+<span id="cb699-5"><a href="advancing-our-wrangling.html#cb699-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb699-6"><a href="advancing-our-wrangling.html#cb699-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy the liking data</span></span>
+<span id="cb699-7"><a href="advancing-our-wrangling.html#cb699-7" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb699-8"><a href="advancing-our-wrangling.html#cb699-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;cider_name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;liking&quot;</span>, <span class="sc">-</span><span class="st">&quot;Panelist_Name&quot;</span>) <span class="ot">-&gt;</span></span>
+<span id="cb699-9"><a href="advancing-our-wrangling.html#cb699-9" aria-hidden="true" tabindex="-1"></a>  tidy_cider_liking</span></code></pre></div>
+<p>And now our data are in the format we generally like to see:</p>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="advancing-our-wrangling.html#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tidy_cider_cata) <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Sample_Name
+</th>
+<th style="text-align:left;">
+Panelist_Name
+</th>
+<th style="text-align:left;">
+cata_attribute
+</th>
+<th style="text-align:right;">
+checked
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+FermentedApples
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+OverripeApples
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+FreshApples
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Alcohol
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+WineLike
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Floral
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="advancing-our-wrangling.html#cb701-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tidy_cider_liking) <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Panelist_Name
+</th>
+<th style="text-align:left;">
+cider_name
+</th>
+<th style="text-align:right;">
+liking
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Bold rock
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Buskeys
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Blue Bee
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Potters
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Cobbler Mountain
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paulette Cairns
+</td>
+<td style="text-align:left;">
+Big Fish
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="review-of-control-flow" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Review of control flow<a href="advancing-our-wrangling.html#review-of-control-flow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Control flow, as we’ve learned since we first covered it, is at the heart of coding for research. Being able to automate choices (conditional logic, like <code>if</code> statements) and iterations (loops, like <code>for</code> loops) is where much of the power in coding lies. However, these ideas aren’t necessarily intuitive or clear at first, and so I think we will all benefit from a brief review. This is especially true today, because we’re going to talk about some approaches that build on the basic intuitions of control flow to accomplish more, more quickly.</p>
+<div id="loops-1" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Loops<a href="advancing-our-wrangling.html#loops-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Loops, or more formally, <a href="https://r4ds.had.co.nz/iteration.html">iteration</a>, are one of the key “computers are good at this” tasks. A loop is a line or lines of code that we want to execute repeatedly, often changing some part of the input of the code. For example, we might want to use a vector of <span class="math inline">\(x\)</span>-values as input to some function <span class="math inline">\(f(x)\)</span> and save all of the results. Rather than repeatedly cutting and pasting the <span class="math inline">\(f(x)\)</span> for each <span class="math inline">\(x\)</span>, we can write a <code>for</code> loop that feeds each <span class="math inline">\(x\)</span> into the function. For a trivial example, we might want to get the results of <span class="math inline">\(f(x) = \frac{1}{sin^2(x)}\)</span> for <span class="math inline">\(x = (1, 2, 5, 10)\)</span>. We could write:</p>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="advancing-our-wrangling.html#cb702-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">sin</span>(<span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1.412283</code></pre>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="advancing-our-wrangling.html#cb704-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">sin</span>(<span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1.20945</code></pre>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="advancing-our-wrangling.html#cb706-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">sin</span>(<span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1.087505</code></pre>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="advancing-our-wrangling.html#cb708-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">sin</span>(<span class="dv">10</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 3.378847</code></pre>
+<p>But this is tedious and prone to errors. It is also not feasible when we have more than a handful of <span class="math inline">\(x\)</span>-values. How can we rewrite this as a loop?</p>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="advancing-our-wrangling.html#cb710-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How can we rewrite the same calculations above as a loop?</span></span>
+<span id="cb710-2"><a href="advancing-our-wrangling.html#cb710-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(inverse <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>)){</span>
+<span id="cb710-3"><a href="advancing-our-wrangling.html#cb710-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sin</span>(inverse)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb710-4"><a href="advancing-our-wrangling.html#cb710-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(result)</span>
+<span id="cb710-5"><a href="advancing-our-wrangling.html#cb710-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 1.412283
+## [1] 1.20945
+## [1] 1.087505
+## [1] 3.378847</code></pre>
+<p>Obviously, this is not a real example, but you can imagine how this could be useful for, for example, calculating some kind of conversion or other function based on your experimental results–you might want to convert from measured weight change in vial to brix in a fermentation, for example, at a set of time points.</p>
+<p>We have two basic loops available to us in R: <code>for</code> and <code>while</code> loops. In general, <code>for</code> loops require us to tell R how many times we want our code to execute, whereas <code>while</code> loops are more general, and can work even when you don’t know how many iterations you want.</p>
+<p>A key thing to remember about loops is that any variable created within the loop will be overwritten every time the loop re-executes. Therefore, you must either create a space to store the output of the loop or be executing the code for its “side effects”.</p>
+<div id="for-loop-review" class="section level4 hasAnchor" number="7.2.1.1">
+<h4><span class="header-section-number">7.2.1.1</span> <code>for</code> loop review<a href="advancing-our-wrangling.html#for-loop-review" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Recall that the syntax for a <code>for</code> loop requires you to set some sort of counter or <strong>index</strong>, which defines the number of iterations. In a real experiment, a common index might be the experimental units or treatments. In our cider data for today, we have 6 ciders as experimental treatments, and 56 subjects as experimental units. A legitimate question we could ask about the CATA data is:</p>
+<blockquote>
+<p>Averaged across experimental units (ciders), how many attributes did each subject check?</p>
+</blockquote>
+<p>We can use a <code>for</code> loop to <strong>iterate across subjects</strong> to answer this question:</p>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="advancing-our-wrangling.html#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(subject <span class="cf">in</span> <span class="fu">unique</span>(tidy_cider_cata<span class="sc">$</span>Panelist_Name)){</span>
+<span id="cb712-2"><a href="advancing-our-wrangling.html#cb712-2" aria-hidden="true" tabindex="-1"></a>  attributes_checked <span class="ot">&lt;-</span> tidy_cider_cata <span class="sc">%&gt;%</span></span>
+<span id="cb712-3"><a href="advancing-our-wrangling.html#cb712-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Panelist_Name <span class="sc">==</span> subject) <span class="sc">%&gt;%</span></span>
+<span id="cb712-4"><a href="advancing-our-wrangling.html#cb712-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(checked)</span>
+<span id="cb712-5"><a href="advancing-our-wrangling.html#cb712-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb712-6"><a href="advancing-our-wrangling.html#cb712-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(subject, <span class="st">&quot;checked, on average,&quot;</span>, <span class="fu">sum</span>(attributes_checked) <span class="sc">/</span> <span class="dv">6</span>, <span class="st">&quot;attributes.&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb712-7"><a href="advancing-our-wrangling.html#cb712-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span>
+<span id="cb712-8"><a href="advancing-our-wrangling.html#cb712-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Paulette Cairns checked, on average, 6 attributes.&quot;
+## [1] &quot;Renata Vieira Carneiro checked, on average, 4.66666666666667 attributes.&quot;
+## [1] &quot;Jennifer Acuff checked, on average, 3.16666666666667 attributes.&quot;
+## [1] &quot;Lily Yang checked, on average, 6.66666666666667 attributes.&quot;
+## [1] &quot;Brandon Lester checked, on average, 4.33333333333333 attributes.&quot;
+## [1] &quot;Harry Schonberger checked, on average, 5.66666666666667 attributes.&quot;
+## [1] &quot;Grace Earnhart checked, on average, 4.33333333333333 attributes.&quot;
+## [1] &quot;Andrea Green checked, on average, 5.33333333333333 attributes.&quot;
+## [1] &quot;Kathryn Racine checked, on average, 5.5 attributes.&quot;
+## [1] &quot;Elizabeth Clark checked, on average, 4.16666666666667 attributes.&quot;
+## [1] &quot;Julien Cadot checked, on average, 4.16666666666667 attributes.&quot;
+## [1] &quot;Yanhong He checked, on average, 5.16666666666667 attributes.&quot;
+## [1] &quot;Elizabeth Chang checked, on average, 5.83333333333333 attributes.&quot;
+## [1] &quot;Kaysha Perrin checked, on average, 6.5 attributes.&quot;
+## [1] &quot;Tessa Batterton checked, on average, 5.16666666666667 attributes.&quot;
+## [1] &quot;Sean O&#39;Keefe checked, on average, 5.83333333333333 attributes.&quot;
+## [1] &quot;Connor Owens checked, on average, 6 attributes.&quot;
+## [1] &quot;Casey Feher checked, on average, 7.5 attributes.&quot;
+## [1] &quot;Austin Skeens checked, on average, 6.5 attributes.&quot;
+## [1] &quot;Kim Waterman checked, on average, 4.5 attributes.&quot;
+## [1] &quot;Michael Hughes checked, on average, 5.5 attributes.&quot;
+## [1] &quot;Aili Wang checked, on average, 6.33333333333333 attributes.&quot;
+## [1] &quot;J&#39;Nai Phillips checked, on average, 7.16666666666667 attributes.&quot;
+## [1] &quot;Vincent Kessinger checked, on average, 6.33333333333333 attributes.&quot;
+## [1] &quot;Claire Marik checked, on average, 4.5 attributes.&quot;
+## [1] &quot;Renee Boyer checked, on average, 4 attributes.&quot;
+## [1] &quot;Deepak Poudel checked, on average, 5 attributes.&quot;
+## [1] &quot;Hannah Patton checked, on average, 4.33333333333333 attributes.&quot;
+## [1] &quot;Joell Eifert checked, on average, 6 attributes.&quot;
+## [1] &quot;Brittany Carter checked, on average, 7.5 attributes.&quot;
+## [1] &quot;Jasmil Perez checked, on average, 5.83333333333333 attributes.&quot;
+## [1] &quot;Amy Moore checked, on average, 5.66666666666667 attributes.&quot;
+## [1] &quot;Ellen Krupar checked, on average, 6.5 attributes.&quot;
+## [1] &quot;Kiri DeBose checked, on average, 5.16666666666667 attributes.&quot;
+## [1] &quot;Amy Rasor checked, on average, 6.83333333333333 attributes.&quot;
+## [1] &quot;Elizabeth Merin checked, on average, 9.5 attributes.&quot;
+## [1] &quot;James Baker checked, on average, 3.83333333333333 attributes.&quot;
+## [1] &quot;Lauren Krauss checked, on average, 2.83333333333333 attributes.&quot;
+## [1] &quot;Bryce Swanson checked, on average, 6.66666666666667 attributes.&quot;
+## [1] &quot;Pamela Pack checked, on average, 4.83333333333333 attributes.&quot;
+## [1] &quot;Nathan Briggs checked, on average, 9.83333333333333 attributes.&quot;
+## [1] &quot;Beck Hall checked, on average, 5.5 attributes.&quot;
+## [1] &quot;Beth Kirby checked, on average, 6.33333333333333 attributes.&quot;
+## [1] &quot;Andrea Dietrich checked, on average, 5.33333333333333 attributes.&quot;
+## [1] &quot;Velva Groover checked, on average, 4.16666666666667 attributes.&quot;
+## [1] &quot;Laura Rasnick checked, on average, 4.16666666666667 attributes.&quot;
+## [1] &quot;Maureen Sroufe checked, on average, 3.66666666666667 attributes.&quot;
+## [1] &quot;Betti Kreye checked, on average, 4.5 attributes.&quot;
+## [1] &quot;josh obenhaus checked, on average, 2.5 attributes.&quot;
+## [1] &quot;Brennan Shepard checked, on average, 4.5 attributes.&quot;
+## [1] &quot;Jay Sim checked, on average, 2.66666666666667 attributes.&quot;
+## [1] &quot;Ted Sindabizera Ntwari checked, on average, 3 attributes.&quot;
+## [1] &quot;Jamie  Chen checked, on average, 6.5 attributes.&quot;
+## [1] &quot;Sungwoo Kim checked, on average, 4.66666666666667 attributes.&quot;
+## [1] &quot;Sydney Goy checked, on average, 3.66666666666667 attributes.&quot;
+## [1] &quot;matthew stephen ferby checked, on average, 5 attributes.&quot;</code></pre>
+<p>Note that we used the <code>paste()</code> and <code>print()</code> functions to write the average of each subject’s checked attributes to the console/the R Markdown. But if we looked up <code>subject</code> and <code>attributes_checked</code>, which are both variables created in the loop, we see only the values for the last iteration:</p>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="advancing-our-wrangling.html#cb714-1" aria-hidden="true" tabindex="-1"></a>subject</span></code></pre></div>
+<pre><code>## [1] &quot;matthew stephen ferby&quot;</code></pre>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="advancing-our-wrangling.html#cb716-1" aria-hidden="true" tabindex="-1"></a>attributes_checked</span></code></pre></div>
+<pre><code>##   [1] 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+##  [38] 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 0 0 0 0 0 1 1 0 1 0 0 0 0 0 0 1 0
+##  [75] 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 1 1 1 0 0 0 0 0 1 0 1 0 0
+## [112] 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0
+## [149] 0 1 1 0 0 0 1 0</code></pre>
+<p>If we really wanted these results (and remember that there are better ways to get them, such as the <code>group_by()</code> and <code>summarize()</code> workflow), we would want to create a vector or dataframe to store each iteration’s results into.</p>
+</div>
+<div id="while-loop-review" class="section level4 hasAnchor" number="7.2.1.2">
+<h4><span class="header-section-number">7.2.1.2</span> <code>while</code> loop review<a href="advancing-our-wrangling.html#while-loop-review" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On the other hand, <code>while</code> loops execute repeatedly until the condition in the loop is <code>FALSE</code>. So, for example, the following loop would run infinitely, requiring you to force-stop the loop in the console:</p>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="advancing-our-wrangling.html#cb718-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="cn">TRUE</span>){</span>
+<span id="cb718-2"><a href="advancing-our-wrangling.html#cb718-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;This loop will run forever.&quot;</span>)</span>
+<span id="cb718-3"><a href="advancing-our-wrangling.html#cb718-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This seems really useless, but, especially in simulations, we might want to be able to run a block of code for an unknown number of iterations. Or, if you are writing code that will be deployed (this is really moving into coding for <em>production</em>, rather than coding for research), you might not know the “shape” of the input you’re going to get, which will make <code>while</code> loops more flexible.</p>
+<p>Briefly, <code>while</code> loops are in fact more general versions of <code>for</code> loops–any <code>for</code> loop can be rewritten as a <code>while</code> loop, but the reverse is untrue (for example, the trivial infinite loop above cannote be rewritten as a <code>for</code> loop). We could, however, use the <code>break</code> command with some conditional to break out of an infinite loop to replicate the <code>for</code> loop above as a <code>while</code> loop.</p>
+</div>
+</div>
+<div id="conditionals" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Conditionals<a href="advancing-our-wrangling.html#conditionals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Often, we want to have our code make simple decisions for us. We want to be able to execute one kind of code in some conditions, and another in other conditions. This is where <code>if</code> (and the helper <code>else</code>) statements come in handy.</p>
+<p>By wrapping a piece of code in an <code>if</code> statement, the code will only be executed if the logical test associated with the <code>if</code> is <code>TRUE</code>. For a trivial example in our data set, we might want to print out the name of every cider that is rated at &gt; 7 on the liking scale. To do so, we can use an <code>if</code> statement, along with a <code>for</code> loop.</p>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="advancing-our-wrangling.html#cb719-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start with a loop to step through every line of the tidy_cider_liking data frame</span></span>
+<span id="cb719-2"><a href="advancing-our-wrangling.html#cb719-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tidy_cider_liking)){</span>
+<span id="cb719-3"><a href="advancing-our-wrangling.html#cb719-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we look at the i-th liking rating and compare it to 7, then print something</span></span>
+<span id="cb719-4"><a href="advancing-our-wrangling.html#cb719-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(tidy_cider_liking<span class="sc">$</span>liking[i] <span class="sc">&gt;</span> <span class="dv">7</span>) <span class="fu">print</span>(<span class="fu">paste</span>(tidy_cider_liking<span class="sc">$</span>Panelist_Name[i], <span class="st">&quot;liked&quot;</span>, tidy_cider_liking<span class="sc">$</span>cider_name[i], <span class="st">&quot;a lot.&quot;</span>))</span>
+<span id="cb719-5"><a href="advancing-our-wrangling.html#cb719-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Paulette Cairns liked Bold rock a lot.&quot;
+## [1] &quot;Renata Vieira Carneiro liked Bold rock a lot.&quot;
+## [1] &quot;Renata Vieira Carneiro liked Buskeys a lot.&quot;
+## [1] &quot;Lily Yang liked Bold rock a lot.&quot;
+## [1] &quot;Lily Yang liked Cobbler Mountain a lot.&quot;
+## [1] &quot;Brandon Lester liked Buskeys a lot.&quot;
+## [1] &quot;Brandon Lester liked Potters a lot.&quot;
+## [1] &quot;Brandon Lester liked Big Fish a lot.&quot;
+## [1] &quot;Grace Earnhart liked Big Fish a lot.&quot;
+## [1] &quot;Andrea Green liked Bold rock a lot.&quot;
+## [1] &quot;Andrea Green liked Buskeys a lot.&quot;
+## [1] &quot;Andrea Green liked Blue Bee a lot.&quot;
+## [1] &quot;Julien Cadot liked Blue Bee a lot.&quot;
+## [1] &quot;Julien Cadot liked Potters a lot.&quot;
+## [1] &quot;Elizabeth Chang liked Bold rock a lot.&quot;
+## [1] &quot;Kaysha Perrin liked Bold rock a lot.&quot;
+## [1] &quot;Kaysha Perrin liked Big Fish a lot.&quot;
+## [1] &quot;Connor Owens liked Bold rock a lot.&quot;
+## [1] &quot;Connor Owens liked Buskeys a lot.&quot;
+## [1] &quot;Connor Owens liked Cobbler Mountain a lot.&quot;
+## [1] &quot;Casey Feher liked Bold rock a lot.&quot;
+## [1] &quot;Casey Feher liked Potters a lot.&quot;
+## [1] &quot;Austin Skeens liked Cobbler Mountain a lot.&quot;
+## [1] &quot;Michael Hughes liked Bold rock a lot.&quot;
+## [1] &quot;Vincent Kessinger liked Bold rock a lot.&quot;
+## [1] &quot;Deepak Poudel liked Bold rock a lot.&quot;
+## [1] &quot;Deepak Poudel liked Big Fish a lot.&quot;
+## [1] &quot;Hannah Patton liked Bold rock a lot.&quot;
+## [1] &quot;Hannah Patton liked Buskeys a lot.&quot;
+## [1] &quot;Hannah Patton liked Cobbler Mountain a lot.&quot;
+## [1] &quot;Jasmil Perez liked Bold rock a lot.&quot;
+## [1] &quot;Jasmil Perez liked Buskeys a lot.&quot;
+## [1] &quot;Amy Moore liked Potters a lot.&quot;
+## [1] &quot;Amy Moore liked Big Fish a lot.&quot;
+## [1] &quot;Ellen Krupar liked Bold rock a lot.&quot;
+## [1] &quot;Kiri DeBose liked Bold rock a lot.&quot;
+## [1] &quot;Elizabeth Merin liked Bold rock a lot.&quot;
+## [1] &quot;Elizabeth Merin liked Big Fish a lot.&quot;
+## [1] &quot;Bryce Swanson liked Bold rock a lot.&quot;
+## [1] &quot;Bryce Swanson liked Big Fish a lot.&quot;
+## [1] &quot;Nathan Briggs liked Blue Bee a lot.&quot;
+## [1] &quot;Nathan Briggs liked Potters a lot.&quot;
+## [1] &quot;Nathan Briggs liked Big Fish a lot.&quot;
+## [1] &quot;Beck Hall liked Blue Bee a lot.&quot;
+## [1] &quot;Beck Hall liked Potters a lot.&quot;
+## [1] &quot;Beth Kirby liked Bold rock a lot.&quot;
+## [1] &quot;Beth Kirby liked Potters a lot.&quot;
+## [1] &quot;Beth Kirby liked Big Fish a lot.&quot;
+## [1] &quot;Velva Groover liked Bold rock a lot.&quot;
+## [1] &quot;Laura Rasnick liked Bold rock a lot.&quot;
+## [1] &quot;Maureen Sroufe liked Bold rock a lot.&quot;
+## [1] &quot;Maureen Sroufe liked Cobbler Mountain a lot.&quot;
+## [1] &quot;Maureen Sroufe liked Big Fish a lot.&quot;
+## [1] &quot;Betti Kreye liked Bold rock a lot.&quot;
+## [1] &quot;Brennan Shepard liked Buskeys a lot.&quot;
+## [1] &quot;Brennan Shepard liked Blue Bee a lot.&quot;
+## [1] &quot;Jay Sim liked Bold rock a lot.&quot;
+## [1] &quot;Jamie  Chen liked Bold rock a lot.&quot;
+## [1] &quot;Sydney Goy liked Potters a lot.&quot;
+## [1] &quot;matthew stephen ferby liked Cobbler Mountain a lot.&quot;</code></pre>
+<p>Again, this is a kind of trivial example; a better approach would be to use indexing (either directly, using <code>[]</code> or using the tidyverse <code>filter()</code>), but it demonstrates the basic workflow. Often, we’ll use <code>if</code> statements programmatically in order to write functions that can make basic decisions</p>
+</div>
+</div>
+<div id="using-vectorization-in-r" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Using vectorization in R<a href="advancing-our-wrangling.html#using-vectorization-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you dig into the help posts on StackExchange/Overflow, you’ll frequently run across solutions using “<em>vectorized</em>” approaches, and explanations of speed improvements (for complex tasks) that recommend vectorization over loops. While the specifics of vectorization are beyond the scope of this class (and, indeed, beyond my ability to explain clearly or accurately), the basic concept isn’t hard: R is built around the idea of efficiently applying transformations to vectorized data, whereas loops like <code>for</code> and <code>while</code> break down vectors into each of their elements and then apply transformations to each element. I think that an analogy would be something like this:</p>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="advancing-our-wrangling.html#cb721-1" aria-hidden="true" tabindex="-1"></a>a_sequence <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span></span>
+<span id="cb721-2"><a href="advancing-our-wrangling.html#cb721-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vectorized approach:</span></span>
+<span id="cb721-3"><a href="advancing-our-wrangling.html#cb721-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb721-4"><a href="advancing-our-wrangling.html#cb721-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(a_sequence)</span></code></pre></div>
+<pre><code>## [1] 50005000</code></pre>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="advancing-our-wrangling.html#cb723-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 0.001 sec elapsed</code></pre>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="advancing-our-wrangling.html#cb725-1" aria-hidden="true" tabindex="-1"></a><span class="co"># looped approach</span></span>
+<span id="cb725-2"><a href="advancing-our-wrangling.html#cb725-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb725-3"><a href="advancing-our-wrangling.html#cb725-3" aria-hidden="true" tabindex="-1"></a>sum_amount <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb725-4"><a href="advancing-our-wrangling.html#cb725-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(a_sequence)) sum_amount <span class="ot">&lt;-</span> sum_amount <span class="sc">+</span> a_sequence[i]</span>
+<span id="cb725-5"><a href="advancing-our-wrangling.html#cb725-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 0.004 sec elapsed</code></pre>
+<p>These both work fine, but you can see that there is more <em>overhead</em> for the loop - storing and erasing variables as it proceeds along the chain. You can imagine that, in a language that is built for the former, doing the latter is going to be less quick (and less memory-efficient, which is not going to be a problem for you in most initial applications, but can be a serious barrier).</p>
+<p>Why doesn’t everyone just learn the vectorized approaches off the bat, then? Well, there are two main reasons:</p>
+<ol style="list-style-type: decimal">
+<li>Not all programming languages support vectorization in the same way as R, or even at all, but loops and conditionals are in general features of every programming language. Therefore, it is easier to learn about and use the looped structure.</li>
+<li>Loops are more intuitive to test and write–and it is always better to get code that works <em>first</em>, then make it efficient <em>second</em>. So sometimes it is better to sketch out a for loop (especially because the pseudocode for such a structure is easy to conceptualize), and then, if necessary, figure out the vectorized version.</li>
+</ol>
+<p>In coding for research, we often just need our code to run correctly and reproducibly–we don’t care as much about efficiency. So briefly learning about vectorization is important, because it may become necessary, but it may also be something you just need to recognize, rather than be able to produce effectively on your own.</p>
+<div id="tidyverse-approaches-map-family" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> <code>tidyverse</code> approaches: <code>map()</code> family<a href="advancing-our-wrangling.html#tidyverse-approaches-map-family" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usually we start our discussion with base R functions and then move on the simpler-but-require-loading-a-package <code>tidyverse</code> functions. In this case, however, we’re going to do the reverse, because I think that the <code>purrr::map()</code> family of functions is so much simpler and easier to understand than the base R functions that I think the concept will be much clearer.</p>
+<p>In effect, we use <code>map()</code> whenever we want to apply the same function to every element of a vector. This is a lot like a <code>for</code> loop, in which we step through each element (usually using a line of code that is something like <code>for(i in 1:nrow(vector))</code>). But <code>map()</code> and its relations do this faster and with less typing–the latter is not only because we’re lazy, but because if we type less we’re less likely to make mistakes.</p>
+<p>So, for a toy example, imagine we want to get the mean liking for each cider in the <code>cider_liking</code> data frame.</p>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="advancing-our-wrangling.html#cb727-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What happens if we just try to take the mean of the data frame?</span></span>
+<span id="cb727-2"><a href="advancing-our-wrangling.html#cb727-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_liking[,<span class="sc">-</span><span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## Warning in mean.default(cider_liking[, -1]): argument is not numeric or logical:
+## returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="advancing-our-wrangling.html#cb730-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can take one mean at a time:</span></span>
+<span id="cb730-2"><a href="advancing-our-wrangling.html#cb730-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_liking<span class="sc">$</span><span class="st">`</span><span class="at">Bold rock</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>## [1] 6.696429</code></pre>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="advancing-our-wrangling.html#cb732-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_liking<span class="sc">$</span>Buskeys)</span></code></pre></div>
+<pre><code>## [1] 6.053571</code></pre>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="advancing-our-wrangling.html#cb734-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We could step through with a loop through the columns</span></span>
+<span id="cb734-2"><a href="advancing-our-wrangling.html#cb734-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(variable <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(cider_liking)) <span class="fu">print</span>(<span class="fu">mean</span>(cider_liking[[variable]]))</span></code></pre></div>
+<pre><code>## [1] 6.696429
+## [1] 6.053571
+## [1] 3.946429
+## [1] 4.982143
+## [1] 4.821429
+## [1] 5.607143</code></pre>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="advancing-our-wrangling.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or we can use map() to do this cleanly</span></span>
+<span id="cb736-2"><a href="advancing-our-wrangling.html#cb736-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (We may want to drop the Panelist_Name column because it is a character)</span></span>
+<span id="cb736-3"><a href="advancing-our-wrangling.html#cb736-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb736-4"><a href="advancing-our-wrangling.html#cb736-4" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span> </span>
+<span id="cb736-5"><a href="advancing-our-wrangling.html#cb736-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb736-6"><a href="advancing-our-wrangling.html#cb736-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(mean)</span></code></pre></div>
+<pre><code>## $`Bold rock`
+## [1] 6.696429
+## 
+## $Buskeys
+## [1] 6.053571
+## 
+## $`Blue Bee`
+## [1] 3.946429
+## 
+## $Potters
+## [1] 4.982143
+## 
+## $`Cobbler Mountain`
+## [1] 4.821429
+## 
+## $`Big Fish`
+## [1] 5.607143</code></pre>
+<p>The key to understanding what is happening is that a data frame (and so a tibble) is a <em>vector of vectors</em> (that are all the same length, so that it is “rectangular”):</p>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="advancing-our-wrangling.html#cb738-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cider_liking)</span></code></pre></div>
+<pre><code>## spec_tbl_df [56 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ Panelist_Name   : chr [1:56] &quot;Paulette Cairns&quot; &quot;Renata Vieira Carneiro&quot; &quot;Jennifer Acuff&quot; &quot;Lily Yang&quot; ...
+##  $ Bold rock       : num [1:56] 8 8 4 8 7 4 3 8 4 5 ...
+##  $ Buskeys         : num [1:56] 4 8 6 4 8 4 7 9 6 6 ...
+##  $ Blue Bee        : num [1:56] 1 4 5 3 3 2 2 8 2 2 ...
+##  $ Potters         : num [1:56] 5 4 6 3 8 7 4 7 7 6 ...
+##  $ Cobbler Mountain: num [1:56] 5 6 7 9 4 4 3 6 4 5 ...
+##  $ Big Fish        : num [1:56] 3 4 6 6 8 4 8 7 4 7 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   Panelist_Name = col_character(),
+##   ..   `Bold rock` = col_double(),
+##   ..   Buskeys = col_double(),
+##   ..   `Blue Bee` = col_double(),
+##   ..   Potters = col_double(),
+##   ..   `Cobbler Mountain` = col_double(),
+##   ..   `Big Fish` = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<p>As we started by saying, <code>map()</code> applies a function to all of the elements of a vector. So, here, <code>map()</code> is going to each column (we dropped the <code>Panelist_Name</code> column to avoid getting an <code>NA</code> b/c it is a character) and applying the function we asked for: <code>mean()</code>. By default, <code>map()</code> returns a list of the same length as the original vector, which has names matching the elements it is applied along.</p>
+<p>If we want to not have a list at the end, we could use the <code>unlist()</code> function at the end of our pipe to collapse down to a vector:</p>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="advancing-our-wrangling.html#cb740-1" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span> </span>
+<span id="cb740-2"><a href="advancing-our-wrangling.html#cb740-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb740-3"><a href="advancing-our-wrangling.html#cb740-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(mean) <span class="sc">%&gt;%</span></span>
+<span id="cb740-4"><a href="advancing-our-wrangling.html#cb740-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span></code></pre></div>
+<pre><code>##        Bold rock          Buskeys         Blue Bee          Potters 
+##         6.696429         6.053571         3.946429         4.982143 
+## Cobbler Mountain         Big Fish 
+##         4.821429         5.607143</code></pre>
+<p>But I keep talking about the <code>map()</code> <strong>family</strong>, and what I mean by this is functions like <code>map_dbl()</code>, which includes this step and will either return a <em>vector</em> of doubles (see the <code>_dbl</code>?) or will return an error. This lets you be sure it is doing what you think it is doing.</p>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="advancing-our-wrangling.html#cb742-1" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb742-2"><a href="advancing-our-wrangling.html#cb742-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb742-3"><a href="advancing-our-wrangling.html#cb742-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dbl</span>(mean)</span></code></pre></div>
+<pre><code>##        Bold rock          Buskeys         Blue Bee          Potters 
+##         6.696429         6.053571         3.946429         4.982143 
+## Cobbler Mountain         Big Fish 
+##         4.821429         5.607143</code></pre>
+<p>There are equivalent versions for all the standard data types in R. There are also more exotic versions that return data frames, or that use conditional logic (<code>map_if()</code>), but I am not going to cover these here.</p>
+<div id="anonymous-functions" class="section level4 hasAnchor" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Anonymous functions<a href="advancing-our-wrangling.html#anonymous-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the example above, we used <code>mean()</code> as the function we passed to <code>map()</code>. But what if you wanted to do something that isn’t already a named function? For example, what if you want to get all numbers greater than the mean liking of each column? This isn’t a pre-defined function. The first option we might think of is that we can write such a function, give it a name, and then use <code>map()</code> to apply it:</p>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="advancing-our-wrangling.html#cb744-1" aria-hidden="true" tabindex="-1"></a>above_the_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(numbers){</span>
+<span id="cb744-2"><a href="advancing-our-wrangling.html#cb744-2" aria-hidden="true" tabindex="-1"></a>  numbers[numbers <span class="sc">&gt;</span> <span class="fu">mean</span>(numbers)]</span>
+<span id="cb744-3"><a href="advancing-our-wrangling.html#cb744-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb744-4"><a href="advancing-our-wrangling.html#cb744-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb744-5"><a href="advancing-our-wrangling.html#cb744-5" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb744-6"><a href="advancing-our-wrangling.html#cb744-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb744-7"><a href="advancing-our-wrangling.html#cb744-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(above_the_mean)</span></code></pre></div>
+<pre><code>## $`Bold rock`
+##  [1] 8 8 8 7 8 8 8 7 9 8 7 8 7 7 8 7 8 8 7 7 9 7 8 8 9 7 8 7 8 8 8 9 8 8 8 7
+## 
+## $Buskeys
+##  [1] 8 8 7 9 7 7 8 7 7 7 7 8 8 7 7 7 7 7 7 7 7 7 8 7
+## 
+## $`Blue Bee`
+##  [1] 4 5 8 8 6 4 4 4 7 7 4 4 6 5 4 5 7 4 9 8 4 7 4 6 5 8 6 4 6
+## 
+## $Potters
+##  [1] 5 6 8 7 7 7 6 8 6 7 6 6 7 8 5 7 7 6 7 8 6 5 9 8 8 6 5 6 6 8 6
+## 
+## $`Cobbler Mountain`
+##  [1] 5 6 7 9 6 5 7 6 8 8 6 6 7 8 6 7 7 7 5 7 5 8 6 7 7 5 8
+## 
+## $`Big Fish`
+##  [1] 6 6 8 8 7 7 7 6 8 7 7 6 7 8 6 6 7 8 6 8 6 8 6 9 7 8 7 8 7 7 6 6</code></pre>
+<p>Note that here we are using <code>map()</code> because we are returning a “<em>ragged</em>” list, where each element has a different length.</p>
+<p>But this means that, if this function is something we just want that one time, we now have it floating around in our memory. This is annoying. R actually allows for the definition of “<strong>anonymous functions</strong> on the fly within other function calls, by just giving the function without assigning it to a name:</p>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="advancing-our-wrangling.html#cb746-1" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb746-2"><a href="advancing-our-wrangling.html#cb746-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb746-3"><a href="advancing-our-wrangling.html#cb746-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="cf">function</span>(x) x[x <span class="sc">&gt;</span> <span class="fu">mean</span>(x)]) <span class="co"># conventionally we use `x` as the variable name in anonymous functions</span></span></code></pre></div>
+<pre><code>## $`Bold rock`
+##  [1] 8 8 8 7 8 8 8 7 9 8 7 8 7 7 8 7 8 8 7 7 9 7 8 8 9 7 8 7 8 8 8 9 8 8 8 7
+## 
+## $Buskeys
+##  [1] 8 8 7 9 7 7 8 7 7 7 7 8 8 7 7 7 7 7 7 7 7 7 8 7
+## 
+## $`Blue Bee`
+##  [1] 4 5 8 8 6 4 4 4 7 7 4 4 6 5 4 5 7 4 9 8 4 7 4 6 5 8 6 4 6
+## 
+## $Potters
+##  [1] 5 6 8 7 7 7 6 8 6 7 6 6 7 8 5 7 7 6 7 8 6 5 9 8 8 6 5 6 6 8 6
+## 
+## $`Cobbler Mountain`
+##  [1] 5 6 7 9 6 5 7 6 8 8 6 6 7 8 6 7 7 7 5 7 5 8 6 7 7 5 8
+## 
+## $`Big Fish`
+##  [1] 6 6 8 8 7 7 7 6 8 7 7 6 7 8 6 6 7 8 6 8 6 8 6 9 7 8 7 8 7 7 6 6</code></pre>
+<p>But <code>purrr</code> and the <code>tidyverse</code> actually use an even more compact “lambda function” or “one-sided formula” notation for this:</p>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="advancing-our-wrangling.html#cb748-1" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb748-2"><a href="advancing-our-wrangling.html#cb748-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb748-3"><a href="advancing-our-wrangling.html#cb748-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> .x[.x <span class="sc">&gt;</span> <span class="fu">mean</span>(.x)])</span></code></pre></div>
+<pre><code>## $`Bold rock`
+##  [1] 8 8 8 7 8 8 8 7 9 8 7 8 7 7 8 7 8 8 7 7 9 7 8 8 9 7 8 7 8 8 8 9 8 8 8 7
+## 
+## $Buskeys
+##  [1] 8 8 7 9 7 7 8 7 7 7 7 8 8 7 7 7 7 7 7 7 7 7 8 7
+## 
+## $`Blue Bee`
+##  [1] 4 5 8 8 6 4 4 4 7 7 4 4 6 5 4 5 7 4 9 8 4 7 4 6 5 8 6 4 6
+## 
+## $Potters
+##  [1] 5 6 8 7 7 7 6 8 6 7 6 6 7 8 5 7 7 6 7 8 6 5 9 8 8 6 5 6 6 8 6
+## 
+## $`Cobbler Mountain`
+##  [1] 5 6 7 9 6 5 7 6 8 8 6 6 7 8 6 7 7 7 5 7 5 8 6 7 7 5 8
+## 
+## $`Big Fish`
+##  [1] 6 6 8 8 7 7 7 6 8 7 7 6 7 8 6 6 7 8 6 8 6 8 6 9 7 8 7 8 7 7 6 6</code></pre>
+<p>In this notation, <code>~</code> takes the place of <code>function(x)</code>, and <code>.x</code> takes the place of the variable being passed. In fact, if you are using a single variable for your function, you can even just use <code>.</code> to mean “all the data”–<code>purrr</code> calls this a “pronoun”, but it does make the above code punishingly hard to read (too compact can be as bad as too long)!</p>
+<p>I suggest reading the documentation for <code>map()</code> as well as the relevant sections in <a href="https://r4ds.had.co.nz/iteration.html#the-map-functions">R4DS (21.5-21.8)</a> if you’re interested in this subject. <code>map()</code> and its family are very powerful, although they can be difficult to get the hang of at first.</p>
+</div>
+</div>
+<div id="base-r-approaches-apply-family" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Base R approaches: <code>apply()</code> family<a href="advancing-our-wrangling.html#base-r-approaches-apply-family" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unfortunately, if you think <code>map()</code> is a little hard to learn, the base R approach is not necessarily going to be easier. The base R approach to vectorization involves the <code>apply()</code> function and its related cousins. I’ll just mention two: <code>lapply()</code>–which is meant to signifify “<strong>l</strong>ist <code>apply()</code>”, and base <code>apply()</code>.</p>
+<p>Essentially, <code>lapply()</code> acts the same way as <code>map()</code>–it applies a function (its second argument) to every element of a list (vector), and returns a list of the same length. However, because it’s not part of the <code>tidyverse</code> it can’t use lambda functions:</p>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="advancing-our-wrangling.html#cb750-1" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb750-2"><a href="advancing-our-wrangling.html#cb750-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Panelist_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb750-3"><a href="advancing-our-wrangling.html#cb750-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(mean)</span></code></pre></div>
+<pre><code>## $`Bold rock`
+## [1] 6.696429
+## 
+## $Buskeys
+## [1] 6.053571
+## 
+## $`Blue Bee`
+## [1] 3.946429
+## 
+## $Potters
+## [1] 4.982143
+## 
+## $`Cobbler Mountain`
+## [1] 4.821429
+## 
+## $`Big Fish`
+## [1] 5.607143</code></pre>
+<p>Meanwhile, <code>apply()</code> by itself expects “rectangular” data as input: it will also take higher-dimensional arrays. It is fast and powerful, but the shape of data it returns is kind of unpredictable. It works by specifying the “margin” or “axis” you want to apply the function across. So, if we have a 2-d data structure, <code>MARGIN = 1</code> will <code>apply()</code> a function to each row; <code>MARGIN = 2</code> will <code>apply()</code> the function to each column. Once we get to higher dimensions, care (and good visualization skills) are required.</p>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="advancing-our-wrangling.html#cb752-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By applying mean to the columns, we can recreate our map()/lapply() example</span></span>
+<span id="cb752-2"><a href="advancing-our-wrangling.html#cb752-2" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb752-3"><a href="advancing-our-wrangling.html#cb752-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Panelist_Name&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb752-4"><a href="advancing-our-wrangling.html#cb752-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>##        Bold rock          Buskeys         Blue Bee          Potters 
+##         6.696429         6.053571         3.946429         4.982143 
+## Cobbler Mountain         Big Fish 
+##         4.821429         5.607143</code></pre>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="advancing-our-wrangling.html#cb754-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By using MARGIN = 1, we can get the mean for each subject</span></span>
+<span id="cb754-2"><a href="advancing-our-wrangling.html#cb754-2" aria-hidden="true" tabindex="-1"></a>cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb754-3"><a href="advancing-our-wrangling.html#cb754-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Panelist_Name&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb754-4"><a href="advancing-our-wrangling.html#cb754-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="dv">1</span>, mean) <span class="sc">%&gt;%</span></span>
+<span id="cb754-5"><a href="advancing-our-wrangling.html#cb754-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##        Paulette Cairns Renata Vieira Carneiro         Jennifer Acuff 
+##               4.333333               5.666667               5.666667 
+##              Lily Yang         Brandon Lester      Harry Schonberger 
+##               5.500000               6.333333               4.166667</code></pre>
+<p>You will also see other versions of these: <code>sapply()</code>, <code>vapply()</code>, <code>tapply()</code>, etc.</p>
+<p>These functions are powerful but not necesssarily intuitive. You will encounter them in help files and when searching for answers, and you can learn to use them, but I wouldn’t necessarily recommend them as your first solution.</p>
+</div>
+</div>
+<div id="relational-data" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Relational data<a href="advancing-our-wrangling.html#relational-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often, our datasets will include multiple data tables that give different information about related (or the same) samples, observations, etc. A common example might be in survey responses: you might have one table of the survey responses for each question, identified by the respondent. Then you might have a second table of demographic attribtues for each respondent. In this case, the respondent is the <strong>key variable</strong>–it links the table of responses to the table of demographics. You could somehow use this relationship to understand, for example, the average responses to each question on a demographic category basis.</p>
+<p>It’s easy to imagine other situations in which this kind of relationship happens:</p>
+<ul>
+<li>A table of time-series outcomes (for microbial growth, fermentation, quality parameters) on a set of samples, and a table of sample treatment characteristics.</li>
+<li>Microbiological, chemical, and colorimetric readings on the same set of samples, produced by different instruments.</li>
+<li>A derived (summary) table linked back to <em>the table it was generated from</em>.</li>
+<li>A master production table for product lots on a per-plant/per-field basis, with a master ID linking each lot to any tests you might want to run!</li>
+</ul>
+<p>I picked the dataset for today after a quick browse for a simple but not uninteresting two-table dataset. Looking at <code>tidy_cider_cata</code> and <code>tidy_cata_liking</code>, answer the following questions:</p>
+<blockquote>
+<p>What is the <em>key variable(s)</em> that uniquely identifiies and links an observation between the two tables?</p>
+</blockquote>
+<blockquote>
+<p>What is the information that is <em>unique</em> to each table? (Hint: this one should be clear from the names.)</p>
+</blockquote>
+<p>Often, when we are presented with data in multiple tables, we will want to be able to somehow merge the data tables. Because each table is uniquely identified, there isn’t one single right way to do so–the merges we want to make will depend on our reason for wanting to make them. For example, above I suggested we might want to merge demographic and survey responses in order to average responses for, say, different racial or ethnic groups.</p>
+<p>I like the typology of merging data that is given in <a href="https://stat545.com/multiple-tibbles.html">Stat 545</a>:</p>
+<ul>
+<li>Bind–this involves just taking 2 (or more) data frames of the same dimension and smashing them together. This is a naive-but-easy approach to merging data tables, and it is something to be used with caution if you use it at all. This relies on you to get it right by manually ordering the rows or columns, and if you don’t there won’t be any warning when things are incorrect. An easy way to screw up your analysis.</li>
+<li>Join/Lookup–these terms come from database management, and rely on setting a variable(s) that uniquely identifies cases (rows) to produce a new table. These are better because they will fail in predictable ways if your data don’t actually match.</li>
+</ul>
+<div id="bind-functions" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> <code>*bind()</code> functions<a href="advancing-our-wrangling.html#bind-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R provides two base functions for merging rectangular data:</p>
+<ol style="list-style-type: decimal">
+<li><code>rbind()</code>: add together two or more tables on a row-wise basis. This in essence “stacks” the data.<br />
+</li>
+<li><code>cbind()</code>: add together two or more tables on a column-wise basis. This in essence “lines up” the tables side by side.</li>
+</ol>
+<div id="row-binding" class="section level4 hasAnchor" number="7.4.1.1">
+<h4><span class="header-section-number">7.4.1.1</span> row binding<a href="advancing-our-wrangling.html#row-binding" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If our data is in wide format, we usually have one row per case/subject/sample, with multiple variables in the column. If our data is in long/tidy format, we usually have one observation per row. In either case, if we wanted to add together two tables row-wise, we would usually be <strong>adding new observations.</strong></p>
+<p>In our particular example, if we look at our tidied data sets, we have one table in which we have collected rating liking (<code>tidy_cider_liking</code>) and one in which we have collected binary presence/absence of a bunch of sensory attributes. Maybe we want to treat liking as another sensory attribute, and add it to our data frame:</p>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="advancing-our-wrangling.html#cb756-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(tidy_cider_cata, tidy_cider_liking)</span></code></pre></div>
+<pre><code>## Error in rbind(deparse.level, ...): numbers of columns of arguments do not match</code></pre>
+<p>Oops! If we look at the structure of our two dataframes we’ll see that they’re not equivalent:</p>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="advancing-our-wrangling.html#cb758-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tidy_cider_cata)</span></code></pre></div>
+<pre><code>## tibble [8,736 × 4] (S3: tbl_df/tbl/data.frame)
+##  $ Sample_Name   : chr [1:8736] &quot;Bold rock&quot; &quot;Bold rock&quot; &quot;Bold rock&quot; &quot;Bold rock&quot; ...
+##  $ Panelist_Name : chr [1:8736] &quot;Paulette Cairns&quot; &quot;Paulette Cairns&quot; &quot;Paulette Cairns&quot; &quot;Paulette Cairns&quot; ...
+##  $ cata_attribute: chr [1:8736] &quot;FermentedApples&quot; &quot;OverripeApples&quot; &quot;FreshApples&quot; &quot;Alcohol&quot; ...
+##  $ checked       : num [1:8736] 0 0 1 0 0 0 0 0 1 0 ...</code></pre>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="advancing-our-wrangling.html#cb760-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tidy_cider_liking)</span></code></pre></div>
+<pre><code>## tibble [336 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ Panelist_Name: chr [1:336] &quot;Paulette Cairns&quot; &quot;Paulette Cairns&quot; &quot;Paulette Cairns&quot; &quot;Paulette Cairns&quot; ...
+##  $ cider_name   : chr [1:336] &quot;Bold rock&quot; &quot;Buskeys&quot; &quot;Blue Bee&quot; &quot;Potters&quot; ...
+##  $ liking       : num [1:336] 8 4 1 5 5 3 8 8 4 4 ...</code></pre>
+<p>In fact, there are a couple of requirements for row binding that I’ll list here just to save time:</p>
+<ul>
+<li>You must have the same number of columns in all tables</li>
+<li>The columns must all have the same data type (character, numeric, etc)</li>
+<li>The columns must have the same names</li>
+</ul>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="advancing-our-wrangling.html#cb762-1" aria-hidden="true" tabindex="-1"></a>tidy_cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb762-2"><a href="advancing-our-wrangling.html#cb762-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">Sample_Name =</span> cider_name, Panelist_Name, <span class="at">cata_attribute =</span> <span class="st">&quot;liking&quot;</span>, <span class="at">checked =</span> liking) <span class="sc">%&gt;%</span></span>
+<span id="cb762-3"><a href="advancing-our-wrangling.html#cb762-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(tidy_cider_cata, .)</span></code></pre></div>
+<pre><code>## # A tibble: 9,072 × 4
+##    Sample_Name Panelist_Name   cata_attribute  checked
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt;
+##  1 Bold rock   Paulette Cairns FermentedApples       0
+##  2 Bold rock   Paulette Cairns OverripeApples        0
+##  3 Bold rock   Paulette Cairns FreshApples           1
+##  4 Bold rock   Paulette Cairns Alcohol               0
+##  5 Bold rock   Paulette Cairns WineLike              0
+##  6 Bold rock   Paulette Cairns Floral                0
+##  7 Bold rock   Paulette Cairns Tart                  0
+##  8 Bold rock   Paulette Cairns Candied               0
+##  9 Bold rock   Paulette Cairns Fruity                1
+## 10 Bold rock   Paulette Cairns Berries               0
+## # … with 9,062 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>How can we make sure this worked?</p>
+<p>Of these two, <code>rbind()</code> is the less “dangerous” binding approach, because we usually store either full cases or observations in rows. Screwing up a row bind will generally not have as dire consequences for your analysis. But how could this be dangerous? There are so many requirements.</p>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="advancing-our-wrangling.html#cb764-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is wrong with this scene?  How would you know that something went wrong?</span></span>
+<span id="cb764-2"><a href="advancing-our-wrangling.html#cb764-2" aria-hidden="true" tabindex="-1"></a>tidy_cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb764-3"><a href="advancing-our-wrangling.html#cb764-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">Sample_Name =</span> Panelist_Name, Panelist_Name, <span class="at">cata_attribute =</span> liking, <span class="at">checked =</span> liking) <span class="sc">%&gt;%</span></span>
+<span id="cb764-4"><a href="advancing-our-wrangling.html#cb764-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(tidy_cider_cata, .)</span></code></pre></div>
+<pre><code>## # A tibble: 9,072 × 4
+##    Sample_Name Panelist_Name   cata_attribute  checked
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt;
+##  1 Bold rock   Paulette Cairns FermentedApples       0
+##  2 Bold rock   Paulette Cairns OverripeApples        0
+##  3 Bold rock   Paulette Cairns FreshApples           1
+##  4 Bold rock   Paulette Cairns Alcohol               0
+##  5 Bold rock   Paulette Cairns WineLike              0
+##  6 Bold rock   Paulette Cairns Floral                0
+##  7 Bold rock   Paulette Cairns Tart                  0
+##  8 Bold rock   Paulette Cairns Candied               0
+##  9 Bold rock   Paulette Cairns Fruity                1
+## 10 Bold rock   Paulette Cairns Berries               0
+## # … with 9,062 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>The <code>tidyverse</code> equivalent of <code>rbind()</code> is <code>dplyr::bind_rows()</code>, which adds some functionality and is efficient for large dataframes.</p>
+</div>
+<div id="cbind" class="section level4 hasAnchor" number="7.4.1.2">
+<h4><span class="header-section-number">7.4.1.2</span> column binding<a href="advancing-our-wrangling.html#cbind" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Column binding, using the <code>cbind()</code> function, is generally used when we want to <strong>add new variables</strong> to our data set (rather than new observations). This makes it a riskier task, because we have to assume that the <em>order of our new columns is the same as our old columns</em>.</p>
+<p>In our example, it might actually make more sense to add <code>liking</code> as a new column–each cider from each subject has a single liking rating attached to it, after all, and it is a qualitatively different type of variable than a check-box–it is an integer-valued liking rating. So, let’s try using <code>cbind()</code> to add <code>tidy_cider_liking$liking</code> to our <code>tidy_cider_cata</code> dataset.</p>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="advancing-our-wrangling.html#cb766-1" aria-hidden="true" tabindex="-1"></a>bad_cbind <span class="ot">&lt;-</span> tidy_cider_cata <span class="sc">%&gt;%</span></span>
+<span id="cb766-2"><a href="advancing-our-wrangling.html#cb766-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(<span class="at">liking =</span> tidy_cider_liking<span class="sc">$</span>liking) </span>
+<span id="cb766-3"><a href="advancing-our-wrangling.html#cb766-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bad_cbind)</span></code></pre></div>
+<pre><code>##   Sample_Name   Panelist_Name  cata_attribute checked liking
+## 1   Bold rock Paulette Cairns FermentedApples       0      8
+## 2   Bold rock Paulette Cairns  OverripeApples       0      4
+## 3   Bold rock Paulette Cairns     FreshApples       1      1
+## 4   Bold rock Paulette Cairns         Alcohol       0      5
+## 5   Bold rock Paulette Cairns        WineLike       0      5
+## 6   Bold rock Paulette Cairns          Floral       0      3</code></pre>
+<p>Looks good, right? What is wrong with this picture? Well, it looks like the same panelist (Paulette Cairns) rated the same cider (Bold rock) with 6 different liking ratings… uh oh.</p>
+<p>This demonstrates the key risk of column binding: R, in attempting to be “helpful”, will invisibly try to make it work. In this case, what is happening behind the scenes is that R is realizing that <code>tidy_cider_liking$liking</code> is 336 rows long, while <code>tidy_cider_cata</code> is 8736 rows, and so R <em>recycles</em> the vector to fill in the rest. <strong>The liking ratings don’t actually line up with the other data frame, but R will not warn you at all.</strong></p>
+<p>To make this work properly, you need to take several steps:</p>
+<ul>
+<li>Make sure that you know the row order of the target data frame (here, <code>tidy_cider_cata</code>).</li>
+<li>Put the origin variable(s) in the same order as the target.</li>
+<li>Make sure that the two are of the same length.</li>
+</ul>
+<p>In our example, the order of the data frames can be uniquely specified by the <code>Panelist_Name</code> and the <code>Sample_Name</code>. Once we make sure each one is in the same order, we will need to make 26 copies of each liking rating, since that’s how many CATA attributes each panelist is providing for each cider, and so this is how many times the liking rating will need to be pasted over.</p>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="advancing-our-wrangling.html#cb768-1" aria-hidden="true" tabindex="-1"></a>good_cbind <span class="ot">&lt;-</span> tidy_cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb768-2"><a href="advancing-our-wrangling.html#cb768-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># arrange into a known order</span></span>
+<span id="cb768-3"><a href="advancing-our-wrangling.html#cb768-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Panelist_Name, cider_name) <span class="sc">%&gt;%</span></span>
+<span id="cb768-4"><a href="advancing-our-wrangling.html#cb768-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get just the liking ratings</span></span>
+<span id="cb768-5"><a href="advancing-our-wrangling.html#cb768-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(liking) <span class="sc">%&gt;%</span></span>
+<span id="cb768-6"><a href="advancing-our-wrangling.html#cb768-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># repeat each liking rating 26 times</span></span>
+<span id="cb768-7"><a href="advancing-our-wrangling.html#cb768-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="at">each =</span> <span class="dv">26</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb768-8"><a href="advancing-our-wrangling.html#cb768-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(</span>
+<span id="cb768-9"><a href="advancing-our-wrangling.html#cb768-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sort tidy_cider_cata into the same order</span></span>
+<span id="cb768-10"><a href="advancing-our-wrangling.html#cb768-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(tidy_cider_cata, Panelist_Name, Sample_Name),</span>
+<span id="cb768-11"><a href="advancing-our-wrangling.html#cb768-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the liking column</span></span>
+<span id="cb768-12"><a href="advancing-our-wrangling.html#cb768-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">liking =</span> .</span>
+<span id="cb768-13"><a href="advancing-our-wrangling.html#cb768-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb768-14"><a href="advancing-our-wrangling.html#cb768-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(good_cbind)</span></code></pre></div>
+<pre><code>##   Sample_Name Panelist_Name  cata_attribute checked liking
+## 1    Big Fish     Aili Wang FermentedApples       0      5
+## 2    Big Fish     Aili Wang  OverripeApples       0      5
+## 3    Big Fish     Aili Wang     FreshApples       0      5
+## 4    Big Fish     Aili Wang         Alcohol       1      5
+## 5    Big Fish     Aili Wang        WineLike       1      5
+## 6    Big Fish     Aili Wang          Floral       0      5</code></pre>
+<p>Phew, that was a lot of steps. How can we check we did it right?</p>
+<p>Above we give just one of the ways in which this can go wrong. Say we wanted to use our new datasets in an analysis. Let’s see what has happened to our mean liking ratings:</p>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="advancing-our-wrangling.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Means from the bad cbind</span></span>
+<span id="cb770-2"><a href="advancing-our-wrangling.html#cb770-2" aria-hidden="true" tabindex="-1"></a>bad_cbind <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(liking))</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   Sample_Name      mean_liking
+##   &lt;chr&gt;                  &lt;dbl&gt;
+## 1 Big Fish                5.32
+## 2 Blue Bee                5.36
+## 3 Bold rock               5.43
+## 4 Buskeys                 5.32
+## 5 Cobbler Mountain        5.25
+## 6 Potters                 5.43</code></pre>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="advancing-our-wrangling.html#cb772-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Means from the good cbind</span></span>
+<span id="cb772-2"><a href="advancing-our-wrangling.html#cb772-2" aria-hidden="true" tabindex="-1"></a>good_cbind <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(liking))</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   Sample_Name      mean_liking
+##   &lt;chr&gt;                  &lt;dbl&gt;
+## 1 Big Fish                5.61
+## 2 Blue Bee                3.95
+## 3 Bold rock               6.70
+## 4 Buskeys                 6.05
+## 5 Cobbler Mountain        4.82
+## 6 Potters                 4.98</code></pre>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="advancing-our-wrangling.html#cb774-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The true mean likings</span></span>
+<span id="cb774-2"><a href="advancing-our-wrangling.html#cb774-2" aria-hidden="true" tabindex="-1"></a>tidy_cider_liking <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cider_name) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(liking))</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   cider_name       mean_liking
+##   &lt;chr&gt;                  &lt;dbl&gt;
+## 1 Big Fish                5.61
+## 2 Blue Bee                3.95
+## 3 Bold rock               6.70
+## 4 Buskeys                 6.05
+## 5 Cobbler Mountain        4.82
+## 6 Potters                 4.98</code></pre>
+<p>Yikes. You can see how a careless mistake (which, again, <em>will not cause R to give you an error</em>) can have ramifications for your future analysis.</p>
+<p>FWIW, the <code>tidyverse</code> equivalent and improvement to <code>cbind()</code> is <code>dplyr::bind_cols()</code>.</p>
+</div>
+</div>
+<div id="join-functions" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> <code>*_join()</code> functions<a href="advancing-our-wrangling.html#join-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wouldn’t it be nice if there were a way to avoid this kind of problem? What a loaded question!</p>
+<p>In fact, the concept of a “<strong>join</strong>”, which comes from <a href="https://r4ds.had.co.nz/relational-data.html">relational data</a> can do exactly this. I strongly recommend working through the examples from R4DS, and I find the <a href="https://stat545.com/join-cheatsheet.html">Stat 545 “cheatsheet”</a> on joins to be a really helpful quick reference. I will be going over these tools in relatively light detail (since we’re already late in the class here, and I will be asking you to use these in your own work).</p>
+<p>The key (ha, wait for it) concept for understanding joins is a “<strong>key</strong>” identifier for each table. A key is <em>a column or a set of columns that uniquely identifies each row of the table</em>. That is, the values of the column(s) only occur once in the table.</p>
+<p>In our example, if we look at <code>tidy_cider_liking</code>, we see that the key is the combination <code>c(Panelist_Name, cider_name)</code>. We can use <code>count()</code> to confirm that this is true:</p>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="advancing-our-wrangling.html#cb776-1" aria-hidden="true" tabindex="-1"></a>tidy_cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb776-2"><a href="advancing-our-wrangling.html#cb776-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Panelist_Name, cider_name) <span class="sc">%&gt;%</span></span>
+<span id="cb776-3"><a href="advancing-our-wrangling.html#cb776-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Using sort = TRUE guarantees that the largest n will be at the top--if this is &gt;1 we haven&#39;t identified the key</span></span>
+<span id="cb776-4"><a href="advancing-our-wrangling.html#cb776-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 336 × 3
+## # Groups:   Panelist_Name, cider_name [336]
+##    Panelist_Name cider_name           n
+##    &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt;
+##  1 Aili Wang     Big Fish             1
+##  2 Aili Wang     Blue Bee             1
+##  3 Aili Wang     Bold rock            1
+##  4 Aili Wang     Buskeys              1
+##  5 Aili Wang     Cobbler Mountain     1
+##  6 Aili Wang     Potters              1
+##  7 Amy Moore     Big Fish             1
+##  8 Amy Moore     Blue Bee             1
+##  9 Amy Moore     Bold rock            1
+## 10 Amy Moore     Buskeys              1
+## # … with 326 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>So, what is the key for <code>tidy_cider_cata</code>?</p>
+<p>It is possible that your data do not have a key within the data–Hadley <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span> <a href="https://r4ds.had.co.nz/relational-data.html#keys">gives the example</a> of the <code>nycflights13::flights</code> table. In that case, you might create an external identifier key yourself–the easiest way to do so might be just using the row number, which can be accessed using the <code>row_number()</code> function.</p>
+<p>Keys are important because they allow you to specify the relationships between observations in each table. Typically, relationships between tables are one-to-many; otherwise, it would be possible to simply combine the tables into one large table. What is the relationship between the two cider tables?</p>
+<blockquote>
+<p>For each unique cider and panelist combination in <code>tidy_cider_liking</code>, there are ________ unique observations in <code>tidy_cider_cata</code>.</p>
+</blockquote>
+<p>This relationship will dictate the type of combinations we can make. For example, if there are many observations in one table for each one in a second, how we can combine table one into table two will be different than if the reverse were true.</p>
+<p>The action of combining tables through key identifiers is called “joining”. For convenience’s sake here we’ll talk about two tables <strong>X</strong> and <strong>Y</strong>, <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span> defines two categories of joins:</p>
+<ul>
+<li>In “mutating joins”, the resulting table <em>combines</em> the variables from X and Y, creating a new table with variables from <em>both</em> X and Y, with rows that are the result of finding (different kinds of) matches between the keys of X and Y. This is the equivalent of <code>dplyr::mutate()</code>.</li>
+<li>In “filtering joins”, the resulting table looks in Y for entries from X, and <em>filters</em> the resulting table without creating or combining variables. This is the equivalent of using <code>dplyr::filter()</code>.</li>
+</ul>
+<p>I can’t recommend enough the diagrams that Hadley <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span> provides in R4DS–<a href="https://r4ds.had.co.nz/relational-data.html#understanding-joins">take a look at these to understand all of the variations of joins</a>. I will not have time to over all of them here.</p>
+<p>We will look at the most common example of each in my workflow.</p>
+<div id="mutating-joins-with-left_join" class="section level4 hasAnchor" number="7.4.2.1">
+<h4><span class="header-section-number">7.4.2.1</span> mutating joins with <code>left_join()</code><a href="advancing-our-wrangling.html#mutating-joins-with-left_join" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A left join looks up each unique key in X, finds the <em>first match</em> for that key in Y, and then adds all the columns from Y to X in the order that matches the columns in X. If there is no match for a particular key in X, the join will create an empty (<code>NA</code>) field. This is the most common case for joining, and it is what we were trying to accomplish with our <a href="advancing-our-wrangling.html#cbind">column binding example above.</a></p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/9c12ca9e12ed26a7c5d2aa08e36d2ac4fb593f1e/79980/diagrams/join-outer.png" alt="" />
+<p class="caption">Schematic diagrams of mutating joins from <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span></p>
+</div>
+<p>In <code>tidyverse</code>, the function for making a left join is easy to remember: <code>left_join()</code>. It takes as input two tables, with the first one provided being used as X (the “left”) table, and the second being “Y”. If the tables have the same named key columns, <code>left_join()</code> will try to join using this, but it’s usually best to explicitly provide the <code>by  =</code> argument to <code>left_join()</code>, because if you have two similarly named columns that are <em>not</em> unique keys, this could cause errors.</p>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="advancing-our-wrangling.html#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by using the pipe, tidy_cider_cata becomes X, and tidy_cider_liking becomes Y</span></span>
+<span id="cb778-2"><a href="advancing-our-wrangling.html#cb778-2" aria-hidden="true" tabindex="-1"></a>joined_cider_cata <span class="ot">&lt;-</span> tidy_cider_cata <span class="sc">%&gt;%</span></span>
+<span id="cb778-3"><a href="advancing-our-wrangling.html#cb778-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice here we specify the keys, and if they are named differently we write it as &lt;&quot;x_key&quot;&gt; = &lt;&quot;y_key&quot;&gt;</span></span>
+<span id="cb778-4"><a href="advancing-our-wrangling.html#cb778-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(tidy_cider_liking, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Panelist_Name&quot;</span>, <span class="st">&quot;Sample_Name&quot;</span> <span class="ot">=</span> <span class="st">&quot;cider_name&quot;</span>))</span></code></pre></div>
+<p>Notice that I used a named vector to specify the keys to join on. This might look weird, but the reason it is written as above is because both tables have subjects in the <code>Panelist_Name</code> column, but the names of the cider are in <code>tidy_cider_cata$Sample_Name</code> and <code>tidy_cider_liking$cider_name</code>. We are telling <code>left_join()</code> a vector of characters that name the columns that are keys, and in the case when they are not the same we are explicitly specifying this.</p>
+<p>If I hadn’t done this, we would see some weird results:</p>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="advancing-our-wrangling.html#cb779-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is this using as the joining key?  What will the result be?</span></span>
+<span id="cb779-2"><a href="advancing-our-wrangling.html#cb779-2" aria-hidden="true" tabindex="-1"></a>tidy_cider_cata <span class="sc">%&gt;%</span></span>
+<span id="cb779-3"><a href="advancing-our-wrangling.html#cb779-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tidy_cider_liking)</span></code></pre></div>
+<pre><code>## # A tibble: 52,416 × 6
+##    Sample_Name Panelist_Name   cata_attribute  checked cider_name       liking
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
+##  1 Bold rock   Paulette Cairns FermentedApples       0 Bold rock             8
+##  2 Bold rock   Paulette Cairns FermentedApples       0 Buskeys               4
+##  3 Bold rock   Paulette Cairns FermentedApples       0 Blue Bee              1
+##  4 Bold rock   Paulette Cairns FermentedApples       0 Potters               5
+##  5 Bold rock   Paulette Cairns FermentedApples       0 Cobbler Mountain      5
+##  6 Bold rock   Paulette Cairns FermentedApples       0 Big Fish              3
+##  7 Bold rock   Paulette Cairns OverripeApples        0 Bold rock             8
+##  8 Bold rock   Paulette Cairns OverripeApples        0 Buskeys               4
+##  9 Bold rock   Paulette Cairns OverripeApples        0 Blue Bee              1
+## 10 Bold rock   Paulette Cairns OverripeApples        0 Potters               5
+## # … with 52,406 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>We can check that our join worked properly by looking at that same means table we checked before. Note that this check is for this case, specifically–this does not guarantee that things have gone right in every possible situation.</p>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="advancing-our-wrangling.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This looks right - check back to see if it matches</span></span>
+<span id="cb781-2"><a href="advancing-our-wrangling.html#cb781-2" aria-hidden="true" tabindex="-1"></a>joined_cider_cata <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(liking))</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   Sample_Name       mean
+##   &lt;chr&gt;            &lt;dbl&gt;
+## 1 Big Fish          5.61
+## 2 Blue Bee          3.95
+## 3 Bold rock         6.70
+## 4 Buskeys           6.05
+## 5 Cobbler Mountain  4.82
+## 6 Potters           4.98</code></pre>
+<p>What if we wanted to reverse the join, and use <code>tidy_cider_liking</code> as the left-side (X)? Because it is the “one” in the one-to-many relationship, we’d either have to decide on a specific CATA attribute we want to join, or rethink our resulting structure.</p>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="advancing-our-wrangling.html#cb783-1" aria-hidden="true" tabindex="-1"></a>tidy_cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb783-2"><a href="advancing-our-wrangling.html#cb783-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cider_cata, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Panelist_Name&quot;</span>, <span class="st">&quot;cider_name&quot;</span> <span class="ot">=</span> <span class="st">&quot;Sample_Name&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb783-3"><a href="advancing-our-wrangling.html#cb783-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 336 × 8
+##    Panelist_Name          cider…¹ liking Ferme…² Overr…³ Fresh…⁴ Alcohol WineL…⁵
+##    &lt;chr&gt;                  &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Paulette Cairns        Bold r…      8       0       0       1       0       0
+##  2 Paulette Cairns        Buskeys      4       1       0       0       1       0
+##  3 Paulette Cairns        Blue B…      1       0       0       0       0       0
+##  4 Paulette Cairns        Potters      5       1       0       0       0       0
+##  5 Paulette Cairns        Cobble…      5       0       1       1       0       0
+##  6 Paulette Cairns        Big Fi…      3       0       0       0       1       0
+##  7 Renata Vieira Carneiro Bold r…      8       0       0       0       0       0
+##  8 Renata Vieira Carneiro Buskeys      8       1       0       0       0       0
+##  9 Renata Vieira Carneiro Blue B…      4       1       0       0       1       0
+## 10 Renata Vieira Carneiro Potters      4       0       0       0       0       0
+## # … with 326 more rows, and abbreviated variable names ¹​cider_name,
+## #   ²​FermentedApples, ³​OverripeApples, ⁴​FreshApples, ⁵​WineLike
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Note that we now have equivalent data structures–we could have gotten either of these by joining and then using either <code>pivot_longer()</code> or <code>pivot_wider()</code>. This is because the unique key identifiers here that we are joining on are the combination of subject and cider.</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/aeab386461820b029b7e7606ccff1286f623bae1/ef0d4/diagrams/join-venn.png" alt="" />
+<p class="caption">Another way to look at joins from <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span></p>
+</div>
+</div>
+<div id="filtering-joins-with-anti_join" class="section level4 hasAnchor" number="7.4.2.2">
+<h4><span class="header-section-number">7.4.2.2</span> filtering joins with <code>anti_join()</code><a href="advancing-our-wrangling.html#filtering-joins-with-anti_join" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Filtering joins let you use a Y table as a reference for selecting <strong>rows</strong>–rather than columns–from X. In the case of <code>anti_join()</code>, as the name implies, this removes all rows from X that match the keys in Y.</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/f29a85efd53a079cc84c14ba4ba6894e238c3759/c1408/diagrams/join-anti.png" alt="" />
+<p class="caption">Schematic of filtering with anti-joins from <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span></p>
+</div>
+<p>Let’s imagine that we had a list of panelists who had been removed from our lab for rowdy behavior. We know their results are bad because they were busy partying. Let’s create a fake list of these panelists, and then use <code>anti_join()</code> to take them out of our datasets.</p>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="advancing-our-wrangling.html#cb785-1" aria-hidden="true" tabindex="-1"></a>banned_panelists <span class="ot">&lt;-</span> cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb785-2"><a href="advancing-our-wrangling.html#cb785-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">7</span>)</span>
+<span id="cb785-3"><a href="advancing-our-wrangling.html#cb785-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb785-4"><a href="advancing-our-wrangling.html#cb785-4" aria-hidden="true" tabindex="-1"></a>tidy_cider_liking <span class="sc">%&gt;%</span></span>
+<span id="cb785-5"><a href="advancing-our-wrangling.html#cb785-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(banned_panelists, <span class="at">by =</span> <span class="st">&quot;Panelist_Name&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 294 × 3
+##    Panelist_Name          cider_name       liking
+##    &lt;chr&gt;                  &lt;chr&gt;             &lt;dbl&gt;
+##  1 Paulette Cairns        Bold rock             8
+##  2 Paulette Cairns        Buskeys               4
+##  3 Paulette Cairns        Blue Bee              1
+##  4 Paulette Cairns        Potters               5
+##  5 Paulette Cairns        Cobbler Mountain      5
+##  6 Paulette Cairns        Big Fish              3
+##  7 Renata Vieira Carneiro Bold rock             8
+##  8 Renata Vieira Carneiro Buskeys               8
+##  9 Renata Vieira Carneiro Blue Bee              4
+## 10 Renata Vieira Carneiro Potters               4
+## # … with 284 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="advancing-our-wrangling.html#cb787-1" aria-hidden="true" tabindex="-1"></a>tidy_cider_cata <span class="sc">%&gt;%</span></span>
+<span id="cb787-2"><a href="advancing-our-wrangling.html#cb787-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(banned_panelists, <span class="at">by =</span> <span class="st">&quot;Panelist_Name&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7,644 × 4
+##    Sample_Name Panelist_Name   cata_attribute  checked
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt;
+##  1 Bold rock   Paulette Cairns FermentedApples       0
+##  2 Bold rock   Paulette Cairns OverripeApples        0
+##  3 Bold rock   Paulette Cairns FreshApples           1
+##  4 Bold rock   Paulette Cairns Alcohol               0
+##  5 Bold rock   Paulette Cairns WineLike              0
+##  6 Bold rock   Paulette Cairns Floral                0
+##  7 Bold rock   Paulette Cairns Tart                  0
+##  8 Bold rock   Paulette Cairns Candied               0
+##  9 Bold rock   Paulette Cairns Fruity                1
+## 10 Bold rock   Paulette Cairns Berries               0
+## # … with 7,634 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Note that in both cases we see the number of rows go down as these rows are removed through <code>anti_join()</code>. We also see that we can keep a table that is separate and refer to it–this is useful if we programmatically update it (say we are always keeping a “do not serve” list) and for clarity in coding.</p>
+</div>
+<div id="other-joins" class="section level4 hasAnchor" number="7.4.2.3">
+<h4><span class="header-section-number">7.4.2.3</span> other joins<a href="advancing-our-wrangling.html#other-joins" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For a more complete documentation of other joins, I once again recommend the R4DS section or checking out <code>?left_join</code>.</p>
+</div>
+</div>
+</div>
+<div id="writing-readable-and-reproducible-scripts" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Writing readable and reproducible scripts<a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, it’s a good time to revisit some principles for writing scripts and R Markdowns that will work well in the future. We’ll keep this brief and use the headers as discussion points, rather than exhaustive explorations.</p>
+<div id="comments" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Comments<a href="advancing-our-wrangling.html#comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In general, when we are coding we are very focused on the problem at hand. We’ll try a bunch of stuff, and then go with what works. But our solutions are often not clear from the code itself. Use <code>#</code> in order to provide comments in the code itself, explaining what each chunk or line does. Especially if you’ve written something compact and clever, like the <code>map()</code> functions above, it may require a lot of effort for someone else (or your future self) to interpret. Comments will help your code be useful for longer.</p>
+</div>
+<div id="whitespace-1" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Whitespace<a href="advancing-our-wrangling.html#whitespace-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R is very generous about whitespace; it doesn’t enforce conventions around it. But, as we learned in week 1, writing crazily spaced code is hard to read and makes your code difficult to audit. This is even a problem with very accomplished programmers; I recommend anyone take a look at the R code in Richard <span class="citation">McElreath (<a href="#ref-mcelreath2020" role="doc-biblioref">2020</a>)</span>’s wonderful book, which is very difficult to parse because of his arbitrary spacing and his use of uninformative variable names.</p>
+</div>
+<div id="use-informative-variable-names" class="section level3 hasAnchor" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> Use informative variable names<a href="advancing-our-wrangling.html#use-informative-variable-names" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>…speaking of which, why not help yourself and others out and use variable names that are meaningful? In older coding languages, there were limits on lengths and characters for names, so people would use conventions like “CamelCaps” and “abbrvtns”. This isn’t necessary with R, and it can make complicated commands hard to follow. If you’re coding for research, don’t do this!</p>
+</div>
+<div id="running-from-scratch" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> Running from scratch<a href="advancing-our-wrangling.html#running-from-scratch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Most importantly, before you turn in assignments to me or save a project that you are done with for the moment, make sure the script/Markdown runs from scratch. Sometimes, if you’re working between the console and a script, or between multiple scripts, it’s easy to create variables or run analyses without actually writing them into your script. Or maybe you are working out of order. Restarting R, clearing all memory, and making sure it can run from the first to the last line will make sure your work survives and is reproducible.</p>
+</div>
+</div>
+<div id="references-4" class="section level2 unnumbered hasAnchor">
+<h2>References<a href="advancing-our-wrangling.html#references-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-mcelreath2020" class="csl-entry">
+McElreath, Richard. 2020. <em>Statistical <span>Rethinking</span></em>. Second. <span>Boca Raton</span>: <span>CRC Press</span>.
+</div>
+<div id="ref-phetxumphou2020" class="csl-entry">
+Phetxumphou, Katherine, Allison N Cox, and Jacob Lahne. 2020. <span>“Development and <span>Characterization</span> of a <span>Check-All-That-Apply</span> (<span>CATA</span>) <span>Lexicon</span> for <span>Virginia Hard</span> (<span>Alcoholic</span>) <span>Ciders</span>.”</span> <em>Journal of the American Society of Brewing Chemists</em>, 1–10. <a href="https://doi.org/10.1080/03610470.2020.1768784">https://doi.org/10.1080/03610470.2020.1768784</a>.
+</div>
+<div id="ref-wickham2017" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for <span>Data Science</span></em>. <span>Sebastopol</span>: <span>O’Reilly</span>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="describing-your-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inference-from-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-more-wrangling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

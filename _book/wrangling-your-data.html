@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Wrangling your data | FST 5984: SS Data Analytics for Food and Ag Science</title>
+  <meta name="description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Wrangling your data | FST 5984: SS Data Analytics for Food and Ag Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Wrangling your data | FST 5984: SS Data Analytics for Food and Ag Science" />
+  
+  <meta name="twitter:description" content="<p>This bookdown is the compiled and unedited lectures from the Spring 2022
+Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" />
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+<meta name="date" content="2022-07-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="control-flow-and-functions.html"/>
+<link rel="next" href="exploring-your-data-visually.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data analytics for food and ag science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-learning-objectives"><i class="fa fa-check"></i>Course Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-should-i-do-with-this-material"><i class="fa fa-check"></i>What should I do with this material?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html"><i class="fa fa-check"></i><b>1</b> Day 1 - Welcome to FST 5984 (2022)</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#syllabus-review"><i class="fa fa-check"></i><b>1.0.1</b> Syllabus Review</a></li>
+<li class="chapter" data-level="1.0.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#getting-set-up-for-class"><i class="fa fa-check"></i><b>1.0.2</b> Getting set up for class</a></li>
+<li class="chapter" data-level="1.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#coding"><i class="fa fa-check"></i><b>1.1</b> Coding</a></li>
+<li class="chapter" data-level="1.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#how-to-make-errors-and-annoy-computers"><i class="fa fa-check"></i><b>1.2</b> How to make errors and annoy computers</a></li>
+<li class="chapter" data-level="1.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#inputs-and-data-types-in-r"><i class="fa fa-check"></i><b>1.3</b> Inputs and data types in R</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#whitespace"><i class="fa fa-check"></i><b>1.3.1</b> Whitespace</a></li>
+<li class="chapter" data-level="1.3.2" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#data-types"><i class="fa fa-check"></i><b>1.3.2</b> Data types</a></li>
+<li class="chapter" data-level="1.3.3" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#ok-but-what-kind-of-object-is-print-then"><i class="fa fa-check"></i><b>1.3.3</b> Ok, but what kind of object <em>is</em> <code>print()</code> then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="day-1---welcome-to-fst-5984-2022.html"><a href="day-1---welcome-to-fst-5984-2022.html#metacognition-learning-to-learn-in-r"><i class="fa fa-check"></i><b>1.4</b> Metacognition: Learning to Learn in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html"><i class="fa fa-check"></i><b>2</b> Extending R with packages and R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#all-about-r-markdown"><i class="fa fa-check"></i><b>2.1</b> All about R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-is-an-r-script"><i class="fa fa-check"></i><b>2.1.1</b> What is an R script?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#how-do-we-make-an-r-markdown-document"><i class="fa fa-check"></i><b>2.1.2</b> How do we make an R Markdown document?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#elements-of-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.3</b> Elements of R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#knitting-r-markdown-documents"><i class="fa fa-check"></i><b>2.1.4</b> “Knitting” R Markdown documents</a></li>
+<li class="chapter" data-level="2.1.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#joplin---an-easy-way-to-learn-basic-markdown"><i class="fa fa-check"></i><b>2.1.5</b> Joplin - an easy way to learn basic Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#extending-r---packages"><i class="fa fa-check"></i><b>2.2</b> Extending R - Packages</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#what-are-packages"><i class="fa fa-check"></i><b>2.2.1</b> What are packages?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#installing-packages"><i class="fa fa-check"></i><b>2.2.2</b> Installing packages</a></li>
+<li class="chapter" data-level="2.2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>2.2.3</b> Using packages</a></li>
+<li class="chapter" data-level="2.2.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#detaching-unloading-packages"><i class="fa fa-check"></i><b>2.2.4</b> Detaching (unloading) packages</a></li>
+<li class="chapter" data-level="2.2.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#uninstalling-packages"><i class="fa fa-check"></i><b>2.2.5</b> Uninstalling packages</a></li>
+<li class="chapter" data-level="2.2.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#getting-help---a-deeper-drive"><i class="fa fa-check"></i><b>2.2.6</b> Getting help - a deeper drive</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#complex-r-objects"><i class="fa fa-check"></i><b>2.3</b> Complex R Objects</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vectors-a-review"><i class="fa fa-check"></i><b>2.3.1</b> Vectors: a review</a></li>
+<li class="chapter" data-level="2.3.2" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#vector-math"><i class="fa fa-check"></i><b>2.3.2</b> Vector math</a></li>
+<li class="chapter" data-level="2.3.3" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#indexing-getting-elements-from-a-vector"><i class="fa fa-check"></i><b>2.3.3</b> “Indexing”: getting elements from a vector</a></li>
+<li class="chapter" data-level="2.3.4" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#multidimensional-vectors-matrices-and-arrays"><i class="fa fa-check"></i><b>2.3.4</b> Multidimensional vectors: Matrices and Arrays</a></li>
+<li class="chapter" data-level="2.3.5" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#lists-non-atomic-vectors"><i class="fa fa-check"></i><b>2.3.5</b> Lists: non-atomic vectors</a></li>
+<li class="chapter" data-level="2.3.6" data-path="extending-r-with-packages-and-r-markdown.html"><a href="extending-r-with-packages-and-r-markdown.html#data.frame-tables-of-data"><i class="fa fa-check"></i><b>2.3.6</b> <code>data.frame</code>: Tables of data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html"><i class="fa fa-check"></i><b>3</b> Control flow and functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#introduction---quasi-mathematical-definition"><i class="fa fa-check"></i><b>3.1.1</b> Introduction - quasi-mathematical definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#everything-weve-been-using-in-r-is-a-function"><i class="fa fa-check"></i><b>3.1.2</b> Everything we’ve been using in R is a function</a></li>
+<li class="chapter" data-level="3.1.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#back-to-reading-the-function-structure"><i class="fa fa-check"></i><b>3.1.3</b> Back to <code>?</code>: Reading the function structure</a></li>
+<li class="chapter" data-level="3.1.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.1.4</b> Function arguments</a></li>
+<li class="chapter" data-level="3.1.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.5</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#control-structure---making-your-code-hustle-and-flow"><i class="fa fa-check"></i><b>3.2</b> Control structure - making your code hustle and flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#write-what-you-want-pseudo-code"><i class="fa fa-check"></i><b>3.2.1</b> Write-what-you-want: Pseudo Code</a></li>
+<li class="chapter" data-level="3.2.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#logical-conditions"><i class="fa fa-check"></i><b>3.2.2</b> Logical conditions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#conditional-statements"><i class="fa fa-check"></i><b>3.2.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#if-statements"><i class="fa fa-check"></i><b>3.2.4</b> IF statements</a></li>
+<li class="chapter" data-level="3.2.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#loops"><i class="fa fa-check"></i><b>3.2.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#simulating-and-sampling-data-in-r"><i class="fa fa-check"></i><b>3.3</b> Simulating and sampling data in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#why-simulation-is-important"><i class="fa fa-check"></i><b>3.3.1</b> Why simulation is important</a></li>
+<li class="chapter" data-level="3.3.2" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#predictable-sequences"><i class="fa fa-check"></i><b>3.3.2</b> Predictable sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#random-numbers"><i class="fa fa-check"></i><b>3.3.3</b> “Random” numbers</a></li>
+<li class="chapter" data-level="3.3.4" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#sampling-from-existing-data"><i class="fa fa-check"></i><b>3.3.4</b> Sampling from existing data</a></li>
+<li class="chapter" data-level="3.3.5" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#summary---sampling-and-simulation"><i class="fa fa-check"></i><b>3.3.5</b> Summary - sampling and simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="control-flow-and-functions.html"><a href="control-flow-and-functions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling your data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#getting-your-data-into-r"><i class="fa fa-check"></i><b>4.1</b> Getting your data into R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#data-storage-outside-r"><i class="fa fa-check"></i><b>4.1.1</b> Data storage <em>outside</em> R</a></li>
+<li class="chapter" data-level="4.1.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.table"><i class="fa fa-check"></i><b>4.1.2</b> <code>read.table()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#read.csv"><i class="fa fa-check"></i><b>4.1.3</b> <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#hard"><i class="fa fa-check"></i><b>4.1.4</b> Why data storage is hard</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Making your life in R easier with the <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data"><i class="fa fa-check"></i><b>4.2.1</b> Naming: long (“tidy”) vs wide data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#one-pipe-to-rule-them-all"><i class="fa fa-check"></i><b>4.2.2</b> One pipe to rule them all: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#tibble"><i class="fa fa-check"></i><b>4.2.3</b> The <code>tibble()</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#select"><i class="fa fa-check"></i><b>4.2.4</b> Pick columns: <code>select()</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#pick-rows-filter"><i class="fa fa-check"></i><b>4.2.5</b> Pick rows: <code>filter()</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>4.2.6</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.2.7" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize"><i class="fa fa-check"></i><b>4.2.7</b> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.2.8</b> Utilities for data management</a></li>
+<li class="chapter" data-level="4.2.9" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#reading-data-tidily-read_"><i class="fa fa-check"></i><b>4.2.9</b> Reading data tidily: <code>read_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#review-of-functions"><i class="fa fa-check"></i><b>4.3</b> Review of functions</a></li>
+<li class="chapter" data-level="" data-path="wrangling-your-data.html"><a href="wrangling-your-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html"><i class="fa fa-check"></i><b>5</b> Exploring your data visually</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#reasons-for-developing-competency-with-data-visualization"><i class="fa fa-check"></i><b>5.1</b> Reasons for developing competency with data visualization</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#to-help-you-explore-your-data"><i class="fa fa-check"></i><b>5.1.1</b> To help you explore your data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#stakeholders"><i class="fa fa-check"></i><b>5.1.2</b> For communication to stakeholders</a></li>
+<li class="chapter" data-level="5.1.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#for-argumentation"><i class="fa fa-check"></i><b>5.1.3</b> For argumentation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#plotting-in-base-r"><i class="fa fa-check"></i><b>5.2</b> Plotting in base R</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#histograms-with-hist"><i class="fa fa-check"></i><b>5.2.1</b> Histograms with <code id="histograms">hist()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#boxplots-with-boxplot"><i class="fa fa-check"></i><b>5.2.2</b> Boxplots with <code>boxplot()</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#generic-plot"><i class="fa fa-check"></i><b>5.2.3</b> Generic <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#saving-plots-to-file"><i class="fa fa-check"></i><b>5.2.4</b> Saving plots to file</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#the-grammar-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.3</b> The ‘grammar of graphics’: <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#anatomy-of-a-ggplot"><i class="fa fa-check"></i><b>5.3.1</b> Anatomy of a <code>ggplot()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#common-recipes-for-basic-tasks"><i class="fa fa-check"></i><b>5.3.2</b> Common recipes for basic tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#tidy"><i class="fa fa-check"></i><b>5.4</b> Return to data wrangling - long vs wide</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-tidy"><i class="fa fa-check"></i><b>5.4.1</b> Making data tidy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#making-data-wide"><i class="fa fa-check"></i><b>5.4.2</b> Making data wide</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploring-your-data-visually.html"><a href="exploring-your-data-visually.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describing-your-data.html"><a href="describing-your-data.html"><i class="fa fa-check"></i><b>6</b> Describing your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets"><i class="fa fa-check"></i><b>6.2</b> Review exercise: How did I import these datasets?</a></li>
+<li class="chapter" data-level="6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#what-kind-of-data-do-you-have"><i class="fa fa-check"></i><b>6.3</b> What kind of data do you have?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="describing-your-data.html"><a href="describing-your-data.html#basic-attributes"><i class="fa fa-check"></i><b>6.3.1</b> Basic attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="describing-your-data.html"><a href="describing-your-data.html#examining-big-data-frames"><i class="fa fa-check"></i><b>6.4</b> Examining big data frames</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrglimpse"><i class="fa fa-check"></i><b>6.4.1</b> <code>dplyr::glimpse()</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="describing-your-data.html"><a href="describing-your-data.html#headtail"><i class="fa fa-check"></i><b>6.4.2</b> <code>head()</code>/<code>tail()</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="describing-your-data.html"><a href="describing-your-data.html#dplyrslice_"><i class="fa fa-check"></i><b>6.4.3</b> <code>dplyr::slice_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="describing-your-data.html"><a href="describing-your-data.html#generating-data-summaries"><i class="fa fa-check"></i><b>6.5</b> Generating data summaries</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="describing-your-data.html"><a href="describing-your-data.html#summary-1"><i class="fa fa-check"></i><b>6.5.1</b> <code>summary()</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="describing-your-data.html"><a href="describing-your-data.html#skimrskim"><i class="fa fa-check"></i><b>6.5.2</b> <code>skimr::skim()</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="describing-your-data.html"><a href="describing-your-data.html#group_by-and-summarizecount"><i class="fa fa-check"></i><b>6.5.3</b> <code>group_by()</code> and <code>summarize()</code>/<code>count()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="describing-your-data.html"><a href="describing-your-data.html#statistics-review"><i class="fa fa-check"></i><b>6.6</b> Statistics review</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="describing-your-data.html"><a href="describing-your-data.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>6.6.1</b> Measures of central tendency</a></li>
+<li class="chapter" data-level="6.6.2" data-path="describing-your-data.html"><a href="describing-your-data.html#variation"><i class="fa fa-check"></i><b>6.6.2</b> Variation</a></li>
+<li class="chapter" data-level="6.6.3" data-path="describing-your-data.html"><a href="describing-your-data.html#linear-association"><i class="fa fa-check"></i><b>6.6.3</b> Linear Association</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="describing-your-data.html"><a href="describing-your-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html"><i class="fa fa-check"></i><b>7</b> Advancing our wrangling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#todays-data"><i class="fa fa-check"></i><b>7.1</b> Today’s data</a></li>
+<li class="chapter" data-level="7.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#review-of-control-flow"><i class="fa fa-check"></i><b>7.2</b> Review of control flow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#loops-1"><i class="fa fa-check"></i><b>7.2.1</b> Loops</a></li>
+<li class="chapter" data-level="7.2.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#conditionals"><i class="fa fa-check"></i><b>7.2.2</b> Conditionals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#using-vectorization-in-r"><i class="fa fa-check"></i><b>7.3</b> Using vectorization in R</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#tidyverse-approaches-map-family"><i class="fa fa-check"></i><b>7.3.1</b> <code>tidyverse</code> approaches: <code>map()</code> family</a></li>
+<li class="chapter" data-level="7.3.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#base-r-approaches-apply-family"><i class="fa fa-check"></i><b>7.3.2</b> Base R approaches: <code>apply()</code> family</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#relational-data"><i class="fa fa-check"></i><b>7.4</b> Relational data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#bind-functions"><i class="fa fa-check"></i><b>7.4.1</b> <code>*bind()</code> functions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#join-functions"><i class="fa fa-check"></i><b>7.4.2</b> <code>*_join()</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#writing-readable-and-reproducible-scripts"><i class="fa fa-check"></i><b>7.5</b> Writing readable and reproducible scripts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#comments"><i class="fa fa-check"></i><b>7.5.1</b> Comments</a></li>
+<li class="chapter" data-level="7.5.2" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#whitespace-1"><i class="fa fa-check"></i><b>7.5.2</b> Whitespace</a></li>
+<li class="chapter" data-level="7.5.3" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#use-informative-variable-names"><i class="fa fa-check"></i><b>7.5.3</b> Use informative variable names</a></li>
+<li class="chapter" data-level="7.5.4" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#running-from-scratch"><i class="fa fa-check"></i><b>7.5.4</b> Running from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="advancing-our-wrangling.html"><a href="advancing-our-wrangling.html#references-4"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-from-data.html"><a href="inference-from-data.html"><i class="fa fa-check"></i><b>8</b> Inference from data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-from-data.html"><a href="inference-from-data.html#motivation-inference-from-experiments"><i class="fa fa-check"></i><b>8.1</b> Motivation: inference from experiments</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-from-data.html"><a href="inference-from-data.html#a-resampling-approach-to-statistics"><i class="fa fa-check"></i><b>8.2</b> “A resampling approach” to statistics</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-from-data.html"><a href="inference-from-data.html#confidence-intervals-around-group-means-the-bootstrap"><i class="fa fa-check"></i><b>8.2.1</b> Confidence intervals around group means (the “bootstrap”)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-from-data.html"><a href="inference-from-data.html#is-that-difference-important-permutation-tests"><i class="fa fa-check"></i><b>8.2.2</b> Is that difference important (permutation tests)?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-from-data.html"><a href="inference-from-data.html#what-do-we-know-about-statistics"><i class="fa fa-check"></i><b>8.3</b> What do we know about statistics?</a></li>
+<li class="chapter" data-level="" data-path="inference-from-data.html"><a href="inference-from-data.html#references-5"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html"><i class="fa fa-check"></i><b>9</b> The linear model - regression and ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#dataset-example-for-today"><i class="fa fa-check"></i><b>9.1</b> Dataset example for today</a></li>
+<li class="chapter" data-level="9.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#review-of-measurement-levels"><i class="fa fa-check"></i><b>9.2</b> Review of measurement levels</a></li>
+<li class="chapter" data-level="9.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#bivariate-2-variable-relationships-imply-a-third-variable"><i class="fa fa-check"></i><b>9.3.1</b> Bivariate (2-variable) relationships imply a third variable</a></li>
+<li class="chapter" data-level="9.3.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#simple-linear-regression"><i class="fa fa-check"></i><b>9.3.2</b> Simple linear regression</a></li>
+<li class="chapter" data-level="9.3.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#checking-your-model"><i class="fa fa-check"></i><b>9.3.3</b> Checking your model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-note-about-causality"><i class="fa fa-check"></i><b>9.4</b> A note about causality</a></li>
+<li class="chapter" data-level="9.5" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#a-coding-digression-factor"><i class="fa fa-check"></i><b>9.5</b> A coding digression: <code>factor</code></a></li>
+<li class="chapter" data-level="9.6" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>9.6</b> Analysis of variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#one-way-anova"><i class="fa fa-check"></i><b>9.6.1</b> One-way ANOVA</a></li>
+<li class="chapter" data-level="9.6.2" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#posthoc-testing"><i class="fa fa-check"></i><b>9.6.2</b> Posthoc testing</a></li>
+<li class="chapter" data-level="9.6.3" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#plotting-anova-results"><i class="fa fa-check"></i><b>9.6.3</b> Plotting ANOVA results</a></li>
+<li class="chapter" data-level="9.6.4" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#resampling-approaches-to-anova"><i class="fa fa-check"></i><b>9.6.4</b> Resampling approaches to ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#incorporating-multiple-predictors"><i class="fa fa-check"></i><b>9.7</b> Incorporating multiple predictors</a></li>
+<li class="chapter" data-level="" data-path="the-linear-model---regression-and-anova.html"><a href="the-linear-model---regression-and-anova.html#references-6"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html"><i class="fa fa-check"></i><b>10</b> Dealing with multiple factors</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#data-example"><i class="fa fa-check"></i><b>10.1.1</b> Data example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multi-way-anova"><i class="fa fa-check"></i><b>10.2</b> Multi-way ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#stepwise-model-fitting"><i class="fa fa-check"></i><b>10.2.1</b> Stepwise model fitting</a></li>
+<li class="chapter" data-level="10.2.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#plotting-interaction-effects"><i class="fa fa-check"></i><b>10.2.2</b> Plotting interaction effects</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#fitting-a-multiple-regression-to-our-model"><i class="fa fa-check"></i><b>10.3.1</b> Fitting a multiple regression to our model</a></li>
+<li class="chapter" data-level="10.3.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#a-second-example-of-stepwise-model-fitting"><i class="fa fa-check"></i><b>10.3.2</b> A second example of stepwise model fitting</a></li>
+<li class="chapter" data-level="10.3.3" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#combining-continuous-and-categorical-data"><i class="fa fa-check"></i><b>10.3.3</b> Combining continuous and categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#some-notes-of-caution-on-model-selection"><i class="fa fa-check"></i><b>10.4</b> Some notes of caution on model selection</a></li>
+<li class="chapter" data-level="10.5" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#tree"><i class="fa fa-check"></i><b>10.5</b> Categorization and Regression Trees (CART): A data-based approach</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#regression-trees"><i class="fa fa-check"></i><b>10.5.1</b> Regression trees</a></li>
+<li class="chapter" data-level="10.5.2" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#categorization-trees"><i class="fa fa-check"></i><b>10.5.2</b> Categorization trees</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#wrap-up"><i class="fa fa-check"></i><b>10.6</b> Wrap-up</a></li>
+<li class="chapter" data-level="" data-path="dealing-with-multiple-factors.html"><a href="dealing-with-multiple-factors.html#references-7"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html"><i class="fa fa-check"></i><b>11</b> Data literacy and an applied example of data science</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#text-mining-and-processing"><i class="fa fa-check"></i><b>11.1</b> Text mining and processing</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#introduction-the-data-source"><i class="fa fa-check"></i><b>11.1.1</b> Introduction: the data source</a></li>
+<li class="chapter" data-level="11.1.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#getting-permission"><i class="fa fa-check"></i><b>11.1.2</b> Getting permission</a></li>
+<li class="chapter" data-level="11.1.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#a-website-is-just-mark-up-language"><i class="fa fa-check"></i><b>11.1.3</b> A website is just (mark up) language</a></li>
+<li class="chapter" data-level="11.1.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#looking-at-some-actual-data"><i class="fa fa-check"></i><b>11.1.4</b> Looking at some actual data</a></li>
+<li class="chapter" data-level="11.1.5" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#using-basic-text-analysis-to-find-descriptions"><i class="fa fa-check"></i><b>11.1.5</b> Using basic text analysis to find descriptions</a></li>
+<li class="chapter" data-level="11.1.6" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#quantifying-text-data"><i class="fa fa-check"></i><b>11.1.6</b> Quantifying text data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#data-literacy"><i class="fa fa-check"></i><b>11.2</b> Data literacy</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#sources"><i class="fa fa-check"></i><b>11.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2.2" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#the-replicability-crisis"><i class="fa fa-check"></i><b>11.2.2</b> The replicability crisis</a></li>
+<li class="chapter" data-level="11.2.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#null"><i class="fa fa-check"></i><b>11.2.3</b> Some quick thoughts on (Null) Hypothesis Testing (NHST)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#selection"><i class="fa fa-check"></i><b>11.2.4</b> Observer (selection) bias</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#counting"><i class="fa fa-check"></i><b>11.3</b> Counting</a></li>
+<li class="chapter" data-level="" data-path="data-literacy-and-an-applied-example-of-data-science.html"><a href="data-literacy-and-an-applied-example-of-data-science.html#references-8"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">FST 5984: SS Data Analytics for Food and Ag Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="wrangling-your-data" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Wrangling your data<a href="wrangling-your-data.html#wrangling-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We are now in the fourth week of the Spring 2022 semester. One quarter of the way through. Into February. Congratulations, y’all!</p>
+<p>Today we’re going to start moving a little bit from abstract “how to” do things in R (but of course we’ll still have plenty of that) and into specific tasks that are relevant to food and ag scientists who need to do data science work. The focus today is going to be on</p>
+<ol style="list-style-type: decimal">
+<li>Reading data into R (as well as a little discussion of how we store data)</li>
+<li>Learning to use <code>tidyverse</code>, as set of R packages that makes R code easier and more intuitive (most of the time)</li>
+<li>(If we have time), returning to functions, including how to make them (and your scripts) readable and useful</li>
+</ol>
+<p>We’re going to have “the talk” about file extensions and how your computer stores data. Just like my discussion of data types in Week 1 (or, let’s be real, anything I do), this will be an informal and probably not 100% technically correct discussion. But learning to <em>see</em> these things properly will help you become a more capable user of scientific data.</p>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/file_extensions.png" alt="" />
+<p class="caption">What file extensions can we trust? <a href="https://xkcd.com/1301/">From XKCD</a>.</p>
+</div>
+<div id="getting-your-data-into-r" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Getting your data into R<a href="wrangling-your-data.html#getting-your-data-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the main challenges my students and others face in using R is getting data into the damn thing. I personally don’t think that most stats classes, or most classes on R, spend enough time on how to store your data, how to get it into a shape that R won’t struggle with too much, and how to actally get it into R (and what happens when you do).</p>
+<p>I think one of the reasons for this is that typical software like SPSS or Minitab (or JMP) gives you a spreadsheet (Excel-like) interface to deal with your data, which you can either copy-paste in from Excel or input directly. Something like this:</p>
+<div class="figure">
+<img src="Images/Week%204/JMP%20screenshot.jpg" alt="" />
+<p class="caption">JMP’s interface directly imitates a spreadsheet, although it is not one.</p>
+</div>
+<p>In R, we have to use tools that are similar to the <a href="https://en.wikipedia.org/wiki/Command-line_interface"><strong>command line</strong></a> to deal with files. With some exceptions we will go over briefly, reading data into R follows the same rules we’ve learned about (in painful detail) so far: it is fast and powerful, but it also requires that we be very precise about <em>how</em> our data is stored already and <em>how</em> we want to bring the data into R.</p>
+<p>These details seem arcane and pointless at first, and so we’re going to start by talking about how we store data in general.</p>
+<div id="data-storage-outside-r" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Data storage <em>outside</em> R<a href="wrangling-your-data.html#data-storage-outside-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Who here stores their lab notebook data in Excel? Raise your hand.</p>
+<p>Me too! That’s because there’s nothing wrong with doing this (except that Excel is kind of a monster of a program, but that’s another story). Where we start running into problems is the intersection between data storage and data manipulation. Here is an example:</p>
+<div class="figure">
+<img src="Images/Week%204/Wesolowski%20thesis.png" alt="" />
+<p class="caption">Michael Wesolowski’s thesis (2018) dataset uses Excel both to organize and to analyze data.</p>
+</div>
+<p>The problems with this approach are several-fold. First off, the analyses run in here (the average log calculation, for example), rely on the spatial alignment of the data. If the data are copy-pasted incorrectly, or a line is deleted, the analysis will become incorrect without giving any warning. Second, the visual annotation (the colored fields, the bolding, the outlines around cells) are not directly machine-readable (technically they are metadata that can be accessed with enough coding, but they are not directly attached to the data in a way that R or other programs can easily process).</p>
+<p>But the worst thing about this well-organized lab notebook is that the data are organized in multiple columns and rows within the same sheet, and that there are informational headers and other notes throughout the sheet. The reason this is bad has to do with how computers (and R in particular) process files. In general, R is going to be expecting a file with <strong>consistent structure</strong> on each line.</p>
+<p>Computers like <strong>structured</strong> data. Humans… may not. When we look at the above Excel file, our brains (which are pattern-finding engines) quickly intuit the patterns. We look to see where the colors are defined in the top lines, then check those out in the file. We understand that the first couple lines are “metadata”. But computers can’t know this (unless we build complex workflows for them to follow that encode that knowledge). So, instead, computers prefer data where the structure is predefined and there is no need for complicated rules.</p>
+<p>The typical kind of data we will deal with in this class is <strong>delimited data</strong>. Non-rigorously defined, delimited data is data stored where each <em>field</em> is <em>delimited</em> by the same character. So, in the Excel file above, imagine that each cell value (A1, etc) is followed by the same character. This character could be anything, technically, but there are some conventional choices: comma-separated, tab-separated, or space-separated (least common). A comma-separated file would look like this:</p>
+<pre><code># Comma-separated data
+
+cat_acquisition_order,name,weight\n
+1,Nick,9\n
+2,Margot,10\n
+3,Little Guy,13\n</code></pre>
+<p>This might look garbage-y, but let’s get in there. On each line of the file, we have three <em>fields</em>, each separated by a comma, and each line is ended (explicitly for the example) with the newline character: <code>\n</code> (the newline character is what your computer reads as “go to the next line”, like when you hit <code>enter</code> on your keyboard to go to a new line, you are explicitly entering a <code>\n</code> into the document).</p>
+<p>One of the lines in this file looks like <strong>column names</strong>, whereas the rest look like a consistent pattern of data. So we can think of this as a way to represent tabular data in a plain-text file. In fact, <strong>c</strong>omma-<strong>s</strong>eparated <strong>v</strong>alue files have their own, common file extensions: <strong>.csv</strong>. And they are one of the most common ways to read data into R, but it is by no means the only way–we will go over a few others below in the <a href="wrangling-your-data.html#hard">Why Data Storage is Hard</a> section.</p>
+<p>So how do we actually get these data into R? When we use JMP or SPSS or Minitab we can just open our .csv (or word file or whatever) and copy-paste the data into something that looks a lot like Excel. What happens if we try to copy-paste the cat example above into R?</p>
+<p>In general, our workflow for R is the following:</p>
+<ol style="list-style-type: decimal">
+<li>Store data in delimited format (usually .csv, but we will be talking about <a href="wrangling-your-data.html#excel">how to deal with existing Excel (.xls, .xlsx) files</a> today as well.)</li>
+<li>Organize your file directories SOMEHOW</li>
+<li>Name your files usefully–if you’re not going to use <a href="https://happygitwithr.com/"><strong>git</strong></a>, it is a good idea to name files with dates (I like YYYYMMDD format).</li>
+<li>Use a function like <code>read.table()</code> to read your data into R.</li>
+<li>It makes sense to store your files (or a copy of your files) in the same folder as your R scripts</li>
+<li>If you want to use R to make changes to your files, use <code>write.table()</code> or other functions to output your data back into the same folder.</li>
+<li><strong>THIS IS VERY IMPORTANT</strong>: Do not store <em>data</em> in R’s workspace. Your scripts/R Markdown files should always read in a data file, and make all changes to that file. This is why we clear changes on exit.</li>
+<li>We can store data in an R format using .RData files and the <code>save()</code> function, but this makes the most sense only if we’re producing big or complex output we don’t want to rerun, <em>and</em> if we annotate the file well.</li>
+</ol>
+<div id="example-files" class="section level4 hasAnchor" number="4.1.1.1">
+<h4><span class="header-section-number">4.1.1.1</span> Example files<a href="wrangling-your-data.html#example-files" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We are going to be working with several files in today’s example, which are all stored in the <code>&lt;class directory&gt;/Files/Week 4/</code> directory on Canvas. You should store them in a similar format, although on your file system you’ll want to replace <code>&lt;class directory&gt;</code> with your actual directory structure. We’ll talk about directory structure very briefly <a href="wrangling-your-data.html#hard">later today</a>.</p>
+<p>The first file is <code>polyphenol testing.csv</code>, and it contains data from Sihui Ma’s dissertation (2019) research into polyphenols in apples. In this particular dataset, Dr. Ma was interested in the effect of readings of polyphenol content in response to different ratios of constituent polyphenols, because she suspected that tests were differentially responsive to different polyphenols (she was correct).</p>
+<p>The second file is <code>soup pilot data.csv</code>. This is from research I conducted in 2016 at Drexel University on the effect of course order on acceptance for parts of a meal. This file, however, is just pilot data–we needed to develop different soups with different levels of base liking (outside of a meal), and so these are data from tasting of 4 soups, 2 minestrone and 2 hot and sour.</p>
+<p>To start with, both of these files are <strong>well-structured</strong>. Here are some non-exhaustive attributes of that well-structuring:</p>
+<ul>
+<li>Each line is an observation.<br />
+</li>
+<li>In the polyphenol file, that means each line is a single observation (this is <em>long</em> data).<br />
+</li>
+<li>In the soup file, each line is a subject, with 4 observations (each soup) on the same line (this is <em>wide</em> data).</li>
+<li>There is no formatting or other non-readable information.</li>
+<li>The format of each file is 1 header line (names of variables) followed by each line as an observation that fits the pattern.</li>
+</ul>
+<p>If your files are not in this format, it can sometimes make your life easier to get them into this format before you try to put them into R, although I will show <a href="wrangling-your-data.html#excel">at least one other option later</a>.</p>
+</div>
+</div>
+<div id="read.table" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> <code>read.table()</code><a href="wrangling-your-data.html#read.table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The most basic utitlity in R for reading in delimited data is the <code>read.table()</code> function. If you run <code>?read.table</code> you’ll see that this is a function with a ton of options, because it is made to be very flexible and not assume a lot about the file you’re trying to read.</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="wrangling-your-data.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>,</span>
+<span id="cb387-2"><a href="wrangling-your-data.html#cb387-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb387-3"><a href="wrangling-your-data.html#cb387-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>) <span class="co"># Note that this line tells read.table() how to break up your file - what happens if we exclude it with this file?</span></span></code></pre></div>
+<pre><code>##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
+## 1       0.2     1                5                            2.79
+## 2       0.2     1                5                            2.73
+## 3       0.2     1                5                            2.74
+## 4       0.2     1              200                           57.73
+## 5       0.2     1              200                           58.19
+## 6       0.2     1              200                           69.24
+## 7       0.2     1              500                          150.31
+## 8       0.2     1              500                          161.70
+## 9       0.2     1              500                          161.13
+## 10      0.2    30                5                           15.17
+## 11      0.2    30                5                           15.27
+## 12      0.2    30                5                           14.01
+## 13      0.2    30              200                           63.54
+## 14      0.2    30              200                           64.00
+## 15      0.2    30              200                           62.40
+## 16      0.2    30              500                          168.25
+## 17      0.2    30              500                          159.71
+## 18      0.2    30              500                          136.65
+## 19      0.2   100                5                           46.57
+## 20      0.2   100                5                           46.12
+## 21      0.2   100                5                           50.90
+## 22      0.2   100              200                           95.32
+## 23      0.2   100              200                           92.36
+## 24      0.2   100              200                           84.16
+## 25      0.2   100              500                          148.32
+## 26      0.2   100              500                          158.29
+## 27      0.2   100              500                          157.43
+## 28     30.0     1                5                           14.01
+## 29     30.0     1                5                           13.80
+## 30     30.0     1                5                           13.87
+## 31     30.0     1              200                           60.01
+## 32     30.0     1              200                           51.92
+## 33     30.0     1              200                           65.14
+## 34     30.0     1              500                          170.24
+## 35     30.0     1              500                          173.38
+## 36     30.0     1              500                          170.53
+## 37     30.0    30                5                           21.93
+## 38     30.0    30                5                           17.97
+## 39     30.0    30                5                           17.32
+## 40     30.0    30              200                           57.28
+## 41     30.0    30              200                           52.04
+## 42     30.0    30              200                           50.33
+## 43     30.0    30              500                          155.44
+## 44     30.0    30              500                          153.16
+## 45     30.0    30              500                          158.00
+## 46     30.0   100                5                           52.38
+## 47     30.0   100                5                           51.47
+## 48     30.0   100                5                           52.61
+## 49     30.0   100              200                          115.58
+## 50     30.0   100              200                          117.57
+## 51     30.0   100              200                          116.43
+## 52     30.0   100              500                          119.56
+## 53     30.0   100              500                          130.38
+## 54     30.0   100              500                          118.71
+## 55    100.0     1                5                           44.75
+## 56    100.0     1                5                           45.32
+## 57    100.0     1                5                           44.98
+## 58    100.0     1              200                           56.37
+## 59    100.0     1              200                           56.14
+## 60    100.0     1              200                           57.39
+## 61    100.0     1              500                          131.52
+## 62    100.0     1              500                          138.64
+## 63    100.0     1              500                          136.36
+## 64    100.0    30                5                           50.67
+## 65    100.0    30                5                           51.92
+## 66    100.0    30                5                           50.79
+## 67    100.0    30              200                           56.82
+## 68    100.0    30              200                           63.43
+## 69    100.0    30              200                           66.85
+## 70    100.0    30              500                          143.19
+## 71    100.0    30              500                          153.45
+## 72    100.0    30              500                          143.19
+## 73    100.0   100                5                           56.03
+## 74    100.0   100                5                           56.94
+## 75    100.0   100                5                           56.14
+## 76    100.0   100              200                          121.55
+## 77    100.0   100              200                          115.58
+## 78    100.0   100              200                          118.71
+## 79    100.0   100              500                          151.17
+## 80    100.0   100              500                          145.19
+## 81    100.0   100              500                          151.45</code></pre>
+<p>The most important line here is the <code>header = TRUE</code>, which tells R that the first line in our file is a set of column names. Other options that are important are specifying the separator between columns (<code>sep = ","</code> tells this example that this is a .csv), and <code>asis = TRUE</code>, which will stop R from converting character data into <code>factor</code> data (the default behavior of <code>read.table()</code>).</p>
+<p>We won’t necessarily be using <code>read.table()</code> very much, because more specific options like <code>read.csv()</code> or more general options like <code>scan()</code> will almost always be able to do what we want. But it is good to see the basic function in action. You’ll see <code>read.table()</code> come up a lot in older R scripts and references.</p>
+</div>
+<div id="read.csv" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> <code>read.csv()</code><a href="wrangling-your-data.html#read.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When we already know that the kind of data we’ll want to deal with is comma-separated, it’s much easier to use <code>read.csv()</code>, which does exactly what it sounds like. It is a <em>wrapper function</em> for <code>read.table()</code>–when you see something called a “wrapper”, it means it is actually just that function set up with some useful defaults. We can see that here:</p>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="wrangling-your-data.html#cb389-1" aria-hidden="true" tabindex="-1"></a>read.csv</span></code></pre></div>
+<pre><code>## function (file, header = TRUE, sep = &quot;,&quot;, quote = &quot;\&quot;&quot;, dec = &quot;.&quot;, 
+##     fill = TRUE, comment.char = &quot;&quot;, ...) 
+## read.table(file = file, header = header, sep = sep, quote = quote, 
+##     dec = dec, fill = fill, comment.char = comment.char, ...)
+## &lt;bytecode: 0x7fc563774390&gt;
+## &lt;environment: namespace:utils&gt;</code></pre>
+<p>So <code>read.csv()</code> just tells <code>read.table()</code> a bunch of useful defaults so we don’t have to set them. Let’s try it on both of our files.</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="wrangling-your-data.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span></code></pre></div>
+<pre><code>##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
+## 1       0.2     1                5                            2.79
+## 2       0.2     1                5                            2.73
+## 3       0.2     1                5                            2.74
+## 4       0.2     1              200                           57.73
+## 5       0.2     1              200                           58.19
+## 6       0.2     1              200                           69.24
+## 7       0.2     1              500                          150.31
+## 8       0.2     1              500                          161.70
+## 9       0.2     1              500                          161.13
+## 10      0.2    30                5                           15.17
+## 11      0.2    30                5                           15.27
+## 12      0.2    30                5                           14.01
+## 13      0.2    30              200                           63.54
+## 14      0.2    30              200                           64.00
+## 15      0.2    30              200                           62.40
+## 16      0.2    30              500                          168.25
+## 17      0.2    30              500                          159.71
+## 18      0.2    30              500                          136.65
+## 19      0.2   100                5                           46.57
+## 20      0.2   100                5                           46.12
+## 21      0.2   100                5                           50.90
+## 22      0.2   100              200                           95.32
+## 23      0.2   100              200                           92.36
+## 24      0.2   100              200                           84.16
+## 25      0.2   100              500                          148.32
+## 26      0.2   100              500                          158.29
+## 27      0.2   100              500                          157.43
+## 28     30.0     1                5                           14.01
+## 29     30.0     1                5                           13.80
+## 30     30.0     1                5                           13.87
+## 31     30.0     1              200                           60.01
+## 32     30.0     1              200                           51.92
+## 33     30.0     1              200                           65.14
+## 34     30.0     1              500                          170.24
+## 35     30.0     1              500                          173.38
+## 36     30.0     1              500                          170.53
+## 37     30.0    30                5                           21.93
+## 38     30.0    30                5                           17.97
+## 39     30.0    30                5                           17.32
+## 40     30.0    30              200                           57.28
+## 41     30.0    30              200                           52.04
+## 42     30.0    30              200                           50.33
+## 43     30.0    30              500                          155.44
+## 44     30.0    30              500                          153.16
+## 45     30.0    30              500                          158.00
+## 46     30.0   100                5                           52.38
+## 47     30.0   100                5                           51.47
+## 48     30.0   100                5                           52.61
+## 49     30.0   100              200                          115.58
+## 50     30.0   100              200                          117.57
+## 51     30.0   100              200                          116.43
+## 52     30.0   100              500                          119.56
+## 53     30.0   100              500                          130.38
+## 54     30.0   100              500                          118.71
+## 55    100.0     1                5                           44.75
+## 56    100.0     1                5                           45.32
+## 57    100.0     1                5                           44.98
+## 58    100.0     1              200                           56.37
+## 59    100.0     1              200                           56.14
+## 60    100.0     1              200                           57.39
+## 61    100.0     1              500                          131.52
+## 62    100.0     1              500                          138.64
+## 63    100.0     1              500                          136.36
+## 64    100.0    30                5                           50.67
+## 65    100.0    30                5                           51.92
+## 66    100.0    30                5                           50.79
+## 67    100.0    30              200                           56.82
+## 68    100.0    30              200                           63.43
+## 69    100.0    30              200                           66.85
+## 70    100.0    30              500                          143.19
+## 71    100.0    30              500                          153.45
+## 72    100.0    30              500                          143.19
+## 73    100.0   100                5                           56.03
+## 74    100.0   100                5                           56.94
+## 75    100.0   100                5                           56.14
+## 76    100.0   100              200                          121.55
+## 77    100.0   100              200                          115.58
+## 78    100.0   100              200                          118.71
+## 79    100.0   100              500                          151.17
+## 80    100.0   100              500                          145.19
+## 81    100.0   100              500                          151.45</code></pre>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="wrangling-your-data.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+## 1        1           0          50         -50          10
+## 2        2          70          80         -20          20
+## 3        3          80          97          10          37
+## 4        4          20          60         -80          65
+## 5        5          65          96          37          99
+## 6        6          30          80         -50          20
+## 7        7          75          90          40          80
+## 8        8          70          80          50         -10
+## 9        9          40          90         -60          20
+## 10      10          15          65          25          20
+## 11      11         -50          75         -15          50
+## 12      12          75          25        -100        -100
+## 13      13         -25          50         -75         -10
+## 14      14          20          40         -75          60
+## 15      15          70          90         -25         -60
+## 16      16          20          90         -50          30
+## 17      17          15          90          30          50
+## 18      18          40          90         -60         -15
+## 19      19          55          85         -50         -60
+## 20      20          20          60         -40           0
+## 21      21          20         100        -100          60
+## 22      22          20          60         -60         -10
+## 23      23          10         100        -100          85
+## 24      24          10          75          35          55</code></pre>
+<p>It’s been a little while since we did this, but what happens if we want that data?</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="wrangling-your-data.html#cb395-1" aria-hidden="true" tabindex="-1"></a>polyphenol testing <span class="co"># We read the data and just threw it away!</span></span></code></pre></div>
+<pre><code>## Error: &lt;text&gt;:1:12: unexpected symbol
+## 1: polyphenol testing
+##                ^</code></pre>
+<p>Remember, <strong>we have to store R objects using <code>&lt;-</code>.</strong></p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="wrangling-your-data.html#cb397-1" aria-hidden="true" tabindex="-1"></a>polyphenols <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span>
+<span id="cb397-2"><a href="wrangling-your-data.html#cb397-2" aria-hidden="true" tabindex="-1"></a>soups <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
+<p>Now we can access these objects and learn about them.</p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="wrangling-your-data.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(polyphenols) <span class="co"># the read.*() functions create data.frame objects</span></span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="wrangling-your-data.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polyphenols, <span class="at">n =</span> <span class="dv">5</span>) <span class="co"># display the first n lines of an object--defaults to n = 6</span></span></code></pre></div>
+<pre><code>##   Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
+## 1      0.2     1                5                            2.79
+## 2      0.2     1                5                            2.73
+## 3      0.2     1                5                            2.74
+## 4      0.2     1              200                           57.73
+## 5      0.2     1              200                           58.19</code></pre>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="wrangling-your-data.html#cb402-1" aria-hidden="true" tabindex="-1"></a>soups<span class="sc">$</span>minestrone1 <span class="co"># header = TRUE in read.csv() means that all the columns are named properly</span></span></code></pre></div>
+<pre><code>##  [1]   0  70  80  20  65  30  75  70  40  15 -50  75 -25  20  70  20  15  40  55
+## [20]  20  20  20  10  10</code></pre>
+<p>And we can start to do basic data analysis. Let’s look at a boxplot of soup rating:</p>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="wrangling-your-data.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(soups[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># We use the [, -1] syntax to remove the first column of soups--why?</span></span></code></pre></div>
+<p><img src="04-data-wrangling_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="hard" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Why data storage is hard<a href="wrangling-your-data.html#hard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>OK, so we’ve pretty quickly gotten to getting data into R. That didn’t seem so bad. But let’s try importing a third file, which contains data from my lab from J’Nai Kessinger’s thesis (2019), in which she had subjects sort 18 ciders into groups according to their own perceptions. The file is called <code>cider sorting.csv</code>, but it has two problems.</p>
+<ol style="list-style-type: decimal">
+<li>It is not stored in the standardized location I set up for this R Markdown</li>
+<li>It is well-formatted for human reading, but not for computers.</li>
+</ol>
+<div id="where-files-live-in-your-computer" class="section level4 hasAnchor" number="4.1.4.1">
+<h4><span class="header-section-number">4.1.4.1</span> Where files live in your computer<a href="wrangling-your-data.html#where-files-live-in-your-computer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The first problem above is one of file organization. Who here uses a set of structured folders to organize their files?</p>
+<p><img src="Images/Week%204/Folder%20organization.png" alt="I use a set of fairly standardized folders to organize my files for teaching at VT." />
+But it seems like this is becoming less standard practice, according to <a href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z">this article in the Verge from Fall 2021</a>. Both Windows and macOS have introduced more powerful search functions, so that if you have an idea of what your file is called you can kind of get away with just typing it into the search engine in the OS and having it return you the file.</p>
+<p>Unfortunately, this plays pretty poorly with coding for research. We have a lot of data files that are often <em>versioned</em>–with the same file name but different dates. We also tend to have similar file names: “Cider ANOVA”, “Polyphenol ANOVA”, etc. It takes longer and longer file names to specify these, and it also requires more and better memory. On the other hand, folder structure, of the type I show above, is sort of like “preserved memory”–I don’t actually remember teaching FST 3024 in 2018 very well, but I know if I go into that folder I will find files in descriptively labeled folders.</p>
+<p>Therefore for this class and for analysis projects, I recommend a simple file structure that can be expanded upon, rather than descriptively naming files. You should create a <strong>directory</strong> (a “folder”) for the class, and have sub-directories within that directory for each week. You will find this much easier to manage.</p>
+</div>
+<div id="dealing-with-other-ways-of-storing-data" class="section level4 hasAnchor" number="4.1.4.2">
+<h4><span class="header-section-number">4.1.4.2</span> Dealing with other ways of storing data<a href="wrangling-your-data.html#dealing-with-other-ways-of-storing-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>So once we find the file we can read it, right?</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="wrangling-your-data.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">read.csv</span>(<span class="st">&quot;Files/cider sorting.csv&quot;</span>)) <span class="co"># The file is very large, so I am not going to display it, but instead look at its structure via str()</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    3817 obs. of  7 variables:
+##  $ Test.Name    : chr  &quot;102918_VA Cider Sort&quot; &quot;Section Name&quot; &quot;Sample Number&quot; &quot;1&quot; ...
+##  $ Description  : chr  &quot;New Test&quot; &quot;1. First Section: Sorting Task&quot; &quot;Sample Name&quot; &quot;Big Fish Cider Co.&quot; ...
+##  $ Test.Status  : chr  &quot;Ready To Run&quot; &quot;&quot; &quot;Blinding Code&quot; &quot;188&quot; ...
+##  $ Test.Owner   : chr  &quot;J&#39;Nai Phillips&quot; &quot;&quot; &quot;Sample Type&quot; &quot;Sample&quot; ...
+##  $ Saved.for    : chr  &quot;Virginia Tech Research&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+##  $ Test.Language: chr  &quot;English&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+##  $ Test.Expiry  : chr  &quot;11/15/2018&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...</code></pre>
+<p>The second problem with this file is that it is, like Michael Wesolowski’s thesis data, really mixing data <strong>organization</strong> and data <strong>analysis</strong>. In the file, if we open it, we’ll see that it looks like there are actually multiple data tables crammed into one file. This is a clue that this isn’t really a data file–it’s a <strong>directory</strong>. What we should do is restructure this file into multiple .csv files, all in one directory called “cider sorting”. For example, we’d want to create a <code>cider samples.csv</code> file with just the sample data, as well as .csv files for the sorting and the questionnaire data.</p>
+<p>This is just one example of how the same file type can contain multiple (and sometimes pathological) ways of storing data.</p>
+<p>There are many other ways of <strong>Structuring</strong> data. There is no need for the data to be tabular, for example. A common form of structured data is a JSON file–JavaScript Object Notation. These files look like this (example from <a href="https://en.wikipedia.org/wiki/JSON#Syntax">Wikipedia</a>):</p>
+<pre><code># This is a JSON object
+
+{
+  &quot;firstName&quot;: &quot;John&quot;,
+  &quot;lastName&quot;: &quot;Smith&quot;,
+  &quot;isAlive&quot;: true,
+  &quot;age&quot;: 27,
+  &quot;address&quot;: {
+    &quot;streetAddress&quot;: &quot;21 2nd Street&quot;,
+    &quot;city&quot;: &quot;New York&quot;,
+    &quot;state&quot;: &quot;NY&quot;,
+    &quot;postalCode&quot;: &quot;10021-3100&quot;
+  },
+  &quot;phoneNumbers&quot;: [
+    {
+      &quot;type&quot;: &quot;home&quot;,
+      &quot;number&quot;: &quot;212 555-1234&quot;
+    },
+    {
+      &quot;type&quot;: &quot;office&quot;,
+      &quot;number&quot;: &quot;646 555-4567&quot;
+    }
+  ],
+  &quot;children&quot;: [],
+  &quot;spouse&quot;: null
+}</code></pre>
+<p>This is a very different kind of format than the .csv files we’ve been looking at, but you can see there are a number of “key-value” pairs here that give it <em>structure</em>, as well as being able to support a nested (recursive) structure, like that in the “address” field. This can be <strong>parsed</strong> by a computer easily because of its consistent structure–in fact, the <code>jsonlite::fromJSON()</code> function will happily do this. Can you run this and see what R thinks this is?</p>
+<p>Note two advantages of this kind of data storage over tabular (.csv) files:</p>
+<ol style="list-style-type: decimal">
+<li>It allows for nested/structured subfields, like the “address” field (which is itself a tiny JSON)</li>
+<li>It allows for fields with multiple/arbitrary entries</li>
+</ol>
+<p>Neither of these are possible in tabular data or in R data frames–but these are both features of R’s <code>list</code> structure. And you’ll notice the JSON imports as a <code>list</code> object. As we will see in the rest of the course, we often encounter lists when we need flexibility.</p>
+</div>
+</div>
+</div>
+<div id="making-your-life-in-r-easier-with-the-tidyverse" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Making your life in R easier with the <code>tidyverse</code><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Having talked about getting data into R, we’re going to take a detour and talk about how to start to make your life easier, especially when dealing with these kinds of <code>data.frame</code> objects. The <code>tidyverse</code> is a shortcut package that you should already be familiar with from your reading in <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a>. It loads a number of individual packages, including two that make many of the R operations we’ve been learning about for the first month of class more natural and comfortable. You can learn about all of them at the tidyverse <a href="https://tidyverse.tidyverse.org/">package page</a>.</p>
+<p>Remember that, if you haven’t already, you will need to install and load the <code>tidyverse</code> package to make this work.</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="wrangling-your-data.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb408-2"><a href="wrangling-your-data.html#cb408-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="naming-long-tidy-vs-wide-data" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Naming: long (“tidy”) vs wide data<a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The name of the “<code>tidyverse</code>” comes from the core concept of “tidy” data. According to <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span>, <a href="https://r4ds.had.co.nz/tidy-data.html#tidy-data-1">tidy data has the following properties</a>:</p>
+<ol style="list-style-type: decimal">
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ol>
+<p>The result of this is the style of data we see in the <code>polyphenols</code> dataset, which we will use the <a href="wrangling-your-data.html#tibble"><code>tibble()</code> function</a> to make clearer:</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="wrangling-your-data.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(polyphenols) </span></code></pre></div>
+<pre><code>## # A tibble: 81 × 4
+##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
+##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt;
+##  1      0.2     1                5                            2.79
+##  2      0.2     1                5                            2.73
+##  3      0.2     1                5                            2.74
+##  4      0.2     1              200                           57.7 
+##  5      0.2     1              200                           58.2 
+##  6      0.2     1              200                           69.2 
+##  7      0.2     1              500                          150.  
+##  8      0.2     1              500                          162.  
+##  9      0.2     1              500                          161.  
+## 10      0.2    30                5                           15.2 
+## # … with 71 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>“Tidy” data is a synonym for “long” or “tall” data. <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">This is in contrast</a> to the “wide” data of the <code>soups</code> dataset:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="wrangling-your-data.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(soups)</span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1           0          50         -50          10
+##  2       2          70          80         -20          20
+##  3       3          80          97          10          37
+##  4       4          20          60         -80          65
+##  5       5          65          96          37          99
+##  6       6          30          80         -50          20
+##  7       7          75          90          40          80
+##  8       8          70          80          50         -10
+##  9       9          40          90         -60          20
+## 10      10          15          65          25          20
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>In <code>soups</code>, each row represents a <em>case</em>–the subject–and then there are multiple columns that represent different observations on a particular soup. The type-of-soup variable, meanwhile, has no column of its own. This is a common format for data storage, because it feels natural. But it <a href="https://r4ds.had.co.nz/tidy-data.html#non-tidy-data">may not always be the easiest format to access and manipulate data</a>. In later classes we’ll learn about some easy functions to switch between these data formats using ideas from <a href="https://r4ds.had.co.nz/relational-data.html">database software</a>, but for now we’re just going to note their existence.</p>
+<div id="syntax-conventions-unquoted-arguments" class="section level4 hasAnchor" number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> syntax conventions: unquoted arguments<a href="wrangling-your-data.html#syntax-conventions-unquoted-arguments" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Before we dive into some of the howtos of the <code>tidyverse</code>, one other key difference from much of R is worth noting. In many of the “core” <code>tidyverse</code> functions like those we are going to learn about here, arguments to functions can be <strong>left unquoted</strong>. That means that, for example, if we want to use the <code>select()</code> function to pick the <code>minestrone1</code> column from soups (<a href="wrangling-your-data.html#select">see below</a>), we would merely need to write <code>select(soups, minestrone1)</code>. Contrast this with base R, in which (using the <code>[]</code> syntax), we’d need to write <code>soups[, "minestrone1"]</code>.</p>
+<p>This is a programming choice based on how R uses names and symbols in the environment (see <code>?as.name</code> for some confusing terminology). It is not critical to know the <em>why</em> of this, only to know that, for many functions in <code>tidyverse</code>, you supply plain variable names, or even vectors (using <code>c()</code> of plain variable names). If you are really curious about how all this works, the <a href="https://adv-r.hadley.nz/">Advanced R book</a> may be of interest (but then I would wonder why you were taking this class).</p>
+</div>
+</div>
+<div id="one-pipe-to-rule-them-all" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> One pipe to rule them all: <code>%&gt;%</code><a href="wrangling-your-data.html#one-pipe-to-rule-them-all" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the main tools that makes the <code>tidyverse</code> compelling is <strong>the pipe</strong>: <code>%&gt;%</code>. This garbage-looking set of symbols is actually your best friend, you just don’t know it yet. I use this tool constantly in my R programming, but I’ve been avoiding it up to this point because it’s not part of base R (in fact that’s no longer strictly true, but it is kind of complicated at the moment).</p>
+<p>OK, enough background, what the heck <em>is</em> a pipe? The term “pipe” comes from what it does: like a pipe, <code>%&gt;%</code> let’s whatever is on it’s left side flow through to the right hand side. Let’s try this out in some pseudocode</p>
+<pre id="tidyselect"><code>load soups data %&gt;%               # Load the soups data into R AND THEN
+ select minestrone columns %&gt;%    # Pick only the columns to do with minestrone AND THEN
+ filter first 10 subjects %&gt;%     # Get only the first 10 subjects to participate AND THEN
+ run a t-test to compare soups    # Run the statistical test we wanted</code></pre>
+<p>In this example, each place there is a <code>%&gt;%</code> I’ve added a comment saying “AND THEN”. This is because that’s exactly what the pipe does: it passes whatever happened in the previous step to the next function. Without the pipe, we’d end up doing something like this:</p>
+<pre><code>soups &lt;- load soups data                    # Create an object with our data
+soups_2 &lt;- select soups minestrone columns  # Create a second object for our selected columns
+soups_3 &lt;- filter soups_2 first 10 subjects # Create a third object for our filtered data
+t-test(soups_3)                             # Run our t_test on the third data set</code></pre>
+<p>This is messy, harder to read, and means that we have to run every line again if we mess up, because if we go back and, for example, change <code>soups</code> (say we forgot to use <code>read.table()</code> with <code>header = TRUE</code>), the other objects won’t be automatically updated. But we don’t care about those intermediate objects–they’re just by-products of our workflow. The advantage of the <code>%&gt;%</code> pipe is that it gets rid of those, and makes code that is much more readable in the process.</p>
+<p>There are a couple of points to know about using the pipe, and much more detail is available from the <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span> <a href="https://r4ds.had.co.nz/pipes.html">chapter on the subject</a>.</p>
+<div id="pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="section level4 hasAnchor" number="4.2.2.1">
+<h4><span class="header-section-number">4.2.2.1</span> Pipes require that the lefthand side be a single functional command<a href="wrangling-your-data.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This means that we can’t directly do something like rewrite <code>sqrt(1 + 2)</code> with <code>%&gt;%</code>:</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="wrangling-your-data.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
+<pre><code>## [1] 2.414214</code></pre>
+<p>Instead, if we want to pass binary operationse in a pipe, we need to enclose them in <code>()</code> on the line they are in:</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="wrangling-your-data.html#cb416-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
+<pre><code>## [1] 1.732051</code></pre>
+<p>More complex piping is possible using the curly braces (<code>{}</code>), which create new R environments, but this is more advanced than you will generally need to be.</p>
+</div>
+<div id="pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="section level4 hasAnchor" number="4.2.2.2">
+<h4><span class="header-section-number">4.2.2.2</span> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side<a href="wrangling-your-data.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This sounds like a weird logic puzzle, but it’s not, as we can see if we look at some simple math. Let’s define a function for use in a pipe that computes the difference between two numbers:</p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="wrangling-your-data.html#cb418-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
+<span id="cb418-2"><a href="wrangling-your-data.html#cb418-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>If we want to rewrite that as a pipe, we can write:</p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="wrangling-your-data.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>But we can’t write</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="wrangling-your-data.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
+<pre><code>## [1] -1</code></pre>
+<p>We can explicitly force the pipe to work the way we want it to by using <code>.</code> <strong>as the placeholder for the result of the lefthand side</strong>:</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="wrangling-your-data.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>So, when you’re using pipes, make sure that the output of the lefthand side <em>should</em> be going into the first argument of the righthand side–this is often but not always the case, especially with non-<code>tidyverse</code> functions.</p>
+</div>
+<div id="pipes-are-a-pain-to-type" class="section level4 hasAnchor" number="4.2.2.3">
+<h4><span class="header-section-number">4.2.2.3</span> Pipes are a pain to type<a href="wrangling-your-data.html#pipes-are-a-pain-to-type" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Typing <code>%&gt;%</code> is no fun. But, happily, RStudio builds in a shortcut for you: <strong>ctrl + shift + M</strong>.</p>
+<p>.</p>
+<p>..</p>
+<p>…</p>
+<p><strong>ctrl + shift + M = <code>%&gt;%</code></strong></p>
+</div>
+</div>
+<div id="tibble" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> The <code>tibble()</code><a href="wrangling-your-data.html#tibble" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>OK, with those bits of syntax out of the way, let’s talk about what tidyverse can get us. We’ll start with something simple, but nice. The <em>augmented</em> version of <code>data.frame</code> that is provided by <code>tidyverse</code> (via the <code>tibble</code> package) is called a “<code>tibble</code>”.</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="wrangling-your-data.html#cb426-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(soups)</span>
+<span id="cb426-2"><a href="wrangling-your-data.html#cb426-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(soup_tbl)</span></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="wrangling-your-data.html#cb428-1" aria-hidden="true" tabindex="-1"></a>soup_tbl</span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1           0          50         -50          10
+##  2       2          70          80         -20          20
+##  3       3          80          97          10          37
+##  4       4          20          60         -80          65
+##  5       5          65          96          37          99
+##  6       6          30          80         -50          20
+##  7       7          75          90          40          80
+##  8       8          70          80          50         -10
+##  9       9          40          90         -60          20
+## 10      10          15          65          25          20
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>You’ll notice a few thing about these:</p>
+<ul>
+<li>They print nicely: delimited number of lines, explicit printing of column types</li>
+<li>They do have <code>class</code> of <code>data.frame</code>, but also <code>tbl</code> and <code>tbl_df</code>–this means everything that works on <code>data.frame</code> works on them, but they also have additional capabilities</li>
+<li>Tibbles disallow row names, which is a good habit to get into but can cause some compatibility issues with non-<code>tidyverse</code> functions</li>
+</ul>
+<p>Tibbles can be created using pretty simple syntax that is parallel but simpler than data frames:</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="wrangling-your-data.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb430-2"><a href="wrangling-your-data.html#cb430-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">10</span>),</span>
+<span id="cb430-3"><a href="wrangling-your-data.html#cb430-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">z =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##        x      y z    
+##    &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
+##  1     1 0.0682 a    
+##  2     2 0.673  b    
+##  3     3 0.325  c    
+##  4     4 0.935  d    
+##  5     5 0.0501 e    
+##  6     6 0.527  f    
+##  7     7 0.872  g    
+##  8     8 0.500  h    
+##  9     9 0.454  i    
+## 10    10 0.786  j</code></pre>
+</div>
+<div id="select" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Pick columns: <code>select()</code><a href="wrangling-your-data.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here’s where <code>tidyverse</code> starts getting kind of spicy! R’s system for <strong>indexing</strong> data frames is clear and sensible for those who are used to programming languages, but it is not necessarily easy to read.</p>
+<p>A common situation in R is wanting to select some rows and some columns of our data–this is called “<strong>subsetting</strong>” our data. We might want to do it manually (when we are doing exploration) or write a function that will do it automatically (maybe as part of a conditional statement or a loop). We give an example of wanting to do this in our <a href="wrangling-your-data.html#tidyselect">pseudocode example for pipes, above</a>. But this is less easy than it might be for the beginner in R.</p>
+<p>In our pseudocode example, we wanted to pick all columns in <code>soup</code> that were about “minestrone”. In base R, we can get at these in a number of ways, but the most “foolproof” way is the following:</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="wrangling-your-data.html#cb432-1" aria-hidden="true" tabindex="-1"></a>soup_tbl[, <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;minestrone&quot;</span>, <span class="at">x =</span> <span class="fu">names</span>(soups), <span class="at">fixed =</span> <span class="cn">TRUE</span>, <span class="at">value =</span> <span class="cn">FALSE</span>)] <span class="co"># I picked the tbl version for printing</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    minestrone1 minestrone2
+##          &lt;int&gt;       &lt;int&gt;
+##  1           0          50
+##  2          70          80
+##  3          80          97
+##  4          20          60
+##  5          65          96
+##  6          30          80
+##  7          75          90
+##  8          70          80
+##  9          40          90
+## 10          15          65
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Yikes! The reason this is “foolproof” is because it doesn’t rely on these columns being in a particular place, and it does not require the reconstruction of the data frame from constituent parts. (<code>grep()</code> is a function for finding <a href="https://regexone.com/">regular expressions</a>, a powerful, compact, difficult way to do character matching.) We could do a less foolproof but easier search in the following ways:</p>
+<ol style="list-style-type: decimal">
+<li>Use numeric indexing to get the right numbers of the columns. This relies on the indexes, rather than the names containing minestrone.</li>
+<li>Extract each minestrone columns using <code>$</code> and paste them together into a new data frame.</li>
+</ol>
+<div id="exercise-indexing-the-old-fashioned-way" class="section level4 hasAnchor" number="4.2.4.1">
+<h4><span class="header-section-number">4.2.4.1</span> Exercise: Indexing the old-fashioned way<a href="wrangling-your-data.html#exercise-indexing-the-old-fashioned-way" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For the exercises above, use the following chunk to actually do both.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="wrangling-your-data.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric indexing</span></span>
+<span id="cb434-2"><a href="wrangling-your-data.html#cb434-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-3"><a href="wrangling-your-data.html#cb434-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reconstructing from extracted vectors</span></span></code></pre></div>
+<p>The <code>select()</code> function in <code>tidyverse</code> (actually from the <code>dplyr</code> package) is the smarter, easier way to do this. It works on data frames, and it can be read as “from &lt;data frame&gt;, select the columns that meet the criteria we’ve set.”</p>
+<p>The simplest way to use <code>select()</code> is just to name the columns you want!</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="wrangling-your-data.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(soup_tbl, minestrone1, minestrone2) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    minestrone1 minestrone2
+##          &lt;int&gt;       &lt;int&gt;
+##  1           0          50
+##  2          70          80
+##  3          80          97
+##  4          20          60
+##  5          65          96
+##  6          30          80
+##  7          75          90
+##  8          70          80
+##  9          40          90
+## 10          15          65
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>But <code>select()</code> has a bunch of <strong>helper functions</strong> that make it easy to do more foolproof selection. Look them up by running, for example, <code>?one_of</code>. We’re going to use <code>contains()</code>, which is the easy-to-read version of the <code>grep()</code> command I ran above.</p>
+<p>We’ll also do this with a pipe (<code>%&gt;%</code>) just to practice.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="wrangling-your-data.html#cb437-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb437-2"><a href="wrangling-your-data.html#cb437-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;minestrone&quot;</span>)) <span class="co"># note that this IS quoted, because I am asking for all columns with the string &quot;minestrone&quot;</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    minestrone1 minestrone2
+##          &lt;int&gt;       &lt;int&gt;
+##  1           0          50
+##  2          70          80
+##  3          80          97
+##  4          20          60
+##  5          65          96
+##  6          30          80
+##  7          75          90
+##  8          70          80
+##  9          40          90
+## 10          15          65
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>We can also use logical negation (<code>!</code>, which we learned about last class) to, for example, get everything that isn’t “hotandsour”.</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="wrangling-your-data.html#cb439-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb439-2"><a href="wrangling-your-data.html#cb439-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>)) <span class="co"># Note that this ALSO returns the subject #, which we might or might not want</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 3
+##    subject minestrone1 minestrone2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1           0          50
+##  2       2          70          80
+##  3       3          80          97
+##  4       4          20          60
+##  5       5          65          96
+##  6       6          30          80
+##  7       7          75          90
+##  8       8          70          80
+##  9       9          40          90
+## 10      10          15          65
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="wrangling-your-data.html#cb441-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb441-2"><a href="wrangling-your-data.html#cb441-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;subject&quot;</span>)) <span class="co"># we can combine logical conditions using &amp; (&quot;and&quot;) or | (&quot;or&quot;)</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 2
+##    minestrone1 minestrone2
+##          &lt;int&gt;       &lt;int&gt;
+##  1           0          50
+##  2          70          80
+##  3          80          97
+##  4          20          60
+##  5          65          96
+##  6          30          80
+##  7          75          90
+##  8          70          80
+##  9          40          90
+## 10          15          65
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Besides being easier to write conditions for, <code>select()</code> is code that is much closer to how you or I think about what we’re actually doing, making code that is more human readable.</p>
+</div>
+</div>
+<div id="pick-rows-filter" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Pick rows: <code>filter()</code><a href="wrangling-your-data.html#pick-rows-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So <code>select()</code> lets us pick which columns we want. Can we also use it to pick particular observations? No. But for that, there’s <code>filter()</code>.</p>
+<p>In the <a href="wrangling-your-data.html#tidyselect">pseudocode above</a>, we stated we wanted to only get the first 10 subjects. Just like selecting columns we can do this using base R with a combination of indexing approaches. Here is, again, the most foolproof way to select the first 10 subjects in the <code>soups</code> data:</p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="wrangling-your-data.html#cb443-1" aria-hidden="true" tabindex="-1"></a>soup_tbl[<span class="fu">which</span>(soup_tbl<span class="sc">$</span>subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), ]</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1           0          50         -50          10
+##  2       2          70          80         -20          20
+##  3       3          80          97          10          37
+##  4       4          20          60         -80          65
+##  5       5          65          96          37          99
+##  6       6          30          80         -50          20
+##  7       7          75          90          40          80
+##  8       8          70          80          50         -10
+##  9       9          40          90         -60          20
+## 10      10          15          65          25          20</code></pre>
+<p>This works by (reading inside out), first using <code>%in%</code> to test whether each entry in <code>soup_tbl$subject</code> is in <code>1:10</code>, then using <code>which()</code>, a function that turns a vector of <code>logical</code> (true/false) data into a set of integers based on the positions of the <code>TRUE</code> readings in the vector, and then finally using that as the index to get the rows of <code>soup_tbl</code>. That’s a lot to think about. There’s another, less foolproof way of doing this:</p>
+<ol style="list-style-type: decimal">
+<li>Select only the first 10 rows of <code>soup_tbl</code>.</li>
+</ol>
+<div id="exercise" class="section level4 hasAnchor" number="4.2.5.1">
+<h4><span class="header-section-number">4.2.5.1</span> Exercise<a href="wrangling-your-data.html#exercise" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For the above less foolproof way, write R code to select only the first 10 rows of <code>soup_tbl</code>. Then, tell me why this is a less foolproof way to select the first 10 subjects.</p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="wrangling-your-data.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only the first 10 rows of soup_tbl</span></span></code></pre></div>
+<p>The <code>filter()</code> function works to do this in a more human way. Read it as “In <data frame>, give me only the rows that meet the filter conditions.” So, for our example:</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="wrangling-your-data.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(soup_tbl, subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># once again, notice the lack of quoting</span></span></code></pre></div>
+<pre><code>## # A tibble: 10 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1           0          50         -50          10
+##  2       2          70          80         -20          20
+##  3       3          80          97          10          37
+##  4       4          20          60         -80          65
+##  5       5          65          96          37          99
+##  6       6          30          80         -50          20
+##  7       7          75          90          40          80
+##  8       8          70          80          50         -10
+##  9       9          40          90         -60          20
+## 10      10          15          65          25          20</code></pre>
+<p>We can combine <code>filter()</code> and <code>select()</code> using pipes (<code>%&gt;%</code>) to get most of our <a href="wrangling-your-data.html#tidyselect">pseudocode</a> done.</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="wrangling-your-data.html#cb448-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span>                           <span class="co"># pass soup_tbl from left to right</span></span>
+<span id="cb448-2"><a href="wrangling-your-data.html#cb448-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>)) <span class="sc">%&gt;%</span>   <span class="co"># drop the &quot;hotandsour&quot; columns</span></span>
+<span id="cb448-3"><a href="wrangling-your-data.html#cb448-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)            <span class="co"># filter to only the first 10 subjects</span></span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    subject minestrone1 minestrone2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1           0          50
+##  2       2          70          80
+##  3       3          80          97
+##  4       4          20          60
+##  5       5          65          96
+##  6       6          30          80
+##  7       7          75          90
+##  8       8          70          80
+##  9       9          40          90
+## 10      10          15          65</code></pre>
+<p>In the code chunk below, right this so that it first selects <em>for</em> “minestrone”, rather than dropping “hotandsour”. What happens?</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="wrangling-your-data.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rewrite the above code chunk to first select for &quot;minestrone&quot;.  What happens, and why?</span></span></code></pre></div>
+<p>These are trivial examples, but they quickly become more powerful. In our <em>tidy</em> <code>polyphenols</code> dataset, we have 3 treatment variables (<code>Catechin</code>, <code>PC.B2</code>, and <code>Chlorogenic.acid</code>). A very common application for <code>filter()</code> would be to get a subset of our data that only matches certain treatment conditions:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="wrangling-your-data.html#cb451-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(polyphenols) <span class="co"># for printing purposes</span></span>
+<span id="cb451-2"><a href="wrangling-your-data.html#cb451-2" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb451-3"><a href="wrangling-your-data.html#cb451-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># get only the observations where Chlorogenic.acid == 5.  Note the double &#39;==&#39; for testing equality.</span></span></code></pre></div>
+<pre><code>## # A tibble: 27 × 4
+##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
+##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt;
+##  1      0.2     1                5                            2.79
+##  2      0.2     1                5                            2.73
+##  3      0.2     1                5                            2.74
+##  4      0.2    30                5                           15.2 
+##  5      0.2    30                5                           15.3 
+##  6      0.2    30                5                           14.0 
+##  7      0.2   100                5                           46.6 
+##  8      0.2   100                5                           46.1 
+##  9      0.2   100                5                           50.9 
+## 10     30       1                5                           14.0 
+## # … with 17 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<div id="make-new-columns-mutate" class="section level3 hasAnchor" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Make new columns: <code>mutate()</code><a href="wrangling-your-data.html#make-new-columns-mutate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You hopefully are starting to be excited by the relative ease of doing some things in R with <code>tidyverse</code> that are otherwise a little bit abstruse. Here’s where I think things get really, really cool. The <code>mutate()</code> function <em>creates a new column in the existing dataset</em>.</p>
+<p>We can do this easily in base R by setting a new name for a column and using the assign (<code>&lt;-</code>) operator, but this is clumsy. Often, we want to create a new column temporarily, or to combine several existing columns. We can do this using the <code>mutate()</code> function.</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="wrangling-your-data.html#cb453-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb453-2"><a href="wrangling-your-data.html#cb453-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minestrone_liker =</span> <span class="fu">ifelse</span>(minestrone1 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> minestrone2 <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 24 × 6
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2 minestrone_liker
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;           
+##  1       1           0          50         -50          10 no              
+##  2       2          70          80         -20          20 yes             
+##  3       3          80          97          10          37 yes             
+##  4       4          20          60         -80          65 yes             
+##  5       5          65          96          37          99 yes             
+##  6       6          30          80         -50          20 yes             
+##  7       7          75          90          40          80 yes             
+##  8       8          70          80          50         -10 yes             
+##  9       9          40          90         -60          20 yes             
+## 10      10          15          65          25          20 yes             
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>What does the above function do?</p>
+<p><code>mutate()</code> is a very easy way to edit your data mid-pipe. So we might want to do some calculations, create a temporary variable using <code>mutate()</code>, and then continue our pipe.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="wrangling-your-data.html#cb455-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb455-2"><a href="wrangling-your-data.html#cb455-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb455-3"><a href="wrangling-your-data.html#cb455-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_outlier =</span> <span class="fu">ifelse</span>(equivalents.in.gallic.acid.mg.L <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(equivalents.in.gallic.acid.mg.L), <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb455-4"><a href="wrangling-your-data.html#cb455-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_outlier)</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 5
+##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L is_outlier
+##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt; &lt;lgl&gt;     
+##  1      0.2     1                5                            2.79 FALSE     
+##  2      0.2     1                5                            2.73 FALSE     
+##  3      0.2     1                5                            2.74 FALSE     
+##  4      0.2    30                5                           15.2  FALSE     
+##  5      0.2    30                5                           15.3  FALSE     
+##  6      0.2    30                5                           14.0  FALSE     
+##  7     30       1                5                           14.0  FALSE     
+##  8     30       1                5                           13.8  FALSE     
+##  9     30       1                5                           13.9  FALSE     
+## 10     30      30                5                           21.9  FALSE     
+## 11     30      30                5                           18.0  FALSE     
+## 12     30      30                5                           17.3  FALSE</code></pre>
+<p>What did we do above? Was it a good idea? Most importantly, did we actually change <code>polyphenol_tbl</code>? Check in your work environment to see.</p>
+</div>
+<div id="create-quick-data-summaries-group_by-count-and-summarize" class="section level3 hasAnchor" number="4.2.7">
+<h3><span class="header-section-number">4.2.7</span> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We are only scratching the surface of what we can do with <code>tidyverse</code>, and you will both be reading more about this and we’ll be returning throughout the semester as we learn more application. But here is an exploratory data analysis application that we will see here and will come back to us frequently.</p>
+<p>The <code>group_by()</code> function takes a data frame and groups it by whatever variable is specified. It looks for <em>distinct values</em>, so it will work with even numeric variables (although not well, if they are not truly grouping variables).</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="wrangling-your-data.html#cb457-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb457-2"><a href="wrangling-your-data.html#cb457-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin) <span class="co"># note no quotes</span></span></code></pre></div>
+<pre><code>## # A tibble: 81 × 4
+## # Groups:   Catechin [3]
+##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
+##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt;
+##  1      0.2     1                5                            2.79
+##  2      0.2     1                5                            2.73
+##  3      0.2     1                5                            2.74
+##  4      0.2     1              200                           57.7 
+##  5      0.2     1              200                           58.2 
+##  6      0.2     1              200                           69.2 
+##  7      0.2     1              500                          150.  
+##  8      0.2     1              500                          162.  
+##  9      0.2     1              500                          161.  
+## 10      0.2    30                5                           15.2 
+## # … with 71 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>By itself, this does not appear to do anything, although if you look closely at the output from printing the tibble you’ll notice that it now lists <code>Groups: Catechin [3]</code>. But this now allows us to use <code>filter()</code>, <code>mutate()</code>, and a host of other <code>tidyverse</code> functions in “grouped” mode, which means when we do all of those they will act WITHIN the group you have defined. So we can see the effect, we will first filter <code>polyphenol_tbl</code>, and then create a new variable with a <em>grouped</em> <code>mutate()</code> that is the average for that group.</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="wrangling-your-data.html#cb459-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb459-2"><a href="wrangling-your-data.html#cb459-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># this is purely for ease of printing this example</span></span>
+<span id="cb459-3"><a href="wrangling-your-data.html#cb459-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin) <span class="sc">%&gt;%</span></span>
+<span id="cb459-4"><a href="wrangling-your-data.html#cb459-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">average_eq_gc =</span> <span class="fu">mean</span>(equivalents.in.gallic.acid.mg.L))</span></code></pre></div>
+<pre><code>## # A tibble: 27 × 5
+## # Groups:   Catechin [3]
+##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L average_eq_gc
+##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt;         &lt;dbl&gt;
+##  1      0.2     1                5                            2.79          21.8
+##  2      0.2     1                5                            2.73          21.8
+##  3      0.2     1                5                            2.74          21.8
+##  4      0.2    30                5                           15.2           21.8
+##  5      0.2    30                5                           15.3           21.8
+##  6      0.2    30                5                           14.0           21.8
+##  7      0.2   100                5                           46.6           21.8
+##  8      0.2   100                5                           46.1           21.8
+##  9      0.2   100                5                           50.9           21.8
+## 10     30       1                5                           14.0           28.4
+## # … with 17 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>But that’s not all! Now that we have the idea of a group, we can use it for all kinds of useful things. For example, the <code>count()</code> function will just return the number of rows in each group. Let’s use that to check if our <code>polyphenol_tbl</code> was from a balanced design (e.g., has the same number of observations at every treatment level and intersection):</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="wrangling-your-data.html#cb461-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb461-2"><a href="wrangling-your-data.html#cb461-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin, Chlorogenic.acid, PC.B2) <span class="sc">%&gt;%</span> <span class="co"># note that we can group by multiple variables</span></span>
+<span id="cb461-3"><a href="wrangling-your-data.html#cb461-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="co"># looks balanced, with triplicates at every treatment factor level</span></span></code></pre></div>
+<pre><code>## # A tibble: 27 × 4
+## # Groups:   Catechin, Chlorogenic.acid, PC.B2 [27]
+##    Catechin Chlorogenic.acid PC.B2     n
+##       &lt;dbl&gt;            &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1      0.2                5     1     3
+##  2      0.2                5    30     3
+##  3      0.2                5   100     3
+##  4      0.2              200     1     3
+##  5      0.2              200    30     3
+##  6      0.2              200   100     3
+##  7      0.2              500     1     3
+##  8      0.2              500    30     3
+##  9      0.2              500   100     3
+## 10     30                  5     1     3
+## # … with 17 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>The <code>count()</code> function gets way more useful when we have large data that is unbalanced, and we want to be able to easily pull counts without knowing what they are beforehand.</p>
+<p>Much more useful, but slightly more complex is the <code>summarize()</code> function, which applies <em>arbitrary functions</em> to the subsets defined by <code>group_by()</code>. So, say we want to find the average and standard deviation at each of the groups we defined before, instead of the count:</p>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="wrangling-your-data.html#cb463-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb463-2"><a href="wrangling-your-data.html#cb463-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin, PC.B2, Chlorogenic.acid) <span class="sc">%&gt;%</span></span>
+<span id="cb463-3"><a href="wrangling-your-data.html#cb463-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_eq_gc =</span> <span class="fu">mean</span>(equivalents.in.gallic.acid.mg.L),</span>
+<span id="cb463-4"><a href="wrangling-your-data.html#cb463-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_eq_gc =</span> <span class="fu">sd</span>(equivalents.in.gallic.acid.mg.L))</span></code></pre></div>
+<pre><code>## # A tibble: 27 × 5
+## # Groups:   Catechin, PC.B2 [9]
+##    Catechin PC.B2 Chlorogenic.acid mean_eq_gc sd_eq_gc
+##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+##  1      0.2     1                5       2.75   0.0321
+##  2      0.2     1              200      61.7    6.52  
+##  3      0.2     1              500     158.     6.42  
+##  4      0.2    30                5      14.8    0.700 
+##  5      0.2    30              200      63.3    0.824 
+##  6      0.2    30              500     155.    16.3   
+##  7      0.2   100                5      47.9    2.64  
+##  8      0.2   100              200      90.6    5.78  
+##  9      0.2   100              500     155.     5.52  
+## 10     30       1                5      13.9    0.107 
+## # … with 17 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Even I think that’s pretty cool, and I wrote the code! This can be a bit tricky to get your head around, but it shows the power of</p>
+<ol style="list-style-type: decimal">
+<li>Having your data in a tidy format so it can be easily filtered</li>
+<li>Using pipes to define an analysis flow</li>
+</ol>
+<p><strong>NB:</strong> One final tip: you can always run <em>part</em> of a piped data flow by selecting just that part and hitting “run” in the right top corner of your RStudio coding panel or hitting ctrl/cmd + enter. This is useful for testing your code flow.</p>
+</div>
+<div id="utilities-for-data-management" class="section level3 hasAnchor" number="4.2.8">
+<h3><span class="header-section-number">4.2.8</span> Utilities for data management<a href="wrangling-your-data.html#utilities-for-data-management" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Honestly, the amount of power in <code>tidyverse</code> is way more than we can cover today, and is covered more comprehensively (obviously) by <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span>, including your reading for this week. Instead, I want to draw attention to a few “quality of life” functions that <code>tidyverse</code> also provides that make tasks that are overly difficult in R a little easier.</p>
+<div id="rename" class="section level4 hasAnchor" number="4.2.8.1">
+<h4><span class="header-section-number">4.2.8.1</span> <code>rename()</code><a href="wrangling-your-data.html#rename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A common need in data analysis is renaming your columns, because they are called something clear but not machine-readable/easily typable in your data file, and they turn into a mess in R. We have that problem in our <code>polyphenol_tbl</code> dataset:</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="wrangling-your-data.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(polyphenol_tbl)</span></code></pre></div>
+<pre><code>## [1] &quot;Catechin&quot;                        &quot;PC.B2&quot;                          
+## [3] &quot;Chlorogenic.acid&quot;                &quot;equivalents.in.gallic.acid.mg.L&quot;</code></pre>
+<p>Even with tab-completion, those are a pain to deal with. Renaming these in base R is a huge pain, in fact. You have to copy them to a new column by using the <code>&lt;-</code> operator, then remove the original column using the <code>[]</code> operator with negative indices.</p>
+<p>In <code>tidyverse</code>, the <code>rename()</code> function is there to help. It works in two, equally useful ways.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="wrangling-your-data.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="co"># New names go on the left hand side, old names on the right</span></span>
+<span id="cb467-2"><a href="wrangling-your-data.html#cb467-2" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb467-3"><a href="wrangling-your-data.html#cb467-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">chlor =</span> Chlorogenic.acid,</span>
+<span id="cb467-4"><a href="wrangling-your-data.html#cb467-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">pcb2 =</span> PC.B2,</span>
+<span id="cb467-5"><a href="wrangling-your-data.html#cb467-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cat =</span> Catechin,</span>
+<span id="cb467-6"><a href="wrangling-your-data.html#cb467-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">eq_ga =</span> equivalents.in.gallic.acid.mg.L)</span></code></pre></div>
+<pre><code>## # A tibble: 81 × 4
+##      cat  pcb2 chlor  eq_ga
+##    &lt;dbl&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+##  1   0.2     1     5   2.79
+##  2   0.2     1     5   2.73
+##  3   0.2     1     5   2.74
+##  4   0.2     1   200  57.7 
+##  5   0.2     1   200  58.2 
+##  6   0.2     1   200  69.2 
+##  7   0.2     1   500 150.  
+##  8   0.2     1   500 162.  
+##  9   0.2     1   500 161.  
+## 10   0.2    30     5  15.2 
+## # … with 71 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="wrangling-your-data.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, we can rename by INDEX, with new name on the left and column #</span></span>
+<span id="cb469-2"><a href="wrangling-your-data.html#cb469-2" aria-hidden="true" tabindex="-1"></a><span class="co"># on the right.  This is easier for programming, but is less safe because you</span></span>
+<span id="cb469-3"><a href="wrangling-your-data.html#cb469-3" aria-hidden="true" tabindex="-1"></a><span class="co"># have to be certain you&#39;re matching columns correctly.</span></span>
+<span id="cb469-4"><a href="wrangling-your-data.html#cb469-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb469-5"><a href="wrangling-your-data.html#cb469-5" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="ot">&lt;-</span> polyphenol_tbl <span class="sc">%&gt;%</span> <span class="co"># don&#39;t forget we have to actually save the changes if we want them to stick</span></span>
+<span id="cb469-6"><a href="wrangling-your-data.html#cb469-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">cat =</span> <span class="dv">1</span>, <span class="at">pcb2 =</span> <span class="dv">2</span>, <span class="at">chlor =</span> <span class="dv">3</span>, <span class="at">eq_ga =</span> <span class="dv">4</span>)</span></code></pre></div>
+</div>
+<div id="arrange" class="section level4 hasAnchor" number="4.2.8.2">
+<h4><span class="header-section-number">4.2.8.2</span> <code>arrange()</code><a href="wrangling-your-data.html#arrange" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Another thing we often want to do is sort the rows of a data table according to some criterion. Doing this in base R requires the use of <code>sort()</code>, which works only on vectors, not on data frames, and so requires a similar approach to the <a href="#filter">base R filtering approach we saw above</a>.</p>
+<p>The <code>tidyverse</code> version is very simple: <code>arrange()</code> just requires that you tell it a data frame and one or more columns to sort by.</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="wrangling-your-data.html#cb470-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb470-2"><a href="wrangling-your-data.html#cb470-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hotandsour1) <span class="co"># show us the data in ascending order of liking for hotandsour1</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1      12          75          25        -100        -100
+##  2      21          20         100        -100          60
+##  3      23          10         100        -100          85
+##  4       4          20          60         -80          65
+##  5      13         -25          50         -75         -10
+##  6      14          20          40         -75          60
+##  7       9          40          90         -60          20
+##  8      18          40          90         -60         -15
+##  9      22          20          60         -60         -10
+## 10       1           0          50         -50          10
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="wrangling-your-data.html#cb472-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb472-2"><a href="wrangling-your-data.html#cb472-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>hotandsour1) <span class="co"># writing &quot;-&quot; before the sorting column goes in descending order</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       8          70          80          50         -10
+##  2       7          75          90          40          80
+##  3       5          65          96          37          99
+##  4      24          10          75          35          55
+##  5      17          15          90          30          50
+##  6      10          15          65          25          20
+##  7       3          80          97          10          37
+##  8      11         -50          75         -15          50
+##  9       2          70          80         -20          20
+## 10      15          70          90         -25         -60
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="wrangling-your-data.html#cb474-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb474-2"><a href="wrangling-your-data.html#cb474-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hotandsour1, <span class="sc">-</span>hotandsour2) <span class="co"># this sorts first ascending by hotandsour1, then within that descending by hotandsour2</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1      23          10         100        -100          85
+##  2      21          20         100        -100          60
+##  3      12          75          25        -100        -100
+##  4       4          20          60         -80          65
+##  5      14          20          40         -75          60
+##  6      13         -25          50         -75         -10
+##  7       9          40          90         -60          20
+##  8      22          20          60         -60         -10
+##  9      18          40          90         -60         -15
+## 10      16          20          90         -50          30
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div id="relocate" class="section level4 hasAnchor" number="4.2.8.3">
+<h4><span class="header-section-number">4.2.8.3</span> <code>relocate()</code><a href="wrangling-your-data.html#relocate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>R doesn’t really care about the order of columns in a data frame, but we might, for example</p>
+<ol style="list-style-type: decimal">
+<li>If we have a lot of columns, they might not print properly in the console, requiring some work every time we want to check their values.</li>
+<li>We might be outputting data to a <code>knitr::kable()</code> or other display mode</li>
+</ol>
+<p>We can reorder columns using similar syntax to our base R select operations above, but this requires many steps. Again, the simple <code>tidyverse</code> solution is a single function: <code>relocate()</code>:</p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="wrangling-your-data.html#cb476-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb476-2"><a href="wrangling-your-data.html#cb476-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(hotandsour2) <span class="co"># by default the column(s) are moved to the &quot;front&quot; of the table</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    hotandsour2 subject minestrone1 minestrone2 hotandsour1
+##          &lt;int&gt;   &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1          10       1           0          50         -50
+##  2          20       2          70          80         -20
+##  3          37       3          80          97          10
+##  4          65       4          20          60         -80
+##  5          99       5          65          96          37
+##  6          20       6          30          80         -50
+##  7          80       7          75          90          40
+##  8         -10       8          70          80          50
+##  9          20       9          40          90         -60
+## 10          20      10          15          65          25
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="wrangling-your-data.html#cb478-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb478-2"><a href="wrangling-your-data.html#cb478-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(hotandsour2, <span class="at">.after =</span> subject) <span class="co"># .before and .after (note the &quot;.&quot;) can be used to move to specific spots</span></span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    subject hotandsour2 minestrone1 minestrone2 hotandsour1
+##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+##  1       1          10           0          50         -50
+##  2       2          20          70          80         -20
+##  3       3          37          80          97          10
+##  4       4          65          20          60         -80
+##  5       5          99          65          96          37
+##  6       6          20          30          80         -50
+##  7       7          80          75          90          40
+##  8       8         -10          70          80          50
+##  9       9          20          40          90         -60
+## 10      10          20          15          65          25
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<div id="reading-data-tidily-read_" class="section level3 hasAnchor" number="4.2.9">
+<h3><span class="header-section-number">4.2.9</span> Reading data tidily: <code>read_*()</code><a href="wrangling-your-data.html#reading-data-tidily-read_" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We started today talking about reading data. The <code>readr</code> package in <code>tidyverse</code> gives a set of tidy options for reading data. They have nice defaults and (usually) require less user input. The most common one is <code>read_csv()</code>–note its similarity to <code>read.csv()</code>, except for the substitution of “_” in the name (this is common in <code>tidyverse</code> equivalent functions).</p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="wrangling-your-data.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 24 Columns: 5
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (5): subject, minestrone1, minestrone2, hotandsour1, hotandsour2
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 24 × 5
+##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
+##      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1       1           0          50         -50          10
+##  2       2          70          80         -20          20
+##  3       3          80          97          10          37
+##  4       4          20          60         -80          65
+##  5       5          65          96          37          99
+##  6       6          30          80         -50          20
+##  7       7          75          90          40          80
+##  8       8          70          80          50         -10
+##  9       9          40          90         -60          20
+## 10      10          15          65          25          20
+## # … with 14 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>Note that the function automatically makes a tibble, not just a data frame, which may or may not be desired. By default, they also look for headers and treat text normally. In general, I tend to use these functions as my default.</p>
+<div id="excel" class="section level4 hasAnchor" number="4.2.9.1">
+<h4><span class="header-section-number">4.2.9.1</span> Solving (some) messy spreadsheet problems: <code>readxl</code> package<a href="wrangling-your-data.html#excel" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>However, I promised we’d solve some file problems before the end of the day. Even though Excel can read .csv files, they are not the same thing as <em>spreadsheet</em> files. Specifically, they have no real notion of “index” in the way that Excel files do (the whole “A1” scheme for referencing cells). But the author of the <code>readxl</code> package for R saw the value in those indices for dealing with messy data storage. So here we are going to use <code>readxl::read_excel()</code> to read in Michael Wesolowski’s thesis data WITHOUT having to edit the underlying file:</p>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="wrangling-your-data.html#cb483-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to run this if you haven&#39;t installed readxl</span></span>
+<span id="cb483-2"><a href="wrangling-your-data.html#cb483-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb483-3"><a href="wrangling-your-data.html#cb483-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="wrangling-your-data.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&quot;Files/Week 4/Thesis Data Mastersheet.xls&quot;</span>,</span>
+<span id="cb484-2"><a href="wrangling-your-data.html#cb484-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sheet =</span> <span class="st">&quot;Tomato&quot;</span>,</span>
+<span id="cb484-3"><a href="wrangling-your-data.html#cb484-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">range =</span> <span class="st">&quot;A6:J78&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 72 × 10
+##    Time …¹ Trial…² Repli…³ Plate…⁴ Count Addit…⁵ Total…⁶ Total…⁷ Log C…⁸ Avera…⁹
+##    &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 0             1 A             1 352     0.01  1.10e-4  3.20e6    6.51    6.60
+##  2 &lt;NA&gt;          1 A             2 51      0.001 1.10e-5  4.64e6    6.67   NA   
+##  3 &lt;NA&gt;          1 B             1 52      0.001 1.10e-5  4.73e6    6.68   NA   
+##  4 &lt;NA&gt;          1 B             2 75      0.001 1.10e-5  6.82e6    6.83   NA   
+##  5 &lt;NA&gt;          1 C             1 53      0.001 1.10e-5  4.82e6    6.68   NA   
+##  6 &lt;NA&gt;          1 C             2 55      0.001 1.10e-5  5.00e6    6.70   NA   
+##  7 &lt;NA&gt;          2 A             1 62      0.001 1.10e-5  5.64e6    6.75   NA   
+##  8 &lt;NA&gt;          2 A             2 66      0.001 1.10e-5  6.01e6    6.78   NA   
+##  9 &lt;NA&gt;          2 B             1 251.5   0.01  1.10e-4  2.29e6    6.36   NA   
+## 10 &lt;NA&gt;          2 B             2 267.5   0.01  1.10e-4  2.43e6    6.39   NA   
+## # … with 62 more rows, and abbreviated variable names ¹​`Time (sec)`,
+## #   ²​`Trial #`, ³​Replicate, ⁴​`Plate #`, ⁵​`Additional Dilution`,
+## #   ⁶​`Total Dilution`, ⁷​`Total CFU/mL`, ⁸​`Log CFU/mL`, ⁹​`Average Log`
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>That’s pretty cool! We still have problems with some of the empty cells, and in fact we will be asking you to fix that as part of the assignment this week using the <code>fill()</code> function from <code>tidyverse</code>. Should be a good time!</p>
+</div>
+</div>
+</div>
+<div id="review-of-functions" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Review of functions<a href="wrangling-your-data.html#review-of-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, I want to leave some time today, if we have <em>any</em>, to discuss the material from last week on functions. This is a huge topic, and I am sure you still have some questions. Let’s have some answers!</p>
+</div>
+<div id="references-1" class="section level2 unnumbered hasAnchor">
+<h2>References<a href="wrangling-your-data.html#references-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-wickham2017" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for <span>Data Science</span></em>. <span>Sebastopol</span>: <span>O’Reilly</span>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="control-flow-and-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploring-your-data-visually.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-data-wrangling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
