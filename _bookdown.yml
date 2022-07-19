@@ -2,5 +2,9 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Lecture "
-new_session: yes
-rmd_files: ["index.Rmd", "01-Introduction.Rmd", "02-Packaged-and-Markdown.Rmd", "03-control-flow.Rmd"]
+new_session: yes # this renders each page independently to avoid chunk conflicts
+# the following lists the files to use in order
+rmd_files: ["index.Rmd", 
+            "01-Introduction.Rmd", 
+            "02-Packages-and-Markdown.Rmd", 
+            "03-control-flow.Rmd"]
