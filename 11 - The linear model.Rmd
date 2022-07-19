@@ -1,0 +1,532 @@
+---
+title: "11 - The linear model"
+author: "JL"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    number_sections: yes
+bibliography: "Files/lecture bibliography.bib"
+---
+
+# Introduction
+
+```{r setup, message = FALSE, warning = FALSE}
+# Setup chunk is made visible for clarity
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(skimr)
+library(naniar)
+library(ggforce)
+set.seed(11)
+
+# Figure out a dataset we want to use here
+berry_data <- read_csv("Files/Week 11/berry_data.csv")
+```
+
+Last week we got a taste of statistical inference, along with a brief preview of *Analysis of Variance*.  This week we're going to review (because you learned these in statistics, *right*?) the concept of the linear model--very broadly--which encompasses both simple and multiple regression as well as one-way and multi-way ANOVA.
+
+Today we're going to start by talking about the general problem of predicting one continuous (interval or ratio) variable from another.  This is the classical recipe for **linear regression**--we'll talk about the `lm()` function in R, how to interpret results, and look into a bootstrapping approach for estimating stability of our estimates and a permutation approach that will help us see whether our results are significant.  
+
+We will spend some time looking at how to plot results from linear regression using a combination of `geom_point()`/`geom_jitter()` and `geom_smooth()`, as well as faceting.  We'll spend relatively little time on the assumptions we should really examine, but I'll try to mention them.
+
+Then we will spend a little while talking about a particularly vexing kind of variable type you may already have encountered in R: `factor`-type data.  These data are key in both the analysis and the plotting of ANOVA.
+
+Then we'll look at a very closely related problem: how to predict a continuous (interval or ratio) variable from a discrete (interval or ordinal) predictor.  This is the classic recipe for **ANOVA**, and we will look at the `aov()` function (a thin wrapper for the `lm()`) as well as pointing towards some other, more powerful packages (including the `afex` package).  We'll also revisit our permutation approach for ANOVA.  
+
+We will also spend some time on plotting results from ANOVA, with a special focus on interaction (mean-effect) plots.  These plots give powerful visualizations of both the main effects (treatment effects) and interaction effects (differential effects of one treatment based on levels of another treatment).
+
+We will **not** be looking in any detail at multiple regression or multiway ANOVA this week; that material will be introduced next week, when we will think more broadly about different methods for exploring how complex, interacting independent variables can be investigated in our models.
+
+# Dataset example for today
+
+The data we'll be working with today is from research I conducted with Driscoll's, Inc. in 2019 (just months before the pandemic).  It is a subset of data from a Central Location Test on berry liking, in which we asked subjects to rate their liking on different sets of berries (blackberries, blueberries, strawberries, raspberries) using different kinds of *rating scales*.  Some of the results of the study were published in a paper by @yeung2021.  If you're really interested in the details you can find them there, as well as some examples of applied bootstrapping and permutation tests!
+
+Today, however, we're just interested in using the data to explore some applications of the linear model.  Let's take a look at our data:
+
+```{r}
+berry_data %>% skim()
+```
+
+This data is semi-tidy: each row has 3 observations on it: the rating of the berry by the particular subject in terms of the 9-pt hedonic scale (`9pt_overall`), the Labeled Magnitude Scale (`lms_overall`) and the Unstructured Line Scale (`us_overall`).  The first of these 3 scales produces ordinal data that is often treated as interval-level, and the latter two are reputed to produce interval-level data (again, see @yeung2021 for details on some of these assumptions and their validity in this dataset).  
+
+You'll notice we have some missing data in our dataset.  We can take a closer look at this using the `naniar` package (which is great for dealing with the common situation of missing data):
+
+```{r, warning = FALSE}
+berry_data %>%
+  vis_miss(cluster = TRUE)
+```
+
+It looks like we have some big chunks of missing data (because of the way the data were collected: subjects did not have to attend every session).  This is not a situation made-up for your benefit, just a characteristic of these data!
+
+We are going to use these data to investigate the relationships among the scales, as well as predicting liking outcomes from categorical variables like age-category and gender.
+
+# Review of measurement levels
+
+Typically, we talk about four "levels of measurement" in regards to data that dictate what kinds of analysis we should conduct (although we can do whatever we want, with sometimes disastrous results):
+
+![Classical levels of measurement are nominal, ordinal, interval, and ratio](Images/Week 11/measurement levels.png)
+
+The borders between these categories is not as hard and fast as we'd wish.  For example, the famous 9-pt hedonic scale (well, famous in my discipline!) is really an ordinal response scale:
+
+![Some scales used in sensory evaluation including the 9-pt hedonic scale](Files/Week 11/Some sensory scales.png)
+
+We can have different kinds of variables in all different roles in our datasets.  For example, in this dataset we have both nominal and ordinal predictors (independent or experimental variables):
+
+
+* Berry type (nominal)
+* Gender (nominal)
+* Age (ordinal)
+* Berry sample ID (nominal, even though it is listed as an integer)
+* Subject ID (nominal, even though given as numeric)
+
+We also have ordinal and interval-level outcomes (dependent or measured variables):
+
+* 9-pt scale (ordinal, treated as interval)
+* Labeled Affective Magnitude Scale (interval, although often claimed to be ratio)
+* Visual Analog Scale (interval)
+
+Technically, the choice of what statistical model we can fit to our data depends on the types of data we have!  Frequently, we will violate the rules, but knowing that they exist will let us understand what risks we are taking.
+
+With that, let's talk about one of the most frequent situations we encounter in research: predicting the value of one interval/ratio-level variable from another.  This is linear regression.
+
+# Linear regression
+
+Let's begin by taking a quick look at the correlations among the various forms of measured liking for our `berry_data`:
+
+```{r, warning = FALSE}
+berry_data %>%
+  select(contains("overall")) %>%
+  cor(use = "pairwise.complete.obs")
+
+berry_data %>%
+  select(contains("overall")) %>%
+  ggplot() + 
+  geom_smooth(aes(x = .panel_x, y = .panel_y), method = "lm", color = "red") +
+  geom_jitter(aes(x = .panel_x, y = .panel_y), alpha = 0.1) + 
+  facet_matrix(vars(1:3)) +
+  theme_classic()
+```
+
+We can see that while there are positive relationships among our variables, they are not as strongly correlated as we might assume for instruments that putatively measure the same underlying construct (overall liking).  This is going to be our justification for exploring linear regression with what otherwise seems like it would be a kind of silly example.
+
+We already learned that correlation (usually represented with the symbols $r$ or $\rho$) represents the strength of linear association between two numeric variables.  Correlations fall into the range $[-1, 1]$:
+
+* $-1$ indicates perfect anticorrelation: when $x$ goes up, $y$ goes down
+* $0$ indicates no relationship between the variables
+* $1$ indicates perfect correlation: when $x$ goes up, $y$ goes up
+
+However, while correlation can give us an idea of the strength of a relationship, it doesn't quantify the relationship.  Informally (as I do most things in this class, because I'm not a statistician!), this is exactly what **linear regression** does: in its simple form, linear regression quantifies the relationship between $x$ and $y$ whose strength is represented by the correlation $r$.
+
+## Bivariate (2-variable) relationships imply a third variable
+
+Before we begin to explore these models, a quick aside: these kinds of bivariate relationships always imply a third, implicit variable: the pairing variable, which is often give as $i$, as in the index for pairs of variables: $(x_1, y_1), (x_2, y_2), ..., (x_i, y_i)$.  This seems like something trivial to point out, but it is actually important and can be kind of puzzle.  
+
+For example, this is the problem with apparent (false) historical correlations:
+
+![Tight association between shark attacks and ice-cream consumption, [from Statology](https://www.statology.org/correlation-does-not-imply-causation-examples/).](https://www.statology.org/wp-content/uploads/2021/08/corrCause1.png)
+
+The real, underlying relationship is between shark attacks and time, and between ice-cream consumption and time, but timepoint is being used as the pairing variable and so it creates a false correlation between the two other variables.
+
+We often assume that our underlying pairing variable, $i$, is a meaningless index, but it can often have consequences for our data.  It is always worth at least explicitly stating *how* our data is structured to help us understand these (and other) kinds of errors we might encounter.
+
+## Simple linear regression
+
+With that all in mind, let's state that the overall goal of linear regression is to obtain an estimate of the effect of one (usually continuous or interval/ratio) variable, $x$, on the value of another (continuous) variable, $y$.  In order to estimate this relationship, we need some set of paired $\{(x_i, y_i)\}$ so that we can estimate the relationship.  We typically write this relationship as:
+
+<center>$\hat{y}_i = \beta*x_i + \alpha$</center>
+
+In plain English, we are saying that from each observed $x_i$, we generate an estimate for $y_i$, which we write as $\hat{y}_i$, meaning it is an estimate that contains error, by multiplying $x_i$ by some quantity $\beta$ and adding a constant quantity $\alpha$.  Typically, we calculate both $\alpha$ and $\beta$ through **Ordinary Least Squares**, which gives us an exact numerical solution in order to minimize the quantity $\sum{(y_i-\hat{y}_i)^2}$, which is the difference between our estimated and observed values.  
+
+I will not be deriving this method *at all* in this class.  
+
+I had to memorize the derivation (based in linear algebra) once, and I have mostly forgotten it.  It is not too tricky, and it is interesting for the right sort of person, but it isn't super pertinent to our everyday job of analyzing data as scientists.  Instead, we're going to take a look at how to run linear regression in R, how to interpret and plot the output, and some basic considerations.
+
+The command for the **l**inear **m**odel in R (which includes both regression and ANOVA) is `lm()`.  With our data, we can write the following:
+
+```{r}
+berry_lm <- lm(`9pt_overall` ~ lms_overall, data = berry_data) # note that this is not a pipe-friendly function, need to use "data = ."
+berry_lm
+class(berry_lm)
+typeof(berry_lm)
+```
+
+Notice that when we print `berry_lm` we just get a simple couple lines to the console: a list of the "function call" which tells us the model we fit, and estimates for the coefficients.  In this case, we have only an `(Intercept)` coefficient, which is our $\alpha$, and an `lms_overall` coefficient, which is our $\beta$.  
+
+This doesn't provide us with any information on whether this model is a good model.  In order to get that information, we are going to do two things: examine a summary table of the output and make some visual plots to explore the model.
+
+```{r}
+# We can get a pretty informative summary of our lm objects by using summary()
+summary(berry_lm)
+```
+
+This gives us the same information and more!  We can see, for example, that a *t*-test run on the `lms_overall` $\beta$ coefficient is apparently "significant" (more on this later), and we also can learn that despite this our model is pretty awful: the $R^2$, which estimates for us **how much variability in $y$ is explained by our model** and in simple regression is literally the squared correlation coefficient ($r^2$), is very low!  Even though our model is a significant fit, we really aren't explaining much at all about the variability of the results.
+
+Why is this?  Let's take a look at our actual data:
+
+```{r, warning = FALSE}
+berry_data %>%
+  ggplot(aes(x = lms_overall, y = `9pt_overall`)) + 
+  geom_jitter() + 
+  geom_smooth(method = 'lm') + # geom_smooth adds a fitted model estimate to the plot
+  theme_classic()
+```
+
+We can see that, while there is indeed an underlying positive trend, it is quite weak: we have a lot of low values of `9pt_overall` for high values of `lms_overall`, and vice versa.
+
+We can use **extractor functions** to get some more useful information from our model to help us understand what's going on.  We use `coefficients()` to get the coefficients of the model ($\alpha$ and $\beta$ in this case) if we want to use them somewhere else (for example in bootstrapping, see below).
+
+```{r}
+coefficients(berry_lm)
+```
+
+We can extract predicted values for the model using the `predict()` function.  We can also use this function to predict values for *new* $x$ values which we want to estimate our expected $y$ values for by providing them in the `newdata = ` argument (as a vector).  We can also get fitted (predicted) $\hat{y}$ values using the `fitted()` function.
+
+```{r}
+predicted_y <- predict(berry_lm) %>%
+  as_tibble(rownames = "observation")
+```
+
+We can use this to take a look at our model's effectiveness visually.  We're going to
+
+1. Select the observed `9pt_overall` values from our data
+2. Get the predicted observations from our model
+3. Join them into a single data table
+3. Plot them against each other
+
+If the resulting plot is close to a diagonal line, we'll know that our model is performing well, because ideally we want the error ($y_i-\hat{y}_i$) to be very small!
+
+```{r}
+predicted_y %>%
+  # we create a new observation variable to filter our left_join
+  left_join(berry_data %>% mutate(observation = as.character(row_number()))) %>% 
+  ggplot(aes(x = value, y = `9pt_overall`)) +
+  geom_jitter() +
+  geom_smooth(method = "lm", color = "red") +
+  theme_classic() +
+  labs(x = "Predicted value", y = "Observed value")
+```
+
+Unfortunately, it  is clear that our model really doesn't do much to predict the variation in our outcome variable.  Equivalently, there is only a weak relationship between our predicted $\hat{y}_i$ values and our actual $y_i$ values.  
+
+This is just one of the interesting things we found out in this study!
+
+### Bonus: what's the underlying (implied) variable(s) in this model?
+
+After spending a little bit of time on thinking about implicit links caused by the indexing variable, we immediately skimmed over what $i$ *means* in this study  Looking back at our `skim()`, what variable(s) links the observations of `9pt_overall` and `lms_overall`?
+
+```
+# Give your answers here!
+```
+
+### A resampling approach to estimating quality of regression
+
+Given how bad our model explanation is, and how little effect `lms_overall` seems to have (we could read our model as saying that our estimated `9pt_overall` score increases by `r round(coefficients(berry_lm)[2], 3)` points for every 1 point increase in `lms_overall`), it is curious that we are so certain that our observed effect is significant.  What does this mean?
+
+First, we might want to ask about the stability of our estimate.  We can use this via bootstrapping, just as we did for means and variances in the last class.
+
+```{r, warning = FALSE}
+bootstrapped_betas <- numeric(1000)
+for(i in 1:1000){
+  # Resample our data with replacement
+  bootstrap_data <- berry_data[sample(1:nrow(berry_data), replace = TRUE), ]
+  # run the same model on the new sample
+  bootstrap_model <- lm(`9pt_overall` ~ lms_overall, data = bootstrap_data)
+  # Get the lms_overall (beta) coefficient
+  bootstrapped_betas[i] <- coefficients(bootstrap_model)[2]
+}
+
+# Now we can plot the distribution of these beta coefficients and compare them to our observed coefficient
+
+bootstrapped_betas %>%
+  as_tibble() %>%
+  ggplot(aes(x = value)) + 
+  geom_histogram(bins = 20, fill = "grey", color = "black") + 
+  geom_point(aes(x = coefficients(berry_lm)[2], y = 0), color = "red") +
+  theme_classic() 
+
+quantile(bootstrapped_betas, c(0.05, 0.95))
+```
+
+There is an almost 40% difference between our bootstrapped confidence-interval's upper and lower bounds, which is not super tight.  We could also use a permutation approach to consider the significance of our estimate.  When we break the implied pairing between our two variables (disrupt the $i$ variable), what do we learn?  Unlike our last example, in which we considered complete permutations, here we are also going to do an estimated or "bootstrapped permutation" test.  We will only run 1000 of the almost infinitely large possible reorderings of the $i$ variable:
+
+```{r}
+permuted_betas <- numeric(1000)
+for(i in 1:1000){
+  # Scramble our data (not just resample)
+  permuted_data <- tibble(`9pt_overall` = sample(berry_data$`9pt_overall`, replace = FALSE),
+                          lms_overall = berry_data$lms_overall)
+    # run the same model on the new sample
+  bootstrap_model <- lm(`9pt_overall` ~ lms_overall, data = permuted_data)
+  # Get the lms_overall (beta) coefficient
+  permuted_betas[i] <- coefficients(bootstrap_model)[2]
+}
+
+permuted_betas %>%
+  as_tibble() %>%
+  ggplot(aes(x = value)) + 
+  geom_histogram(bins = 20, fill = "grey", color = "black") + 
+  geom_point(aes(x = coefficients(berry_lm)[2], y = 0), color = "red") +
+  theme_classic() +
+  labs(x = "Permuted beta coefficient", y = "count")
+```
+
+Happily, it does appear that the relationship, while weak, is indeed stronger than we'd expect to observe if there were no relationship between our subjects' reported liking on 2 scales!  That's a relief.
+
+## Checking your model
+
+We've spent a little bit of time talking about how to interpret a model and how to investigate whether it is telling us anything useful.  But an important facet of using any statistical model (that I am barely going to touch on) is investigating the fit of the model.  The `lm()` function tries to help you out with this: by using `plot()` on an `lm` object, you can see a set of plots that give you information about model fit.  
+
+```{r, figures-side, fig.show='hold', out.width=c('50%', '50%', '50%', '50%')}
+plot(berry_lm)
+```
+
+Each of these plots gives you information about how well the model fits.  In this set, I tend to look most at the first two plots: the fitted values against the residuals and the QQ-plot of theoretical quantiles vs standardized residuals.  
+
+1. The first plot tells us whether there is a systematic pattern in (mis)-fitting our data.  The question is whether the model fits worse (bigger absolute residuals) at some set of fitted values than at others.  It does appear that there is a systematic relationship between fitted values and residuals ($y_i - \hat{y_i}$), which tells us that this model is not unbiased: it will tend to predict more extreme values at either end of the range of our predicted values.
+2. The second plot tells us something about the normality of our data.  It orders the residuals from lowest to highest, and then assigns them to quantiles of the normal distribution.  Then, it plots those assigned quantiles against the actual normalized residuals.  In a well-fitting model, the residuals should cling pretty close to a straight line--in our model, we see the same systematic deviation at both low and high levels (in this case represented as quantiles).  This is an indicator of non-normality in our data, which in turn means our estimates are probably bad.
+
+The last 2 plots give more technical information about the model fit (and look *wild* for this model), and I will not go into them here.
+
+Beyond these simple plots, there are many important different ways to assess a model.  But we will not go into them here, because we start to get into statistical assumptions, and I think you should learn about these methods from someone who is more expert in them.  My goal is to equip you with the tools to manipulate data and execute these analyses, and interpretation is best left to the domain experts!
+
+# A note about causality
+
+We are all familiar with the phrase "correlation does not imply causation".  But why do we say this so frequently?
+
+![[XKCD can't say for certain](https://xkcd.com/552/) whether statistics classes work.](https://imgs.xkcd.com/comics/correlation.png)
+
+Without getting too into the weeds (save that for Week 14!), we know a few things that should make us cautious!
+
+* Correlation is symmetrical: `cor(x, y) == cor(y, x)`.  So we can't say anything about what is causing what!
+* Correlation is a binary relationship: we only look at `cor(x, y)`, so if $z$ is causing both $x$ and $y$, we will see a strong correlation but won't know why.
+* Human brains seem to be simultaneous pattern-recognition and hypothesis-generation machines.  So when we see associations (like correlations) we immediately make up plausible theories for them.  We need to be cautious about our intuitions in the presence of these kinds of data explorations!
+
+# A coding digression: `factor`
+
+So far we have talked about using one continuous variable to explain/predict variation in another continuous variable.  Often, however, we will have **categorical** variables whose effect on some outcome variable $y$ we want to explore.  In this case, we are going to end up working with a king of `R` data type we haven't really explore yet: `factor`.
+
+I always recommend reading in the weekly assignment, but I am going to call it out here as well to remind you to check these out: the [R4DS chapter on factors](https://r4ds.had.co.nz/factors.html) [@wickham2017] is probably the best resource for this class.  The links at the "Learning More" section of that chapter are great resources for those of you interested in the programming history of `R`
+
+The short story behind the existence of factors is that they are memory- and computationally-efficient ways to deal with limited sets of (possible non-numeric) labels, which to us are strings like `"male"`, `"female"`, `"red`", etc.  In early `R` history it was not really necessary to deal with strings much, and so it was easier to largely treat them as labels for underlying integers.  This is something we all do frequently in our own data-management without thinking about: think about how in an Excel lab notebook we fill the cells in a column like "Income level" by writing a value like "2", which *represents* something like "$20-$30,000/year".  This is the idea behind how `R` treats `factor` data.
+
+A `factor` data type is a set of (small) integers with an attribute tag of `levels` that correspond to those labels.  We're going to examine this in the context of the `berry_data`.
+
+```{r}
+berry_types <- berry_data$berry
+unique(berry_types) # we don't want to print all 3000+ duplicates
+class(berry_types)
+typeof(berry_types)
+```
+
+It is clear that we could do some kind of transformation where we tell `R` that `1 = "raspberry"`, etc to make integer labels for our berry types, and then `R` would only have to deal with numbers and a map that tells it which number corresponds to each unique character string in `berry_types`.  This is what a factor does.
+
+In the language of `factor`, the label values are called `levels`.
+
+```{r}
+berry_levels <- unique(berry_types)
+berry_factor <- factor(berry_types, levels = berry_levels)
+str(berry_factor)
+typeof(berry_factor)
+class(berry_factor)
+attributes(berry_factor)
+```
+
+We can get the levels back out of a `factor` by using `levels()`
+
+```{r}
+levels(berry_factor)
+```
+
+When we try to add a non-included level to a factor, R automatically coerces it to an `NA`.
+
+```{r}
+factor(c("raspberry", "blueberry", "cherry"), levels = berry_levels)
+```
+
+Thus, a `factor` is `R`'s way of creating a map between (computationally expensive) strings and inexpensive, easy to manipulate integers.  Many modern (`tidyverse`-type) functions no longer use factors as extensively, but a lot of base `R` functions do use them (in particular the `aov()` and `lm()` functions we are using a lot today).  They either will request factors or convert strings to factors in the background silently.
+
+Another place that factors can be quite useful is in `ggplot2`.  If we have an integer label (like `sample` in `berry_data`, which represents a sample #), by default it will be treated as numeric:
+
+```{r}
+berry_data %>%
+  ggplot(aes(x = lms_overall, y = `9pt_overall`, color = sample)) + 
+  geom_jitter() + 
+  theme_classic()
+```
+
+Notice the gradient assigned to the color mapping for `sample`.  If we tell `R` that `sample` is a `factor` (by using the `as.factor()` coercion function), `ggplot()` will recognize this and give us a much more useful (discrete) color mapping:
+
+```{r}
+berry_data %>%
+  mutate(sample = as.factor(sample)) %>%
+  ggplot(aes(x = lms_overall, y = `9pt_overall`, color = sample)) + 
+  geom_jitter() + 
+  theme_classic()
+```
+
+Now that you've been introduced to `factor` data, you may have questions about, for example, how to add or subtract levels to a `factor`, or how to reorder those levels.  Please consult the [R4DS chapter on factors](https://r4ds.had.co.nz/factors.html) [@wickham2017] to learn more--it is easy but slightly fiddly.  And now, if you encounter weird effects in your treatment of string data, you'll know why!
+
+# Analysis of variance (ANOVA)
+
+Now that we've introduced a new type of data in `R`, let's justify it's use!  Often, we want to explain the variation in a (continuous) $y$ variable by the effect of a **categorical** $x$ variable--in base `R` like `lm()` these are usually treated (or coerced to) `factor` data.  Happily, unless we want to make changes to levels, we can let `R` handle this behind the scenes.
+
+When we have some $x$ variable that can only take on a set of discrete values, this is a **categorical** predictor, and our linear regression becomes instead **An**alysis **o**f **Va**riance: ANOVA.  In ANOVA, we are interested in the effect of category membership $\{x_1, x_2, ..., x_n\}$ on our predicted outcome variable $y$.  Instead of our classic regression linear equation, we tend to write ANOVA something like the following:
+
+<center>$\hat{y}_i = \mu + \tau_k$</center>
+
+We are familiar with the LHS of this equation--our *estimate* for a particular, observed $y_i$ is indicated as $\hat{y}_i$. The RHS looks a bit different: it is read as "the grand mean" ($\mu$) "plus the group mean of the level of $x_i$" (which is written here as $\tau_k$, because we often talk about these as **t**reatment means).  
+
+This bit of mathiness can be rephrased intuitively as "our estimate of a particular $y$-value is the sum of the average of $y$ plus the average effect of the treatment variable $x$".  Even though this sounds like a different problem, it's actually our same equation from linear regression reframed for a situation in which $x$ can only take on a delimited set of values.  We have an example(s) of this in our `berry_data` set that will give us some context in this question.
+
+## One-way ANOVA
+
+In its simplest form, ANOVA is used to relate a single outcome $y$ and a single predictor $x$.  We still have the implicit $i$ variable that links our pairs of observations $(x_i, y_i)$, but now $x_i \in \{x_1, x_2, ..., x_n\}$--it does not have an unlimted number of values it can take on, as it does in standard linear regression.  Thus, our $\beta$ from linear regression is replaced by a set of $\tau_k$ values that represent the average effect for each possible group $x_i$ can be in.  But we could as easily write $\beta_k$--the meaning is the same.  It is just convention.
+
+In `berry_data`, `berry` is a categorical variable that represents berry type: it can be one of four values.
+
+```{r}
+unique(berry_data$berry)
+```
+
+Let's model `us_overall` (scaled overall liking) on `berry`.  This model asks: does the type of berry predict or explain a significant amount of liking?  Can we say something about probable liking level if we know what type of berry the subject is tasting?
+
+```{r}
+berry_aov <- berry_data %>%
+  lm(us_overall ~ berry, data = .)
+berry_aov
+summary(berry_aov)
+```
+
+Notice we can just use our standard `lm()` function, even though our $x$ variable, `berry`, is categorical.  The model object and `summary()` for `berry_aov` has coefficients for 3/4 berry types--this is because R is converting `berry` to a `factor` in the background, which makes `blackberry` the first level (it is alphabetically first), and so the coefficients in the model are the values for a **change from `blackberry`** (the average liking for which is in the `(Intercept)` term).  So `blueberry` is liked on average almost 1.31 pts on the line scale more than `blackberry`, whereas `strawberry` is liked slightly less on average by about 0.09 pts on the line scale.  We also see our typical *t*-test estimates for significance for each level, but these are a bit harder to interpret for this model because these are actually each the same $x$ variable.
+
+Therefore, we might want to use the `anova()` function, which is a version of `summary()` specific for ANOVA.
+
+```{r}
+anova(berry_aov)
+```
+
+This tells us that the $x$ variable `berry` is overall significant, but doesn't tell us about specific factor levels.  We can get to this from the very start by using the `aov()` function, which is a version of `lm()` for ANOVA:
+
+```{r}
+berry_aov_2 <- berry_data %>%
+  aov(us_overall ~ berry, data = .) # here
+berry_aov_2
+summary(berry_aov_2)
+```
+
+The proper way to report this kind of model is "there was a significant effect of berry type on overall liking as measured by an unstructured line scale".
+
+## Posthoc testing
+
+In ANOVA, we typically are interested in whether there are significant differences *among* our treatment levels: sure, we have estimates for $\tau_{strawberry}$, $\tau_{raspberry}$, etc, but are they actually different from each other?
+
+To answer these questions, we often use what are called **posthoc tests**, which have names like "Fisher's Least Significant Difference" (Fisher's LSD) or "Tukey's Honestly Significant Difference" (Tukey's HSD).  I think the easiest way to calculate these are from the `agricolae` package.
+
+```{r}
+library(agricolae)
+LSD.test(y = berry_aov_2, trt = "berry", console = TRUE)
+HSD.test(y = berry_aov_2, trt = "berry", console = TRUE)
+```
+
+The key output of these kinds of tests are the "letters"--the groups labeled with the same letter are close enough to each other based on the test's criteria to be considered not significantly different.
+
+All of these methods have various responses to the problem of familywise error: when we run multiple tests on the same set of data, we are increasing our chance of finding a relationship that is just coincidental.  This is often referred to as "p-hacking" or "significance mining".  We will return to this issue in Week 14, but this XKCD actually very aptly sums up the problem:
+
+![Watch out for those [green jellybeans](https://xkcd.com/882/)!](https://imgs.xkcd.com/comics/significant.png)
+
+I will say this: **do not use Fisher's LSD**.  It is frequently used in published papers, and it is very very prone to this kind of error.  While there is no perfect approach, Tukey's HSD (and other methods) are less likely to give this kind of false positive.  
+
+## Plotting ANOVA results
+
+Because ANOVA is based on categorical data, it doesn't look very good to plot that data in scatterplots.  Generally, boxplots or barplots will be the most effective visual representation of data from ANOVA.  The following visualizations were adapted to some degree from [Philipp Masur's blog](https://philippmasur.de/2018/11/26/visualizing-interaction-effects/):
+
+```{r}
+berry_data %>%
+  ggplot(aes(x = berry, y = us_overall)) + 
+  geom_boxplot(aes(fill = berry), notch = TRUE) + 
+  geom_jitter(alpha = 0.1) + 
+  theme_classic()
+
+berry_data %>%
+  ggplot(aes(x = berry, y = us_overall)) +
+  stat_summary(aes(fill = berry), fun.y = mean, geom = "bar") +
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.25) +
+  theme_classic()
+```
+
+Another classic plot for ANOVA that will become even more powerful when we begin to examine multiway analyses is the interaction plot, which is really a dot + line plot representing the same data as the bar plot:
+
+```{r}
+berry_data %>%
+  # We will make our own summary table rather than do transformations in ggplot
+  group_by(berry) %>%
+  summarize(mean_liking = mean(us_overall, na.rm = TRUE),
+            se_liking = sd(us_overall, na.rm = TRUE)/sqrt(n())) %>%
+  ggplot(aes(x = berry, y = mean_liking, color = berry, group = berry)) +
+  geom_line(aes(group = 1), color = "black") +
+  geom_point(aes(y = mean_liking)) +
+  geom_errorbar(aes(ymin = mean_liking - 2 * se_liking, ymax = mean_liking + 2 * se_liking), width = 0.25) +
+  theme_classic()
+```
+
+## Resampling approaches to ANOVA
+
+We actually learned about resampling approaches to ANOVA in last class, but let's take a quick look at how we can modify our regression approach to get a better alternative to our posthoc tests.
+
+```{r}
+bootstrapped_means <- tibble(berry = character(),
+                             mean_liking = numeric(),
+                             boot_id = numeric())
+
+for(i in 1:1000){
+  berry_data %>%
+    group_by(berry) %>%
+    # The following line resamples to get the same size of data frame with replacement
+    slice_sample(prop = 1, replace = TRUE) %>%
+    summarize(mean_liking = mean(us_overall, na.rm = TRUE)) %>%
+    mutate(boot_id = i) %>%
+    bind_rows(bootstrapped_means, .) ->
+    bootstrapped_means
+}
+
+bootstrapped_means %>%
+  ggplot(aes(x = berry, y = mean_liking)) + 
+  geom_boxplot() + 
+  geom_point(data = berry_data %>% 
+               group_by(berry) %>% 
+               summarize(mean_liking = mean(us_overall, na.rm = TRUE)),
+             color = "red") +
+  theme_classic()
+
+bootstrapped_means %>%
+  group_by(berry) %>%
+  summarize(`5%` = quantile(mean_liking, 0.05),
+            mean = mean(mean_liking),
+            `95%` = quantile(mean_liking, 0.95))
+```
+
+# Incorporating multiple predictors
+
+As a tease of our material for next week, we can always include multiple predictors in linear regression and ANOVA.  This lets us simultaneously estimate the effect of multiple predictors on some outcome.  So, just for fun, let's estimate the effect of berry type and subject age on over all berry liking.
+
+```{r}
+berry_data %>%
+  aov(us_overall ~ berry * age, data = .) %>%
+  summary()
+```
+
+We can see that there is an overall effect of berry that remains even when the significant effect of age is also in the model.  There doesn't appear to be an **interactive effect** of berry and age, as shown by the third line for `berry:age`.  We'll talk about this in more detail tomorrow, but this plot should give an idea of what that means:
+
+```{r}
+berry_data %>%
+  ggplot(aes(x = age, y = us_overall, color = berry)) + 
+  geom_boxplot(notch = TRUE) + 
+  theme_classic()
+```
+
+Often, when model multiple regression and ANOVA, we are not only interested in predicting $y$, but in determining which different $x$s *matter*.  This is the topic we will explore next week!
+
+# References {-}

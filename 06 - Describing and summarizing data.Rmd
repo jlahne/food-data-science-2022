@@ -1,0 +1,698 @@
+---
+title: "6 - Exploratory and descriptive statistics"
+author: "JL"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    number_sections: yes
+bibliography: "Files/lecture bibliography.bib"
+---
+
+```{r setup, message = FALSE, echo = FALSE}
+knitr::opts_chunk$set(message = FALSE)
+library(tidyverse)
+library(skimr)
+library(ggforce)
+cider_chem <- read_csv("Files/Week 6/cider_chem_data.csv")
+cider_dryness <- read_csv("Files/Week 6/cider_dryness_data.csv")
+apples <- read_csv("Files/Week 5/apple varieties.csv")
+tidy_anscombe <- read_csv("Files/Week 6/tidy_anscombe.csv")
+
+```
+
+
+# Introduction
+
+Last week we devoted a lot of time to an introduction to **dataviz**, using the example of a dataset of amino-acid measurements from Sihui Ma's dissertation research [@ma2018a].  We mostly explored the *descriptive* and *exploratory* potentials of data visualization, rather than the *inferential* capabilities of this approach.  This week we will be doing something similar: we will be learning how to use R's tools for describing and summarizing data, as well as introducing our first review of statistical concepts.  However, we will be generally staying far away from the world of [*statistical inference*](https://en.wikipedia.org/wiki/Statistical_inference), even though that's the ultimate goal of much of science and of this class.  
+
+Briefly, it is worth it to describe the key differences between the tasks of description and inference.  In **description**, we are interested in providing accurate summaries and insights that have to do *with our sample*.  We are not trying to make the step of generalizing to the population of similar samples (or indeed the broader world)--we are interested in giving insightful, concise insights into the mess of data we have in front of us.  In general, description doesn't require that we assume or theorize about generating mechanisms (actual or statistical) for our data.  In **inference**, we would like to be able to generalize from our sample to the broader world of other samples, or entire populations.  We may also be interested in _prediction_ of future outcomes.  Either of these tasks require us to make some hypotheses or assumptions about how our data were generated in order for us to predict future events.  This is generally much harder and less certain than the task of *describing* just the data we have.  We'll talk about how to approach inference (from an agnostic, critical perspective) starting after Spring Break.
+
+![[XKCD](https://xkcd.com/1606/) weather forecasts using different models.](https://imgs.xkcd.com/comics/five_day_forecast.png)
+
+However, it is worth noting that the distinction between description and inference in scientific thinking and writing is often somewhat muddy.  Often, we apply statistics that are appropriate for description to our samples and then, without ill-intention, use what we know about our sample to generalize to a larger setting, which means we are performing inference.  This can cause all sorts of problems!  For an introduction to this problem, I recommend the chapter(s) on inference from *Statistical Rethinking* [@mcelreath2020].
+
+## Datasets
+
+Today we're going to be looking at a set of pilot data that Elizabeth Cole and Martha Calvert collected as part of a class project for FST 5014.  The abstract for the project follows:
+
+> Hard cider is a fermented, alcoholic beverage often compared to wine and beer that is growing in popularity throughout the United States. However, the growing popularity of cider has been accompanied by inconsistent communication regarding consumers’ perception of dryness and sweetness in hard cider. To date, there is no conclusive methodology to measure cider dryness and sweetness in a way that is relevant and accurate for most ciders and cider-drinkers. At the same time, there is no industry standard for the serving temperature of hard cider, although temperature is known to impact the sensory experience and particularly the apparent dryness of other alcoholic beverages. Recently, the New York Cider Association developed the Merlyn Dryness Scale as a way to scale cider dryness using basic cider chemistry (pH, RS, TA, polyphenol content, malic acid, and CO2) , but this approach has not been validated in sensory experiments. Thus, the aim of this research is to validate the Merlyn Dryness Scale by comparing the chemical analyses of various cider samples to the sensory evaluations of those cider samples, and to assess the effect of serving temperature on cider dryness perception. Chemical analyses performed for the research include determining the pH, RS, TA, and total polyphenol content.
+
+This dataset contains two different data tables.  The first--`cider_chem`--is a table of chemistry data for the ciders, as described above.
+
+```{r}
+knitr::kable(cider_chem)
+```
+
+The second--`cider_dryness`--is a (much larger) table of subjects' sensory judgments of the same ciders.
+
+```{r}
+slice_sample(cider_dryness, n = 10) %>% knitr::kable()
+```
+
+## Review exercise: How did I import these datasets?
+
+```{r}
+# Use this R chunk to write code that reads the appropriate files into R.
+
+```
+
+We may also make recourse to the polyphenol data from last week to give us some data in a different format to play with.  As a reminder, those data describe amino-acid contents in different apple varieties, and look like:
+
+```{r}
+slice_sample(apples, n = 5) %>% knitr::kable()
+```
+
+# What kind of data do you have?
+
+Before we get into new material, let's review some basic tools for understanding data.  We're going to start off with a quick review of material from Weeks 1 and 2 of this course, but then quickly get into new, useful concepts and functions for understanding your data.
+
+## Basic attributes
+
+There are some very basic questions we might have about our data that it's worth remember.  When we import data, we might ask:
+
+* What kinds of variables are there in the data?   Are the data types those we expect?
+* How many rows and columns are there in the data?  What *shape* is the data?
+* If we are dealing with structured data (like data frames and tibbles), what are the names of the variables/columns and the rows?
+* What does the data *look like*--that is, what does a representative set of rows contain?
+
+### Types of data and data structures
+
+We learned about data types in lesson 1 and 2--you might recall a discussion of *integers*, *characters*, *numeric*, etc vectors, and of complex data structures like *matrices*, *lists*, and *data frames*.  In general, it's worth remembering that vectors and matrices can contain only one kind of data--that is, a matrix can have *numeric* data in all of its cells, or *character* data, but it cannot have some numeric and some character data.  
+
+```{r}
+matrix(letters[1:4], nrow = 2, ncol = 2)
+matrix(1:4, nrow = 2, ncol = 2)
+```
+
+The **data types** of these comparatively simple data objects are going to always be the kind of thing they contain:
+
+```{r}
+typeof("a string")
+typeof(matrix(letters[1:4], nrow = 2))
+```
+
+Lists, on the other hand, can contain any number of different types of objects (including complex data structures):
+
+```{r}
+list(a_character = "hi!", a_number = 3.5, an_integer = 3L, a_logical = TRUE, a_matrix = matrix(1:4, nrow = 2))
+```
+
+Therefore, the type of a list is always just `list`:
+
+```{r}
+typeof(list(a = 1, b = TRUE))
+```
+
+
+Data frames (and tibbles) are special kinds of lists.
+
+```{r}
+example_tibble <- tibble(x = 1:2, y = c(TRUE, FALSE), z = list(list(a = 1), list(b = "jazz")))
+example_tibble
+typeof(example_tibble)
+```
+
+The main things to remember about these structures are:
+
+1. They are "rectangular" - e.g., they enable numerical indexing in the same way that we can with matrices (`[]`) or using the special data-frame access: `$`.
+
+```{r}
+example_tibble[1, ] # get the first row of our tibble
+example_tibble$x # get the first column of our example tibble
+```
+
+2. That means that each column of a data frame must be the same length:
+
+```{r, error=TRUE}
+example_tibble$new <- 1:5
+```
+
+3. All data stored in each *column* must be of the same *type* (although as can be seen in our example, we can make a "list of lists" column).
+
+```{r}
+typeof(example_tibble$y)
+```
+
+### Sizes
+
+Frequently, we will need to know something about the size of our data sets.  For example, we might need to know how many observations we have total in our data set, which may correspond to the number of rows (if our data is in "long" format), we might need to know the number of columns we have so that we can use indexing to access them properly (although using named accessing through `select()` will generally be more readable), or we might need to know numbers of rows or columns so that we can use `for` loops or other control-flow tools.
+
+For vectors, the most useful function is `length()`.  This returns, as you might expect, the length of the vector in terms of how many things are in it:
+
+```{r}
+length(1:100)
+length(letters)
+```
+
+However, `length()` is less useful for complex data objects: for data frames, counterintuitively, R treats their length as the number of columns; for lists the length is the number of top-level entries.
+
+```{r}
+length(cider_chem)
+length(cider_dryness)
+```
+
+For matrices, data frames, etc, the `nrow()` and `ncol()` functions are more useful.  Respectively, they tell us the number of rows and columns in the object:
+
+```{r}
+ncol(cider_dryness)
+nrow(cider_chem)
+```
+
+For "rectangular" data structures, we can also ask about the dimensions all at once using the `dim()` function:
+
+```{r}
+dim(cider_chem)
+```
+
+Less important, for our purposes, is the actual (memory) size of files: how many bytes they take up.  Unless you are working with big data (on the scale of at least hundreds of megabytes), R will happily deal with whatever size data you need.
+
+### Names
+
+In most of the use cases we have for R, we will be working with data objects that have names.  When we print objects we can see that there are names assigned to different parts of the data:
+
+```{r}
+apples # what are the names here?
+```
+
+Simple objects can also have names:
+
+```{r}
+simple_names <- c(a = 1, b = 2, c = 10) # what type of object is this?
+simple_names
+```
+
+We can get the names of an object through `names()`:
+
+```{r}
+names(simple_names)
+names(apples)
+```
+
+We can also *set* names in an object using the same function, combined with `<-`:
+
+```{r}
+names(simple_names) <- c("new 1", "new 2", "new 3")
+simple_names
+```
+
+For complex objects, we have equivalents of `nrow()`/`ncol()`/`dim()`:
+
+```{r}
+colnames(cider_chem)
+rownames(cider_chem) # note that tibbles do not support row names
+dimnames(cider_chem) 
+```
+
+All of these can be combined with `<-` to modify the existing assignments.
+
+Data frames and matrices allow rownames, but these are discouraged in tibbles.  Wickham & Grolemund -@wickham2017 argue that row names are more confusing and less useful than a named column in a dataframe, but a number of non-`tidyverse` packages in R do rely on them.  Therefore, it is useful to know a little bit about them, even though I do agree that they are less useful than a named column.
+
+For example, we might want to transform our `cider_chem` tibble into a data frame with row names corresponding to the sample names
+
+```{r}
+cider_chem_df <- as.data.frame(cider_chem)
+rownames(cider_chem_df) <- cider_chem$Cider
+cider_chem_df
+```
+
+Row names must be unique, which can be a problem for long data frames (as opposed to wide), because usually the observations in a long data frame are uniquely identified by a *combination* of columns, rather than a single one--this is one of the reasons that Wickham & Grolemund -@wickham2017 argue against their use.
+
+Rather than the somewhat annoying set of code commands above, `tibble` does provide a nice one-step function appropriate for piping for transforming a tibble to a data frame with rownames: `column_to_rownames()`.  This also has the nice side effect of deleting the (now redundant) column from the new data frame
+
+```{r}
+cider_chem %>%
+  column_to_rownames("Cider")
+```
+
+For matrices and higher-dimension data, it is more natural to use rownames.  These are set with the same commands.
+
+# Examining big data frames
+
+For the most part, we are going to be dealing with data frames that have more rows than we can easily inspect in the R Console, or even the viewer.  As you may have already found, we can open a simple "spreadsheet" view of dataframes by clicking on a dataset in the Environment pane--what this actually does is run `View(<data>)` in the Console.
+
+Personally, I don't think this is the most effective way to inspect our data.  We've already discussed the use of `str()` as a more effective way to get a summary of the *structure* of a data frame:
+
+```{r}
+str(cider_dryness)
+```
+
+This tells us:
+
+1. The type of object
+2. The structure of the object in terms of list/column structure: what kinds of data is in the object?
+3. "Metadata" about the object, which in R can be found in the **atrributes**.  FWIW, these are accessed via the `attributes()` function (which can be very useful but hard to read).  These can be set using the `attr()` function, but in general this is a level of detail you won't need to deal with until you get into very advanced applications.
+
+## `dplyr::glimpse()`
+
+The `dplyr` package offers a somewhat beefed up version of `str()` called `glimpse()`.  It gives us the same info about the size of the object and info about the types of the columns, but leaves out attributes and class information.  This can be more readable, but isn't necessarily that much better:
+
+```{r}
+glimpse(cider_dryness)
+```
+
+However, for various reasons we will need different ways to look at parts of our data.  One frequent situation I find myself in is the need to make sure that a calculated column (perhaps made via `mutate()`) is working properly.  To do so, we might want to not just look at the top of the data set (printed normally via when we put the name of a tibble into the Console), since that might be systematically different than later observations.
+
+We can of course use indexing to access any part of the tibble, but this is going to get tedious fast:
+
+```{r}
+# Explain what calculation I am making here.
+cider_dryness %>%
+  group_by(Panelist_Name) %>% # this has introduced a subtle error, why?
+  mutate(liking_by_subject = mean(Liking, na.rm = TRUE)) %>% # why does this show us the error?
+  ungroup() %>%
+  .[94:103,]
+```
+
+As you might expect, we have some better tools to do this kind of quick access.
+
+## `head()`/`tail()`
+
+In base R, there are functions to access the first or last *N* rows.  The default is for `n = 6`.
+
+```{r}
+head(cider_dryness)
+tail(cider_dryness, n = 10)
+```
+
+These are useful (I find especially `tail()`) as a very quick quality check.
+
+## `dplyr::slice_*()`
+
+More powerful but slightly more complicated are the `slice_*()` functions from `dplyr` (part of the `tidyverse`).  These offer more powerful ways to get a subset of data, and can actually be used in a more powerful, functional workflow.
+
+`slice_head()` and `slice_tail()` are equivalents to `head()` and `tail()`, but they also work with `group_by()`, so you can get the first/last *N* rows in each group.
+
+A next step up in power are `slice_max()` and `slice_min()`, which give you the *N* rows with the highest/lowest value of a specified variable:
+
+```{r}
+cider_dryness %>%
+  slice_max(n = 10, order_by = Dryness)
+```
+
+Finally, `slice_sample()` gets a random set of rows from the dataset.  This is a great way to pull a representative sample from throughout the dataset:
+
+```{r}
+cider_dryness %>%
+  slice_sample(n = 5)
+```
+
+All of these also work with `group_by()`.
+
+# Generating data summaries
+
+So far, we've largely limited ourselves to just looking at data.  This is the equivalent to drawing simple histograms from last week (although we're not even counting data, yet)--we're not getting any useful summaries out of our data, just checking for quality and making sure we understand what we have.  The next step in descriptive data analysis and statistics is to extract numbers that summarize our data.
+
+## `summary()`
+
+The base R `summary()` function is a *generic* function in R--this means it will do different things depending on what kind of object we give it as its input.  For example, when we give it a dataframe, it will give us information about the average and range of each column when the data is numeric, and not a whole lot when it is character data.  It will also tell us a little bit about missing data (`NA`s).
+
+```{r}
+summary(cider_dryness)
+```
+
+However, if we give it a `model` object (like that produced from simple linear regression with `lm()`) we will get very different output:
+
+```{r}
+summary(lm(Liking ~ Sample_Name, data = cider_dryness))
+```
+
+So `summary()` is a useful but unpredictable first step for understanding data.
+
+## `skimr::skim()`
+
+A more powerful approach that requires installing a separate package is the `skim()` function, from `skimr`.  This is actually one of my favorite R tools, because it tells you so much so easily:
+
+```{r}
+skim(cider_dryness)
+```
+
+In one command we get details about the size and shape of our data, as well as column summaries that are customaized for the different types of data (in this case, character and numeric).  But `skim()` is actually even more powerful: for example, it supports `group_by()` to give us group summaries for some grouping variable.
+
+```{r}
+# Let's do a by-cider summary
+cider_dryness %>%
+  group_by(Sample_Name) %>%
+  skim()
+```
+
+We can even use `skim()` with it's helper function `yank()` to make quick summary tables suitable for printing in a report:
+
+```{r}
+cider_dryness %>% group_by(Sample_Name) %>% skim() %>% yank(skim_type = "numeric")
+```
+
+`skimr` is so powerful that I recommend checking out the vignettes: `browseVignettes("skimr")`.
+
+## `group_by()` and `summarize()`/`count()`
+
+Sometimes, however, you want to provide specific data summaries that are for your own exploratory use, and tools like `summary()` aren't powerful enough, while tools like `skim()` provide too much detail.  For example, you might want to check the number of times a sample is evaluated in a dataset, or the average value for different groups, or some custom calculation.  There is a very flexible framework for that in the `tidyverse`, provided by the combination of `group_by()` and long (tidy) data.
+
+Our `cider_dryness` data set is in *nearly* tidy format: we have two observations per row, `Liking` and `Dryness`.  We could fix this by using `pivot_longer()` to flip those into two columns called, for example, "Attribute" and "Rating", but right now we'll ignore it and just focus on the `Liking` variable.
+
+Recall that the `group_by()` function tells R that there is some *column* in the dataset that is a grouping variable--we can even have more than one grouping column, and R will find all combinations.  So, for example, in this dataset we have `Sample_Name`, which tells us about the cider (and its serving temperature).  There are 6 total unique sample names (3 ciders and 2 serving temperatures).
+
+What `summarize()` does is lets us **define a summary statistic we want for each group**.  So, in this case, let's imagine we want to know the mean, median, and standard deviation for the `Liking` of each cider.
+
+```{r}
+cider_dryness %>%
+  group_by(Sample_Name) %>%
+  summarize(mean_liking = mean(Liking, na.rm = TRUE),
+            median_liking = median(Liking, na.rm = TRUE),
+            sd_liking = sd(Liking, na.rm = TRUE))
+```
+
+This is a very powerful pattern for quickly getting summarized tables for either further analysis or for output to reports and publications.
+
+Frequently, one of the things we most want to know is "how many observations are there in a particular group?"  `summarize()` provides a helper function for that, which only works in these calls: `n()`.  So we'd write:
+
+```{r}
+cider_dryness %>%
+  group_by(Sample_Name) %>%
+  summarize(number_of_obs = n())
+```
+
+This is actually so important that there is a shortcut: `count()`, which allows us to skip the `group_by()` and just specify the counting variable within the function:
+
+```{r}
+cider_dryness %>%
+  count(Panelist_Code)
+```
+
+Of course, this can be used on grouped data separately, but it saves typing of lines of code.  It also allows the user to specify multiple grouping variables within `count()` if desired.
+
+This is especially useful when you are dealing with datasets that may be incomplete, rather than the result of experimental designs that are forced to be complete.  Let's observe this by dropping missing data from our `cider_dryness` data using the useful `drop_na()` utility function.
+
+```{r}
+cider_dryness %>%
+  drop_na(Liking) %>%
+  count(Sample_Name)
+```
+
+Now we can see that our data are incomplete, and we have to decide how we might want to deal with that.  Let's find out where our missing data *are*:
+
+```{r}
+cider_dryness %>%
+  drop_na(Liking) %>%
+  count(Panelist_Code) %>%
+  filter(n < 6) # why did we ask for panelists with less than 6 ratings?
+```
+
+We can drop this panelist from our dataset if we are concerned about their data making our design unbalanced.
+
+# Statistics review
+
+We have now begun to move from describing our "raw" data--the type of data we have, its shape and structure--to developing ways in which we want to **explore** teh data to provide **descriptive** summaries and other information about our data.  For the rest of this class we're going to explore some common summary statistics that you have certainly encountered before.  We're going to see how to calculate these in R, how to fit them into the data analysis workflows we've started to explore, and how to think about these.
+
+I think it's worth paraphrasing Hadley Wickham -@wickham2017 here on what I mean by exploratory statistics.  We are often taught in basic statistics that the purpose of our analyses are inference: testing hypotheses that are (hopefully) generalizable.  But what we are doing today--and for most of the class, and in a lot of our work in general--is description.  [Wickham writes](https://r4ds.had.co.nz/model-intro.html):
+
+> Traditionally, the focus of modelling is on inference, or for confirming that an hypothesis is true. Doing this correctly is not complicated, but it is hard. There is a pair of ideas that you must understand in order to do inference correctly:
+>
+> 1. Each observation can either be used for exploration or confirmation, not both.
+> 2. You can use an observation as many times as you like for exploration, but you can only use it once for confirmation. As soon as you use an observation twice, you’ve switched from confirmation to exploration.
+>
+> This is necessary because to confirm a hypothesis you must use data independent of the data that you used to generate the hypothesis. Otherwise you will be over optimistic. There is absolutely nothing wrong with exploration, but you should never sell an exploratory analysis as a confirmatory analysis because it is fundamentally misleading.
+
+What we are doing in this class is exploring data.  We will often find illuminating patterns that can spur further research--this is exactly the pattern that led to the generation of the real data we're using to learn with.  But we should be cautious about using these data to actually build models that we think predict as-yet-unobserved phenomena.  We don't have the right supporting structure for that kind of inference right now.
+
+## Measures of central tendency
+
+Most often, we start by asking what single value best summarizes the whole range of our observations.  Typically, this will be a measure of **central tendency**, meaning a value around which our observations are centered.  We are all pretty familiar with the idea of an average, but it is worth reviewing to think through what these mean from the perspective of summarizing our data.
+
+### Mean
+
+The (arithmetic) mean has the familiar form of $\bar{x} = \frac{x_{1} + x_{2} + ... + x_{n}}{n}$.  This is the *expected value* of our variable--the value which, given no other information except our sample, is our best guess for the value of x.  
+
+In R, the `mean()` function takes a *vector* and returns the mean value.  It will throw an error if there is missing data (e.g., `NA`).
+
+```{r, error = TRUE}
+mean(apples$His)
+mean(cider_dryness$Liking)
+mean(cider_dryness$Liking, na.rm = TRUE) # use na.rm = TRUE to drop NAs before the mean is calculated
+```
+
+It is important to note that `mean()` works on *vectors*.  What is wrong with the following function call?
+
+```{r}
+mean(1, 2, 3, 4, 5) # What should the mean be?
+```
+
+
+The mean is *biased* by the shape of our distribution: it is a good guess at central tendency when our data are clumped up around a central value, but it becomes less and less realistic when our data are
+
+* very spread out (e.g., high variance)
+* have long tails in one direction or another
+* have multiple "clumps" (e.g., bimodal data)
+
+What do you think the mean tells us about the following artificial data sets?
+
+```{r}
+# Let's make some pathological data
+tibble(normal = rnorm(100, mean = 0, sd = 1),
+       spread_out = rnorm(100, mean = 0, sd = 10),
+       long_tailed = c(rnorm(90, mean = 0, sd = 1), rnorm(10, mean = 50, sd = 5)),
+       bimodal = c(rnorm(50, mean = -2, sd = 1), rnorm(50, mean = 2, sd = 1)),
+       obs = 1:100) %>%
+  pivot_longer(names_to = "distribution", values_to = "x", -obs) %>%
+  # And now we'll plot it to look at how the means work
+  ggplot(aes(x = x)) + 
+  geom_histogram(color = "white", fill = "grey") + 
+  # This messy layer just calculates means for each group and plots them as a dashed line
+  geom_vline(aes(xintercept = mean_x), 
+             data = . %>% group_by(distribution) %>% summarize(mean_x = mean(x)),
+             color = "red",
+             linetype = "dashed") + 
+  facet_wrap(~distribution, scales = "free") +
+  theme_classic()
+```
+
+#### Other means: harmonic, geometric, etc
+
+There are other ways to calculate a mean that satisfy different definitions.  For example, the **geometric mean** is the n-th root of the product of n numbers: $\bar{x}_{geom} = \sqrt[n]{x_{1} * x_{2} * ... * x_{n}}$.  The geometric mean makes sense when considering the central tendency of sets of numbers that will naturally be multiplied, or for other naturally exponential phenomena like growth rates.  It can be calculated as `psych::geometric.mean()`.  
+
+The third common mean is the **harmonic mean**, defined as the reciprocal of the arithmetic mean of the reciprocals of the given set of observations: $\bar{x}_{harm} = \frac{n}{\frac{1}{x_{1}} + \frac{1}{x_{2}} + ... + \frac{1}{x_{n}}}$.  The harmonic mean does not suffer from the influence of outliers in the same way as the arithmetic mean.  It can be calculated as `psych::harmonic.mean()`
+
+The relationship between the three means is generally $\bar{x}_{harm} < \bar{x}_{geom} < \bar{x}$, except in the case where all observations are equal.  For our dataset:
+
+```{r}
+psych::harmonic.mean(cider_dryness$Liking, na.rm = TRUE) 
+psych::geometric.mean(cider_dryness$Liking, na.rm = TRUE)
+mean(cider_dryness$Liking, na.rm = TRUE)
+```
+
+### Median
+
+In contrast to the mean, the **median** is the central value in our observations when they are ordered from least to greatest.  The median, therefore, is not affected by extreme outliers and long tails in the ways that the mean(s) typically are.  For this reason the median is often called "*nonparametric*"--it is an equally good estimator of the central tendency even when our data is not *parameterized* by the "clumped around the center" distribution typical of the normal (bell-shaped) distribution.
+
+```{r}
+tibble(normal = rnorm(100, mean = 0, sd = 1),
+       long_tailed = c(rnorm(90, mean = 0, sd = 1), rnorm(10, mean = 50, sd = 5)),
+       obs = 1:100) %>%
+  pivot_longer(names_to = "distribution", values_to = "x", -obs) %>%
+  # And now we'll plot it to look at how the means work
+  ggplot(aes(x = x)) + 
+  geom_histogram(color = "white", fill = "grey") + 
+  # This messy layer just calculates means for each group and plots them as a dashed line
+  geom_vline(aes(xintercept = median_x), 
+             data = . %>% group_by(distribution) %>% summarize(median_x = median(x)),
+             color = "red",
+             linetype = "dashed") + 
+  facet_wrap(~distribution, scales = "free") +
+  theme_classic()
+```
+
+In R, we calculate the median using `median()`.  The same arguments and warnings from `mean()` apply here.
+
+```{r, error = TRUE}
+median(apples$His)
+median(cider_dryness$Liking)
+median(10, 1, 1, 1, 1) # why is this wrong?
+```
+
+### Mode
+
+In most statistics classes, we learn about the mode and quickly forget it.  The **mode** is defined as the value of x that occurs most frequently, which means that for real-valued (numeric) variables, it is not very useful.  But the mode is actually really valuable when we think about categorical variables, which may be extremely frequent in our datasets, especially if we collect observational datasets.  For example, we might ask
+
+* In 100 petri dishes, which microbial spp. is most abundant most often?
+* In sensory studies of cider, which word(s) get used most frequently by consumers?
+* Which soil type is found most frequently in 100 random tracts sampled from around Blacksburg?
+
+We can sometimes represent these statistics as means or medians, but we are really talking about modes and categorical variables.  Therefore, it's a shame that R doesn't actually have a function to easily calculate the mode!
+
+It is pretty easy to use the `group_by()`/`count()`/`slice_*()` to find the mode of a dataset:
+
+```{r}
+# How can we use these functions to find the most frequently occurring category?
+```
+
+However, it might be better to define a function that works more like `mean()` and `median()`.  This solution is given at [Stack Overflow](https://stackoverflow.com/questions/2547402/how-to-find-the-statistical-mode). 
+
+```{r}
+Modes <- function(x) {
+  ux <- unique(x)
+  tab <- tabulate(match(x, ux))
+  ux[tab == max(tab)]
+}
+Modes(cider_dryness$Liking)
+```
+
+This introduces a nice utility function: `unique()` takes a vector and tells you what values are in it:
+
+```{r}
+unique(c(1, 1, 1, 2, 3, 3, 4))
+```
+
+
+```{r}
+ggplot(aes(x = Liking), data = cider_dryness) + 
+  geom_density() + 
+  geom_vline(aes(xintercept = mean(Liking, na.rm = TRUE)), linetype = "dashed", color = "red") + 
+  geom_vline(aes(xintercept = median(Liking, na.rm = TRUE)), linetype = "dotted", color = "red") +
+  geom_vline(aes(xintercept = Modes(Liking)), linetype = "dotdash", color = "red") +
+  annotate("label", 
+           x = c(6, mean(cider_dryness$Liking, na.rm = TRUE), Modes(cider_dryness$Liking)), 
+           y = c(0.05, 0.07, 0.08), 
+           label = c("median", "mean", "mode")) + 
+  theme_classic()
+```
+
+Or, to sum it all up, we could calculate some kind of average of means...
+
+![[XKCD proposes](https://xkcd.com/2435/) a better mean.](https://imgs.xkcd.com/comics/geothmetic_meandian.png)
+
+## Variation
+
+No matter what single value we choose as a representative of our data, it is unlikely to truly communicate the shape of our data.  Partly, that is why I am emphasizing the use of simple plots--in many cases these will be much better for exploring our data than even a couple numeric summary statistics.  We can continue to enrich our numerical summaries, however, by describing the variation of our observations as well as their central tendency.  There are a couple common measures for variation that will be useful.
+
+### Variance
+
+The most common way to report variation is **variance** (and its square root, standard deviation).  Variance is intimately related to the *arithmetic mean*: it is defined (for a sample) as the average squared distance from the mean: $\sigma^2 = \frac{1}{n - 1}\sum{(x_{i}-\bar{x})^2}$.  We define it this way in order to account for the fact that we expect both positive and negative differences from the mean; otherwise we'd end up with an average distance of 0.  
+
+The **standard deviation** is just the (positive) square root of variance: $sd = \sqrt{\sigma^2}$.  Standard deviation, however, has the advantage of being in the *same units* as the mean (and the original variable), meaning that we can interpret standard deviation as the average distance an observation will be away from the mean, which is a more intuitive measurement.
+
+In R, we calculate variance with `var()` and standard deviation with `sd()`.  Both take vectors and need to account for `NA`s.
+
+```{r}
+var(apples$His)
+sd(apples$His)
+var(cider_dryness$Liking) # how do we fix this?
+```
+
+### Quantiles and the Interquartile Range
+
+A related concept which we've encountered already in drawing *boxplots* is the idea of the **Interquartile Range** (IQR)--for a dataset, the IQR is the difference between the 25th and 75th percentiles of the dataset.  Understanding the IQR requires understanding the idea of **quantiles**: in non-technical terms, quantiles are the division of an ordered set of values into groups with equal numbers of values per groups.  The idea is best demonstrated with some common, named quantiles:
+
+* If we divide into *10* groups, we have *deciles*.
+* If we divide into *100* groups, we have *percentiles*.  If we talk about someone "being in the 95th percentile" with regard to some test score (say GRE), we mean that their score falls into the range of scores (for their cohort) that is the 95th group.
+* If we divide into *4* groups, we will have *quartiles* and have 4 sets of groups each with the same number of observations.  The values that are at the edge of each group define the quartile ranges.  
+ * Obviously in the case of the **IQR** we are rewriting in terms of percentiles, but it should be clear that the 25th and 75th percentile are the 2nd and 3rd quartile, respectively.
+ * The **median** is in fact the number that represents a split into two quantiles (the upper and lower half of the observations).  Therefore, the median will also fall at the 2nd quartile (the 50th percentile or 5th decile).
+ 
+The IQR represents an alternative measure of variation.  A traditional observation in intro statistics is that, when the data are normal-ish, "~2/3 of the observations fall within 1 sd of the mean".  But as we see in our `cider_dryness` and `apples` data we can have quite non-normal distributions.  The IQR is another "nonparametric" estimate, in that it doesn't rely on any assumptions of how our data are made (i.e., distributed)--rather, we just order our data and draw lines at the 25th and 75th percentiles.  If the IQR is broad, we have a lot of "spread" (variation) in our data; if the IQR is narrow observations tend to be close to our central measure (the median or 50th percentile in this case).  This can help inform our expectations and observations.
+
+We can get the IQR in quite a few ways.  If we want the cut points for the percentiles (the values for the 25th and 75th percentiles), the `summary()` function on any numeric vectors actually returns that as part of its summarization.  If we want the actual distance between the boundaries, the `IQR()` function returns that.  The `fivenum()` function returns Tukey's proposed data summary, which is the minimum, the maximimum, the median, and the 25th and 75th percentile observations.
+
+```{r}
+summary(apples$His)
+IQR(apples$His)
+fivenum(apples$His)
+```
+
+The main difference between `summary()` and `fivenum()` is that the latter will try to return percentile values that are actually observations in the dataset, whereas `summary()` will generally interpolate values that may not actually occur in the dataset.
+
+## Linear Association
+
+Linear association, in data analysis, is closely associated with the ideas of **covariance** and **correlation**.  You've probably learned about these both in statistics courses, and I will be going into each briefly here.  But my goal here is to motivate our thinking about these concepts with more concrete examples, as well as some thinking about the persistent power of the "*linear model*", despite (or because of) its limitations.  We'll find that, as an explanatory and exploratory tool, linear models are quite powerful, even when they are obviously incorrect.
+
+Let's start by looking at **scatterplots** of data from our `apples` dataset.  Scatterplots have a strong, visual relationship to our idea of linear association.  We look only at 8/20 measured amino acids for visual clarity.
+
+```{r fig.height=8, fig.width=8}
+ggplot(apples) +
+  geom_point(aes(x = .panel_x, y = .panel_y)) +
+  geom_autodensity() +
+  facet_matrix(vars(3:10), layer.diag = 2) + 
+  theme_bw()
+```
+
+In many cases, it appears that there is a cloud of points with no clear relationship in each box.  In other cases (for example, `Asp ~ Glu` and `Asn ~ Ser`) there seem to be "associations" between the values.  
+
+What do we mean by an association?  Very broadly, we mean that the magnitude of one of the variables tells us something about the magnitude of the other.  So, for example, it appears that higher values of Aspartate are related to higher values of Glutamate (with the exception of one very strong outlier).  Although we don't see any obvious examples in this visualization, we might also see the opposite kind of trends--if a high value of one variable is predictably paired with a low value of another, that would still be a linear association: just a negative one.
+
+What other trends can we see in these plots?
+
+### Covariance
+
+The idea that two variables change together, predictably, is formalized in the idea of **covariance**.  Covariance between two variables, $x$ and $y$, is formally defined as $cov(x, y) = \sigma_{xy} = \frac{1}{n - 1}\sum{(x_{i} - \bar{x}) * ({y_{i} - \bar{y})}}$.  There is no reason at all for you to memorize this (I had to look it up to make sure I was gettig the definition right).  But looking at the equation gives us a couple insights its worth remembering:
+
+1. There must be some intrinsic relationship between $x$ and $y$ for the concept of covariance (and linear association in general) to make sense.  
+    1. For example, if $x$ is temperature in Blacksburg over the last week measured at 10-minute intervals, and $y$ is the molar mass of every common carbohydrate, we have two numeric variables that have no intrinsic relationship whatsoever.  We cannot pair values of $x$ and $y$ in this case--we do not have the $i$ subscript connecting observations.  We can't even really graph these two variables against each other in a scatterplot (a sure warning sign).
+    2. In the case of `apples`, we can pair $x$ and $y$ as different amino acids, because they are measured on the same sample ($i$).
+2. Ignoring the normalization factor ($\frac{1}{n - 1}$), which scales covariance so that it doesn't grow with more observations, the equation says "for each observation $i$, take how far $x_{i}$ and $y_{i}$ are from their central tendencies, and multiply them, then add up all these pairs".  
+    1. So if when $x_{i}$ is bigger than average, $y_{i}$ is also bigger than average, their product will be very large, and if the reverse is true ($x_{i}$ small, $y_{i}$ small), the negatives will cancel when multiplied, and so $\sigma_{xy}$ will get very large.  
+    2. If the situation is completely reversed ($x_{i}$ small, $y_{i}$ big or vice versa), then $\sigma_{xy}$ will grow very negative (why?)
+    3. If there is no association, and we cannot guess anything about $y_{i}$ from $x_{i}$, then $\sigma_{xy}$ will be quite small (why?)
+3. Notice that we are not *scaling* $x$ or $y$.  
+    1. So if we $x$ is on the order of magnitude of, say `1e4`, and $y$ is on the order of magnitude of `1e-2`, variation in $x$ will dominate the covariance.
+    2. It means we cannot directly compare covariances among different pairs of variables.
+
+Oof, that was mathy.  The main point is to get a conceptual handle on the idea of covariance, as it actually underlies a lot of the statistical inference we will do.  We want to know if and when two variables tend to vary together, as it can help us form and test hypotheses about underlying causes.
+
+In R, we can get covariance between two variables by using the `cov()` function.  We can get a single covariance by giving two vectors to `cov(x, y)`, but we need to be sure they are ordered by the intrinsic connecting variable.  So in the case of `apples`, that is we need to have the same `Variety` and `Rep` ID variables for each observation:
+
+```{r}
+(correct_covariance <- cov(apples$Asp, apples$Glu))
+(incorrect_covariance <- cov(apples$Asp, apples$Glu[sample(1:42)]))
+correct_covariance == incorrect_covariance
+```
+
+It is more common, when working with the type of multivariate datasets we usually have (and have in this case), to examine a "covariance matrix"--this is the numerical equivalent of the kind of scatterplot matrix we saw above.  It is a symmetrical matrix (what does this mean?) in which each cell contains the covariance of the variables for the row and column, and the diagonal gives the variance of each variable:
+
+```{r}
+round(cov(apples[,-c(1, 2)]), 3)
+```
+
+Notice that, even though this is a table showing covariances among different amino acid concentrations, we have vastly different scales: some of our amino acids (Asparagine, Phenylalanine) have variances that are orders of magnitude larger than others.  This makes it hard to understand which covariances are actually important.
+
+### Correlation
+
+The final point (#3) above leads us to the idea of linear or Pearson **correlation**, which can be thought of as "standardized covariance".  The standardization is done by dividing the covariance $x$ and $y$ by the standard deviations of each variable: $cor(x, y) = \rho_{xy} = \frac{\sigma_{xy}}{\sigma_{x}*\sigma_{y}}$.  This preserves the directionality (positive or negative) of the covariance, but accounts for differences in scale in $x$ and $y$--in fact, it means that $\rho_{xy}$ is bounded within $[-1, 1]$.  If the correlation is equal to +1, it means that there is a perfect, positive (linear) association between $x$ and $y$, and if it is equal to -1 it means that there is a perfect negative association.  If it is 0 it means there is no linear association.
+
+We can calculate correlations (and correlation matrices) in R using the `cor()` function.  It works exactly the same as `cov()`, including the requirement that we be careful with making sure that the intrinsic variable(s) connecting $x$ and $y$ aren't disrupted.
+
+```{r}
+cor(apples$Asp, apples$Glu)
+cor(apples$Asp, apples$Glu[sample(1:42)])
+```
+
+And, typically, we will generate correlation matrices instead:
+
+```{r}
+round(cor(apples[, -c(1, 2)]), 3)
+```
+
+By scaling our variables, we no longer have the problem of differences in measurement scale overwhelming possible associations.  A good example here is the relationship between Leucine and Isoleucine--their covariance is only `r round(cov(apples$Ile, apples$Leu), 3)`, because they are both present in very low levels in these apples, but when scaled we see there is a pretty strong linear association as represented by correlation: `r round(cor(apples$Ile, apples$Leu), 3)`.
+
+### Caveats with linear association
+
+Linear association is powerful and simple, and in fact when we start to get into ideas of inference in the next several weeks, we will see that its simplicity offers some advantages.  But it also is very rigid and can ignore clear patterns in data.  Kieran Healy -@healy2019 argues that this is a good reason for relying equally on data visualization in exploratory data analysis, using the famous Anscombe dataset [@anscombe1973].
+
+```{r}
+tidy_anscombe %>%
+  ggplot(aes(x = x, y = y)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "red") + 
+  facet_wrap(~series, scales = "free") + 
+  theme_bw()
+```
+
+This is a set of 4 artificial datasets that are constructed with the constraint that for each, $\rho_{xy}$ is the same.  But it is obvious that the same pattern is not at play in each.  For each dataset, explain what pattern you see, and whether the drawn line showing correlation is a good fit:
+
+1. Series 1:
+2. Series 2:
+3. Series 3:
+4. Series 4:
+
+Healy gives [his own, expanded version of this type of example](https://socviz.co/lookatdata.html#why-look-at-data) at his website, in arguing that, when we are *exploring* data, it is worth plotting rather than making assumptions (for example, that associations are *linear*).  This is a practice I recommend, and it will also help you develop your skills with data wrangling and visualization.
+
+# References {-}

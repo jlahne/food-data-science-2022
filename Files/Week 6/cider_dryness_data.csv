@@ -1,0 +1,295 @@
+Sample_Name,Panelist_Code,Panelist_Name,Panelist_Display_Name,Panelist_Email,Dryness,Liking
+1911 Chilled,ejcole_vtu,Elizabeth Cole,Elizabeth,ejcole@vt.edu,1,5
+Buskey Chilled,ejcole_vtu,Elizabeth Cole,Elizabeth,ejcole@vt.edu,2.4,5
+Eden Chilled,ejcole_vtu,Elizabeth Cole,Elizabeth,ejcole@vt.edu,,
+1911 RT,ejcole_vtu,Elizabeth Cole,Elizabeth,ejcole@vt.edu,,
+Buskey RT,ejcole_vtu,Elizabeth Cole,Elizabeth,ejcole@vt.edu,,
+Eden RT,ejcole_vtu,Elizabeth Cole,Elizabeth,ejcole@vt.edu,3,5
+1911 Chilled,hleah@vt.edu,Leah Hamilton,Leah,hleah@vt.edu,2.3,6
+Buskey Chilled,hleah@vt.edu,Leah Hamilton,Leah,hleah@vt.edu,3.5,7
+Eden Chilled,hleah@vt.edu,Leah Hamilton,Leah,hleah@vt.edu,2.8,4
+1911 RT,hleah@vt.edu,Leah Hamilton,Leah,hleah@vt.edu,4.2,2
+Buskey RT,hleah@vt.edu,Leah Hamilton,Leah,hleah@vt.edu,2,7
+Eden RT,hleah@vt.edu,Leah Hamilton,Leah,hleah@vt.edu,4,5
+1911 Chilled,klobeda_vtu,Katy Lobeda,Katy,klobeda@vt.edu,3,8
+Buskey Chilled,klobeda_vtu,Katy Lobeda,Katy,klobeda@vt.edu,3.3,6
+Eden Chilled,klobeda_vtu,Katy Lobeda,Katy,klobeda@vt.edu,3.5,7
+1911 RT,klobeda_vtu,Katy Lobeda,Katy,klobeda@vt.edu,4.5,3
+Buskey RT,klobeda_vtu,Katy Lobeda,Katy,klobeda@vt.edu,4.5,4
+Eden RT,klobeda_vtu,Katy Lobeda,Katy,klobeda@vt.edu,3,4
+1911 Chilled,rrboyer_vtu,Renee Boyer,Renee,rrboyer@vt.edu,3.8,7
+Buskey Chilled,rrboyer_vtu,Renee Boyer,Renee,rrboyer@vt.edu,3.2,6
+Eden Chilled,rrboyer_vtu,Renee Boyer,Renee,rrboyer@vt.edu,4.1,5
+1911 RT,rrboyer_vtu,Renee Boyer,Renee,rrboyer@vt.edu,4.7,6
+Buskey RT,rrboyer_vtu,Renee Boyer,Renee,rrboyer@vt.edu,4.9,4
+Eden RT,rrboyer_vtu,Renee Boyer,Renee,rrboyer@vt.edu,2.3,5
+1911 Chilled,jkess_vtu,Julia Kesselring,Julia,jkess@vt.edu,2.8,1
+Buskey Chilled,jkess_vtu,Julia Kesselring,Julia,jkess@vt.edu,1.6,1
+Eden Chilled,jkess_vtu,Julia Kesselring,Julia,jkess@vt.edu,1,1
+1911 RT,jkess_vtu,Julia Kesselring,Julia,jkess@vt.edu,5,7
+Buskey RT,jkess_vtu,Julia Kesselring,Julia,jkess@vt.edu,2.4,1
+Eden RT,jkess_vtu,Julia Kesselring,Julia,jkess@vt.edu,3.9,8
+1911 Chilled,mswright@vt.edu,Melissa Wright,Melissa,mswright@vt.edu,3.7,8
+Buskey Chilled,mswright@vt.edu,Melissa Wright,Melissa,mswright@vt.edu,1.8,3
+Eden Chilled,mswright@vt.edu,Melissa Wright,Melissa,mswright@vt.edu,2.2,2
+1911 RT,mswright@vt.edu,Melissa Wright,Melissa,mswright@vt.edu,3,7
+Buskey RT,mswright@vt.edu,Melissa Wright,Melissa,mswright@vt.edu,3.2,7
+Eden RT,mswright@vt.edu,Melissa Wright,Melissa,mswright@vt.edu,2.3,4
+1911 Chilled,lahne_vtu,Jacob Lahne,Jacob,jlahne@vt.edu,2.8,6
+Buskey Chilled,lahne_vtu,Jacob Lahne,Jacob,jlahne@vt.edu,2.2,7
+Eden Chilled,lahne_vtu,Jacob Lahne,Jacob,jlahne@vt.edu,1.7,8
+1911 RT,lahne_vtu,Jacob Lahne,Jacob,jlahne@vt.edu,3.7,7
+Buskey RT,lahne_vtu,Jacob Lahne,Jacob,jlahne@vt.edu,3.5,5
+Eden RT,lahne_vtu,Jacob Lahne,Jacob,jlahne@vt.edu,3.3,5
+1911 Chilled,joell.eifert@vt.edu,Joell Eifert,Joell,joell.eifert@vt.edu,4.2,6
+Buskey Chilled,joell.eifert@vt.edu,Joell Eifert,Joell,joell.eifert@vt.edu,3.2,7
+Eden Chilled,joell.eifert@vt.edu,Joell Eifert,Joell,joell.eifert@vt.edu,1.8,4
+1911 RT,joell.eifert@vt.edu,Joell Eifert,Joell,joell.eifert@vt.edu,4,7
+Buskey RT,joell.eifert@vt.edu,Joell Eifert,Joell,joell.eifert@vt.edu,1.8,5
+Eden RT,joell.eifert@vt.edu,Joell Eifert,Joell,joell.eifert@vt.edu,2,3
+1911 Chilled,jmbaker0330_vtu,,,jmbaker0330@vt.edu,3.5,8
+Buskey Chilled,jmbaker0330_vtu,,,jmbaker0330@vt.edu,3.8,7
+Eden Chilled,jmbaker0330_vtu,,,jmbaker0330@vt.edu,2.5,3
+1911 RT,jmbaker0330_vtu,,,jmbaker0330@vt.edu,1.8,8
+Buskey RT,jmbaker0330_vtu,,,jmbaker0330@vt.edu,1.5,6
+Eden RT,jmbaker0330_vtu,,,jmbaker0330@vt.edu,4.3,3
+1911 Chilled,emilyey6_vtu,Emily Yando,Emily,emilyey6@vt.edu,3.6,6
+Buskey Chilled,emilyey6_vtu,Emily Yando,Emily,emilyey6@vt.edu,2.9,7
+Eden Chilled,emilyey6_vtu,Emily Yando,Emily,emilyey6@vt.edu,2.6,3
+1911 RT,emilyey6_vtu,Emily Yando,Emily,emilyey6@vt.edu,2.9,6
+Buskey RT,emilyey6_vtu,Emily Yando,Emily,emilyey6@vt.edu,1.6,1
+Eden RT,emilyey6_vtu,Emily Yando,Emily,emilyey6@vt.edu,2.4,1
+1911 Chilled,gerberm_vtu,,,gerberm@vt.edu,3.1,7
+Buskey Chilled,gerberm_vtu,,,gerberm@vt.edu,3.7,7
+Eden Chilled,gerberm_vtu,,,gerberm@vt.edu,2,6
+1911 RT,gerberm_vtu,,,gerberm@vt.edu,1.5,7
+Buskey RT,gerberm_vtu,,,gerberm@vt.edu,2,7
+Eden RT,gerberm_vtu,,,gerberm@vt.edu,3,5
+1911 Chilled,akyle99_vtu,Kyle Adie,Kyle,akyle99@vt.edu,3.2,7
+Buskey Chilled,akyle99_vtu,Kyle Adie,Kyle,akyle99@vt.edu,2.5,7
+Eden Chilled,akyle99_vtu,Kyle Adie,Kyle,akyle99@vt.edu,3.5,8
+1911 RT,akyle99_vtu,Kyle Adie,Kyle,akyle99@vt.edu,2.2,4
+Buskey RT,akyle99_vtu,Kyle Adie,Kyle,akyle99@vt.edu,2.5,6
+Eden RT,akyle99_vtu,Kyle Adie,Kyle,akyle99@vt.edu,3.9,7
+1911 Chilled,cierrajames22_vtu,Cierra James,Cierra,cierrajames22@vt.edu,2.5,8
+Buskey Chilled,cierrajames22_vtu,Cierra James,Cierra,cierrajames22@vt.edu,3.8,7
+Eden Chilled,cierrajames22_vtu,Cierra James,Cierra,cierrajames22@vt.edu,4.3,8
+1911 RT,cierrajames22_vtu,Cierra James,Cierra,cierrajames22@vt.edu,2.2,6
+Buskey RT,cierrajames22_vtu,Cierra James,Cierra,cierrajames22@vt.edu,3,3
+Eden RT,cierrajames22_vtu,Cierra James,Cierra,cierrajames22@vt.edu,1.2,3
+1911 Chilled,sok_vtu,Sean O'Keefe,Sean,sok@vt.edu,3.3,7
+Buskey Chilled,sok_vtu,Sean O'Keefe,Sean,sok@vt.edu,2.2,6
+Eden Chilled,sok_vtu,Sean O'Keefe,Sean,sok@vt.edu,3.1,5
+1911 RT,sok_vtu,Sean O'Keefe,Sean,sok@vt.edu,3.3,7
+Buskey RT,sok_vtu,Sean O'Keefe,Sean,sok@vt.edu,4,4
+Eden RT,sok_vtu,Sean O'Keefe,Sean,sok@vt.edu,3.3,5
+1911 Chilled,indiana22_vtu,,,indiana22.bh@gmail.com,2.7,7
+Buskey Chilled,indiana22_vtu,,,indiana22.bh@gmail.com,2,3
+Eden Chilled,indiana22_vtu,,,indiana22.bh@gmail.com,3.5,8
+1911 RT,indiana22_vtu,,,indiana22.bh@gmail.com,4.7,7
+Buskey RT,indiana22_vtu,,,indiana22.bh@gmail.com,3.8,1
+Eden RT,indiana22_vtu,,,indiana22.bh@gmail.com,1.2,1
+1911 Chilled,blittleson_vtu,Brenna Littleson,,blittleson@vt.edu,3,8
+Buskey Chilled,blittleson_vtu,Brenna Littleson,,blittleson@vt.edu,1.7,3
+Eden Chilled,blittleson_vtu,Brenna Littleson,,blittleson@vt.edu,2,2
+1911 RT,blittleson_vtu,Brenna Littleson,,blittleson@vt.edu,2.3,7
+Buskey RT,blittleson_vtu,Brenna Littleson,,blittleson@vt.edu,1.2,3
+Eden RT,blittleson_vtu,Brenna Littleson,,blittleson@vt.edu,3.3,6
+1911 Chilled,taybenn_vtu,,,taybenn@vt.edu,2,6
+Buskey Chilled,taybenn_vtu,,,taybenn@vt.edu,1.5,4
+Eden Chilled,taybenn_vtu,,,taybenn@vt.edu,2,7
+1911 RT,taybenn_vtu,,,taybenn@vt.edu,4,8
+Buskey RT,taybenn_vtu,,,taybenn@vt.edu,2.5,7
+Eden RT,taybenn_vtu,,,taybenn@vt.edu,3,8
+1911 Chilled,sophiedrew_vtu,Sophie Drew,Sophie,sophiedrew@vt.edu,3.5,6
+Buskey Chilled,sophiedrew_vtu,Sophie Drew,Sophie,sophiedrew@vt.edu,1.7,7
+Eden Chilled,sophiedrew_vtu,Sophie Drew,Sophie,sophiedrew@vt.edu,2.5,2
+1911 RT,sophiedrew_vtu,Sophie Drew,Sophie,sophiedrew@vt.edu,2.7,7
+Buskey RT,sophiedrew_vtu,Sophie Drew,Sophie,sophiedrew@vt.edu,4,3
+Eden RT,sophiedrew_vtu,Sophie Drew,Sophie,sophiedrew@vt.edu,4.3,7
+1911 Chilled,meenak99_vtu,,,meenak99@vt.edu,3.3,7
+Buskey Chilled,meenak99_vtu,,,meenak99@vt.edu,3.2,4
+Eden Chilled,meenak99_vtu,,,meenak99@vt.edu,2.9,8
+1911 RT,meenak99_vtu,,,meenak99@vt.edu,2.9,5
+Buskey RT,meenak99_vtu,,,meenak99@vt.edu,3.8,6
+Eden RT,meenak99_vtu,,,meenak99@vt.edu,2.8,8
+1911 Chilled,drsoffa20_vtu,,,drsoffa20@vt.edu,2.7,2
+Buskey Chilled,drsoffa20_vtu,,,drsoffa20@vt.edu,3.7,8
+Eden Chilled,drsoffa20_vtu,,,drsoffa20@vt.edu,3.2,1
+1911 RT,drsoffa20_vtu,,,drsoffa20@vt.edu,3.2,7
+Buskey RT,drsoffa20_vtu,,,drsoffa20@vt.edu,1.7,2
+Eden RT,drsoffa20_vtu,,,drsoffa20@vt.edu,4.5,1
+1911 Chilled,nalex98_vtu,,,nalex98@vt.edu,4,7
+Buskey Chilled,nalex98_vtu,,,nalex98@vt.edu,3,5
+Eden Chilled,nalex98_vtu,,,nalex98@vt.edu,3.5,7
+1911 RT,nalex98_vtu,,,nalex98@vt.edu,2.8,6
+Buskey RT,nalex98_vtu,,,nalex98@vt.edu,2.5,4
+Eden RT,nalex98_vtu,,,nalex98@vt.edu,4,7
+1911 Chilled,rebekahm20_vtu,,,rebekahm20@vt.edu,3.2,6
+Buskey Chilled,rebekahm20_vtu,,,rebekahm20@vt.edu,3,3
+Eden Chilled,rebekahm20_vtu,,,rebekahm20@vt.edu,3,4
+1911 RT,rebekahm20_vtu,,,rebekahm20@vt.edu,3.2,6
+Buskey RT,rebekahm20_vtu,,,rebekahm20@vt.edu,2.7,3
+Eden RT,rebekahm20_vtu,,,rebekahm20@vt.edu,3.2,4
+1911 Chilled,ccamryn3_vtu,Camryn Grace Cook,Camryn,ccamryn3@vt.edu,1.4,2
+Buskey Chilled,ccamryn3_vtu,Camryn Grace Cook,Camryn,ccamryn3@vt.edu,2.3,3
+Eden Chilled,ccamryn3_vtu,Camryn Grace Cook,Camryn,ccamryn3@vt.edu,1.5,1
+1911 RT,ccamryn3_vtu,Camryn Grace Cook,Camryn,ccamryn3@vt.edu,4.6,8
+Buskey RT,ccamryn3_vtu,Camryn Grace Cook,Camryn,ccamryn3@vt.edu,3.8,6
+Eden RT,ccamryn3_vtu,Camryn Grace Cook,Camryn,ccamryn3@vt.edu,2.3,3
+1911 Chilled,dhsawhney_vtu,Dhruv Sawhney,Dhruv,dhsawhney@vt.edu,3,7
+Buskey Chilled,dhsawhney_vtu,Dhruv Sawhney,Dhruv,dhsawhney@vt.edu,2.8,6
+Eden Chilled,dhsawhney_vtu,Dhruv Sawhney,Dhruv,dhsawhney@vt.edu,2.7,6
+1911 RT,dhsawhney_vtu,Dhruv Sawhney,Dhruv,dhsawhney@vt.edu,2.8,4
+Buskey RT,dhsawhney_vtu,Dhruv Sawhney,Dhruv,dhsawhney@vt.edu,3.6,6
+Eden RT,dhsawhney_vtu,Dhruv Sawhney,Dhruv,dhsawhney@vt.edu,2.8,4
+1911 Chilled,theta_vtu,Thet Aung,Thet,theta@vt.edu,2.5,6
+Buskey Chilled,theta_vtu,Thet Aung,Thet,theta@vt.edu,1.3,4
+Eden Chilled,theta_vtu,Thet Aung,Thet,theta@vt.edu,2,1
+1911 RT,theta_vtu,Thet Aung,Thet,theta@vt.edu,3.3,6
+Buskey RT,theta_vtu,Thet Aung,Thet,theta@vt.edu,2.5,6
+Eden RT,theta_vtu,Thet Aung,Thet,theta@vt.edu,1.7,3
+1911 Chilled,kwater_vtu,Kim Waterman,Kim,kwater@vt.edu,1.8,4
+Buskey Chilled,kwater_vtu,Kim Waterman,Kim,kwater@vt.edu,3.5,7
+Eden Chilled,kwater_vtu,Kim Waterman,Kim,kwater@vt.edu,1.8,3
+1911 RT,kwater_vtu,Kim Waterman,Kim,kwater@vt.edu,4.2,6
+Buskey RT,kwater_vtu,Kim Waterman,Kim,kwater@vt.edu,2.7,5
+Eden RT,kwater_vtu,Kim Waterman,Kim,kwater@vt.edu,3.5,6
+1911 Chilled,Rmawn_vtu,Rachel Mawn,Rachel,Rmawn@vt.edu,2.3,6
+Buskey Chilled,Rmawn_vtu,Rachel Mawn,Rachel,Rmawn@vt.edu,3.3,7
+Eden Chilled,Rmawn_vtu,Rachel Mawn,Rachel,Rmawn@vt.edu,4,5
+1911 RT,Rmawn_vtu,Rachel Mawn,Rachel,Rmawn@vt.edu,4.8,6
+Buskey RT,Rmawn_vtu,Rachel Mawn,Rachel,Rmawn@vt.edu,3.5,3
+Eden RT,Rmawn_vtu,Rachel Mawn,Rachel,Rmawn@vt.edu,4.8,2
+1911 Chilled,vturesearch001,,,,2.5,5
+Buskey Chilled,vturesearch001,,,,3.5,4
+Eden Chilled,vturesearch001,,,,4.6,2
+1911 RT,vturesearch001,,,,4,6
+Buskey RT,vturesearch001,,,,2.5,2
+Eden RT,vturesearch001,,,,4.3,4
+1911 Chilled,emilyplunkett_vtu,,,emilyplunkett@vt.edu,4.8,4
+Buskey Chilled,emilyplunkett_vtu,,,emilyplunkett@vt.edu,3.2,5
+Eden Chilled,emilyplunkett_vtu,,,emilyplunkett@vt.edu,3.3,7
+1911 RT,emilyplunkett_vtu,,,emilyplunkett@vt.edu,2,8
+Buskey RT,emilyplunkett_vtu,,,emilyplunkett@vt.edu,4.2,7
+Eden RT,emilyplunkett_vtu,,,emilyplunkett@vt.edu,2.5,4
+1911 Chilled,klbyrwa_vtu,,,klbyrwa@vt.edu,1.3,2
+Buskey Chilled,klbyrwa_vtu,,,klbyrwa@vt.edu,2.9,6
+Eden Chilled,klbyrwa_vtu,,,klbyrwa@vt.edu,4.9,4
+1911 RT,klbyrwa_vtu,,,klbyrwa@vt.edu,4.4,6
+Buskey RT,klbyrwa_vtu,,,klbyrwa@vt.edu,2.5,4
+Eden RT,klbyrwa_vtu,,,klbyrwa@vt.edu,3.3,7
+1911 Chilled,will17_vtu,William Boyd,,will17@vt.edu,2.5,7
+Buskey Chilled,will17_vtu,William Boyd,,will17@vt.edu,3.1,7
+Eden Chilled,will17_vtu,William Boyd,,will17@vt.edu,1.4,3
+1911 RT,will17_vtu,William Boyd,,will17@vt.edu,2.2,6
+Buskey RT,will17_vtu,William Boyd,,will17@vt.edu,3.3,6
+Eden RT,will17_vtu,William Boyd,,will17@vt.edu,1.7,4
+1911 Chilled,joshuabm_vtu,Joshua Mouser,Joshua,joshuabm@vt.edu,3.5,6
+Buskey Chilled,joshuabm_vtu,Joshua Mouser,Joshua,joshuabm@vt.edu,2.5,8
+Eden Chilled,joshuabm_vtu,Joshua Mouser,Joshua,joshuabm@vt.edu,4,5
+1911 RT,joshuabm_vtu,Joshua Mouser,Joshua,joshuabm@vt.edu,2,7
+Buskey RT,joshuabm_vtu,Joshua Mouser,Joshua,joshuabm@vt.edu,2,4
+Eden RT,joshuabm_vtu,Joshua Mouser,Joshua,joshuabm@vt.edu,2.2,3
+1911 Chilled,ccomber1_vtu,Carolyn  Comber,Carolyn,ccomber1@vt.edu,2.5,5
+Buskey Chilled,ccomber1_vtu,Carolyn  Comber,Carolyn,ccomber1@vt.edu,1.7,2
+Eden Chilled,ccomber1_vtu,Carolyn  Comber,Carolyn,ccomber1@vt.edu,2.5,3
+1911 RT,ccomber1_vtu,Carolyn  Comber,Carolyn,ccomber1@vt.edu,2.5,4
+Buskey RT,ccomber1_vtu,Carolyn  Comber,Carolyn,ccomber1@vt.edu,3.2,2
+Eden RT,ccomber1_vtu,Carolyn  Comber,Carolyn,ccomber1@vt.edu,1,1
+1911 Chilled,vturesearch025,,,,4.2,5
+Buskey Chilled,vturesearch025,,,,1.7,4
+Eden Chilled,vturesearch025,,,,2.7,3
+1911 RT,vturesearch025,,,,2.8,6
+Buskey RT,vturesearch025,,,,3,2
+Eden RT,vturesearch025,,,,3.3,3
+1911 Chilled,lukeg98_vtu,Luke Guyre,Luke,lukeg98@vt.edu,2.5,6
+Buskey Chilled,lukeg98_vtu,Luke Guyre,Luke,lukeg98@vt.edu,3.9,3
+Eden Chilled,lukeg98_vtu,Luke Guyre,Luke,lukeg98@vt.edu,1.3,1
+1911 RT,lukeg98_vtu,Luke Guyre,Luke,lukeg98@vt.edu,4.2,7
+Buskey RT,lukeg98_vtu,Luke Guyre,Luke,lukeg98@vt.edu,2.3,2
+Eden RT,lukeg98_vtu,Luke Guyre,Luke,lukeg98@vt.edu,2.9,3
+1911 Chilled,deckerj6_vtu,,,deckerj6@vt.edu,3.5,8
+Buskey Chilled,deckerj6_vtu,,,deckerj6@vt.edu,2.4,8
+Eden Chilled,deckerj6_vtu,,,deckerj6@vt.edu,1.3,7
+1911 RT,deckerj6_vtu,,,deckerj6@vt.edu,1.7,4
+Buskey RT,deckerj6_vtu,,,deckerj6@vt.edu,2.8,6
+Eden RT,deckerj6_vtu,,,deckerj6@vt.edu,2.1,7
+1911 Chilled,lukes17_vtu,Luke Shanholtz,Luke,lukes17@vt.edu,3.5,7
+Buskey Chilled,lukes17_vtu,Luke Shanholtz,Luke,lukes17@vt.edu,2,6
+Eden Chilled,lukes17_vtu,Luke Shanholtz,Luke,lukes17@vt.edu,3,6
+1911 RT,lukes17_vtu,Luke Shanholtz,Luke,lukes17@vt.edu,5,5
+Buskey RT,lukes17_vtu,Luke Shanholtz,Luke,lukes17@vt.edu,2.5,4
+Eden RT,lukes17_vtu,Luke Shanholtz,Luke,lukes17@vt.edu,2.5,5
+1911 Chilled,marshallbrooks99_vtu,Marshall Brooks,Marshall,marshallbrooks99@vt.edu,1.7,7
+Buskey Chilled,marshallbrooks99_vtu,Marshall Brooks,Marshall,marshallbrooks99@vt.edu,2.5,8
+Eden Chilled,marshallbrooks99_vtu,Marshall Brooks,Marshall,marshallbrooks99@vt.edu,1.7,6
+1911 RT,marshallbrooks99_vtu,Marshall Brooks,Marshall,marshallbrooks99@vt.edu,4.1,8
+Buskey RT,marshallbrooks99_vtu,Marshall Brooks,Marshall,marshallbrooks99@vt.edu,3.1,6
+Eden RT,marshallbrooks99_vtu,Marshall Brooks,Marshall,marshallbrooks99@vt.edu,3.5,8
+1911 Chilled,cdavis98_vtu,,,cdavis98@vt.edu,2,6
+Buskey Chilled,cdavis98_vtu,,,cdavis98@vt.edu,2.4,6
+Eden Chilled,cdavis98_vtu,,,cdavis98@vt.edu,3.5,8
+1911 RT,cdavis98_vtu,,,cdavis98@vt.edu,3.9,7
+Buskey RT,cdavis98_vtu,,,cdavis98@vt.edu,1.7,5
+Eden RT,cdavis98_vtu,,,cdavis98@vt.edu,3.5,7
+1911 Chilled,stevenw7_vtu,Steven Williams,Steven,stevenw7@vt.edu,3.8,5
+Buskey Chilled,stevenw7_vtu,Steven Williams,Steven,stevenw7@vt.edu,2.5,4
+Eden Chilled,stevenw7_vtu,Steven Williams,Steven,stevenw7@vt.edu,2,7
+1911 RT,stevenw7_vtu,Steven Williams,Steven,stevenw7@vt.edu,2.8,6
+Buskey RT,stevenw7_vtu,Steven Williams,Steven,stevenw7@vt.edu,1.8,4
+Eden RT,stevenw7_vtu,Steven Williams,Steven,stevenw7@vt.edu,3.2,4
+1911 Chilled,peggylaynepe_vtu,Peggy Layne,Peggy,peggylaynepe@gmail.com,3.3,7
+Buskey Chilled,peggylaynepe_vtu,Peggy Layne,Peggy,peggylaynepe@gmail.com,2,7
+Eden Chilled,peggylaynepe_vtu,Peggy Layne,Peggy,peggylaynepe@gmail.com,2.5,4
+1911 RT,peggylaynepe_vtu,Peggy Layne,Peggy,peggylaynepe@gmail.com,2.2,8
+Buskey RT,peggylaynepe_vtu,Peggy Layne,Peggy,peggylaynepe@gmail.com,3.5,7
+Eden RT,peggylaynepe_vtu,Peggy Layne,Peggy,peggylaynepe@gmail.com,2.8,2
+1911 Chilled,ann.sandbrook@vt.edu,Ann Sandbrook,Ann,ann.sandbrook@vt.edu,3,7
+Buskey Chilled,ann.sandbrook@vt.edu,Ann Sandbrook,Ann,ann.sandbrook@vt.edu,2,6
+Eden Chilled,ann.sandbrook@vt.edu,Ann Sandbrook,Ann,ann.sandbrook@vt.edu,3,8
+1911 RT,ann.sandbrook@vt.edu,Ann Sandbrook,Ann,ann.sandbrook@vt.edu,4,6
+Buskey RT,ann.sandbrook@vt.edu,Ann Sandbrook,Ann,ann.sandbrook@vt.edu,2.5,4
+Eden RT,ann.sandbrook@vt.edu,Ann Sandbrook,Ann,ann.sandbrook@vt.edu,4,6
+1911 Chilled,vturesearch002,,,,4,8
+Buskey Chilled,vturesearch002,,,,4,7
+Eden Chilled,vturesearch002,,,,4.5,8
+1911 RT,vturesearch002,,,,2.2,5
+Buskey RT,vturesearch002,,,,3,5
+Eden RT,vturesearch002,,,,3,5
+1911 Chilled,andy9221_vtu,,,Andy9221@vt.edu,3.2,6
+Buskey Chilled,andy9221_vtu,,,Andy9221@vt.edu,4.2,7
+Eden Chilled,andy9221_vtu,,,Andy9221@vt.edu,2.2,2
+1911 RT,andy9221_vtu,,,Andy9221@vt.edu,3.7,7
+Buskey RT,andy9221_vtu,,,Andy9221@vt.edu,3.2,5
+Eden RT,andy9221_vtu,,,Andy9221@vt.edu,2.3,2
+1911 Chilled,jete108_vtu,Erica Jeter,Erica,jete108@yahoo.com,2.5,4
+Buskey Chilled,jete108_vtu,Erica Jeter,Erica,jete108@yahoo.com,2,4
+Eden Chilled,jete108_vtu,Erica Jeter,Erica,jete108@yahoo.com,1.2,7
+1911 RT,jete108_vtu,Erica Jeter,Erica,jete108@yahoo.com,2,4
+Buskey RT,jete108_vtu,Erica Jeter,Erica,jete108@yahoo.com,1.5,3
+Eden RT,jete108_vtu,Erica Jeter,Erica,jete108@yahoo.com,1.7,4
+1911 Chilled,kgillespie599_vtu,Kelli Gillespie,Kelli,kgillespie599@vt.edu,4.3,8
+Buskey Chilled,kgillespie599_vtu,Kelli Gillespie,Kelli,kgillespie599@vt.edu,4,7
+Eden Chilled,kgillespie599_vtu,Kelli Gillespie,Kelli,kgillespie599@vt.edu,2.5,4
+1911 RT,kgillespie599_vtu,Kelli Gillespie,Kelli,kgillespie599@vt.edu,3.7,8
+Buskey RT,kgillespie599_vtu,Kelli Gillespie,Kelli,kgillespie599@vt.edu,2,6
+Eden RT,kgillespie599_vtu,Kelli Gillespie,Kelli,kgillespie599@vt.edu,1.5,3
+1911 Chilled,noahsmith319_vtu,Noah Smith,Noah,noahsmith319@gmail.com,1.8,4
+Buskey Chilled,noahsmith319_vtu,Noah Smith,Noah,noahsmith319@gmail.com,1.5,8
+Eden Chilled,noahsmith319_vtu,Noah Smith,Noah,noahsmith319@gmail.com,4.3,6
+1911 RT,noahsmith319_vtu,Noah Smith,Noah,noahsmith319@gmail.com,3,8
+Buskey RT,noahsmith319_vtu,Noah Smith,Noah,noahsmith319@gmail.com,4.3,7
+Eden RT,noahsmith319_vtu,Noah Smith,Noah,noahsmith319@gmail.com,2.3,8
+1911 Chilled,gail.billingsley_vtu,Elizabeth Billingsley,Elizabeth,gail.billingsley@gmail.com,4.3,8
+Buskey Chilled,gail.billingsley_vtu,Elizabeth Billingsley,Elizabeth,gail.billingsley@gmail.com,4.2,7
+Eden Chilled,gail.billingsley_vtu,Elizabeth Billingsley,Elizabeth,gail.billingsley@gmail.com,4,2
+1911 RT,gail.billingsley_vtu,Elizabeth Billingsley,Elizabeth,gail.billingsley@gmail.com,4.3,8
+Buskey RT,gail.billingsley_vtu,Elizabeth Billingsley,Elizabeth,gail.billingsley@gmail.com,3.5,7
+Eden RT,gail.billingsley_vtu,Elizabeth Billingsley,Elizabeth,gail.billingsley@gmail.com,1.7,6
+1911 Chilled,kaylinf_vtu,Kaylin Fitzgerald,Kaylin,kaylinf@vt.edu,2.7,8
+Buskey Chilled,kaylinf_vtu,Kaylin Fitzgerald,Kaylin,kaylinf@vt.edu,3.5,4
+Eden Chilled,kaylinf_vtu,Kaylin Fitzgerald,Kaylin,kaylinf@vt.edu,2.4,7
+1911 RT,kaylinf_vtu,Kaylin Fitzgerald,Kaylin,kaylinf@vt.edu,4,8
+Buskey RT,kaylinf_vtu,Kaylin Fitzgerald,Kaylin,kaylinf@vt.edu,3.5,6
+Eden RT,kaylinf_vtu,Kaylin Fitzgerald,Kaylin,kaylinf@vt.edu,3.5,3

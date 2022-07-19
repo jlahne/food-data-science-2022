@@ -1,0 +1,467 @@
+---
+title: "13 - Understanding multiple factors"
+author: "JL"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    number_sections: yes
+bibliography: "Files/lecture bibliography.bib"
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+# Please review and fix prior to finalizing this lesson
+
+knitr::opts_chunk$set(message = FALSE)
+library(tidyverse)
+library(skimr)
+set.seed(12)
+library(rpart)
+library(rpart.plot)
+library(partykit)
+library(plotly)
+# Figure out a dataset we want to use here--I am thinking a subset of the Driscoll's berry dataset (use only raspberry?) with the CATA attributes
+
+berry_data <- read_csv("Files/Week 13/berry_data_2.csv") %>%
+  mutate(subject = as.factor(subject),
+         age = as.ordered(age),
+         gender = as.factor(gender),
+         percent_shopping = as.ordered(percent_shopping),
+         sample = as.factor(sample))
+```
+
+# Introduction
+
+Last week, we learned the basics of the linear model: how we might try to predict a continuous outcome based on a single continuous (regression) or categorical (ANOVA) predictor. This week, we're going to tackle the much more common situation of having multiple (even *many*) possible predictors for a single continuous *or* categorical outcome.
+
+We're going to switch up the order slightly and start by talking about **multi-way ANOVA**, which extends the basic model of ANOVA you have become somewhat familiar with to the case of multiple, categorical predictor variables. As you might guess, we are then going to talk about **multiple regression**, which extends regression to predicting a single, continuous outcome from multiple continuous *or* categorical predictors. Finally--and I am very excited and nervous to present this material--we're going to dip our toes into one of the more modern, increasingly popular methods for predicting a single continuous *or* categorical outcome from multiple (many) predictors: **categorization and regression tree (CART)** models. These are powerful approaches that are the beginning of what we often refer to as *machine learning*, but we will be exploring them in their most accessible form.
+
+## Data example
+
+This week, we are going to build on the berry data from last week. If you glanced at the paper, you might have seen that we didn't just collect liking data: we collected a whole bunch of other results about each berry. In order to keep our data manageable, we are going to work only with strawberry data and Labeled Affective Magnitude (LAM) outcomes, which gives us a much smaller dataset without all of the `NA`s we were dealing with last week.
+
+```{r}
+skim(berry_data)
+```
+
+In this dataset, we now have not only `lms_overall`, but several other `lms_*` variables, which represent LAM liking for different *modalities*: taste, texture, etc. We also have a large number of `cata_*` variables, which represent "Check All That Apply" (CATA) questions asking subjects to indicate the presence or absence of a particular flavor. As before, our goal will be to understand overall liking, represented by the familiar `lms_overall`, but we will be using a new set of tools to do so.
+
+# Multi-way ANOVA
+
+When we first examined this dataset via **ANOVA**, we investigated the effect of the categorical predictor `berry` type on `us_overall` (recall this was our unstructured line-scale outcome).  This week we will be mostly focusing on `lms_overall` as the outcome variable, and we've limited ourselves to `berry == "strawberry"` because we wanted a consistent set of "CATA" attributes (and less missing data).  But we have added a lot of other predictor variables--both categorical (`factor`) and continuous (`numeric`) predictors.  
+
+To motivate the idea of multi-way ANOVA, let's think about how we might see differences in overall *scale use* by subject.  This is a common issue in any kind of human-subjects research:
+
+```{r}
+berry_data %>%
+  ggplot(aes(x = subject, y = lms_overall, color = sample)) + 
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "black", linetype = "dashed") +
+  theme_bw() +
+  scale_color_viridis_d() + 
+  theme(axis.text.x = element_text(angle = 90, size = 6))
+```
+
+We can see that some subjects tend to use the upper part of the scale, and that while we see subjects are less likely to use the negative side of the scale ("endpoint avoidance"), some subjects are more likely to use the full scale than others.  This indicates that the fact we have repeated measurements from each subject may introduce some nuisance patterns to our data.
+
+Now, let's imagine we want to predict `lms_overall` based on how much shopping each subject does for their household.  This is slightly arbitrary, but we could imagine our thought process is: "Well, those who buy a lot of strawberries might have stronger opinions about strawberry flavor than those who do less."  We learned how to set up a 1-way ANOVA last week:
+
+```{r}
+# How do we set up a 1-way ANOVA for lms_overall dependent on percent_shopping
+```
+
+We can see that overall the effect is not significant (unsurprisingly), but perhaps the effect is obscured by the variation we noted in individual scale use by `subject`.  We can use a **multiway ANOVA** to investigate this possibility:
+
+```{r}
+berry_data %>%
+  aov(lms_overall ~ percent_shopping * subject, data = .) %>%
+  summary()
+```
+
+Hmm, well unsurprisingly that's nothing either, although you can see that the effect-size estimate (*F*-statistic) for `percent_shopping` increased very slightly.
+
+We use the same function, `aov()`, to build multi-way ANOVA models, and the only difference is that we will add a new set of tools to our `formula` interface:
+
+-   `+` adds a **main effect** for a term to our formula
+-   `<variable 1> * <variable 2>` interacts the two (or more) variables as well as adding all lower-level interactions and main effects
+-   `<variable 1> : <variable 2>` adds **only** the interaction term between the two (or more) variables
+
+The type of model we just fit is often called a **"blocked"** design: our `subject`s are formally declared to be experimental "blocks" (units), and we accounted for the effect of differences in these blocks by including them in our model.  This is why our estimate for the effect of `percent_shopping` increased slightly.  This is the simplest example of a **mixed-effects** model, which are the subject of extensive research and writing.  For more information on different kinds of ANOVA models, I highly recommend *Statistical methods for psychology* by David @howell2010.  While he does not write the textbook using R, [his personal webpage](https://www.uvm.edu/~statdhtx/StatPages/index.html) (charmingly antiquated looking) has a huge wealth of information and R scripts for a number of statistical topics, including resampling approaches to ANOVA.
+
+You might note that we asked for the interaction (`percent_shopping * subject`) but we got no interaction effect in our model output.  What gives?  Well, `subject` is entirely nested within `percent_shopping`--if we know the `subject` variable we already know what `percent_shopping` they are responsible for.  Let's take a look at a model in which we predict `lms_overall` from some variables that do not have this relationship:
+
+```{r}
+berry_data %>%
+  aov(lms_overall ~ percent_shopping * age * sample, data = .) %>%
+  summary()
+```
+
+Here we see a number of interactions, none of them "signficant".  Again, this makes sense--honestly, it's unclear why `age`, `gender`, or `percent_shopping` would really predict overall liking for strawberry varieties.  But we do see the estimated interaction effects, like `percent_shopping:age`.
+
+Let's try running one more multi-way ANOVA for variables we might actually expect to predict `lms_overall`: some of the CATA variables.  These are binary variables that indicate the presence or absence of a particular sensory attribute.  There are a lot of them.  We are going to just pick a couple and see if they predict overall liking:
+
+```{r}
+berry_data %>%
+  aov(lms_overall ~ cata_taste_berry * cata_taste_fruity * cata_taste_fermented * sample, 
+      data = .) %>%
+  anova() %>% # the anova() function returns a data.frame, unlike summary()
+  as_tibble(rownames = "effect") # purely for printing kind of nicely
+```
+
+Here we can see a lot of things (probably too many things, as we'll get to in a moment).  But I want to point out several aspects of this model that are of interest to us:
+
+1. The **main effects** of the CATA variables are all significant, as is the `sample` variable: the data tell us that the different strawberry samples are liked differently, and that the presence or absence of these 3 CATA variables matters as well.
+2. None of the interactions are very important.  This means that different CATA effects, for example, don't matter differently for overall liking for different samples.
+3. Because we requested interactions among 4 variables, we get estimates of interactions up to 4-way interactions.  This is a lot of information, and probably an "overfit" model.
+
+However, we picked 3 CATA variables at random.  There are 13 of these actually collected.  If even 4-way interactions are probably overfit, how can we possibly pick which of these to include in our model?  We will learn about a data-driven approach to this called a ["Partition Tree"](#tree) later today, but for now let's look at a classic approach: stepwise regression/ANOVA.
+
+## Stepwise model fitting
+
+Imagine we have a large number of predictor variables, and part of our analysis needs are deciding which to include in a model.  This is a common situation, as it corresponds to the general research question: "Which treatments actually matter?"
+
+We can approach this question by letting our data drive the analysis.  We know about $R^2$, which is an estimate of how well our model fits the data.  There are *many* other [fit criteria](https://en.wikipedia.org/wiki/Goodness_of_fit).  What if we just add variables to our model if they make it fit the data better?  This is a reasonable (although very risky, it turns out!) approach that is quite common.  This is often called "stepwise model selection" or "fitting".
+
+```{r}
+# We first subset our data for ease of use to just the variables we will consider
+berry_cata <- berry_data %>% select(lms_overall, sample, contains("cata"))
+
+# Then we fit a model with no variables
+intercept_only <- aov(lms_overall ~ 1, data = berry_cata)
+
+# And we fit a model with ALL possible variables
+all <- aov(lms_overall ~ .^2, data = berry_cata)
+
+# Finally, we tell R to "step" between the no-variable model and the model with
+# all the variables.  At each step, R will consider all possible variables to
+# add to or subtract from the model, based on which one will most decrease a
+# fit criterion called the AIC (don't worry about it right now).  This will 
+# be repeated until the model can no longer be improved, at which point we have
+# a final, data-driven model
+stepwise <- step(intercept_only, direction = "both", scope = formula(all), trace = 0)
+anova(stepwise) %>% as_tibble(rownames = "effect")
+# We can also see the actual effect on lms_overall of the selected variables
+stepwise$coefficients %>% as_tibble(rownames = "effect")
+```
+
+This kind of step-wise approach is very common, but it is also potentially problematic, as it finds a solution that fits the **data**, not the question.  Whether this model will predict future outcomes is unclear.  It is always a good idea when using these approaches to test the new model on unseen data, or to treat these approaches as *exploratory* rather than *explanatory* approaches: they are good for generating future, testable hypotheses, rather than giving a final answer or prediction.
+
+Therefore, in our example, we might generate a hypothesis for further testing: "It is most important for strawberries to have 'berry', 'fruity', and *not* 'fermented' tastes for overall consumer acceptability."  We can then test this by obtaining berries known to have those qualities and testing whether, for example, more "berry"-like strawberries are indeed better liked.
+
+## Plotting interaction effects
+
+We really don't have much in the way of interaction effects in our ANOVA models, but let's look at how we might visualize those effects--this is one of the most effective ways to both understand and communicate about interacting variables in multi-way models.
+
+```{r}
+# First, we'll set up a summary table for our data: we want the mean lms_overall 
+# for each berry sample for when cata_taste_fermented == 0 and == 1
+example_interaction_data <- berry_data %>%
+  group_by(sample, cata_taste_fermented) %>%
+  summarize(mean_liking = mean(lms_overall),
+            se_liking = sd(lms_overall)/sqrt(n()))
+example_interaction_data  
+
+# Now we can use this to draw a plot illustrating the INTERACTION of sample and 
+# cata_taste_fermented on lms_overall
+p <- example_interaction_data %>%
+  ggplot(aes(x = cata_taste_fermented, y = mean_liking, color = sample)) + 
+  geom_point() + 
+  geom_errorbar(aes(ymin = mean_liking - 2 * se_liking, 
+                    ymax = mean_liking + 2 * se_liking),
+                linetype = "dashed", width = 0.1) +
+  geom_line() + 
+  theme_classic() + 
+  scale_color_viridis_d()
+
+p
+```
+
+We can see that there may in fact be some kind of interactive effect, in that while overall it seems like presence of a "fermented" flavor decreases liking for most samples, it doesn't have much of an effect on Sample 3.  But we don't see this as an overall effect in our model, and our uncertainty (error) bars indicate why this might be: it seems like there is such high variability in that sample's `lms_overall` ratings that we can't say for sure whether that mean estimate is very reliable--I would go so far as to say we'd want do some further exploration of that sample itself in order to understand why it is so much more variable than the other samples.
+
+```{r}
+# This is an interactive plot from the plotly package, which you may enjoy 
+# fooling around with as you move forward.  It makes seeing plot elements a
+# little easier in complex plots.
+
+# It is possible to render ggplots interactive in one step
+# (mostly) by saving them and using the ggplotly() function.
+plotly::ggplotly(p)
+```
+
+# Multiple regression
+
+So far we have focused our thinking on multiple, categorical predictors: variables that can take one of a set of *discrete* values.  This is advantageous for learning about interactions, because it is much easier to visualize the interaction of categorical variables through interactions like those above.  
+
+But what if we have several continuous predictors?  Just as simple regression and ANOVA are analogues of each other, multiple regression is the equivalent of multi-way ANOVA when one or more of the predictors is continuous instead of categorical (when we have a mix of continuous and categorical variables we tend to deal with them through either multiple regression or with something called ANCOVA: Analysis of Co-Variance).
+
+**Multiple regression** involves predicting the value of an outcome from many continuous or categorical predictors. Multiple regression is also a topic that deserves (and is taught as) a course-length topic in its own right (see for example [STAT 6634](https://secure.graduateschool.vt.edu/graduate_catalog/program.htm?programID=002d14431ce38e83011ce38e956c0032&nocache=1646319580643)). I will be *barely* scratching the surface of multiple regression here--as always, I am going to attempt to show you how to implement a method in R.
+
+We can frame our objective in multiple regression as predicting the value of a single outcome $y$ from a set of predictors $x_1, x_2, ..., x_n$.
+
+<center>
+
+$\hat{y}_i = \beta_1 * x_{1i} + \beta_2 * x_{2i} + ... + \beta_n * x_{ni} + \alpha$
+
+</center>
+
+The tasks in multiple regression are:
+
+1.  To develop a model that predicts $y$
+2.  To identify variables $x_1, x_2, ...$ etc that are actually important in predicting $y$
+
+The first task is usually evaluated in the same way as we did in simple regression--by investigating goodness-of-fit statistics like $R^2$. This is often interpreted as overall quality of the model.
+
+The second task is often considered more important in research applications: we want to understand which $x$-variables *significantly* predict $y$. We usually assess this by investigating *statistical significance* of the $\beta$-coefficients for each predictor.
+
+Finally, a third and important task in multiple regression is identifying **interacting** predictor variables. In my usual, imprecise interpretation, an interactive effect can be stated as "the effect of $x_1$ is different at different values of $x_2$"--this means that we have a *multiplicative effect* in our model.
+
+The model given above omits interactive terms, which would look like:
+
+<center>
+
+$\hat{y}_i = \beta_1 * x_{1i} + \beta_2 * x_{2i} + ... + \beta_n * x_{ni} + \beta_{1*2} * x_{1i} * x_{2i} + ... + \alpha$
+
+</center>
+
+You can see why I left them out!
+
+## Fitting a multiple regression to our model
+
+It's been long enough--let's review what our dataset looks like:
+
+```{r}
+berry_data %>%
+  glimpse
+```
+
+While we have no real reason to do so, let's build a model that predicts `lms_overall` from `lms_appearance`, `lms_taste`, `lms_aroma`, and `lms_texture`. We can frame the research question as: "In this dataset, can we understand overall liking as an interaction of multiple modalities?"
+
+So we would write the model we asked for in words above as: `lms_overall ~ lms_taste + lms_appearance + lms_aroma + lms_texture` (notice we are not adding interactions yet).
+
+```{r}
+berry_mlm <- berry_data %>%
+  lm(lms_overall ~ lms_taste + lms_appearance + lms_aroma + lms_texture, data = .)
+
+summary(berry_mlm)
+```
+
+This model explores the relationships we can visualize in various ways shown below:
+
+```{r}
+library(ggforce)
+berry_data %>%
+  ggplot(aes(x = .panel_x, y = .panel_y)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = lm, color = "red") +
+  geom_density_2d(color = "black") +
+  geom_autodensity() +
+  facet_matrix(rows = vars(contains("lms")), 
+               cols = vars(contains("lms")), 
+               layer.lower = 3, 
+               layer.upper = c(1, 2), 
+               layer.diag = 4) +
+  theme_classic()
+```
+
+Just as in simple regression, we can use accessor functions to get coefficients, predicted values, etc.
+
+```{r}
+coefficients(berry_mlm) %>% as_tibble(rownames = "effect")
+# just looking at the first few predictions
+head(predict(berry_mlm)) 
+# the actual values of lms_overall
+berry_data %>% head() %>% select(contains("lms")) %>% relocate(lms_overall)
+```
+
+Now, we will take a look at what happens when we allow interactions in the model:
+
+```{r}
+berry_mlm_interactions <- berry_data %>%
+  lm(lms_overall ~ lms_taste * lms_appearance * lms_aroma * lms_texture, data = .)
+anova(berry_mlm_interactions) %>% as_tibble(rownames = "effect")
+```
+
+We have some significant higher-order interactions, but again we are ending up estimating a lot of new effects to gain very little in predictive power.  We can compare the $R^2$ for both models:
+
+```{r}
+map(list(berry_mlm, berry_mlm_interactions), ~summary(.) %>% .$r.squared)
+```
+
+We are adding a lot of "cruft" to our models without getting much in return.
+
+## A second example of stepwise model fitting
+
+We can use a stepwise model fitting approach on regression just as easily as we can on ANOVA.  To do so, we will follow the same steps:
+
+1. Set up a "null" model that just estimates the mean of the outcome variable (`lms_overall`)
+2. Set up a "full" model that includes all possible predictors for the outcome variable
+3. Use the `step()` function to fit successive models until the best fit *to the data* is achieved
+
+```{r}
+# Trim our data for convenience
+berry_lms <- select(berry_data, contains('lms'))
+
+# Set up our null model
+null_model <- lm(lms_overall ~ 1, data = berry_lms)
+# Set up the full model, including all possible-level interactions
+full_model <- lm(lms_overall ~ .^4, data = berry_lms)
+# Use step() to try all possible models
+selected_model <- step(null_model, scope = formula(full_model), direction = "both", trace = 0)
+summary(selected_model)
+selected_model$coefficients %>% as_tibble(rownames = "effect")
+```
+
+In this case the model selection process dismisses all the higher-level interactions, as well as the main effect of `lms_aroma`.  
+
+## Combining continuous and categorical data
+
+In `berry_data` we have both categorical and continuous predictors.  Wouldn't it be nice if we could combine them?  In particular, we know that `sample` is an important variable, as different samples are definitely differently liked.   Let's see what happens when we include this in our multiple linear regression:
+
+```{r}
+berry_mlm_cat <- berry_data %>%
+# We will restrict our interactions to "2nd-order" (2-element) interactions
+# Because we think 3rd- and 4th-order are unlikely to be important and they are 
+# A huge mess in the output
+  lm(lms_overall ~ (sample + lms_appearance + lms_taste + lms_texture + lms_aroma)^2, 
+     data = .)
+anova(berry_mlm_cat) %>% as_tibble(rownames = "effect")
+coefficients(berry_mlm_cat) %>% as_tibble(rownames = "effect")
+```
+
+Whoa, what just happened?  Well, `sample` is a categorical variable with 6 levels, and when we enter it into a regression the most conventional way to deal with that data is to create a set of $6 - 1 = 5$ "dummy" variables , and which take on a value of 1 whenever the sample is equal to that level, and 0 otherwise.  That means that each adds some constant to the mean based on the estimated difference from that sample.  
+
+This is where the difference between the `summary()` and `anova()` function becomes important.  If we look at the summary table for our new model with both categorical and continuous variables we see something awful:
+
+```{r}
+summary(berry_mlm_cat)
+```
+
+Not only is this ugly, but it also obscures a potentially important effect: according to this summary, we don't have any significant effects of `sample`, which contradicts our initial ANOVA.  So we need to be careful--when we use `summary()` on categorical variables in an `lm()` model object, it doesn't give us the summary we're expecting.  But it *does* give us the expected coefficients for each level of the categorical variable.  So when we have more complicated models we need to explore them carefully and thoroughly, using multiple functions.
+
+There do seem to be some potentially interesting interactions in this model--let's take a look:
+
+```{r}
+p <- berry_data %>%
+  select(sample, contains("lms")) %>%
+  pivot_longer(names_to = "scale", values_to = "rating", cols = -c("sample", "lms_overall")) %>%
+  ggplot(aes(x = rating, y = lms_overall, color = sample)) + 
+  geom_point(alpha = 0.3) + 
+  geom_smooth(method = lm, se = FALSE) + 
+  facet_wrap(~scale) + 
+  scale_color_viridis_d() +
+  theme_classic()
+p
+```
+
+We can see that the response of sample 1 is quite different than the others for `lms_appearance` and `lms_aroma`.  It seems like being rated higher on those attributes has a larger effect on `lms_overall` for sample 1 than for the other 5 samples.
+
+```{r}
+ggplotly(p)
+```
+
+We can use this widget to explore these data for further hypotheses.  Specifically, when we split up the data at the levels of different categorical variables and investigate other variables, we are exploring **simple effects**.  These are the subject of the last topic we will explore--a simple machine-learning approach called [Categorization, Partition, or Regression Trees.](#tree)
+
+But, before we move there, let's have...
+
+# Some notes of caution on model selection
+
+We've been talking about terms like "model selection", which are jargon-y, so let's refocus on what we're doing: we are answering the question of "what of our experimental variables actually *matter* in explaining or predicting an outcome we care about?"  In our example, we are asking, "if we ask people a lot of questions about berries, which ones are most related to how much they say they like each berry?"
+
+I've shown off some powerful, data-based approaches to letting an algorithm decide on which variables to include in the model.  Why don't we just use these and make the process "objective"?  While we will be getting into this question in detail next week, here are several things to consider:
+
+1. Just remember the following: <font color = "red">we are making predictions from data, **not** explaining causality.</font>
+![[XKCD isn't depressed about this problem at all](https://xkcd.com/2560/)](https://imgs.xkcd.com/comics/confounding_variables.png)  
+Without a theory that explains why any relationship is one we would expect to see, we run into the problem of just letting our coincidence-finding systems make up a story for us, which leads us to...
+2. Without expertise, we are just exploting patterns in the data that are quite possibly either accidental or are caused by a third, underlying variable.  Remember the shark-attack example?
+3. The reason we cannot use "objective" processes is that, unfortunately, objectivity doesn't exist!  At least, not in the way we wish it did.  For example, our `step()` function minimizes the AIC, which is the [Akaike Information Criterion](https://en.wikipedia.org/wiki/Akaike_information_criterion).  This isn't some universal constant that exists--it is a relationship derived from the Maximum Likelihood Estimate of a model with the number of parameters in the model.  Essentially, this expresses a *human* hypothesis of what makes a model function well.  But there are other criteria we could minimize that instantiate different arguments.  Just because something is a number doesn't mean it is objective.
+
+# Categorization and Regression Trees (CART): A data-based approach {#tree}
+
+We're going to end today with a machine-learning technique that combines and generalizes the tools of multi-way ANOVA, multiple regression, and stepwise model fitting we've been exploring today. We're just going to dip our toes into so-called [Categorization and Regression Trees](https://en.wikipedia.org/wiki/Decision_tree_learning) (CART from now on) today, but I hope this will motivate you to examine them as a tool to use yourself.
+
+*Practical Statistics for Data Scientists* [@bruce2017 p. 220-230] gives an excellent introduction to this topic, and it will be part of the reading this week.  Very briefly, CART is appealing because:
+
+1. It generates a simple, explanatory set of explanatory rules for explaining an outcome variable in a dataset that are easily communicated to a broad audience.
+2. The outcome variable being explained can be either continuous (a regression tree) or categorical (a categorization tree) without loss of generality in the model.
+3. Trees form the basis for more advanced, powerful machine-learning models such as Random Forest or Boosted Tree models which are among some of the most powerful and accessible models for machine learning.
+4. In general, CART models can be made to fit any kind of data without relying on the (generally wrong) assumptions of traditional linear models.
+
+So how does a tree work?  Let's take a look at two examples.
+
+## Regression trees
+
+First, we'll begin by applying a tree approach to the same task we've been exploring in `berry_data`--predicting `lms_overall` from the best set of predictor variables.  We will use some new packages for this: `rpart`, `rpart.plot`, and `partykit`.
+
+We will take a very similar approach to our stepwise model fitting, in that we will give the CART model a large set of variables to predict `lms_overall` from.  We are going to use just our CATA and categorical data because it will make a more interesting tree, but in reality we'd want to include all variables we think might reasonably matter.
+
+```{r}
+tree_data <- berry_data %>%
+  select(-subject, -lms_appearance, -lms_aroma, -lms_taste, -lms_texture)
+
+reg_cart <- rpart(formula = lms_overall ~ ., data = tree_data)
+reg_cart
+```
+
+What this "stem and leaf" output tells us is how the data is split.  In a CART, each possible predictor is examined for the largest effect size (mean difference) in the outcome variable (`lms_overall`).  Then, the data are split according to that predictor, and the process is carried out again on each new dataset (this is called a "recursive" process).  This continues until a stopping criterion is met.  Usually stopping is either number of observations (rows) in the final "leaves" of the tree, but there are a number of possibilities.
+
+When we are predicting a continuous outcome like `lms_overall`, the test at each step is a simple ANOVA.
+
+This is probably easier envisioned as a diagram:
+
+```{r}
+reg_cart %>%
+  rpart.plot(type = 5, extra = 101)
+```
+
+The "decision tree" output of this kind of model is a big part of it's appeal.  We can see that the most important predictor here is whether a subject has checked the CATA "berry" attribute.  But after that, the next most important attribute is different.  If there's no "berry" flavor, it matters whether the sample is "fermented", but if there is a berry flavor, then it matters whether it is "fruity".  And so on.  In the terminal "leaves" we see the average rating for that combination of attributes as well as the number of samples that falls into that leaf.
+
+We can also use the `partykit` plotting functions to get some different output:
+
+```{r}
+reg_cart %>%
+  as.party %>%
+  plot
+```
+
+I present this largely because it is possible (but somewhat complicated) to use `partykit` with the package `ggparty` to construct these plots within `ggplot2`, but I won't be getting into it (because it is still very laborious for me).
+
+## Categorization trees
+
+In general, we cannot use a regression model to fit categorical outcomes (this is where we would get into logistic regression or other methods that use a transformation, which fall into the **general linear model**).  However, CART models happily will predict a categorical outcome based on concepts of "homogeneity" and "impurity"--essentially, the model will try to find the splitting variables that end up with leaves having the most of one category of outcomes.
+
+Here, we are going to do something conceptually odd: we're going to predict `sample` from all of our other variables.  We're going to do this for two reasons:
+
+1. This is actually an interesting question: we are asking what measured variables best *separate* our samples.
+2. This emphasizes the fact that our data is almost entirely observational: in general we should be careful about forming conclusions (as opposed to further hypotheses) from these kinds of data, because our variables do not have one-way causal relationships.
+
+```{r}
+catt_data <- berry_data %>%
+  select(-subject)
+
+cat_tree <- rpart(sample ~ ., data = catt_data)
+cat_tree
+```
+
+Again, this will be easier to see if we plot it:
+
+```{r fig.width=9}
+cat_tree %>%
+  rpart.plot(type = 5, extra = 101)
+```
+
+Figuring out how to plot this requires a fair amount of fiddling, but ultimately we are able to speak to how differences in many, interacting variables lead us to groups that are majority one type of sample.
+
+# Wrap-up
+
+Today, we've spent our time on methods for understanding how multiple factors (variables) can be related to an outcome variable.  We've moved from familiar models like ANOVA and regression to a more complex, machine-learning based approach (CART).  What these models all have in common is that they attempt to explain a single outcome variable based on many possible predictors.  We've just scratched the surface of this topic, and for your own work you'll want to learn about both discipline-specific expectations for methods and what kind of approaches make sense for your own data.  Also, this list will be important:
+
+Are you trying to predict:
+
+1. A single outcome from multiple categorical or continuous variables?  **Great!  We did this!**
+2. Multiple outcomes from multiple continuous or categorical variables?  You're going to need multivariate stats (MANOVA, PCA, etc).
+3. No outcomes, just trying to find patterns in your variables?  You're going to need machine learning (cluster analysis, PCA, etc).
+
+As should be clear from this little list, we've only just, just, *just* started to scratch the surface.  But I hope this will make you feel confident that you can learn these tools and apply them as needed.  No one, including me, is an expert in all of these approaches.  The key is to learn the basic rules and learn as much as you need to accomplish whatever your current goals are!
+
+# References {.unnumbered}
