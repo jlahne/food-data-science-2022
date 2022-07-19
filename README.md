@@ -1,13 +1,5 @@
 Welcome! 
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+This is the repository for the Spring 2022 lectures from the Virginia Tech course FST 5984: SS Data Analytics for Food and Ag Science, taught by [Jacob Lahne, PhD](https://www.fst.vt.edu/aboutus/faculty/jlahne.html).
 
-This template provides a skeleton file structure that you can edit to create your book. 
-
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
-
-Additional resources:
-
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
-
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
+You'll probably do better to look at the rendered bookdown page, which can be accessed **here**.

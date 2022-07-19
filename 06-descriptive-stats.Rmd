@@ -1,14 +1,4 @@
----
-title: "6 - Exploratory and descriptive statistics"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
+# Describing your data
 
 ```{r setup, message = FALSE, echo = FALSE}
 knitr::opts_chunk$set(message = FALSE)
@@ -21,9 +11,6 @@ apples <- read_csv("Files/Week 5/apple varieties.csv")
 tidy_anscombe <- read_csv("Files/Week 6/tidy_anscombe.csv")
 
 ```
-
-
-# Introduction
 
 Last week we devoted a lot of time to an introduction to **dataviz**, using the example of a dataset of amino-acid measurements from Sihui Ma's dissertation research [@ma2018a].  We mostly explored the *descriptive* and *exploratory* potentials of data visualization, rather than the *inferential* capabilities of this approach.  This week we will be doing something similar: we will be learning how to use R's tools for describing and summarizing data, as well as introducing our first review of statistical concepts.  However, we will be generally staying far away from the world of [*statistical inference*](https://en.wikipedia.org/wiki/Statistical_inference), even though that's the ultimate goal of much of science and of this class.  
 
@@ -64,11 +51,11 @@ We may also make recourse to the polyphenol data from last week to give us some 
 slice_sample(apples, n = 5) %>% knitr::kable()
 ```
 
-# What kind of data do you have?
+## What kind of data do you have?
 
 Before we get into new material, let's review some basic tools for understanding data.  We're going to start off with a quick review of material from Weeks 1 and 2 of this course, but then quickly get into new, useful concepts and functions for understanding your data.
 
-## Basic attributes
+### Basic attributes
 
 There are some very basic questions we might have about our data that it's worth remember.  When we import data, we might ask:
 
@@ -77,7 +64,7 @@ There are some very basic questions we might have about our data that it's worth
 * If we are dealing with structured data (like data frames and tibbles), what are the names of the variables/columns and the rows?
 * What does the data *look like*--that is, what does a representative set of rows contain?
 
-### Types of data and data structures
+#### Types of data and data structures
 
 We learned about data types in lesson 1 and 2--you might recall a discussion of *integers*, *characters*, *numeric*, etc vectors, and of complex data structures like *matrices*, *lists*, and *data frames*.  In general, it's worth remembering that vectors and matrices can contain only one kind of data--that is, a matrix can have *numeric* data in all of its cells, or *character* data, but it cannot have some numeric and some character data.  
 
@@ -135,7 +122,7 @@ example_tibble$new <- 1:5
 typeof(example_tibble$y)
 ```
 
-### Sizes
+#### Sizes
 
 Frequently, we will need to know something about the size of our data sets.  For example, we might need to know how many observations we have total in our data set, which may correspond to the number of rows (if our data is in "long" format), we might need to know the number of columns we have so that we can use indexing to access them properly (although using named accessing through `select()` will generally be more readable), or we might need to know numbers of rows or columns so that we can use `for` loops or other control-flow tools.
 
@@ -168,7 +155,7 @@ dim(cider_chem)
 
 Less important, for our purposes, is the actual (memory) size of files: how many bytes they take up.  Unless you are working with big data (on the scale of at least hundreds of megabytes), R will happily deal with whatever size data you need.
 
-### Names
+#### Names
 
 In most of the use cases we have for R, we will be working with data objects that have names.  When we print objects we can see that there are names assigned to different parts of the data:
 
@@ -228,7 +215,7 @@ cider_chem %>%
 
 For matrices and higher-dimension data, it is more natural to use rownames.  These are set with the same commands.
 
-# Examining big data frames
+## Examining big data frames
 
 For the most part, we are going to be dealing with data frames that have more rows than we can easily inspect in the R Console, or even the viewer.  As you may have already found, we can open a simple "spreadsheet" view of dataframes by clicking on a dataset in the Environment pane--what this actually does is run `View(<data>)` in the Console.
 
@@ -244,7 +231,7 @@ This tells us:
 2. The structure of the object in terms of list/column structure: what kinds of data is in the object?
 3. "Metadata" about the object, which in R can be found in the **atrributes**.  FWIW, these are accessed via the `attributes()` function (which can be very useful but hard to read).  These can be set using the `attr()` function, but in general this is a level of detail you won't need to deal with until you get into very advanced applications.
 
-## `dplyr::glimpse()`
+### `dplyr::glimpse()`
 
 The `dplyr` package offers a somewhat beefed up version of `str()` called `glimpse()`.  It gives us the same info about the size of the object and info about the types of the columns, but leaves out attributes and class information.  This can be more readable, but isn't necessarily that much better:
 
@@ -267,7 +254,7 @@ cider_dryness %>%
 
 As you might expect, we have some better tools to do this kind of quick access.
 
-## `head()`/`tail()`
+### `head()`/`tail()`
 
 In base R, there are functions to access the first or last *N* rows.  The default is for `n = 6`.
 
@@ -278,7 +265,7 @@ tail(cider_dryness, n = 10)
 
 These are useful (I find especially `tail()`) as a very quick quality check.
 
-## `dplyr::slice_*()`
+### `dplyr::slice_*()`
 
 More powerful but slightly more complicated are the `slice_*()` functions from `dplyr` (part of the `tidyverse`).  These offer more powerful ways to get a subset of data, and can actually be used in a more powerful, functional workflow.
 
@@ -300,11 +287,11 @@ cider_dryness %>%
 
 All of these also work with `group_by()`.
 
-# Generating data summaries
+## Generating data summaries
 
 So far, we've largely limited ourselves to just looking at data.  This is the equivalent to drawing simple histograms from last week (although we're not even counting data, yet)--we're not getting any useful summaries out of our data, just checking for quality and making sure we understand what we have.  The next step in descriptive data analysis and statistics is to extract numbers that summarize our data.
 
-## `summary()`
+### `summary()`
 
 The base R `summary()` function is a *generic* function in R--this means it will do different things depending on what kind of object we give it as its input.  For example, when we give it a dataframe, it will give us information about the average and range of each column when the data is numeric, and not a whole lot when it is character data.  It will also tell us a little bit about missing data (`NA`s).
 
@@ -320,7 +307,7 @@ summary(lm(Liking ~ Sample_Name, data = cider_dryness))
 
 So `summary()` is a useful but unpredictable first step for understanding data.
 
-## `skimr::skim()`
+### `skimr::skim()`
 
 A more powerful approach that requires installing a separate package is the `skim()` function, from `skimr`.  This is actually one of my favorite R tools, because it tells you so much so easily:
 
@@ -345,7 +332,7 @@ cider_dryness %>% group_by(Sample_Name) %>% skim() %>% yank(skim_type = "numeric
 
 `skimr` is so powerful that I recommend checking out the vignettes: `browseVignettes("skimr")`.
 
-## `group_by()` and `summarize()`/`count()`
+### `group_by()` and `summarize()`/`count()`
 
 Sometimes, however, you want to provide specific data summaries that are for your own exploratory use, and tools like `summary()` aren't powerful enough, while tools like `skim()` provide too much detail.  For example, you might want to check the number of times a sample is evaluated in a dataset, or the average value for different groups, or some custom calculation.  There is a very flexible framework for that in the `tidyverse`, provided by the combination of `group_by()` and long (tidy) data.
 
@@ -401,7 +388,7 @@ cider_dryness %>%
 
 We can drop this panelist from our dataset if we are concerned about their data making our design unbalanced.
 
-# Statistics review
+## Statistics review
 
 We have now begun to move from describing our "raw" data--the type of data we have, its shape and structure--to developing ways in which we want to **explore** teh data to provide **descriptive** summaries and other information about our data.  For the rest of this class we're going to explore some common summary statistics that you have certainly encountered before.  We're going to see how to calculate these in R, how to fit them into the data analysis workflows we've started to explore, and how to think about these.
 
@@ -416,11 +403,11 @@ I think it's worth paraphrasing Hadley Wickham -@wickham2017 here on what I mean
 
 What we are doing in this class is exploring data.  We will often find illuminating patterns that can spur further research--this is exactly the pattern that led to the generation of the real data we're using to learn with.  But we should be cautious about using these data to actually build models that we think predict as-yet-unobserved phenomena.  We don't have the right supporting structure for that kind of inference right now.
 
-## Measures of central tendency
+### Measures of central tendency
 
 Most often, we start by asking what single value best summarizes the whole range of our observations.  Typically, this will be a measure of **central tendency**, meaning a value around which our observations are centered.  We are all pretty familiar with the idea of an average, but it is worth reviewing to think through what these mean from the perspective of summarizing our data.
 
-### Mean
+#### Mean
 
 The (arithmetic) mean has the familiar form of $\bar{x} = \frac{x_{1} + x_{2} + ... + x_{n}}{n}$.  This is the *expected value* of our variable--the value which, given no other information except our sample, is our best guess for the value of x.  
 
@@ -467,7 +454,7 @@ tibble(normal = rnorm(100, mean = 0, sd = 1),
   theme_classic()
 ```
 
-#### Other means: harmonic, geometric, etc
+##### Other means: harmonic, geometric, etc
 
 There are other ways to calculate a mean that satisfy different definitions.  For example, the **geometric mean** is the n-th root of the product of n numbers: $\bar{x}_{geom} = \sqrt[n]{x_{1} * x_{2} * ... * x_{n}}$.  The geometric mean makes sense when considering the central tendency of sets of numbers that will naturally be multiplied, or for other naturally exponential phenomena like growth rates.  It can be calculated as `psych::geometric.mean()`.  
 
@@ -481,7 +468,7 @@ psych::geometric.mean(cider_dryness$Liking, na.rm = TRUE)
 mean(cider_dryness$Liking, na.rm = TRUE)
 ```
 
-### Median
+#### Median
 
 In contrast to the mean, the **median** is the central value in our observations when they are ordered from least to greatest.  The median, therefore, is not affected by extreme outliers and long tails in the ways that the mean(s) typically are.  For this reason the median is often called "*nonparametric*"--it is an equally good estimator of the central tendency even when our data is not *parameterized* by the "clumped around the center" distribution typical of the normal (bell-shaped) distribution.
 
@@ -510,7 +497,7 @@ median(cider_dryness$Liking)
 median(10, 1, 1, 1, 1) # why is this wrong?
 ```
 
-### Mode
+#### Mode
 
 In most statistics classes, we learn about the mode and quickly forget it.  The **mode** is defined as the value of x that occurs most frequently, which means that for real-valued (numeric) variables, it is not very useful.  But the mode is actually really valuable when we think about categorical variables, which may be extremely frequent in our datasets, especially if we collect observational datasets.  For example, we might ask
 
@@ -561,11 +548,11 @@ Or, to sum it all up, we could calculate some kind of average of means...
 
 ![[XKCD proposes](https://xkcd.com/2435/) a better mean.](https://imgs.xkcd.com/comics/geothmetic_meandian.png)
 
-## Variation
+### Variation
 
 No matter what single value we choose as a representative of our data, it is unlikely to truly communicate the shape of our data.  Partly, that is why I am emphasizing the use of simple plots--in many cases these will be much better for exploring our data than even a couple numeric summary statistics.  We can continue to enrich our numerical summaries, however, by describing the variation of our observations as well as their central tendency.  There are a couple common measures for variation that will be useful.
 
-### Variance
+#### Variance
 
 The most common way to report variation is **variance** (and its square root, standard deviation).  Variance is intimately related to the *arithmetic mean*: it is defined (for a sample) as the average squared distance from the mean: $\sigma^2 = \frac{1}{n - 1}\sum{(x_{i}-\bar{x})^2}$.  We define it this way in order to account for the fact that we expect both positive and negative differences from the mean; otherwise we'd end up with an average distance of 0.  
 
@@ -579,7 +566,7 @@ sd(apples$His)
 var(cider_dryness$Liking) # how do we fix this?
 ```
 
-### Quantiles and the Interquartile Range
+#### Quantiles and the Interquartile Range
 
 A related concept which we've encountered already in drawing *boxplots* is the idea of the **Interquartile Range** (IQR)--for a dataset, the IQR is the difference between the 25th and 75th percentiles of the dataset.  Understanding the IQR requires understanding the idea of **quantiles**: in non-technical terms, quantiles are the division of an ordered set of values into groups with equal numbers of values per groups.  The idea is best demonstrated with some common, named quantiles:
 
@@ -601,7 +588,7 @@ fivenum(apples$His)
 
 The main difference between `summary()` and `fivenum()` is that the latter will try to return percentile values that are actually observations in the dataset, whereas `summary()` will generally interpolate values that may not actually occur in the dataset.
 
-## Linear Association
+### Linear Association
 
 Linear association, in data analysis, is closely associated with the ideas of **covariance** and **correlation**.  You've probably learned about these both in statistics courses, and I will be going into each briefly here.  But my goal here is to motivate our thinking about these concepts with more concrete examples, as well as some thinking about the persistent power of the "*linear model*", despite (or because of) its limitations.  We'll find that, as an explanatory and exploratory tool, linear models are quite powerful, even when they are obviously incorrect.
 
@@ -621,7 +608,7 @@ What do we mean by an association?  Very broadly, we mean that the magnitude of 
 
 What other trends can we see in these plots?
 
-### Covariance
+#### Covariance
 
 The idea that two variables change together, predictably, is formalized in the idea of **covariance**.  Covariance between two variables, $x$ and $y$, is formally defined as $cov(x, y) = \sigma_{xy} = \frac{1}{n - 1}\sum{(x_{i} - \bar{x}) * ({y_{i} - \bar{y})}}$.  There is no reason at all for you to memorize this (I had to look it up to make sure I was gettig the definition right).  But looking at the equation gives us a couple insights its worth remembering:
 
@@ -654,7 +641,7 @@ round(cov(apples[,-c(1, 2)]), 3)
 
 Notice that, even though this is a table showing covariances among different amino acid concentrations, we have vastly different scales: some of our amino acids (Asparagine, Phenylalanine) have variances that are orders of magnitude larger than others.  This makes it hard to understand which covariances are actually important.
 
-### Correlation
+#### Correlation
 
 The final point (#3) above leads us to the idea of linear or Pearson **correlation**, which can be thought of as "standardized covariance".  The standardization is done by dividing the covariance $x$ and $y$ by the standard deviations of each variable: $cor(x, y) = \rho_{xy} = \frac{\sigma_{xy}}{\sigma_{x}*\sigma_{y}}$.  This preserves the directionality (positive or negative) of the covariance, but accounts for differences in scale in $x$ and $y$--in fact, it means that $\rho_{xy}$ is bounded within $[-1, 1]$.  If the correlation is equal to +1, it means that there is a perfect, positive (linear) association between $x$ and $y$, and if it is equal to -1 it means that there is a perfect negative association.  If it is 0 it means there is no linear association.
 
@@ -673,7 +660,7 @@ round(cor(apples[, -c(1, 2)]), 3)
 
 By scaling our variables, we no longer have the problem of differences in measurement scale overwhelming possible associations.  A good example here is the relationship between Leucine and Isoleucine--their covariance is only `r round(cov(apples$Ile, apples$Leu), 3)`, because they are both present in very low levels in these apples, but when scaled we see there is a pretty strong linear association as represented by correlation: `r round(cor(apples$Ile, apples$Leu), 3)`.
 
-### Caveats with linear association
+#### Caveats with linear association
 
 Linear association is powerful and simple, and in fact when we start to get into ideas of inference in the next several weeks, we will see that its simplicity offers some advantages.  But it also is very rigid and can ignore clear patterns in data.  Kieran Healy -@healy2019 argues that this is a good reason for relying equally on data visualization in exploratory data analysis, using the famous Anscombe dataset [@anscombe1973].
 
@@ -695,4 +682,4 @@ This is a set of 4 artificial datasets that are constructed with the constraint 
 
 Healy gives [his own, expanded version of this type of example](https://socviz.co/lookatdata.html#why-look-at-data) at his website, in arguing that, when we are *exploring* data, it is worth plotting rather than making assumptions (for example, that associations are *linear*).  This is a practice I recommend, and it will also help you develop your skills with data wrangling and visualization.
 
-# References {-}
+## References {-}

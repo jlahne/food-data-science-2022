@@ -21,7 +21,7 @@ This **bookdown** compiles lectures I wrote for my first attempt to teach a Data
 
 If you want to know more about the course, you can take a look at the short description and learning objectives below:
 
-## Course description
+## Course description {-}
 
 > Programming, algorithmic thinking, and data analysis for research projects in food and agricultural sciences. Writing R scripts to import, clean, and wrangle data. Data visualization, exploratory data analysis, and inference using programmatic approaches.
 >
