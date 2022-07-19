@@ -1,7 +1,4 @@
 delete_merged_file: true
-language:
-  ui:
-    chapter_name: "Lecture "
 new_session: yes # this renders each page independently to avoid chunk conflicts
 # the following lists the files to use in order
 rmd_files: ["index.Rmd", 
