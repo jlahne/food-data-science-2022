@@ -2,3 +2,5 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Lecture "
+new_session: yes
+rmd_files: ["index.Rmd", "01-Introduction.Rmd", "02-Packaged-and-Markdown.Rmd", "03-control-flow.Rmd"]

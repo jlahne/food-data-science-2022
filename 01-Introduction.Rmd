@@ -1,8 +1,9 @@
+# Day 1 - Welcome to FST 5984 (2022)
+
 ```{r, echo=FALSE, include=FALSE}
 library(tidyverse)
 ```
 
-# Introduction
 
 ------------------------------------------------------------------------
 
@@ -14,11 +15,11 @@ In this class we are going to be learning to code in R, using the RStudio interf
 
 RStudio is an "**I**nteractive **D**evelopment **E**nvironment" (IDE) for working with R. Without going into a lot of detail, that means that R lives on its own on your computer in a separate directory, and RStudio provides a bunch of better functionality for things like writing multiple files at once, making editing easier, autofilling code, and displaying plots. You can learn more about [RStudio here](https://www.rstudio.com/products/rstudio/). With that out of the way, I am going to be sloppy in terminology and say/type "R" a lot of the times I mean "RStudio". I will be very clear if the distinction actually matters. RStudio is going to make your life way easier, and when you try to learn Python you are going to be sad :(
 
-## Syllabus Review
+### Syllabus Review
 
 We are going to spend some time reviewing the class syllabus in Word (\*gasp\*).  I want to make sure I answer everyone's questions and concerns.  We will also check out Canvas, make sure it all makes sense, and be ready to launch ourselves into the glorious future of the semester.
 
-## Getting set up for class
+### Getting set up for class
 
 In this class, we are going to be doing a lot of "live coding" ([see below](#coding)).  Our weeks will follow a predictable rhythm:
 
@@ -43,7 +44,7 @@ In order to make sure you can participate in class, your attendance expectation 
 
 ***
 
-# Coding {#coding}
+## Coding {#coding}
 
 With that introduction out of the way, let's do some coding. This course is going to include a lot of "live coding". That means that someone (me, but shortly you!) will be sharing their screen and typing and executing commands in R. This is because coding is like any other skill we develop--the only way to improve is to try something, see why it didn't work, and try again! Live coding helps us see that **everyone**, me included, messes up, has to look for help, etc. An error message is just the first step to getting your code to work!
 
@@ -116,7 +117,7 @@ summary(
 
 So that's great. I think you've probably learned all this already in a course on statistics. Why are we here? Well... how would you run ANOVA on this dataset? Or, even more importantly (who cares about these cars?), *how would you get your own data into R?* How would you simulate data? How would you make a pretty plot? These are the kinds of things we're going to learn in this course.
 
-# How to make errors and annoy computers
+## How to make errors and annoy computers
 
 ------------------------------------------------------------------------
 
@@ -154,11 +155,11 @@ pi # this is also fine
 
 To answer this question, let's talk about what the various things you can type into R are.
 
-# Inputs and data types in R
+## Inputs and data types in R
 
 ------------------------------------------------------------------------
 
-## Whitespace
+### Whitespace
 
 First things first. R as a programming language is very generous about whitespace use. "Whitespace" means any characters like spaces, tabs, returns/newlines, etc. These are actually different, although we don't think about them very much, and for almost everything you do in R you don't need to think about this distinction. In some languages (like Python or C++) you have to be careful about whitespace.
 
@@ -197,7 +198,7 @@ hello world
 
 When you give R a variable with no other instructions, it will try to help you by calling `print()` on it. But if you give it two, separated by a space, it has no idea what to do. So it throws an error. But what kinds of things are data, anyway?
 
-## Data types
+### Data types
 
 In the programming tradeoff is that, as part of the bargain of being extremely exact with our instructions, we agree to not only tell computers exactly what to do step by step, but also to define what everything they encounter is. This includes data types. This isn't a computer science class, so I am going to be defining these types of data on a functional basis, rather than a scientific or technically correct one. That is, these are my personal definitions of what these data types are and how I encounter them.
 
@@ -205,7 +206,7 @@ You can ask about what kind of data an object is by using the `class()` function
 
 In my experience, these are listed in increasing order of complexity.
 
-### Logical
+#### Logical
 
 The most basic type of variable is a binary, yes/no, TRUE/FALSE variable. In R, these are called "logical variables", although I think in other languages they might be called "boolean" variables. These can take only two values, which are both reserved words (cannot be changed, have default values) in R: `TRUE` and `FALSE`. These are used frequently when we want to define experimental levels or indicate group membership:
 
@@ -235,7 +236,7 @@ sum(FALSE, FALSE, TRUE, TRUE, TRUE)
 
 0 and 1 are **integers**.
 
-### Integer
+#### Integer
 
 Integers, as you may remember from math class, are positive or negative whole numbers, and include 0 (they'd have to, but let's not get into set theory.) These are the next step up in complexity. Integers are dealt with differently by computers than "double" or "floating point" numbers. But in general we don't use them much, except to pass to and from other languages (C++ and Fortran, according to the help page for `integer()`) that need integers.
 
@@ -243,7 +244,7 @@ R indicates that numbers are integers by writing them as `<whole number>L`. So, 
 
 *Hey, psst*, there's no code chunk here, so... remember what I said about that help file? Try typing `?integer` into the console and see what happens. We'll talk about it below, but `?` followed *immediately* by the term you want help on will get you that help.
 
-### Numeric
+#### Numeric
 
 We care especially about numbers, because most of our data analysis in food and ag sciences will be on numeric data. For computers, real numbers (numbers that can be represented with decimal precision) are called `numeric` or `double`. The second term (`double`) refers to the level of precision the computer actually offers, but this is beyond our scope (and my understanding!)--suffice it to say that, for our purposes, we will not be running into what are called "numerical overflow/underflow" errors.
 
@@ -258,7 +259,7 @@ a_double == a_integer
 class(sqrt(a_integer))
 ```
 
-### Character
+#### Character
 
 Ok, but we have seen already us using things that definitely aren't numbers. For these, R defines the `chatacter` data type (which I also often call `string` data, which is a term used by some other programming languages). In R, `character` data is quoted and not interpreted--it does not have mathematical or functional/object properties. It is the most general data type.
 
@@ -291,7 +292,7 @@ as.character(3L) == "3"
 
 We'll talk more about `as_*()` functions to convert between data types in future classes.
 
-### And bears, oh my!
+#### And bears, oh my!
 
 Yeah, this is where we'd talk about `vector`, `matrix` or more complex objects. We will get to these. But the general thing I want to emphasize is that these objects are *collections* of the simple objects we're discussing here. In R, it's turtles all the way down--complex things in R are built out of simple things in R. That doesn't mean they're *easy*--but it does mean that if we can get an idea of how simple things work, we can start to pick apart the complex things.
 
@@ -316,7 +317,7 @@ a_vector
 a_vector[3] # What's the third word in this sentence?
 ```
 
-## Ok, but what kind of object *is* `print()` then?
+### Ok, but what kind of object *is* `print()` then?
 
 Short answer is that `print()` and anything else that is of the form `<text>()` is a *function*. We will be discussing functions more in later classes, because they are a big part of programming, but we can best understand them right now as bit of pre-written code that take input and spit out results.
 
@@ -367,7 +368,7 @@ But we could just copy and paste the code above 3 times, or even just hit cmd + 
 3.  Your code is much easier to reuse if you make functions
 4.  There is a lot of R functionality (`apply()`, `map()`) that works with functions, not copy/paste
 
-# Metacognition: Learning to Learn in R
+## Metacognition: Learning to Learn in R
 
 ------------------------------------------------------------------------
 

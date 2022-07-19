@@ -1,15 +1,4 @@
----
-title: "2 - Packages and R Markdown"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    number_sections: yes
-    toc_float: yes
----
-
-# Introduction
+# Extending R with packages and R Markdown
 
 Welcome to week 2 of the semester. 
 
@@ -19,7 +8,7 @@ Then we're going to talk about extending R--in particular how to install, use, a
 
 Finally, we'll spend some time getting into the guts of R with more advanced types of R objects: the matrices, data.frames, and lists that be a key part of what will make R actually do things efficiently for us as a data-analysis tool.
 
-# All about R Markdown
+## All about R Markdown
 
 First, we're going to talk about these crazy documents you've gotten used to looking at in the first couple days of class. We've already introduced the idea of R Markdown documents in this class, and [it's pretty easy to make a new one](https://rmarkdown.rstudio.com/docs/) that will act ok without messing around with default settings. But what are they actually, and why are we using them instead of text files (.txt), word documents (.doc/.docx), or even nice, quiet PDFs (actually called by the extension, .pdf, but stands for "Portable Document File").
 
@@ -41,7 +30,7 @@ The idea for **R** Markdown comes from the more general idea of (Markdown)[<http
 
 Why am I telling you these details? In general, I think that the problem with coding and programming languages (and their cousins and relatives, like R Markdown) is that they are often presented as "easy to use" things without any context, and the context itself dictates why they behave in certain ways. So it matters that R Markdown has this close relationship to HTML--it is why we will see later that it outputs by default **as HTML** files, and also why (we won't cover this as much) we can use HTML and CSS (Cascading Style Sheets) to provide granular formatting and rendering to our documents. History and context matter!
 
-## What is an R script?
+### What is an R script?
 
 But to really understand R Markdown, we should contrast it to an R Script. Everyone should go ahead and open an R Script now, by going to `File > New File > R Script` or by pressing **cmd + shift + N** (cmd = ctrl on Windows).
 
@@ -65,7 +54,7 @@ But R Markdown is useful because it goes beyond HTML to outputting into many of 
 
 Why, then, do we not just use R Markdown for *everything* we do in R? Why do R scripts exist at all? The answer, which will only become more apparent as you get more comfortable using R and doing coding, is that a plain script has "low overhead"--we don't have to do code chunks and mess with a bunch of formatting to make our code work. We can just open it up, write a few lines, and hit "Run". So we like R Scripts when we are doing real data exploration or analysis. But once we have or workflow down and our problem solved, it's a good idea to turn back to R Markdown to make a shareable, reproducible, understandable version of our code.
 
-## How do we make an R Markdown document?
+### How do we make an R Markdown document?
 
 The simplest way to make an R Markdown document is a lot like making a new R Script: `File > New File > R Markdown...`. This will bring up a menu with some options to select from, which should look very much like this on your computer:
 
@@ -79,27 +68,27 @@ Therefore, there are a couple other ways to get a blank R Markdown document. The
 
 You'll notice there are a *lot* of options in here, but we're going to ignore them for now.
 
-## Elements of R Markdown documents
+### Elements of R Markdown documents
 
 Like any new tool, R Markdown offers a huge selection of options. This can be really hard for the new user, and so I recommend getting to grips with some basic tools and then learning the rest as you go. Another moment of honesty: this is how I learned (and continue to learn, in fact) R Markdown. I am not at all a master of this technology--in this class I am certain that we will encounter situations together in which my response will be "Huh! Let's figure out *why* it did *that*."
 
 We're going to first talk about basic text formatting, which is super easy and fun in R Markdown. Then we'll cover how to include code in your document. Then we'll talk about this mysterious "YAML Header", which defines how the document will be rendered into HTML, Word, etc. Then we'll talk a little bit about inserting external stuff into the document (like links or images).
 
-### Text body
+#### Text body
 
 One of the nicest things about R Markdown is how easy it is to do basic text formatting. There are really only a few basic formatting "tags" that make text render nicely when knit, and you might even know the basics from some online tools, which increasingly use Markdown conventions for easy formatting.
 
-#### Emphasis
+##### Emphasis
 
 *Italics* and **Bold** text are the most basic things to do in Markdown. To make italics, surround the text you want to make into italics with either stars ("\*") or underscores ("\_") **on both sides**. So, for example, "\_italic\_" = *italic* when rendered. To make something bold, use two of the same symbol, either stars or underscores (e.g., "\_\_", "\*\*").
 
-#### Inline code
+##### Inline code
 
 Similarly, to make something render as code (with text highlighting and monospaced characters), use the backtick "\`" symbol to surround the text. So "\`print()\`" = `print()`.
 
 To make code actually run, you have to tell R Markdown that the code in the the backticks is actually R code, by following the opening (first) backtick with `r`. Then when the R Markdown is rendered, it will actually process the command: `sqrt(27234) =` `r sqrt(27234)`.
 
-#### Lists
+##### Lists
 
 To make a list in Markdown, you need a newline (enter/return), followed by exactly how you'd expect a list to look: numbers or bullets start each next line, followed by a space and then the list contents. So, for example:
 
@@ -127,17 +116,17 @@ To indent a list item, you only need to provide at least 1 tab character (= 4 sp
     2. and another subitem
 1. And now we're back!
 
-#### Headers
+##### Headers
 
 To make headers (like those you use in Word), you start a line with a "\#" character. You use 1 for a Level 1 (biggest) header, 2 for a Level 2 header, and so on. Note that if you have a numbered Table of Contents (as in this document), R Markdown will automatically number it based on these headers.
 
-##### This is an example Level 5 header, but it doesn't have any content
+###### This is an example Level 5 header, but it doesn't have any content
 
-#### Escape character: `\`
+##### Escape character: `\`
 
 If you look carefully at the R Markdown for this document (it will not be visible in the HTML or PDF render), you'll notice that when I give examples of the special characters in R Markdown (like "\_") it is preceded with a "\\" in the raw R Markdown. The backslash character is a common programming language ["escape character"](https://en.wikipedia.org/wiki/Backslash). It tells the interpreter that is reading the text to ignore the immediately following character, which is mostly necessary when that next character does **something** programmatic in the language. For example, if we didn't write "\\\_" then R Markdown would try to make the underscore into an italics mark, rather than printing it as a visible character. By *escaping* it using the backslash "\\", we tell it to treat it instead as the plain character version. This isn't super critical to memorize, but when you see this character in raw code you can understand what it's doing there.
 
-### Code chunks
+#### Code chunks
 
 OK, so you've gotten some nice formatting into your document, but so far we haven't done anything that you couldn't do as easily with Word. What's the point of this? Well, the big selling point of R Markdown is that it **integrates with your interactively processed code**. So you don't copy paste results out of R into your report--you just include the code in the right place, and the ANOVA table, plot, or what have you will pop into place. And if you change your data or need to rerun the analysis, you change only that section, and everything else will update.
 
@@ -180,7 +169,7 @@ This is nonsense
 
 What do you think would happen if I didn't use the `error=TRUE` option? Try editing your version of this document to find out.
 
-#### Setup chunk
+##### Setup chunk
 
 A particularly useful set of options is found in the **default setup chunk** that RStudio will make you if you make a new R Markdown document. It demonstrates two useful attributes: a name (`setup`) and the `include=FALSE` option. In fact, you won't be able to see the chunk in this rendered output, but open the raw .Rmd file and it will be right below this, with the header written as follows: `{r setup, include = FALSE}`.
 
@@ -194,7 +183,7 @@ Working backwards, the `include = FALSE` option tells R to run the chunk, but to
 
 Chunks can be named by following the `r` in the header with a space and the name. Any characters can go in the name, although generally we don't include spaces because they can cause errors in other places if you try to use advanced methods to refer back to the chunks. You can name chunks *anything*: doing so is useful because if you give them descriptive names, you know what they're supposed to do when you come back to the document later.
 
-### YAML Header
+#### YAML Header
 
 At the top of this R Markdown file is a funny bit of syntax that looks more like code than it does like plain text, but isn't R Syntax. Here it is for reference (in an unsigned code chunk!):
 
@@ -225,7 +214,7 @@ The key things to remember about YAML:
 -   Note the different capitalization
 -   Options for different outputs in R Markdown are specific to the type of output, so you will have to read the help files/search the internet
 
-### Links, images, etc
+#### Links, images, etc
 
 One of the wonderful things about (R) Markdown is how easy it is to drop links and images into the document.  The syntax for web links is super simple.  To make a link you pick some text you want to make into a link, surround it by square braces(`[]`), and then follow those braces immediately with a set of parentheses (`()`) containing the link.  So, for example, [this link](https://en.wikipedia.org/wiki/Siamese_cat#/media/File:Siam_lilacpoint.jpg) goes to a picture of a Siamese cat, and is written like this: `[this link](https://en.wikipedia.org/wiki/Siamese_cat#/media/File:Siam_lilacpoint.jpg)`.  Super easy.
 
@@ -239,7 +228,7 @@ You can also use the image linking format to link to web images, so we can add t
 
 ![A less cute cat.](https://upload.wikimedia.org/wikipedia/commons/2/25/Siam_lilacpoint.jpg)
 
-### Tables
+#### Tables
 
 Tables are also _sort of_ easy to make in R Markdown... if you're outputting them from R.  So, say you have a data table, like the famous `mtcars` dataset, included in base R.  The simple `kable()` function, found in the `knitr` package (which is actually what is making our R Markdown files, see below) renders tabular data into a nice format by default.
 
@@ -249,20 +238,20 @@ knitr::kable(mtcars[1:10, ])
 
 This is a huge area that I am also not super expert in, but you could be the next data-table wizard.  Maybe start [here](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)?
 
-## "Knitting" R Markdown documents
+### "Knitting" R Markdown documents
 
 The jargon for transforming a raw text file (like this one) into a rendered document through RStudio is called **"knitting"**.  This is why the `knitr` package mentioned above is named as such.  The easiest way to do so is to click the button labeled "Knit" at the top of your Source editor in RStudio:
 
 ![click this button to knit](Images/Week 2/knitting.png)
 When that button is clicked, it will knit to the type of output you specified in the YAML header (remember that?)--but you can also use the little triangle button next to the "Knit" to select other output options.  Note that if you knit to a different option than already is specified in your header, RStudio will add an output key/value to your YAML header, and so next time you knit it will compile documents in *all formats* you have ever specified.  You can of course go back and edit your YAML header to fix this if you didn't want that to happen.
 
-### File output of knitting
+#### File output of knitting
 
 Knitting creates new files of the type you have specified.  By default, these will live in the same directory as the current Markdown file.  So when you knit, you will end up with a file with the same _name_ but the new file extension you specified (e.g., if `output: html_document` is the option you set, you will end up with a file called `<name of markdown file>.html` in the same directory).  You can change the output directory if you like to keep things clean.  
 
 Generally, HTML documents are the fastest to knit, and PDF and Word documents (and other formats) will require more processing.  Therefore, I tend to use HTML as the default output.
 
-### Previewing (in RStudio version > 1.4)
+#### Previewing (in RStudio version > 1.4)
 
 You can also check to make sure your R Markdown is going to render properly by using the [RStudio Visual Markdown Editor](https://rstudio.github.io/visual-markdown-editing/#/markdown?id=line-wrapping), which turns R Markdown into something closer to a Word Processor.  To access this mode, click the little compass icon at the top of the source editor:
 
@@ -277,11 +266,11 @@ You can also check to make sure your R Markdown is going to render properly by u
 
 This may feel like a great way to check your work, but I don't personally like using this editor to write R Markdown--I find it obscures important details of what's going on in the base file.  I also got sick of fixing the changes it made to my code.
 
-### Outputting to more exotic formats (like slides, etc)
+#### Outputting to more exotic formats (like slides, etc)
 
 As mentioned above, R Markdown can output to all kinds of formats.  All you have to do is add the appropriate value/key pair to the YAML header.  So, for example, if we add `output: ioslides_presentation` to the top of this document, we will get an automatically formatted [ioslides presentation](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) (an HTML slide deck).  R Markdown will make some automatic decisions on how to make slides (based on the headers we've indicated with various `#` marks).  It won't look good as it is (I have way too much text), but this shows how easily we can flip between different formats.
 
-## Joplin - an easy way to learn basic Markdown
+### Joplin - an easy way to learn basic Markdown
 
 We are coming to the end of our crash course in R Markdown.  Learning R Markdown will be a great way for you to develop a skill that will be super useful in many future parts of your career.  But it will take practice.
 
@@ -289,7 +278,7 @@ To be completely honest, I have tried to learn R Markdown several times, and it 
 
 In preparation for this class, I started using a virtual notebook/labbook that is based on Markdown (not R Markdown, but as we discused they are closely related "flavors"), called [**Joplin**](https://joplinapp.org/).  It has a couple of other fantastic features that I love (it syncs across devices, lets you easily organize notes, create checklists, etc) that are cool, but I mainly like it because it's been a great way to practice Markdown.  Maybe it will be something useful for you?
 
-# Extending R - Packages
+## Extending R - Packages
 
 In one of the code chunks above, I wrote something we haven't seen before: `knitr::kable(mtcars)`.  The latter half of this looks familiar--it's just a function that we are using on `mtcars`.  What's with the `::`?  It indicates that the function `kable()` is part of the `knitr` **package**--and we are using the `::` syntax to access the function without loading the package into memory (more on this in a minute).
 
@@ -301,7 +290,7 @@ sessionInfo()
 
 In this list, the "attached" lists are the loaded packages.  The "namespace" list is a programming convention you can safely ignore for now.
 
-## What are packages?
+### What are packages?
 
 In R, **packages** are sets of functions and data that offer new functionality.  Because R is open source, anyone can create new R packages.  That sounds great in practice, but what's to guarantee that packages work as advertised (i.e., do the analysis that they are supposed to, or even more fundamentally don't harm your computer)?  Like many open-source projects, R relies on centralized volunteers to check R packages.  The [CRAN (Comprehensive R Archive Network)](https://cran.r-project.org/), which distributes R itself, also checks and distributes user-submitted packages.  When you install packages in R Studio, by default you are installing them from CRAN.  
 
@@ -309,7 +298,7 @@ There are other **repositories** that focus on different disciplinary expertise-
 
 You can also install packages directly, either by downloading them or from user-hosted repositories.  Most commonly this would be from something like github, where alpha and beta versions of software are often hosted by developers prior to CRAN submission.  Usually this requires using a different installer function (e.g., `devtools::install_github()`), and we won't cover that explicitly here.
 
-## Installing packages
+### Installing packages
 
 There are two main ways to install packages.  The "point-and-click" way is to use the Tools > Install Packages... command in RStudio:
 
@@ -325,7 +314,7 @@ Note that this code chunk has `eval=FALSE` set, because it's rude to install pac
 
 The menu command is fine to use, but it's good to know how to do this on your own.  It helps you understand when something doesn't work correctly.
 
-## Using packages
+### Using packages
 
 Technically, once a package is installed in your version of R through the above commands, it is available to use.  So if you want to use `kable()`, you can always type `knitr::kable()`.  But that's pretty tedious!  It is much better to **attach** (load) packages when you need them, and then you can call their functions (and datasets) directly.  To do this, all you need to do is use the `library(<unquoted name of package>)` command.  So, for example, let's try using `kable()` without loading `knitr`, then see what happens once we load it properly.
 
@@ -340,19 +329,19 @@ kable(mtcars)
 
 Note that you can also load packages using point-and-click, by going to the Packages Pane in RStudio and clicking on the white box next to a package name.  This is fine for working interactively, but obviously won't work if you want to send someone an R Script that needs to load some packages.  It will also be tedious if you are doing the same workflow multiple times.  Better to learn how to use the `library()` function!
 
-## Detaching (unloading) packages
+### Detaching (unloading) packages
 
 Soemtimes you want to **detach** (unload) packages.  The technically correct way to do so is to call `detach(package:<package name>)`, which is slightly more tedious to type.
 
 You can also detach packages by unchecking the box next to their name in the RStudio Packages Pane.
 
-## Uninstalling packages
+### Uninstalling packages
 
 And sometimes you want to completely remove a package from R.  The most frequent reason for wanting to do this is when you start getting persistent errors.  This can happen because you have an old version of a package, or it installed improperly (this will often be accompanied by install error messages in the console).  You might also want to reinstall a package and be certain that the old version is gone.  Generally you dont' need to manually uninstall a package, but the simple command is just the opposite of installation: `remove.packages("<package name>")`.  
 
 You can also use the Package Pane to remove packages by clicking the "X" to the far right of the package name.  Since removing packages isn't something you do all that often, using the point-and-click shortcut is no problem.
 
-## Getting help - a deeper drive
+### Getting help - a deeper drive
 
 With more packages you're going to more frequently run into the need to look up how to do things, which means dealing with help files.  As a reminder, typing `?<search term>` will make the help documentation for whatever you've searched for appear.  But what if you don't know what to search for?
 
@@ -366,7 +355,7 @@ While you can find vignettes as we just did, a better way is to use the function
 
 Your first major assignment in the class will be to write your own vignette for a task or functionality.  We will talk about this more in the next week.
 
-# Complex R Objects
+## Complex R Objects
 
 To summarize where we ended up last week: we went over data types for variables.  Who can list the basic data types we reviewed?
 
@@ -376,7 +365,7 @@ So far this week we've spent a lot of time on "meta" topics--tools for interacti
 
 Let's change that!
 
-## Vectors: a review
+### Vectors: a review
 
 Last week we mentioned vectors very briefly.  But vectors are really at the heart of what makes R useful.  A vector is an **ordered list of the same kind of variable**.  Let's take a look at two different vectors to make this idea concrete.
 
@@ -426,11 +415,11 @@ c(a, b)
 c(a, "ring")
 ```
 
-## Vector math
+### Vector math
 
 R will happily do math with vectors for you, which will save a lot of time.  But there are some pitfalls to think about.  I'm going to just give the basic intro to this topic, and I recommend [Hadley Wickham's summary of the topic](https://r4ds.had.co.nz/vectors.html) to give you an idea of some of the possible problems.  
 
-### Piecewise (scalar) math
+#### Piecewise (scalar) math
 
 A **scalar** is a 1-item vector: `1` is a scalar (as is `"dog"`, technically, but we can't do normal math with it).  The basic arithmetic we're used to is scalar mathematics.  But vector math is a more powerful, compact form, and is useful for data analysis, as we'll see.
 
@@ -450,7 +439,7 @@ The reverse also applies, with an asterisk: you will always end up with a vector
 10 * a
 ```
 
-### Vector math
+#### Vector math
 
 This is not a linear algebra class, so I will not be going into the rules of vector (and matrix) algebra.  But you should know that all operations are not equivalent.  Here is an example to give you fair warning.
 
@@ -462,7 +451,7 @@ x %*% y # matrix multiplication with two column vectors = 1 * 4 + 2 * 5 + 3 * 6
 x %*% t(y) # matrix multiplication with a column and a row vector
 ```
 
-## "Indexing": getting elements from a vector
+### "Indexing": getting elements from a vector
 
 This is a good place to (re)introduce the key programming concept of **indexing**.  Ordered lists like vectors (and actual lists, as well as matrices, arrays, and data frames below) are **indexed**.  For a vector, which is an ordered list, the index is the number of an entry.  So, if we look back at our `a` vector, we can pull out each entry by its corresponding **index**.
 
@@ -513,7 +502,7 @@ a[a < 10] # give us everything in a < 10
 
 **Important but advanced**: in programming terms, R is 1-indexed, meaning that `a[1]` gives the first object in `a`.  This is _not_ the case in many programming languages, including Python, which are _0_-indexed, meaning that you'd write `a[0]` to get the first item in `a`.  This is important to know if you continue on in other programming languages for research.
 
-## Multidimensional vectors: Matrices and Arrays
+### Multidimensional vectors: Matrices and Arrays
 
 Most of you have encountered a **matrix** before.  Matrices are 2-dimensional arrays (usually of numbers).  The main reason we care about matrices is that they are efficient ways of organizing and analyzing numerical results.
 
@@ -559,7 +548,7 @@ d[, , 1] # get the first matrix "slice"
 d[1, 1, ] # get the number at the first row and first column for both matrices
 ```
 
-## Lists: non-atomic vectors
+### Lists: non-atomic vectors
 
 If you want to keep different things in one vector, R provides a non-atomic vector type called a `list`, which is made using the `list()` function.
 
@@ -586,7 +575,7 @@ list(list(1, 2, 3),
 
 This makes lists rather difficult to conceptualize, but very easy and flexible to store items in.
 
-### The `str()` function
+#### The `str()` function
 
 Because the way that R prints lists by default is hard to understand, an important function for dealing with them is `str()`, which you can remember as meaning **structure**.  If we look at the last (slightly pathological) list I created, 
 
@@ -601,7 +590,7 @@ This is much clearer!  We have a list that contains another list with 3 items, a
 
 We can also use `str()` on any R object, and it is usually quite helpful in letting us understand _what_ we're looking at.
 
-### Naming and indexing lists
+#### Naming and indexing lists
 
 We can actually make named atomic lists, but they are not as common.  When we start working with lists, because of their structure, it is often useful to name the elements of our list.  Let's make our pathological list a little easier to understand by giving each of its elements a name.
 
@@ -642,7 +631,7 @@ named_list$pets
 
 As you will see, `$` gets used a lot with data frames.
 
-## `data.frame`: Tables of data
+### `data.frame`: Tables of data
 
 Finally, with that background behind us, we can talk about the special kind of list known as data frames.  Data frames are as close as (base) R gets to the familiar, tabular data from Excel.  Think of a data frame as a "rectangular list"--it's a list of columns.  Each column has to have the same number of rows.  But each column can have its own data type--so you can have a column of names (character), then a column of ages (integer), then a column of heights and a column of weights (numeric).  Like so:
 

@@ -1,21 +1,8 @@
----
-title: "3 - Control Loops and Functions"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
+# Control flow and functions
 
 ```{r setup, include = FALSE}
 library(tidyverse)
 ```
-
-
-# Introduction
 
 ------------------------------------------------------------------------
 
@@ -38,7 +25,7 @@ We've learned, in particular, that computers will do things that are really hard
 
 ![This is where most of us live in coding expertise, [from XKCD](https://xkcd.com/844/).](https://imgs.xkcd.com/comics/good_code.png)
 
-# Functions
+## Functions
 
 ------------------------------------------------------------------------
 
@@ -46,7 +33,7 @@ The first piece of the puzzle that will help us make R useful for research is fo
 
 It turns out that R has a very pragmatic definition of functions and that, in fact, we can even write our own very easily, which will be a difficult but key step in making our coding effective for our specialized research needs.
 
-## Introduction - quasi-mathematical definition
+### Introduction - quasi-mathematical definition
 
 We all learned about functions (I think probably in precalculus?) with the idea of $f(x)$.  The "$f$" literally is shorthand _for_ "function".  In a mathematical sense, functions take input(s)--like $x$--and map them to an output--often called $y$ in our basic math classes--by applying some transformation that is defined _in_ $f$.
 
@@ -54,7 +41,7 @@ We all learned about functions (I think probably in precalculus?) with the idea 
 
 While in math we spent a lot of time learning about how functions should operate (for example, each x should only map to one y, although the reverse does not need to be true, e.g. $f(x) = x^2$), in coding we can consider functions more as "black box machines": we do not need to know exactly how they work internally--most of the time--as long as we understand what inputs ($x$s) they need, and what outputs ($y$s) they give us.
 
-## Everything we've been using in R is a function
+### Everything we've been using in R is a function
 
 One of the nice things about R is that (most of) it is written _in R_.  That means that most of the R functions are written with R syntax, and we can learn to understand what they're doing.  The very basic functions are not (they are written in a crazy mix of C++ and old languages like Fortran, I believe), but for the most part we can look at how functions work by just printing them out.
 
@@ -81,7 +68,7 @@ It seems like `sd()` doesn't like single numbers ("scalars", recall), because `s
 
 So it seems like `sd()`, as a function, _takes_ (as $x$) a vector numbers of length > 1, and returns a numeric vector of length = 1.
 
-## Back to `?`: Reading the function structure
+### Back to `?`: Reading the function structure
 
 This was a lot of work to do to dissect a function so simple you can run it on a scientific calculator.  A much better option is to use our old friend `?` to investigate how functions work--in particular, their **arguments** and the **values** they return.
 
@@ -100,7 +87,7 @@ Some optional elements on these pages which are helpful if they are present are:
 * Values - this explicitly tells you what you can expect the function to return.  If `sd()` had this, it would note that it returns a numeric vector of length 1 with the calculated standard deviation.
 * Examples - these are executable R code that give examples of how the function works.  These can be very helpful for you to copy and paste and run yourself to get an idea of what is happening in more complex functions.
 
-## Function arguments
+### Function arguments
 
 The topic of function arguments deserves its own section because of how R tries to be helpful.  Let's look at a function that takes a few arguments that we've already seen: `rnorm()`.  Try running `?rnorm` to get an idea of how it works.  Note that the help page brings up a set of related functions as well.
 
@@ -127,7 +114,7 @@ Now, when you start typing a function, you can
 1. Hit tab to complete the function name
 2. Once you've opened the parentheses for the function, hit tab to see the arguments from the help file.  Hit tab a second time to autofill the argument with an `=` to help you type!
 
-## Writing your own functions
+### Writing your own functions
 
 Largely, R packages are assemblies of useful functions.  But sometimes you will need to write your own.  Hadley @wickham2017 [writes that functions should be used whenever you find yourself frequently cutting and pasting code](https://r4ds.had.co.nz/functions.html), as well as to make your code more readable by giving clear, evocative names to the things you're actually doing.  This can go right along with our pseudocoding tricks--you make your functions read more like English and it becomes much clearer what you're doing.
 
@@ -201,7 +188,7 @@ make_it_normalized <- function(our_data){
 make_it_normalized(c(iris$Sepal.Length, NA)) # there we go
 ```
 
-# Control structure - making your code hustle and flow
+## Control structure - making your code hustle and flow
 
 ------------------------------------------------------------------------
 
@@ -211,7 +198,7 @@ Control flow can be visualized as the kind of decision chart that you're very fa
 
 ![A simple decision chart with conditional statements](Images/Week 3/If-Then-Else-diagram.svg.png)
 
-## Write-what-you-want: Pseudo Code
+### Write-what-you-want: Pseudo Code
 
 Before we start getting into the technical details of how to build these control flows and tell your R program what to do, I want to give you 3 tools for thinking about programs that I've gathered from various colleagues over the years, and together help to build a non-mystical, non-technical approach to building your programs:
 
@@ -243,7 +230,7 @@ length(results[results$animal == "cat", ])
 
 With that in mind, let's formally learn about **control flow**!
 
-## Logical conditions
+### Logical conditions
 
 We learned last week about the `logical` data type: `TRUE` and `FALSE` are the only contents of this kind of data, and they are reserved words in R (i.e., you can't write somethig like `TRUE <- "cat"`).  The reason for this is these are used for boolean programming logic--control flow.  Typically, these types of data aren't something we store directly (we'd be more likely to store binary data as `0/1` instead)--rather, they are outcomes of **logical conditions** or tests that we ask about our data.  
 
@@ -288,7 +275,7 @@ wrong_value == NA # this is wrong, and will return NA (not TRUE)
 is.na(wrong_value) # this works
 ```
 
-## Conditional statements
+### Conditional statements
 
 Conditional statements are, essentially, choices that R has to make.  They evaluate a logical condition, like those above (and often more complicated ones) and then execute some arbitrary blocks of code based on the logical condition.  An alternative way to think about these are as _branching paths_--R looks at the branch in the path, chooses the first one that meets the stated condition, and then goes that way.
 
@@ -296,7 +283,7 @@ We encounter these all the time in decision trees.
 
 ![[XKCD presents decision charts.](https://xkcd.com/518)](https://imgs.xkcd.com/comics/flow_charts.png)
 
-## IF statements
+### IF statements
 
 All functional programming language statements have some equivalent of R's `if(<conditional statement>)`.  Very simply, the conditional statement is evaluated, and **if** it is true, whatever comes after the `if()` is executed--otherwise R will just skip over it without trying to run it.
 
@@ -341,7 +328,7 @@ if(my_die_roll > 0) print("Nice try")
 if(your_die_roll > 0) print("You too")
 ```
 
-### ELSE statement
+#### ELSE statement
 
 The `else` statement has to follow an `if()` statement.  Notice that I don't put any parentheses after the `else`, because it is not evaluating a condition.  Instead, `else` executes the statement(s) after it if the preceding `if()` is `FALSE`:
 
@@ -354,7 +341,7 @@ An oddity with R `else` statements is that they must be on the same line as the 
 1. Checking your line spacing
 2. Using `{}` to surround both your `if()` and `else` blocks
 
-### Other conditionals
+#### Other conditionals
 
 R provides a number of more complicated conditionals to make large sets of IF-ELSE statements easier to write and read.  The most common is `ifelse()`, which let's you combine the two statements in one:
 
@@ -364,7 +351,7 @@ ifelse(sample(c(0, 1), 1) == 1, "heads", "tails") # this is a silly way to use t
 
 More complicated are the base R `switch()` and the `dplyr::case_when()` functions, which evalaute a set of IF statements and automatically have a final ELSE statement.  I will not give examples here, but they are worth examining when you start running into a lot of branching `if()` statements in your code.
 
-## Loops
+### Loops
 
 While conditional statements (`if()`) create forking paths in our code, **loops** execute some section of code repeatedly, often for a set number of times or until some condition is met.  This is where R's ability to do something an arbitrary number of times, very quickly, without making mistakes or getting bored is employed.  We actually saw some `for()` loops in the example of random walks on the football field already, when we wanted to simulate 1000 different people making 16 different paths.
 
@@ -382,7 +369,7 @@ end
 
 In fact, the `for... end` structure is very similar to how R writes the main type of loop you'll encounter and use.
 
-### FOR loops
+#### FOR loops
 
 The structure of a `for()` loop looks kind of like an `if()` statement, but within the parentheses is a **sequence** instead of a conditional statement.  We've already learned about sequences today.  The syntax looks like `for(counter in sequence)`, where `counter` is a variable that the `for()` loop _increments_ on each iteration of the loop.  The simplest example might be:
 
@@ -445,7 +432,7 @@ There are two things to note here:
 1. Each internal loop needs to fully complete before the external loop goes again - we have `"1 and a"`, `"1 and b"`, etc.
 2. At the end of the entire loop, recall that our stored variable, because it was all the way inside the loop, is just the very last value: `"3 and d"`
 
-#### Thinking about `for` loops in context
+##### Thinking about `for` loops in context
 
 `for()` loops can be used inside each other, and are often used to "walk through" a data frame.  Here's a real type of example: say you have a matrix in which each row is a sample of a different cider, and each column is a cider-chemistry quality parameter (TA, RS, etc).  You may reasonably want to know, for each variable, which samples are above the average reading, and which are below.  While there are a number of more efficient ways to do this, you can use a set of `for()` loops to do this. In pseudocode:
 
@@ -461,7 +448,7 @@ for column in columns of your data
 end for
 ```
 
-### WHILE loops
+#### WHILE loops
 
 Other programming languages prioritize a different type of loop that can also be used in R: the `while()` loop.  The way one uses a `while()` loop is by writing `while(<conditional statement>)`.  In this way, these are sort of like a looping `if()` statement: they will keep executing the code they enclose until the conditional statement becomes `FALSE`.
 
@@ -482,13 +469,13 @@ while(die > 1) {
 
 I said that these kinds of loops are less common in R, and there is a good historical reason for that.  R, while a complete programming language in a technical sense, is really built for data analysis.  `for()` loops work with a known precondition: we set up a number of iterations (often based on the shape of our data) and set them running.  `while()` loops tend to be more useful when we know less about our data--which is more the case when we're looking for user input, or accepting data of an unknown type/shape/quantity.  So `for()` loops, which are a little easier to think about and have a functionality that is closer to data analysis are preferred.
 
-### Future programming: `apply()` and `map()` families
+#### Future programming: `apply()` and `map()` families
 
 When reading Stack Exchange or Stack Overflow, you will see a lot of discussion of functions like `apply()` and `map()`.  The term **"vectorized"** is often applied to these.  The short summary of this idea is that, unlike loops, these functions take R vectors (remember that all R objects are vectors at heart) and apply functions to them in a very efficient way.  These functions (and, really, programming paradigms) are more efficient and faster than `for()` and `while()` loops.  This is true.  It is also much harder to understand them off the bat, and for your needs isn't really necessary.  We will be returning to some of these functions in the following weeks, but right now I am 100% certain that loops and conditionals are enough to keep you properly occupied `for a while` (ha!).  
 
 As my mentor told me once: for research, _first_ write the code so it works, _then_ make it efficient... and often you can skip the second part, if you're never going to run the code again!
 
-# Simulating and sampling data in R
+## Simulating and sampling data in R
 
 ------------------------------------------------------------------------
 
@@ -506,7 +493,7 @@ Like many of my terms in the notes for this class, the terms "**simulation**" an
 > -   Sampling can be an alternative to simulation if we *assume that the population resembles our existing dataset*--this is called **bootstrapping**
 > -   Sampling solves the problem for the scientist of *making decisions* about the prior properties of the population
 
-## Why simulation is important
+### Why simulation is important
 
 Simulation can sound like something exotic that is done in a fancy science-fiction-esque lab by people with intense computer skills. This can make it seem unapproachable or unrealistic for the average scientist, and it discourages us from making it part of our analytical practice. But the real truth is that the field of statistics and probability developed in the absence of computational power that enables simulation. It is an oversimplication (that I will make) to say that statistical theory was developed to fill this absence, but it is helpful to think this way.
 
@@ -516,7 +503,7 @@ But the reason we need the binomial distribution in the first place is because, 
 
 ![Jacob Bernoulli, deriver of the binomial distribution, from [Wikipedia](https://en.wikipedia.org/wiki/Jacob_Bernoulli#/media/File:Jakob_Bernoulli.jpg)](Images/Week%203/Jakob_Bernoulli.jpg)
 
-### A quick diversion: data science vs traditional statistics
+#### A quick diversion: data science vs traditional statistics
 
 Let's take a minute to pause and remember the point of this class: to teach you to code and manage data with R in service of research. According to Andrew Gelman, a well-known statistician, statistics is probably a subfield of data science, which adds to statistical analysis a broader concern with, on the one hand, data management and cleaning (we'll see this shortly) and, on the other, a focus on computational, algorithmic, or programmatic thinking for problem solving [@shah2020]. So, according to this definition [which seems to echo the thinking of other prominent writers @bruce2017; @wickham2017], what we are largely focusing on in this class is data science.
 
@@ -529,7 +516,7 @@ Anyhow, this is a somewhat roundabout way of saying that "traditional statistics
 
 One more attempt to rephrase these thoughts in order to make sure that I've clarified them: too many times I and my students have had the experience of understanding the traditional, statistical model/approach when it is taught in the classroom, and then being completely unable to flexibly and rigorously apply the model to **our** data. If we start from a place of data exploration and take a programmatic approach, we can instead understand how to go from our data to a model of our data without feeling so lost.
 
-## Predictable sequences
+### Predictable sequences
 
 PHEW. That was a lot of feelings. Let's talk about numbers, instead!
 
@@ -541,7 +528,7 @@ The first set of tools we're going to learn are tools for generating predictable
 -   The `rep()` function
 -   The `seq()` function
 
-### The `:` operator
+#### The `:` operator
 
 The first and in many ways friendliest operator for getting a sequence of numbers in R is super simple: `:`. Specifically, `<from>:<to>` will generate a `vector` of integers between `from` and `to`, inclusive.
 
@@ -573,7 +560,7 @@ The `:` always counts by 1, but it will count non-integer numbers if you want it
 
 We can't skip numbers or make sequences that are at an interval different from 1 between sequential numbers.
 
-### The `seq()` function
+#### The `seq()` function
 
 So if you want to do any of the above, the `seq()` (for "**sequence**") function is your friend. This function will still take a start and end point, but by setting **arguments** in the function you can have much better flexibility with what you get.
 
@@ -599,7 +586,7 @@ Alternatively, we can set `length.out =` to the number of steps we want to take 
 seq(from = 0, to = 10, length.out = 25)
 ```
 
-### The `rep()` function
+#### The `rep()` function
 
 Many times we actually want to generate multiples of the same value. This is where the `rep()` (for **repeat**) function comes in:
 
@@ -613,7 +600,7 @@ What happens if we run `rep(c(1, 3, 5), each = 2, times = 2)`? Does it matter if
 
 OK, this is fun and all, but what's the point? We frequently want to be able to use these kinds of sequences as ways to index data frames, or to create a new variable (like, for example, say we have 10 "treatment" and 10 "control" samples - how would you make a vector that has 10 "treatment" followed by 10 "control"?)
 
-## "Random" numbers
+### "Random" numbers
 
 Above we've learned how to generate defined sequences of variables. But many times we want to generate *random* variables. For example, we might want to write a program that looked something like this (this is pseudocode and will not execute):
 
@@ -630,7 +617,7 @@ print:
 
 This is a trivial example, but I want to look carefully at the line `roll a 6-sided die`. Does a computer actually do that? Of course not. Instead, we would use some code combined with the software's built in "Random Number Generator" (**RNG**) to generate a number in `c(1, 2, 3, 4, 5, 6)`. The ability to do this is key to both the statistical analysis we're going to do later and the idea of "simulating" data, which we'll discuss below.
 
-### Pseudorandomness and `set.seed()`
+#### Pseudorandomness and `set.seed()`
 
 Most computer systems, including R, don't actually generate truly random numbers: they make **pseudorandom** numbers by using algorithms that provide sequences of numbers that have many of the qualities of statistical randomness (beyond the scope of this class), but that are not truly nonrandom. Information about R's RNG can be found by using `?RNG`. It turns out there are a lot of options here beyond the scope of this class (and beyond my knowledge!), but more info on the "Mersenne Twister", which is the default generator in R, [can be found in Wikipedia](https://en.wikipedia.org/wiki/Mersenne_Twister). Cool fact: Mersenne Primes, which these are based on, are of the form $2^{N}-1$, where $N$ is *also* a prime number.
 
@@ -642,7 +629,7 @@ set.seed(1234) # this will not return anything
 
 This is especially useful when we are sampling from an existing distribution and want to be able to share our results with collaborators or in the future.
 
-### Random, uniform numbers
+#### Random, uniform numbers
 
 We are not going to be dealing with formal probability distributions much in this class. Just to get it out of the way, a probability distribution $p(x)$ has the following properties:
 
@@ -685,7 +672,7 @@ curve(dunif(x, min = 0, max = 100), from = -10, to = 110)
 
 So we can use `runif()` to generate draws of random numbers in an interval when we don't have any reason to think any one number is more likely than another. This describes a lot of situations we tend to describe--for example, the outcome of a dice roll, coin flip, etc. But this isn't always the most realistic description.
 
-### The normal distribution
+#### The normal distribution
 
 The **normal distribution** is the other famous distribution we all know: it is a bell-shaped curve, which, in its standard form, is centered at 0. It has two "parameters": **mean** and **standard deviation**. It is also super ugly in its canonical form--a combinaton of an exponential and a quadratic function. I am not going to type it out, because you've seen it and not memorized it, just like me. Instead, let's talk about why we care about it--and why it's even called the "normal" distribution. It looks like this:
 
@@ -798,11 +785,11 @@ step_plot + step_hist
 
 This doesn't mean, McElreath goes on, that normal distributions are "true" or "inevitable". Rather, he writes that assuming our data is normal (and either generating data through `rnorm()` or using simple models that use the normal distribution as our "null" knowledge) represents a "particular state of ignorance" [@mcelreath2020,75]: we are saying we don't know anything except that we think our data has a particular mean ("center") and standard deviation ("tendency to vary from the mean")--we don't have any idea about *why* it's this way, only that probabilistic distributions tends to "regress" to this distribution, and so we're not comfortable giving any more info.
 
-### Summary
+#### Summary
 
 To quickly summarize, we can simulate using `runif()` when we want numbers drawn without any bias: only from a given range. When we think that our data has a tendency to cluster around a center, we can use `rnorm()` to simulate random numbers.
 
-## Sampling from existing data
+### Sampling from existing data
 
 But what if we already have data? We then may want to draw random samples from that data for a couple of reasons:
 
@@ -842,12 +829,12 @@ our_sample_indices <- sample(x = 1:32, size = 10, replace = FALSE) # get 10 rand
 mtcars[our_sample_indices, ] # use the indexing functions to get the rows that correspond to our random numbers
 ```
 
-## Summary - sampling and simulation
+### Summary - sampling and simulation
 
 To sum up, we've gone over methods to produce both predictable sequences of data and to sample randomly, both from theoretical distributions (the normal and uniform distributions) and from data we already have. In later classes, we are going to combine these techniques with the control structure and function techniques from the rest of this week to let us sample and simulate real data, as well as to do statistical inference.
 
 
 
-# References {.unnumbered}
+## References {.unnumbered}
 
 -------

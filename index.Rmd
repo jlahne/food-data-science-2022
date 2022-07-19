@@ -1,10 +1,10 @@
 --- 
-title: "A Minimal Book Example"
-author: "John Doe"
+title: "FST 5984: SS Data Analytics for Food and Ag Science - 2022"
+author: "Jacob Lahne"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib, packages.bib]
+bibliography: "Files/lecture bibliography.bib"
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
