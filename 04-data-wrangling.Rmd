@@ -1,22 +1,10 @@
----
-title: "4 - Getting your data wrangled"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
+# Wrangling your data
 
 ```{r setup, echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(nycflights13)
 library(readxl)
 ```
-
-# Introduction
 
 We are now in the fourth week of the Spring 2022 semester.  One quarter of the way through.  Into February.  Congratulations, y'all!  
 
@@ -30,7 +18,7 @@ We're going to have "the talk" about file extensions and how your computer store
 
 ![What file extensions can we trust?  [From XKCD](https://xkcd.com/1301/).](https://imgs.xkcd.com/comics/file_extensions.png)
 
-# Getting your data into R
+## Getting your data into R
 
 One of the main challenges my students and others face in using R is getting data into the damn thing.  I personally don't think that most stats classes, or most classes on R, spend enough time on how to store your data, how to get it into a shape that R won't struggle with too much, and how to actally get it into R (and what happens when you do).
 
@@ -42,7 +30,7 @@ In R, we have to use tools that are similar to the [**command line**](https://en
 
 These details seem arcane and pointless at first, and so we're going to start by talking about how we store data in general.
 
-## Data storage _outside_ R
+### Data storage _outside_ R
 
 Who here stores their lab notebook data in Excel?  Raise your hand.
 
@@ -84,7 +72,7 @@ In general, our workflow for R is the following:
 4. **THIS IS VERY IMPORTANT**: Do not store *data* in R's workspace.  Your scripts/R Markdown files should always read in a data file, and make all changes to that file.  This is why we clear changes on exit.
  1. We can store data in an R format using .RData files and the `save()` function, but this makes the most sense only if we're producing big or complex output we don't want to rerun, *and* if we annotate the file well.
 
-### Example files
+#### Example files
 
 We are going to be working with several files in today's example, which are all stored in the `<class directory>/Files/Week 4/` directory on Canvas.  You should store them in a similar format, although on your file system you'll want to replace `<class directory>` with your actual directory structure.  We'll talk about directory structure very briefly [later today](#hard).
 
@@ -102,7 +90,7 @@ To start with, both of these files are **well-structured**.  Here are some non-e
 
 If your files are not in this format, it can sometimes make your life easier to get them into this format before you try to put them into R, although I will show [at least one other option later](#excel).
 
-## `read.table()`
+### `read.table()`
 
 The most basic utitlity in R for reading in delimited data is the `read.table()` function.  If you run `?read.table` you'll see that this is a function with a ton of options, because it is made to be very flexible and not assume a lot about the file you're trying to read.
 
@@ -116,7 +104,7 @@ The most important line here is the `header = TRUE`, which tells R that the firs
 
 We won't necessarily be using `read.table()` very much, because more specific options like `read.csv()` or more general options like `scan()` will almost always be able to do what we want.  But it is good to see the basic function in action.  You'll see `read.table()` come up a lot in older R scripts and references.
 
-## `read.csv()`
+### `read.csv()`
 
 When we already know that the kind of data we'll want to deal with is comma-separated, it's much easier to use `read.csv()`, which does exactly what it sounds like.  It is a *wrapper function* for `read.table()`--when you see something called a "wrapper", it means it is actually just that function set up with some useful defaults.  We can see that here:
 
@@ -158,14 +146,14 @@ And we can start to do basic data analysis.  Let's look at a boxplot of soup rat
 boxplot(soups[, -1]) # We use the [, -1] syntax to remove the first column of soups--why?
 ```
 
-## Why data storage is hard {#hard}
+### Why data storage is hard {#hard}
 
 OK, so we've pretty quickly gotten to getting data into R.  That didn't seem so bad.  But let's try importing a third file, which contains data from my lab from J'Nai Kessinger's thesis (2019), in which she had subjects sort 18 ciders into groups according to their own perceptions.  The file is called `cider sorting.csv`, but it has two problems.
 
 1. It is not stored in the standardized location I set up for this R Markdown
 2. It is well-formatted for human reading, but not for computers.
 
-### Where files live in your computer
+#### Where files live in your computer
 
 The first problem above is one of file organization.  Who here uses a set of structured folders to organize their files?
 
@@ -176,7 +164,7 @@ Unfortunately, this plays pretty poorly with coding for research.  We have a lot
 
 Therefore for this class and for analysis projects, I recommend a simple file structure that can be expanded upon, rather than descriptively naming files.  You should create a **directory** (a "folder") for the class, and have sub-directories within that directory for each week.  You will find this much easier to manage.
 
-### Dealing with other ways of storing data
+#### Dealing with other ways of storing data
 
 So once we find the file we can read it, right?
 
@@ -228,7 +216,7 @@ Note two advantages of this kind of data storage over tabular (.csv) files:
 
 Neither of these are possible in tabular data or in R data frames--but these are both features of R's `list` structure.  And you'll notice the JSON imports as a `list` object.  As we will see in the rest of the course, we often encounter lists when we need flexibility.
 
-# Making your life in R easier with the `tidyverse`
+## Making your life in R easier with the `tidyverse`
 
 Having talked about getting data into R, we're going to take a detour and talk about how to start to make your life easier, especially when dealing with these kinds of `data.frame` objects.  The `tidyverse` is a shortcut package that you should already be familiar with from your reading in [R for Data Science](https://r4ds.had.co.nz/index.html).  It loads a number of individual packages, including two that make many of the R operations we've been learning about for the first month of class more natural and comfortable.  You can learn about all of them at the tidyverse [package page](https://tidyverse.tidyverse.org/).
 
@@ -240,7 +228,7 @@ library(tidyverse)
 ```
 
 
-## Naming: long ("tidy") vs wide data
+### Naming: long ("tidy") vs wide data
 
 The name of the "`tidyverse`" comes from the core concept of "tidy" data.  According to @wickham2017, [tidy data has the following properties](https://r4ds.had.co.nz/tidy-data.html#tidy-data-1):
 
@@ -262,13 +250,13 @@ tibble(soups)
 
 In `soups`, each row represents a *case*--the subject--and then there are multiple columns that represent different observations on a particular soup.  The type-of-soup variable, meanwhile, has no column of its own.  This is a common format for data storage, because it feels natural.  But it [may not always be the easiest format to access and manipulate data](https://r4ds.had.co.nz/tidy-data.html#non-tidy-data).  In later classes we'll learn about some easy functions to switch between these data formats using ideas from [database software](https://r4ds.had.co.nz/relational-data.html), but for now we're just going to note their existence.
 
-### syntax conventions: unquoted arguments
+#### syntax conventions: unquoted arguments
 
 Before we dive into some of the howtos of the `tidyverse`, one other key difference from much of R is worth noting.  In many of the "core" `tidyverse` functions like those we are going to learn about here, arguments to functions can be **left unquoted**.  That means that, for example, if we want to use the `select()` function to pick the `minestrone1` column from soups ([see below](#select)), we would merely need to write `select(soups, minestrone1)`.  Contrast this with base R, in which (using the `[]` syntax), we'd need to write `soups[, "minestrone1"]`.
 
 This is a programming choice based on how R uses names and symbols in the environment (see `?as.name` for some confusing terminology).  It is not critical to know the *why* of this, only to know that, for many functions in `tidyverse`, you supply plain variable names, or even vectors (using `c()` of plain variable names).  If you are really curious about how all this works, the [Advanced R book](https://adv-r.hadley.nz/) may be of interest (but then I would wonder why you were taking this class).
 
-## One pipe to rule them all: `%>%`
+### One pipe to rule them all: `%>%`
 
 One of the main tools that makes the `tidyverse` compelling is **the pipe**: `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming, but I've been avoiding it up to this point because it's not part of base R (in fact that's no longer strictly true, but it is kind of complicated at the moment).  
 
@@ -294,7 +282,7 @@ This is messy, harder to read, and means that we have to run every line again if
 
 There are a couple of points to know about using the pipe, and much more detail is available from the @wickham2017 [chapter on the subject](https://r4ds.had.co.nz/pipes.html).
 
-### Pipes require that the lefthand side be a single functional command
+#### Pipes require that the lefthand side be a single functional command
 
 This means that we can't directly do something like rewrite `sqrt(1 + 2)` with `%>%`:
 
@@ -310,7 +298,7 @@ Instead, if we want to pass binary operationse in a pipe, we need to enclose the
 
 More complex piping is possible using the curly braces (`{}`), which create new R environments, but this is more advanced than you will generally need to be.
 
-### Pipes always pass the result of the lefthand side to the *first* argument of the righthand side
+#### Pipes always pass the result of the lefthand side to the *first* argument of the righthand side
 
 This sounds like a weird logic puzzle, but it's not, as we can see if we look at some simple math.  Let's define a function for use in a pipe that computes the difference between two numbers:
 
@@ -339,7 +327,7 @@ We can explicitly force the pipe to work the way we want it to by using `.` **as
 
 So, when you're using pipes, make sure that the output of the lefthand side *should* be going into the first argument of the righthand side--this is often but not always the case, especially with non-`tidyverse` functions.
 
-### Pipes are a pain to type
+#### Pipes are a pain to type
 
 Typing `%>%` is no fun.  But, happily, RStudio builds in a shortcut for you: **ctrl + shift + M**.
 
@@ -351,7 +339,7 @@ Typing `%>%` is no fun.  But, happily, RStudio builds in a shortcut for you: **c
 
 **ctrl + shift + M = `%>%`**
 
-## The `tibble()` {#tibble}
+### The `tibble()` {#tibble}
 
 OK, with those bits of syntax out of the way, let's talk about what tidyverse can get us.  We'll start with something simple, but nice.  The *augmented* version of `data.frame` that is provided by `tidyverse` (via the `tibble` package) is called a "`tibble`".
 
@@ -375,7 +363,7 @@ tibble(x = 1:10,
        z = letters[1:10])
 ```
 
-## Pick columns: `select()` {#select}
+### Pick columns: `select()` {#select}
 
 Here's where `tidyverse` starts getting kind of spicy!  R's system for **indexing** data frames is clear and sensible for those who are used to programming languages, but it is not necessarily easy to read.  
 
@@ -392,7 +380,7 @@ Yikes!  The reason this is "foolproof" is because it doesn't rely on these colum
 1. Use numeric indexing to get the right numbers of the columns.  This relies on the indexes, rather than the names containing minestrone.
 2. Extract each minestrone columns using `$` and paste them together into a new data frame.
 
-### Exercise: Indexing the old-fashioned way
+#### Exercise: Indexing the old-fashioned way
 
 For the exercises above, use the following chunk to actually do both.
 
@@ -432,7 +420,7 @@ soup_tbl %>%
 
 Besides being easier to write conditions for, `select()` is code that is much closer to how you or I think about what we're actually doing, making code that is more human readable.
 
-## Pick rows: `filter()`
+### Pick rows: `filter()`
 
 So `select()` lets us pick which columns we want.  Can we also use it to pick particular observations?  No.  But for that, there's `filter()`.
 
@@ -446,7 +434,7 @@ This works by (reading inside out), first using `%in%` to test whether each entr
 
 1. Select only the first 10 rows of `soup_tbl`.
 
-### Exercise
+#### Exercise
 
 For the above less foolproof way, write R code to select only the first 10 rows of `soup_tbl`.  Then, tell me why this is a less foolproof way to select the first 10 subjects.
 
@@ -482,7 +470,7 @@ polyphenol_tbl %>%
   filter(Chlorogenic.acid == 5) # get only the observations where Chlorogenic.acid == 5.  Note the double '==' for testing equality.
 ```
 
-## Make new columns: `mutate()`
+### Make new columns: `mutate()`
 
 You hopefully are starting to be excited by the relative ease of doing some things in R with `tidyverse` that are otherwise a little bit abstruse.  Here's where I think things get really, really cool.  The `mutate()` function *creates a new column in the existing dataset*.  
 
@@ -506,7 +494,7 @@ polyphenol_tbl %>%
 
 What did we do above?  Was it a good idea?  Most importantly, did we actually change `polyphenol_tbl`?  Check in your work environment to see.
 
-## Create quick data summaries: `group_by()`, `count()`, and `summarize()`
+### Create quick data summaries: `group_by()`, `count()`, and `summarize()`
 
 We are only scratching the surface of what we can do with `tidyverse`, and you will both be reading more about this and we'll be returning throughout the semester as we learn more application.  But here is an exploratory data analysis application that we will see here and will come back to us frequently. 
 
@@ -552,11 +540,11 @@ Even I think that's pretty cool, and I wrote the code!  This can be a bit tricky
 
 **NB:** One final tip: you can always run *part* of a piped data flow by selecting just that part and hitting "run" in the right top corner of your RStudio coding panel or hitting ctrl/cmd + enter.  This is useful for testing your code flow.
 
-## Utilities for data management
+### Utilities for data management
 
 Honestly, the amount of power in `tidyverse` is way more than we can cover today, and is covered more comprehensively (obviously) by @wickham2017, including your reading for this week.  Instead, I want to draw attention to a few "quality of life" functions that `tidyverse` also provides that make tasks that are overly difficult in R a little easier.
 
-### `rename()`
+#### `rename()`
 
 A common need in data analysis is renaming your columns, because they are called something clear but not machine-readable/easily typable in your data file, and they turn into a mess in R.  We have that problem in our `polyphenol_tbl` dataset:
 
@@ -584,7 +572,7 @@ polyphenol_tbl <- polyphenol_tbl %>% # don't forget we have to actually save the
   rename(cat = 1, pcb2 = 2, chlor = 3, eq_ga = 4)
 ```
 
-### `arrange()`
+#### `arrange()`
 
 Another thing we often want to do is sort the rows of a data table according to some criterion.  Doing this in base R requires the use of `sort()`, which works only on vectors, not on data frames, and so requires a similar approach to the [base R filtering approach we saw above](#filter).
 
@@ -601,7 +589,7 @@ soup_tbl %>%
   arrange(hotandsour1, -hotandsour2) # this sorts first ascending by hotandsour1, then within that descending by hotandsour2
 ```
 
-### `relocate()`
+#### `relocate()`
 
 R doesn't really care about the order of columns in a data frame, but we might, for example
 
@@ -618,7 +606,7 @@ soup_tbl %>%
   relocate(hotandsour2, .after = subject) # .before and .after (note the ".") can be used to move to specific spots
 ```
 
-## Reading data tidily: `read_*()`
+### Reading data tidily: `read_*()`
 
 We started today talking about reading data.  The `readr` package in `tidyverse` gives a set of tidy options for reading data.  They have nice defaults and (usually) require less user input.  The most common one is `read_csv()`--note its similarity to `read.csv()`, except for the substitution of "_" in the name (this is common in `tidyverse` equivalent functions).
 
@@ -628,7 +616,7 @@ read_csv(file = "Files/Week 4/soup pilot data.csv")
 
 Note that the function automatically makes a tibble, not just a data frame, which may or may not be desired.  By default, they also look for headers and treat text normally.  In general, I tend to use these functions as my default.
 
-### Solving (some) messy spreadsheet problems: `readxl` package {#excel}
+#### Solving (some) messy spreadsheet problems: `readxl` package {#excel}
 
 However, I promised we'd solve some file problems before the end of the day.  Even though Excel can read .csv files, they are not the same thing as *spreadsheet* files.  Specifically, they have no real notion of "index" in the way that Excel files do (the whole "A1" scheme for referencing cells).  But the author of the `readxl` package for R saw the value in those indices for dealing with messy data storage.  So here we are going to use `readxl::read_excel()` to read in Michael Wesolowski's thesis data WITHOUT having to edit the underlying file:
 
@@ -646,8 +634,8 @@ read_excel("Files/Week 4/Thesis Data Mastersheet.xls",
 
 That's pretty cool!  We still have problems with some of the empty cells, and in fact we will be asking you to fix that as part of the assignment this week using the `fill()` function from `tidyverse`.  Should be a good time!
 
-# Review of functions
+## Review of functions
 
 Finally, I want to leave some time today, if we have *any*, to discuss the material from last week on functions.  This is a huge topic, and I am sure you still have some questions.  Let's have some answers!
 
-# References {-}
+## References {-}

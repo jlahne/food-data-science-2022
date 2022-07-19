@@ -4,4 +4,6 @@ new_session: yes # this renders each page independently to avoid chunk conflicts
 rmd_files: ["index.Rmd", 
             "01-Introduction.Rmd", 
             "02-Packages-and-Markdown.Rmd", 
-            "03-control-flow.Rmd"]
+            "03-control-flow.Rmd",
+            "04-data-wrangling.Rmd",
+            "05-exploratory-dataviz.Rmd"]

@@ -1,18 +1,5 @@
----
-title: "5 - 'Exploratory Dataviz', or making pretty pictures"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
+# Exploring your data visually
 
-
-
-# Introduction
 ```{r setup, echo = FALSE, message = FALSE}
 library(tidyverse)
 knitr::opts_chunk$set(message = FALSE)
@@ -104,7 +91,7 @@ This might more accurately be a subcategory of [communicating to stakeholders](#
 
 Briefly, we want to make visualizations that, like [Florence Nightingale's](#nightingale), make our argument effectively--we want the interpretation that others to take away from them to be the interpretation we ourselves have made.  But we have to be cautious to not be fooling ourselves and others with bad, misleading, or even unethical choices about how we select our data and visualize it in order to advance our agenda.  There are several examples of this given in the references above, as well as a number in [Kieran Healy's work](https://socviz.co/lookatdata.html#problems-of-honesty-and-good-judgment).  
 
-# Plotting in base R
+## Plotting in base R
 
 With all that in mind, let's get into **how to plot data in R**.  To explore this, we're going to use some data from Dr. Sihui Ma's dissertation research, in which she quantified the amino acid composition of a number of different varieties of apples in Virginia.  The abstract for the paper in which these data were published [@ma2018a] is given here:
 
@@ -121,7 +108,7 @@ For reference, the numerical data represent concentrations of amino acids measur
 
 We are going to start with "one-line" plotting commands: simple, base R commands that produce commonly needed data visualizations.  We're going to speed through these in base R and move on to the much more powerful, flexible, and easier (although initially **bewildering**) `ggplot2`.
 
-## Histograms with `hist()`{#histograms}
+### Histograms with `hist()`{#histograms}
 
 One of the most common types of data visualizations is a **histogram**.  Histograms, briefly, are a common type of data visualization that show the *approximate distribution of the data*.  In plain English, histograms in general try to show how many times a particular range of values are observed in your data.  The recipe for making a histogram is as follows:
 
@@ -171,7 +158,7 @@ tidy_apples %>%
   hist(breaks = 15, main = "Histogram of amino acids (mg/L) in 13 apple varieties")
 ```
 
-## Boxplots with `boxplot()`
+### Boxplots with `boxplot()`
 
 Often, though, we want to know more about our variables than simply the frequency with which they take on certain values.  One of the simplest but most effective tools for this task is the **boxplot**, invented by none other than [John Tukey](#tukey).  Boxplots concisely communicate much (although not all) of the same information as histograms, but can much more easily accommodate displaying multiple variables at once.  It will be helpful to look at some boxplots first while we talk about what they're displaying:
 
@@ -191,7 +178,7 @@ Thus, boxplots give a quick picture of how the data are distributed, including i
 
 We can see from this kind of side-by-side comparison that it appears apples have relatively large amounts of asparagine and phenylalanine, as well as aspartate (unsurprisingly), but lower levels of all other amino acids.  We do still see a fair amount of variation, however. 
 
-### Formulas!
+#### Formulas!
 
 You might have noticed that we introduced some new notation into our plot: `concentration ~ amino_acid`.  This is an example of an R `formula` object.  You can learn more by reading the help page at `?formula`, but it's honestly kind of abstruse.  Essentially, we can read `~` in R as meaning "depends on" or "is related to".  Formulas are **always directional**--we talk about the left-hand side (LHS) and right-hand side (RHS).  Formulas get used a lot in R statistical modeling, and we'll also see them pop up all over the place, such as in the function `xtable()` (for plotting contingency tables).  Right now, you just need to read them as specified above: `concentration ~ amino_acid` is saying that the `concentration` (LHS) is dependent on the specific `amino_acid` (RHS), wich is a categorical variable telling us which amino acid is which.
 
@@ -224,7 +211,7 @@ tidy_apples %>%
           ylab = "Concentration (mg/L) of glycine, glutamine, or proline")
 ```
 
-## Generic `plot()`
+### Generic `plot()`
 
 Both `hist()` and `boxplot()` are functional shortcuts for the generic R `plot()` method.  In a very general sense, `plot()` initializes a graphical output and then accepts new objects to put into it.  `hist()`, for example, has a bunch of default options designed to draw columns, set the range on the x- and y-axes correctly, etc.
 
@@ -281,7 +268,7 @@ plot(x = apples$Asn, y = apples$Asp,
      ylab = "Aspartate (mg/L)")
 ```
 
-### Adding `points()`
+#### Adding `points()`
 
 But beyond just changing labels, we can do a lot of construction on our generic visualizations from `plot()`.  R uses an **additive** approach to plotting.  Once we have a plot, we have the option of adding the `add = TRUE` argument to any plotting functions to (attempt to) plot our new elements right onto the previous plot.  We might want to do this to:
 
@@ -310,7 +297,7 @@ You might also be noting the `legend()` function here--this is one base R way of
 
 You can learn more about the shapes and colors (and other attributes, like size) that you can set for points in R by looking at `?points`.
 
-### Adding lines with `abline()`
+#### Adding lines with `abline()`
 
 Let's continue with this example.  We want to know whether there is a relationship between asparagine concentration and both aspartate and phenylalanine.  It appears there is some kind of relationship between asparagine and aspartate: higher values of asparagine concentration generally are associated with higher values of aspartate.  The same does not appear to be true for phenylalanine.
 
@@ -363,7 +350,7 @@ Now we see the whole story.  Of course, part of that story is that a linear fit 
 
 In many ways this workflow is a good demonstration of the use of dataviz in order to explore your own data.  Step by step we encountered unexpected things and used our tools in R to understand where they came from.  Of course, at the same time we learned about how to render plots in R.
 
-## Saving plots to file
+### Saving plots to file
 
 Once you have a plot in R you might want to know how to save it.  Of course, in R Markdown the plot gets rendered into your knitted file, but how can you save the file to disk, perhaps to use in a presentation or a paper?
 
@@ -402,7 +389,7 @@ You'll see that, unlike our previous code chunks, this one doesn't print anythin
 
 While that seems like a lot of work, in general once you understand the steps it becomes somewhat natural.  All of the arguments for `png()` have to do with the size and resolution of the plot--you can learn about them by reading `?png`.
 
-# The 'grammar of graphics': `ggplot2`
+## The 'grammar of graphics': `ggplot2`
 
 We've now learned a bit about how base R treats plotting, although we've really only scratched the surface.  By using `plot()` on many different outputs from different R modeling functions (like `lm()`, etc), you will be able to automatically make many default plots.  But as you can see the default, while very customizable, is also somewhat arcane and difficult to use.  it also doesn't have great default settings--you'll notice that our plots, while clear, are not particularly compelling looking.
 
@@ -417,7 +404,7 @@ In my typical, vague and hand-wave-y fashion, here is my summary of the innovati
 2. Treating data visualizations as cousins to data frames or tibbles lets us easily manipulate them without having to restart them from scratch when we make mistakes or discover new ways we want to treat the plot or data.
 3. Breaking apart these elements allows us to swap parts in and out without redoing all our previous work, for example we could change the x-axis scale without changing anything else, or change the color of our points or our title.
 
-## Anatomy of a `ggplot()`
+### Anatomy of a `ggplot()`
 
 To use `ggplot2`, you'll have to load the package, which you have already done if you ran `library(tidyverse)` at the start of this R Markdown.
 
@@ -490,7 +477,7 @@ p2 +
 
 Now *that's* pretty cool.  It also points to the importance of tidy data for this kind of plotting--we are able to essentially tell `ggplot()` "pull out all the data that is tagged with distinct values of `amino_acid` in that column and plot them individually."
 
-### WHAT THE HECK IS `+` doing ???
+#### WHAT THE HECK IS `+` doing ???
 
 Ok, let's start unpicking this.  The first thing you have probably noticed about `ggplot()` is the way that you build the plots: by using `+` to *literally* add new elements or themes or other things to the plot.  This is contrary to both everything in base R (there we just ran plotting functions sequentially) and `tidyverse` conventions (which generally use the `%>%` to do something similar).
 
@@ -498,7 +485,7 @@ The short story is that, in fact, it would be better if `ggplot2` used `%>%`, an
 
 I personally think it's easiest to think of `+` in `ggplot2` as literal.  When you see it, read it as "and then add `<this element>`...", rather than "pass what's on the left hand side to the right hand side".  So it works a lot like the pipe, but is not interchangeable.
 
-### The `aes()` function/argument
+#### The `aes()` function/argument
 
 The `ggplot()` function takes two arguments that are essential, as well as some others you'll rarely use.  The first, `data = `, is straightforward, and you'll usually be passing data to the function at the end of some pipeline using `%>%`
 
@@ -527,7 +514,7 @@ So, in this plot, we've colored each column in the same histogram as before with
 
 It *also* demonstrates a second principle: each subsequent addition to a plot can add new aesthetics.  In our case, *within* `geom_histogram()` we set `mapping = aes(fill = Variety)`, which told `ggplot()` to (automatically) assign a different color to each unique value of `Variety` (why is it "`fill`" and not "`color`"?).  You'll also note that `ggplot()` then *automatically* made a legend for us in the plot, showing us the choices it had made.  
 
-### Settings outside of `aes()`
+#### Settings outside of `aes()`
 
 You may also have noticed in the previous plot that we *did* also set a `color = ` argument in the `geom_histogram()` function--but *outside* the whole `mapping = aes(<stuff>)` argument.  This is what we might call a "set" variable, as opposed to a "mapped" variable (which are all *within* `aes()`).  We wrote `color = "black"`, which tells `ggplot()` and specifically the `geom_histogram()` part of `ggplot()` to **not** look for a variable to map to color, but just to set it to `"black"`.  This is a shortcut to one of the colors that R knows about--you can get a full list of these by running `colors()`.
 
@@ -542,7 +529,7 @@ tidy_apples %>%
   theme_classic()
 ```
 
-### Themes with `theme_*()`
+#### Themes with `theme_*()`
 
 I've ended all of my plots using `ggplot()` with the addition of `theme_classic()`.  In `ggplot()`, **themes** encompass everything about the plot that doesn't depend on data at all.  Things like the way the legend is printed, whether or not there is a coordinate grid displayed on the plot, the background color, etc--these are all related to themes.  `ggplot2` comes with a bunch of shortcut themes that you can apply, like `theme_classic()`, `theme_minimal()`, `theme_bw()`, etc.
 
@@ -559,7 +546,7 @@ p2 +
         axis.title.y = element_blank())
 ```
 
-### All these damn `scale_*()` functions
+#### All these damn `scale_*()` functions
 
 Finally, say we didn't like the default color set for the filled bars in our histogram.  How can we manipulate the colors that are plotted?  The **way in which** mapped, aesthetic variables are assigned to visual elements is controlled by the `scale_*()` functions.  In my experience, the most frequently encountered scales are those for color: either `scale_fill_*()` for solid objects (like the bars in a histogram) or `scale_color_*()` for lines and points (like the outlines of the histogram bars).  
 
@@ -582,7 +569,7 @@ p3 +
 
 Obviously this doesn't produce *good* results, but it illustrates how you can use this function to set colors the way you'd like.
 
-### Faceting (making multiple plots)
+#### Faceting (making multiple plots)
 
 The final bit of recipe we've seen so far is the `facet_wrap()` function, which--still almost magically, to me--splits our plot into multiple **facets** according to the specified variable(s).  The classic interface for this uses R expressions--the `~` notation--but there are now other options, which are detailed if we inspect the `?facet_wrap` documentation.
 
@@ -608,11 +595,11 @@ We can also set up the arrangement of the grid by manipulating the `nrow = ` and
 
 There is a companion function for `facet_wrap()` named `facet_grid()`.  Test out your ability to read help files to figure out what the difference between the two are.
 
-## Common recipes for basic tasks
+### Common recipes for basic tasks
 
 Now that we have the start of a grasp on how `ggplot2` works, let's look at a few of the common visualizations that you'd want to use for your own data exploration or for publication--the main tasks of dataviz.
 
-### Histograms with `geom_histogram()`/`geom_density()`
+#### Histograms with `geom_histogram()`/`geom_density()`
 
 We've already thoroughly explored how to make histograms from our apple data with `geom_histogram()`.  A related option that gives a little more information, especially for large, continuous dataset is called a *density plot*.  These visualize an *empirical probability density* based on your dataset.  For our apples, let's look at the density plot instead of the histogram:
 
@@ -642,7 +629,7 @@ p +
 
 These are not exact duplicates because *density* is based on a smoothed estimate, whereas both *histogram* and *freqpoly* are just empirical counts.
 
-### Boxplots with `geom_boxplot()` / `geom_violin()`
+#### Boxplots with `geom_boxplot()` / `geom_violin()`
 
 I agree with John Tukey that boxplots are some of the best visualizations for quickly understanding the distribution of different categorical variables.  `ggplot()` does a great job with boxplots, especially when combined with facets.  As you might imagine, `geom_boxplot()` will give you boxplots.
 
@@ -666,7 +653,7 @@ tidy_apples %>%
 
 Because our data doesn't have a lot of variation in most of the categories of `amino_acid`, I demonstrated this plot using the `Rep` variable, which unsurprisingly (and reassuringly) doesn't look much different across the 3 reps.
 
-### Scatterplots with `geom_point()`
+#### Scatterplots with `geom_point()`
 
 We haven't really talked about types of data explicitly in this class from a **measurement theory** perspective.  Who can tell me the definition of these four types of data:
 
@@ -718,7 +705,7 @@ apples %>%
 
 But you'll notice there still isn't a legend.  It turns out that is because we're using `ggplot()` in a nonstandard way.  As homework, I will be asking you to find a way to create a similar kind of plot but to do it using tidy data, which will produce a legend properly.
 
-#### Correlation fit plots with `geom_smooth()`
+##### Correlation fit plots with `geom_smooth()`
 
 To continue recreating our previous example, we might want to add linear fits to these two sets of points.  The function that fits a model to points in `ggplot2` is called `geom_smooth()`--it adds a "smoothed" model fit.
 
@@ -748,11 +735,11 @@ apples %>%
 
 Based on its internal tests, `geom_smooth()` chooses what's called a "spline" model--this is a way of fitting a wiggly curve to a set of points.  It is a better way of describing the points we see, but may make worse predictions for points outside our x (Asn) value range.
 
-# Return to data wrangling - long vs wide {#tidy}
+## Return to data wrangling - long vs wide {#tidy}
 
 Finally, we're going to briefly return to the idea of tidy data.  We've talked about this today and in previous classes, but hopefully experimenting with `ggplot2` has given some motivation to why we might want to use tidy data in many cases.  We also showed some basic examples of moving from wide to narrow data by "tidying" our `apples` data frame into `tidy_apples`.  
 
-## Making data tidy
+### Making data tidy
 
 In that operation we did the following:
 
@@ -775,7 +762,7 @@ apples %>%
   pivot_longer(names_to = "amino_acid", values_to = "concentration", -c(Variety, Rep))
 ```
 
-## Making data wide
+### Making data wide
 
 We can also reverse the process, by using the `pivot_wider()` function.  This literally reverses the operation.  We need to specify two main arguments: 
 
@@ -799,4 +786,4 @@ tidy_apples %>%
 
 This can either tell you you've incorrectly set up your pivot table or that you haven't properly understood your data.  The warning message produced has useful suggestions to figure out which of these might be the case.
 
-# References {-}
+## References {-}
