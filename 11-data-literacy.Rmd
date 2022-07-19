@@ -1,16 +1,4 @@
----
-title: "Developing data literacy"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
-
-# Introduction
+# Data literacy and an applied example of data science
 
 ```{r setup, message = FALSE, warning = FALSE}
 # Setup chunk is made visible for clarity
@@ -32,9 +20,7 @@ library(spacyr)
 
 ```
 
-# Introduction
-
-# Text mining and processing
+## Text mining and processing
 
 Today we're going to walk through some work that's been ongoing since (\*gulp\*)... 2019.  Being a faculty member sometimes means that projects you're excited about get put really on the back burner!
 
@@ -42,7 +28,7 @@ The overall goal of this project ~~was~~is to develop tools to analyze the **fla
 
 <center>![The Cocktail Virgin website today.](Images/Week 14/cocktail virgin screenshot.png){width=75%}</center>
 
-## Introduction: the data source
+### Introduction: the data source
 
 The reason I thought this would be an interesting project are the following:
 
@@ -77,13 +63,13 @@ The Herbavore proffered a lemon and malt aroma that gave way to a malt and grape
 
 I really can't emphasize enough how well-maintained the website is, and what a good resource it is for people who love making mixed drinks!
 
-## Getting permission
+### Getting permission
 
 I reached out to Frederic Yarm, the primary owner of Cocktail Virgin, in 2018 to ask him if it would be alright for me to copy his website using some programmatic tools for research purposes.  He gave me his permission, which was very kind!
 
 Technically, a lot of "text mining" or "web scraping" lives in a legal gray area.  It is usually legal for us to use programs to copy this material, but subsequent use may or may not be legal.
 
-## A website is just (mark up) language
+### A website is just (mark up) language
 
 You all have learned Markdown this semester.  We know that `knitr` takes `.Rmd` files and translated them into whatever we want--usually `.html` files.  These are the raw stuff of websites--so websites are just text!  We can take a look using the **Inspect** or **Source** tools built right into your browsers.
 
@@ -185,7 +171,7 @@ x %>%
 
 So if we put this all together, we can write a script that is actually a little robot, built to extract each post and get out useful information.
 
-## Looking at some actual data
+### Looking at some actual data
 
 One post isn't that interesting.  And working with all >5000 would be a bit unwieldy for a class.  So I built a random slice (`slice_sample()`!) of 100 posts from the dataset for us to play with.  It's stored not in a `.csv` or `.xlsx` file, but in a `.Rdata` file--we use `load()` to put this into memory.
 
@@ -260,7 +246,7 @@ demo_posts_separated$description[1]
 
 Now we're ready to do some analysis!
 
-## Using basic text analysis to find descriptions
+### Using basic text analysis to find descriptions
 
 We're going to make a big assumption about how flavors are described in English in order to do some quick text analysis.  Specifically, we know empirically that most descriptive terms--"sweet", "sour", "rose"--are either adjectives or nouns.  So if we can find a tool that will identify tokens as **Parts of Speech** (POS) for us, we will be able to just select those POS we want and get a rough idea of the descriptive language in the `description` we've extracted for each cocktail.  We can then see, for example, which descriptive terms are associated with which cocktail ingredients.
 
@@ -311,7 +297,7 @@ Now, for each post we have:
 
 We're ready to do some analysis!
 
-## Quantifying text data
+### Quantifying text data
 
 First, let's just look at the most frequent adjectives used in this dataset:
 
@@ -379,9 +365,9 @@ Ok, I lied, one more question:
 
 > What else would you like to see?  What next?
 
-# Data literacy
+## Data literacy
 
-## Introduction {#sources}
+### Introduction {#sources}
 
 We're going to end our last new material/lecture (!!!) for the semester talking about some larger issues within data science.  I hope that through this semester you have come to feel some confidence in your ability to tackle basic data-analytics tasks using a coding approach (with R, but also with whatever software you end up using in the future).  While there is an infinite amount left for you to learn about coding for research, that is because there is an infinite amount for **me** to learn, as well.  I am constantly learning (and *re*learning) new tricks and methods.  With a basic understanding of good coding practice, control flow, and data simulation and wrangling, I honestly think you can tackle any problems that come your way.  Therefore, today we're going to frame the class and discussion a little bit differently, because I want to focus on what I am calling **data literacy**.  While I am going to use coding examples throughout to illustrate the discussion, today isn't going to be about learning new skills.  It's going to be about becoming better producers (and consumers) of quantitative information--better scientists!
 
@@ -403,7 +389,7 @@ To this end, here are a number of resources I suggest you read to get some insig
 
 We're going to start by surfacing many of the issues that point towards the need for data literacy by discussing a particular issue for psychological and social science in recent years: the **replicability crisis**.  After presenting an overview of the topic, this is going to lead us pretty naturally into our next major topic: the **_p_-value** and the larger role of **Null-Hypothesis Statistical Testing** (also often put in the same bucket as "frequentist statistics", as opposed to "Bayesian statistics") in the replicability crisis and mishaps in data analysis in general.  Finally, we will zoom out further and think about the politics of **counting** [credit for this general framework to Deborah @stone2020]: what do numbers actually *mean*?
 
-## The replicability crisis
+### The replicability crisis
 
 We will begin with a startling article published more than a decade ago by John @ioannidis2005: "Why most published research findings are false".  In that article, the author provided statistical evidence based in meta-analytical techniques that the generally accepted practice of using the classic $p < 0.05$ formulation as evidence of a true effect in a quantitative, scientific study was more often than not leading researchers to declare that there was a significant effect when in fact there was not: a **false positive**.  In the decade that followed, rigorous replication studies verified these concerns (with any number of caveats): for example, in psychology, in general reported effects are larger than those found in replicated studies when any effect is found, and in many studies it is impossible to replicate the original results at all [@osc2015].  There have been many hypotheses put forward for these problems, including (but almost certainly not limited to):
 
@@ -424,7 +410,7 @@ We will begin with a startling article published more than a decade ago by John 
 
 Regardless of the exact whys (and it is almost certainly a combination of these and other factors), science as an enterprise is starting to grapple with how to adapt to all of these problems, but we're definitely not there yet.  For example, the American Statistical Association published a statement about *p*-values that essentially told people that, yes, we shouldn't over-rely on them, but they're fine when used in moderation [@wasserstein2016].  Personally, I find this unsatisfying, but there is certainly awareness of the issue.
 
-### How can we avoid falling into the replication trap?
+#### How can we avoid falling into the replication trap?
 
 So if all of science if facing a crisis with replicability, does that mean we just give up on science?  
 
@@ -448,7 +434,7 @@ How can we avoid making it worse?  We all operate within a system that isn't wor
 4. Be critical about the how and why of data (and science) production--sources matter.
 5. Don't just listen to me--read [better-written and better-explained sources](#sources) on how to do data better, and put them into action.
 
-## Some quick thoughts on (Null) Hypothesis Testing (NHST) {#null}
+### Some quick thoughts on (Null) Hypothesis Testing (NHST) {#null}
 
 > $H_0: \mu_1 = \mu_2$
 >
@@ -478,7 +464,7 @@ But this means we don't take into account any information we have on the credibi
 
 Furthermore, this approach transforms what is really a judgment about probability--**a description of our uncertainty**--into a binary, black and white situation: if $p<0.05$ (or any other value), we reject $H_0$.  This just isn't good reasoning.
 
-### Torture the data until it gives you the p-values you want
+#### Torture the data until it gives you the p-values you want
 
 As an example of this problem, consider the following.  I am going to generate 21, 100-number draws from the normal distribution.  These are, by definition, random numbers.
 
@@ -499,7 +485,7 @@ if(sum((summary(lm(y ~ random_data)) %>% coef %>% .[,4])[-1] < 0.05) > 0)
 
 This is the kind of data-mining that seems ridiculous... until we start modeling the relationships among hundreds of predictors without some process for validating our findings.  Our intentions, implicitly, which are erased by NHST, are that we want to find significance.  So we keep testing *until* we find some (likely coincidental) relationships.  This is a form of the next sort of problem we're going to discuss: observer or selection bias.
 
-## Observer (selection) bias {#selection}
+### Observer (selection) bias {#selection}
 
 *Calling Bullshit* [@bergstrom2021] gives one of the best explanations of the phenomenon of selection bias that I'm aware of.  Like most of you, I am more familiar with the idea of a **confounding factor**: a variable we fail to include in our analysis that explains a spurious relationship.  This is the classic shark and ice-cream relationship:
 
@@ -584,7 +570,7 @@ funding %>%
 
 We've now created a situation in which if research we fund is neat, it is likely of lower scientific quality, and vice versa, through a simple (and unintentional) selection effect.
 
-# Counting
+## Counting
 
 Finally, because we're way over time, I just want to use the previous examples to point out something important.  No-one questioned my construction of my niceness/attractiveness or neat/quality metrics.  But these are political choices by themselves.  How do we assign people into numbers for their personality and appearance qualities?  How do we make rubrics in the first place to make categories for funding?  There is no objective reality in these decisions--they are the result of some sort of implicit or explicit social consensus.  They change based on context--cultural, social, temporal.  Take the infamous 3/5 compromise, proposed into law by the third president, James Madison.  To quote Deborah @stone2018a:
 
@@ -602,4 +588,4 @@ I encourage--no, I *ask*--you to take a look at the whole lecture, as I think th
 
 And with that, we're done!
 
-# References {-}
+## References {-}

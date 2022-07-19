@@ -1,16 +1,4 @@
----
-title: "11 - The linear model"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
-
-# Introduction
+# The linear model - regression and ANOVA
 
 ```{r setup, message = FALSE, warning = FALSE}
 # Setup chunk is made visible for clarity
@@ -40,7 +28,7 @@ We will also spend some time on plotting results from ANOVA, with a special focu
 
 We will **not** be looking in any detail at multiple regression or multiway ANOVA this week; that material will be introduced next week, when we will think more broadly about different methods for exploring how complex, interacting independent variables can be investigated in our models.
 
-# Dataset example for today
+## Dataset example for today
 
 The data we'll be working with today is from research I conducted with Driscoll's, Inc. in 2019 (just months before the pandemic).  It is a subset of data from a Central Location Test on berry liking, in which we asked subjects to rate their liking on different sets of berries (blackberries, blueberries, strawberries, raspberries) using different kinds of *rating scales*.  Some of the results of the study were published in a paper by @yeung2021.  If you're really interested in the details you can find them there, as well as some examples of applied bootstrapping and permutation tests!
 
@@ -63,7 +51,7 @@ It looks like we have some big chunks of missing data (because of the way the da
 
 We are going to use these data to investigate the relationships among the scales, as well as predicting liking outcomes from categorical variables like age-category and gender.
 
-# Review of measurement levels
+## Review of measurement levels
 
 Typically, we talk about four "levels of measurement" in regards to data that dictate what kinds of analysis we should conduct (although we can do whatever we want, with sometimes disastrous results):
 
@@ -92,7 +80,7 @@ Technically, the choice of what statistical model we can fit to our data depends
 
 With that, let's talk about one of the most frequent situations we encounter in research: predicting the value of one interval/ratio-level variable from another.  This is linear regression.
 
-# Linear regression
+## Linear regression
 
 Let's begin by taking a quick look at the correlations among the various forms of measured liking for our `berry_data`:
 
@@ -120,7 +108,7 @@ We already learned that correlation (usually represented with the symbols $r$ or
 
 However, while correlation can give us an idea of the strength of a relationship, it doesn't quantify the relationship.  Informally (as I do most things in this class, because I'm not a statistician!), this is exactly what **linear regression** does: in its simple form, linear regression quantifies the relationship between $x$ and $y$ whose strength is represented by the correlation $r$.
 
-## Bivariate (2-variable) relationships imply a third variable
+### Bivariate (2-variable) relationships imply a third variable
 
 Before we begin to explore these models, a quick aside: these kinds of bivariate relationships always imply a third, implicit variable: the pairing variable, which is often give as $i$, as in the index for pairs of variables: $(x_1, y_1), (x_2, y_2), ..., (x_i, y_i)$.  This seems like something trivial to point out, but it is actually important and can be kind of puzzle.  
 
@@ -132,7 +120,7 @@ The real, underlying relationship is between shark attacks and time, and between
 
 We often assume that our underlying pairing variable, $i$, is a meaningless index, but it can often have consequences for our data.  It is always worth at least explicitly stating *how* our data is structured to help us understand these (and other) kinds of errors we might encounter.
 
-## Simple linear regression
+### Simple linear regression
 
 With that all in mind, let's state that the overall goal of linear regression is to obtain an estimate of the effect of one (usually continuous or interval/ratio) variable, $x$, on the value of another (continuous) variable, $y$.  In order to estimate this relationship, we need some set of paired $\{(x_i, y_i)\}$ so that we can estimate the relationship.  We typically write this relationship as:
 
@@ -213,7 +201,7 @@ Unfortunately, it  is clear that our model really doesn't do much to predict the
 
 This is just one of the interesting things we found out in this study!
 
-### Bonus: what's the underlying (implied) variable(s) in this model?
+#### Bonus: what's the underlying (implied) variable(s) in this model?
 
 After spending a little bit of time on thinking about implicit links caused by the indexing variable, we immediately skimmed over what $i$ *means* in this study  Looking back at our `skim()`, what variable(s) links the observations of `9pt_overall` and `lms_overall`?
 
@@ -221,7 +209,7 @@ After spending a little bit of time on thinking about implicit links caused by t
 # Give your answers here!
 ```
 
-### A resampling approach to estimating quality of regression
+#### A resampling approach to estimating quality of regression
 
 Given how bad our model explanation is, and how little effect `lms_overall` seems to have (we could read our model as saying that our estimated `9pt_overall` score increases by `r round(coefficients(berry_lm)[2], 3)` points for every 1 point increase in `lms_overall`), it is curious that we are so certain that our observed effect is significant.  What does this mean?
 
@@ -275,7 +263,7 @@ permuted_betas %>%
 
 Happily, it does appear that the relationship, while weak, is indeed stronger than we'd expect to observe if there were no relationship between our subjects' reported liking on 2 scales!  That's a relief.
 
-## Checking your model
+### Checking your model
 
 We've spent a little bit of time talking about how to interpret a model and how to investigate whether it is telling us anything useful.  But an important facet of using any statistical model (that I am barely going to touch on) is investigating the fit of the model.  The `lm()` function tries to help you out with this: by using `plot()` on an `lm` object, you can see a set of plots that give you information about model fit.  
 
@@ -292,7 +280,7 @@ The last 2 plots give more technical information about the model fit (and look *
 
 Beyond these simple plots, there are many important different ways to assess a model.  But we will not go into them here, because we start to get into statistical assumptions, and I think you should learn about these methods from someone who is more expert in them.  My goal is to equip you with the tools to manipulate data and execute these analyses, and interpretation is best left to the domain experts!
 
-# A note about causality
+## A note about causality
 
 We are all familiar with the phrase "correlation does not imply causation".  But why do we say this so frequently?
 
@@ -304,7 +292,7 @@ Without getting too into the weeds (save that for Week 14!), we know a few thing
 * Correlation is a binary relationship: we only look at `cor(x, y)`, so if $z$ is causing both $x$ and $y$, we will see a strong correlation but won't know why.
 * Human brains seem to be simultaneous pattern-recognition and hypothesis-generation machines.  So when we see associations (like correlations) we immediately make up plausible theories for them.  We need to be cautious about our intuitions in the presence of these kinds of data explorations!
 
-# A coding digression: `factor`
+## A coding digression: `factor`
 
 So far we have talked about using one continuous variable to explain/predict variation in another continuous variable.  Often, however, we will have **categorical** variables whose effect on some outcome variable $y$ we want to explore.  In this case, we are going to end up working with a king of `R` data type we haven't really explore yet: `factor`.
 
@@ -369,7 +357,7 @@ berry_data %>%
 
 Now that you've been introduced to `factor` data, you may have questions about, for example, how to add or subtract levels to a `factor`, or how to reorder those levels.  Please consult the [R4DS chapter on factors](https://r4ds.had.co.nz/factors.html) [@wickham2017] to learn more--it is easy but slightly fiddly.  And now, if you encounter weird effects in your treatment of string data, you'll know why!
 
-# Analysis of variance (ANOVA)
+## Analysis of variance (ANOVA)
 
 Now that we've introduced a new type of data in `R`, let's justify it's use!  Often, we want to explain the variation in a (continuous) $y$ variable by the effect of a **categorical** $x$ variable--in base `R` like `lm()` these are usually treated (or coerced to) `factor` data.  Happily, unless we want to make changes to levels, we can let `R` handle this behind the scenes.
 
@@ -381,7 +369,7 @@ We are familiar with the LHS of this equation--our *estimate* for a particular, 
 
 This bit of mathiness can be rephrased intuitively as "our estimate of a particular $y$-value is the sum of the average of $y$ plus the average effect of the treatment variable $x$".  Even though this sounds like a different problem, it's actually our same equation from linear regression reframed for a situation in which $x$ can only take on a delimited set of values.  We have an example(s) of this in our `berry_data` set that will give us some context in this question.
 
-## One-way ANOVA
+### One-way ANOVA
 
 In its simplest form, ANOVA is used to relate a single outcome $y$ and a single predictor $x$.  We still have the implicit $i$ variable that links our pairs of observations $(x_i, y_i)$, but now $x_i \in \{x_1, x_2, ..., x_n\}$--it does not have an unlimted number of values it can take on, as it does in standard linear regression.  Thus, our $\beta$ from linear regression is replaced by a set of $\tau_k$ values that represent the average effect for each possible group $x_i$ can be in.  But we could as easily write $\beta_k$--the meaning is the same.  It is just convention.
 
@@ -419,7 +407,7 @@ summary(berry_aov_2)
 
 The proper way to report this kind of model is "there was a significant effect of berry type on overall liking as measured by an unstructured line scale".
 
-## Posthoc testing
+### Posthoc testing
 
 In ANOVA, we typically are interested in whether there are significant differences *among* our treatment levels: sure, we have estimates for $\tau_{strawberry}$, $\tau_{raspberry}$, etc, but are they actually different from each other?
 
@@ -439,7 +427,7 @@ All of these methods have various responses to the problem of familywise error: 
 
 I will say this: **do not use Fisher's LSD**.  It is frequently used in published papers, and it is very very prone to this kind of error.  While there is no perfect approach, Tukey's HSD (and other methods) are less likely to give this kind of false positive.  
 
-## Plotting ANOVA results
+### Plotting ANOVA results
 
 Because ANOVA is based on categorical data, it doesn't look very good to plot that data in scatterplots.  Generally, boxplots or barplots will be the most effective visual representation of data from ANOVA.  The following visualizations were adapted to some degree from [Philipp Masur's blog](https://philippmasur.de/2018/11/26/visualizing-interaction-effects/):
 
@@ -472,7 +460,7 @@ berry_data %>%
   theme_classic()
 ```
 
-## Resampling approaches to ANOVA
+### Resampling approaches to ANOVA
 
 We actually learned about resampling approaches to ANOVA in last class, but let's take a quick look at how we can modify our regression approach to get a better alternative to our posthoc tests.
 
@@ -508,7 +496,7 @@ bootstrapped_means %>%
             `95%` = quantile(mean_liking, 0.95))
 ```
 
-# Incorporating multiple predictors
+## Incorporating multiple predictors
 
 As a tease of our material for next week, we can always include multiple predictors in linear regression and ANOVA.  This lets us simultaneously estimate the effect of multiple predictors on some outcome.  So, just for fun, let's estimate the effect of berry type and subject age on over all berry liking.
 
@@ -529,4 +517,4 @@ berry_data %>%
 
 Often, when model multiple regression and ANOVA, we are not only interested in predicting $y$, but in determining which different $x$s *matter*.  This is the topic we will explore next week!
 
-# References {-}
+## References {-}

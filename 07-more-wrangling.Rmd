@@ -1,23 +1,10 @@
----
-title: "9 - Further wrangling"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
+# Advancing our wrangling
 
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(message = FALSE)
 library(tidyverse)
 library(tictoc)
 ```
-
-
-# Introduction
 
 The week after Spring Break is a good time for wrapping up loose ends and taking a breath.  The goal for this week is to go over some final loose ends for data wrangling and basic exploration, then to pivot to your presentation of your first data analysis projects.  Following this week we're going to be turning to (statistical) inference and modeling, while of course continuing to struggle with and develop skills in data wrangling and visualization.  So today we have a bit of a hodgepodge.
 
@@ -70,11 +57,11 @@ head(tidy_cider_cata) %>% kableExtra::kable() %>% kableExtra::kable_styling(full
 head(tidy_cider_liking) %>% kableExtra::kable() %>% kableExtra::kable_styling(full_width = FALSE)
 ```
 
-# Review of control flow
+## Review of control flow
 
 Control flow, as we've learned since we first covered it, is at the heart of coding for research.  Being able to automate choices (conditional logic, like `if` statements) and iterations (loops, like `for` loops) is where much of the power in coding lies.  However, these ideas aren't necessarily intuitive or clear at first, and so I think we will all benefit from a brief review.  This is especially true today, because we're going to talk about some approaches that build on the basic intuitions of control flow to accomplish more, more quickly.
 
-## Loops
+### Loops
 
 Loops, or more formally, [iteration](https://r4ds.had.co.nz/iteration.html), are one of the key "computers are good at this" tasks.  A loop is a line or lines of code that we want to execute repeatedly, often changing some part of the input of the code.  For example, we might want to use a vector of $x$-values as input to some function $f(x)$ and save all of the results.  Rather than repeatedly cutting and pasting the $f(x)$ for each $x$, we can write a `for` loop that feeds each $x$ into the function.  For a trivial example, we might want to get the results of $f(x) = \frac{1}{sin^2(x)}$ for $x = (1, 2, 5, 10)$.  We could write:
 
@@ -101,7 +88,7 @@ We have two basic loops available to us in R: `for` and `while` loops.  In gener
 
 A key thing to remember about loops is that any variable created within the loop will be overwritten every time the loop re-executes.  Therefore, you must either create a space to store the output of the loop or be executing the code for its "side effects".
 
-### `for` loop review
+#### `for` loop review
 
 Recall that the syntax for a `for` loop requires you to set some sort of counter or **index**, which defines the number of iterations.  In a real experiment, a common index might be the experimental units or treatments.  In our cider data for today, we have 6 ciders as experimental treatments, and 56 subjects as experimental units.  A legitimate question we could ask about the CATA data is:
 
@@ -129,7 +116,7 @@ attributes_checked
 
 If we really wanted these results (and remember that there are better ways to get them, such as the `group_by()` and `summarize()` workflow), we would want to create a vector or dataframe to store each iteration's results into.
 
-### `while` loop review
+#### `while` loop review
 
 On the other hand, `while` loops execute repeatedly until the condition in the loop is `FALSE`.  So, for example, the following loop would run infinitely, requiring you to force-stop the loop in the console:
 
@@ -143,7 +130,7 @@ This seems really useless, but, especially in simulations, we might want to be a
 
 Briefly, `while` loops are in fact more general versions of `for` loops--any `for` loop can be rewritten as a `while` loop, but the reverse is untrue (for example, the trivial infinite loop above cannote be rewritten as a `for` loop).  We could, however, use the `break` command with some conditional to break out of an infinite loop to replicate the `for` loop above as a `while` loop.
 
-## Conditionals
+### Conditionals
 
 Often, we want to have our code make simple decisions for us.  We want to be able to execute one kind of code in some conditions, and another in other conditions.  This is where `if` (and the helper `else`) statements come in handy.
 
@@ -159,7 +146,7 @@ for(i in 1:nrow(tidy_cider_liking)){
 
 Again, this is a kind of trivial example; a better approach would be to use indexing (either directly, using `[]` or using the tidyverse `filter()`), but it demonstrates the basic workflow.  Often, we'll use `if` statements programmatically in order to write functions that can make basic decisions 
 
-# Using vectorization in R
+## Using vectorization in R
 
 If you dig into the help posts on StackExchange/Overflow, you'll frequently run across solutions using "*vectorized*" approaches, and explanations of speed improvements (for complex tasks) that recommend vectorization over loops.  While the specifics of vectorization are beyond the scope of this class (and, indeed, beyond my ability to explain clearly or accurately), the basic concept isn't hard: R is built around the idea of efficiently applying transformations to vectorized data, whereas loops like `for` and `while` break down vectors into each of their elements and then apply transformations to each element.  I think that an analogy would be something like this:
 
@@ -185,7 +172,7 @@ Why doesn't everyone just learn the vectorized approaches off the bat, then?  We
 
 In coding for research, we often just need our code to run correctly and reproducibly--we don't care as much about efficiency.  So briefly learning about vectorization is important, because it may become necessary, but it may also be something you just need to recognize, rather than be able to produce effectively on your own.
 
-## `tidyverse` approaches: `map()` family
+### `tidyverse` approaches: `map()` family
 
 Usually we start our discussion with base R functions and then move on the simpler-but-require-loading-a-package `tidyverse` functions.  In this case, however, we're going to do the reverse, because I think that the `purrr::map()` family of functions is so much simpler and easier to understand than the base R functions that I think the concept will be much clearer.
 
@@ -239,7 +226,7 @@ cider_liking %>%
 
 There are equivalent versions for all the standard data types in R.  There are also more exotic versions that return data frames, or that use conditional logic (`map_if()`), but I am not going to cover these here.
 
-### Anonymous functions
+#### Anonymous functions
 
 In the example above, we used `mean()` as the function we passed to `map()`.  But what if you wanted to do something that isn't already a named function?  For example, what if you want to get all numbers greater than the mean liking of each column?  This isn't a pre-defined function.  The first option we might think of is that we can write such a function, give it a name, and then use `map()` to apply it:
 
@@ -275,7 +262,7 @@ In this notation, `~` takes the place of `function(x)`, and `.x` takes the place
 
 I suggest reading the documentation for `map()` as well as the relevant sections in [R4DS (21.5-21.8)](https://r4ds.had.co.nz/iteration.html#the-map-functions) if you're interested in this subject.  `map()` and its family are very powerful, although they can be difficult to get the hang of at first.  
 
-## Base R approaches: `apply()` family
+### Base R approaches: `apply()` family
 
 Unfortunately, if you think `map()` is a little hard to learn, the base R approach is not necessarily going to be easier.  The base R approach to vectorization involves the `apply()` function and its related cousins.  I'll just mention two: `lapply()`--which is meant to signifify "**l**ist `apply()`", and base `apply()`.
 
@@ -306,7 +293,7 @@ You will also see other versions of these: `sapply()`, `vapply()`, `tapply()`, e
 
 These functions are powerful but not necesssarily intuitive.  You will encounter them in help files and when searching for answers, and you can learn to use them, but I wouldn't necessarily recommend them as your first solution.
 
-# Relational data
+## Relational data
 
 Often, our datasets will include multiple data tables that give different information about related (or the same) samples, observations, etc.  A common example might be in survey responses: you might have one table of the survey responses for each question, identified by the respondent.  Then you might have a second table of demographic attribtues for each respondent.  In this case, the respondent is the **key variable**--it links the table of responses to the table of demographics.  You could somehow use this relationship to understand, for example, the average responses to each question on a demographic category basis.
 
@@ -330,14 +317,14 @@ I like the typology of merging data that is given in [Stat 545](https://stat545.
 * Bind--this involves just taking 2 (or more) data frames of the same dimension and smashing them together.  This is a naive-but-easy approach to merging data tables, and it is something to be used with caution if you use it at all.  This relies on you to get it right by manually ordering the rows or columns, and if you don't there won't be any warning when things are incorrect.  An easy way to screw up your analysis.
 * Join/Lookup--these terms come from database management, and rely on setting a variable(s) that uniquely identifies cases (rows) to produce a new table.  These are better because they will fail in predictable ways if your data don't actually match.
 
-## `*bind()` functions
+### `*bind()` functions
 
 R provides two base functions for merging rectangular data:
 
 1. `rbind()`: add together two or more tables on a row-wise basis.  This in essence "stacks" the data.  
 2. `cbind()`: add together two or more tables on a column-wise basis.  This in essence "lines up" the tables side by side. 
 
-### row binding
+#### row binding
 
 If our data is in wide format, we usually have one row per case/subject/sample, with multiple variables in the column.  If our data is in long/tidy format, we usually have one observation per row.  In either case, if we wanted to add together two tables row-wise, we would usually be **adding new observations.**  
 
@@ -383,7 +370,7 @@ tidy_cider_liking %>%
 
 The `tidyverse` equivalent of `rbind()` is `dplyr::bind_rows()`, which adds some functionality and is efficient for large dataframes. 
 
-### column binding {#cbind}
+#### column binding {#cbind}
 
 Column binding, using the `cbind()` function, is generally used when we want to **add new variables** to our data set (rather than new observations).  This makes it a riskier task, because we have to assume that the *order of our new columns is the same as our old columns*.
 
@@ -445,7 +432,7 @@ Yikes.  You can see how a careless mistake (which, again, *will not cause R to g
 
 FWIW, the `tidyverse` equivalent and improvement to `cbind()` is `dplyr::bind_cols()`.
 
-## `*_join()` functions
+### `*_join()` functions
 
 Wouldn't it be nice if there were a way to avoid this kind of problem?  What a loaded question!
 
@@ -485,7 +472,7 @@ I can't recommend enough the diagrams that Hadley @wickham2017 provides in R4DS-
 
 We will look at the most common example of each in my workflow.
 
-### mutating joins with `left_join()`
+#### mutating joins with `left_join()`
 
 A left join looks up each unique key in X, finds the *first match* for that key in Y, and then adds all the columns from Y to X in the order that matches the columns in X.  If there is no match for a particular key in X, the join will create an empty (`NA`) field.  This is the most common case for joining, and it is what we were trying to accomplish with our [column binding example above.](#cbind)
 
@@ -529,7 +516,7 @@ Note that we now have equivalent data structures--we could have gotten either of
 
 ![Another way to look at joins from @wickham2017](https://d33wubrfki0l68.cloudfront.net/aeab386461820b029b7e7606ccff1286f623bae1/ef0d4/diagrams/join-venn.png)
 
-### filtering joins with `anti_join()`
+#### filtering joins with `anti_join()`
 
 Filtering joins let you use a Y table as a reference for selecting **rows**--rather than columns--from X.  In the case of `anti_join()`, as the name implies, this removes all rows from X that match the keys in Y.  
 
@@ -550,28 +537,28 @@ tidy_cider_cata %>%
 
 Note that in both cases we see the number of rows go down as these rows are removed through `anti_join()`.  We also see that we can keep a table that is separate and refer to it--this is useful if we programmatically update it (say we are always keeping a "do not serve" list) and for clarity in coding.
 
-### other joins
+#### other joins
 
 For a more complete documentation of other joins, I once again recommend the R4DS section or checking out `?left_join`.
 
-# Writing readable and reproducible scripts
+## Writing readable and reproducible scripts
 
 Finally, it's a good time to revisit some principles for writing scripts and R Markdowns that will work well in the future.  We'll keep this brief and use the headers as discussion points, rather than exhaustive explorations.
 
-## Comments
+### Comments
 
 In general, when we are coding we are very focused on the problem at hand.  We'll try a bunch of stuff, and then go with what works.  But our solutions are often not clear from the code itself.  Use `#` in order to provide comments in the code itself, explaining what each chunk or line does.  Especially if you've written something compact and clever, like the `map()` functions above, it may require a lot of effort for someone else (or your future self) to interpret.  Comments will help your code be useful for longer.
 
-## Whitespace
+### Whitespace
 
 R is very generous about whitespace; it doesn't enforce conventions around it.  But, as we learned in week 1, writing crazily spaced code is hard to read and makes your code difficult to audit.  This is even a problem with very accomplished programmers; I recommend anyone take a look at the R code in Richard @mcelreath2020's wonderful book, which is very difficult to parse because of his arbitrary spacing and his use of uninformative variable names.
 
-## Use informative variable names
+### Use informative variable names
 
 ...speaking of which, why not help yourself and others out and use variable names that are meaningful?  In older coding languages, there were limits on lengths and characters for names, so people would use conventions like "CamelCaps" and "abbrvtns".  This isn't necessary with R, and it can make complicated commands hard to follow.  If you're coding for research, don't do this!
 
-## Running from scratch
+### Running from scratch
 
 Most importantly, before you turn in assignments to me or save a project that you are done with for the moment, make sure the script/Markdown runs from scratch.  Sometimes, if you're working between the console and a script, or between multiple scripts, it's easy to create variables or run analyses without actually writing them into your script.  Or maybe you are working out of order.  Restarting R, clearing all memory, and making sure it can run from the first to the last line will make sure your work survives and is reproducible.
 
-# References {-}
+## References {-}

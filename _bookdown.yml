@@ -6,4 +6,10 @@ rmd_files: ["index.Rmd",
             "02-Packages-and-Markdown.Rmd", 
             "03-control-flow.Rmd",
             "04-data-wrangling.Rmd",
-            "05-exploratory-dataviz.Rmd"]
+            "05-exploratory-dataviz.Rmd",
+            "06-descriptive-stats.Rmd",
+            "07-more-wrangling.Rmd",
+            "08-intro-to-inference.Rmd",
+            "09-linear-model.Rmd",
+            "10-multiple-factors.Rmd",
+            "11-data-literacy.Rmd"]

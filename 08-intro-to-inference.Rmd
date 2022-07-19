@@ -1,14 +1,4 @@
----
-title: "10 - Introducing inference"
-author: "JL"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    number_sections: yes
-bibliography: "Files/lecture bibliography.bib"
----
+# Inference from data
 
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(message = FALSE)
@@ -18,8 +8,6 @@ set.seed(10)
 tomato_salmonella <- readxl::read_excel("Files/Week 10/Thesis Data Mastersheet.xls", range = "A6:I78") %>% fill(`Time (sec)`)
 ```
 
-# Introduction
-
 Welcome back!  I know everyone has just been counting the days to get back in the classroom.  Me too!
 
 This week we're going to be starting on the second half of the class, in which we move from the basics of *how* to code for research--learning how R works, learning basic concepts of control flow and data wrangling--to the *why* of our coding work: analyzing data.  This will be the focus of the rest of the class!  In the last few weeks you actually started to learn a lot about how to do exploratory and descriptive data analysis: how to make basic, useful exploratory plots, how to generate summaries of data that tell you something about what you've got.  You also have spent some time putting together your first data-analysis report, which made use of those skills.
@@ -27,7 +15,7 @@ This week we're going to be starting on the second half of the class, in which w
 So this week we will start with a summary of what **inferential** data analysis is, and why we might want to employ it in our work.  We'll start off with an application to motivate the discussion: looking at some data from Michael Wesolowski's thesis on _Salmonella_ inhibition with ethanol vapor.  Then, we'll step back and talk about how small experiments like this one can be used for *inferring* knowledge about more general situations.  We'll talk about heuristic (traditional) statistical approaches and resampling approaches to inference.  Finally, we'll talk about the counterexample of how we usually learn and think about statistical inference in science, and how it contrasts with what we're doing here.
 
 
-# Motivation: inference from experiments
+## Motivation: inference from experiments
 
 Today we're going to work with a subset of data from Michael Wesolowski's 2017 thesis work on the effect of ethanol vapor on *Salmonell* spp. on produce.  Michael ran a number of experiments, but we are going to consider just the experiment on the effect of *exposure time* on *Salmonella* CFUs on tomatoes.  This is the first column of data in the `Thesis Data Mastersheet.xls` data file which you can download from a few places on Canvas, in particular the `Files/Week 10` directory in the course setup package.
 
@@ -54,13 +42,13 @@ We have two questions we might want to answer from this simple example:
 
 Let's use what we've learned about simulation and random sampling to answer each of these questions using a *coding* approach, and then circle back to a *statistical heuristic* approach.
 
-# "A resampling approach" to statistics
+## "A resampling approach" to statistics
 
 Today we are going to learn some approaches to thinking about inference with data that don't rely on assumptions about formula or rules.  These are called "resampling" approaches to statistics, and they instead rely on us being a bit clever about using computational power to do simulations onour datasets.  This sounds fancy and intimidating, and I am pleased to say that while it may be a little bit alien, it is not!
 
 As a caveat, however, I will note that we are going to just learn about the basics of these approaches today (and in this class in general).  There are whole books on this topic, and more sophisticated simulationist approaches like Bayesian statistics are going to be the most precise and powerful models [for example see @mcelreath2020].  My hope is that giving you a taste of a simulationist approach shows you how powerful *you* are once you know the basics of coding for research!
 
-## Confidence intervals around group means (the "bootstrap")
+### Confidence intervals around group means (the "bootstrap")
 
 The first questions we have is about our sample means, which are "point estimtes" for the actual, population mean.  What am I saying here?  Well, let's take a minute to unpack the idea of a *point estimate*, and then apply it to our example.
 
@@ -97,7 +85,7 @@ Even though our samples are coming from the exact same population, they have dif
 
 To conclude: even when we are sampling from a perfectly defined and known population, our samples will only *approximate* that population.  But in the long term, if we draw enough samples they will end up *in the limit* being unbiased approximations.  Armed with that knowledge, let's return to our example.
 
-### A bootstrapping example
+#### A bootstrapping example
 
 In this example, for each exposure-time treatment, we have 18 observations (with some more internal replication structure that we will ignore here).  Thus, when we calculate our point-estimate summary statistics, we are basing that estimated group mean (or SD or whatever) on those 18 observations.  But how would it change if we had 18 *other* observations?  What we *know* is our sampling-error biased mean, and what we want to get a better picture of is the population these means came from.  In our explanation above, what this is equivalent to is trying to infer the shape of the normal distribution with only 1 of the 100-sample draws (that we showed were full of errors).  How can we do this?
 
@@ -173,7 +161,7 @@ summary(booted_means)
 
 This tells us that, while our results are significant, we should have some caution in making strong inferences about a time-order effect.  As responsible scientists, reporting these kinds of ranges will be very valuable for our audiences, letting them understand the *context* in which our reported results originate.
 
-### Advantages of the bootstrap
+#### Advantages of the bootstrap
 
 You may ask yourself why do this kind of work to generate a confidence interval, when we already have a formula for that: $CI = \bar{x} ± 1.96*se$, where $se = \sigma/\sqrt{n}$ is the standard error of the mean.  We can alter this for small samples by replacing $1.96$ with the 95th-percentile value for the appropriate $t$-distribution.  But this approach assumes that you understand the underlying random ("stochastic") process that generates your data--this is called a **parametric** approach because it assumes that you know the function and parameters (the normal distribution) that generates your observations.
 
@@ -213,7 +201,7 @@ This is plainly not data drawn from a normal distribution.
 
 The advantage of the bootstrap is that it is *nonparametric*: it makes no assumptions about how the data are generated and works equally well for any kind of statistic or any kind of data.  It just requires writing some pseudocode to properly generate the loop, and then you have an *empirical* distribution for your data.  Neat!
 
-## Is that difference important (permutation tests)?
+### Is that difference important (permutation tests)?
 
 So far we have used resampling to mostly answer questions about our point-estimates: how reliable and stable are our sample statistics?  But when we think about *inference*, we usually are trying to connect a cause to an effect.  In our example, we might want to ask questions like:
 
@@ -222,7 +210,7 @@ So far we have used resampling to mostly answer questions about our point-estima
 
 These are the kinds of questions that lead to testable hypotheses.  In future classes, we are going to touch on models of statistical analysis like the **linear model** which give us formulas to deal with these questions.  In particular, we might use **ANOVA** (**AN**alysis **O**f **VA**riance) to answer #1, and **linear regression** to answer the second question.  But today we're going to just use some raw computational power to do so.
 
-### Does ethanol vapor reduce the number of CFUs on the surface of tomatoes?
+#### Does ethanol vapor reduce the number of CFUs on the surface of tomatoes?
 
 We already know that we have a total of 72 observations in our dataset, with 18 for each treatment.  That means in one treatment we have no ethanol exposure, and we have increasing duration of ethanol-vapor exposure in the other treatments.  Let's calculate our point-estimates of the mean log CFUs for each treatment again:
 
@@ -327,7 +315,7 @@ This approach is a specific application of that given by @bruce2017 [p. 89, with
 5. Repeat steps 2-5 some large number of times (often 1000, but it can be done more if you have the time and computational power)
 6. Compare the distribution of permuted results to your observed results
 
-### Are the differences among our treatments meaningful?
+#### Are the differences among our treatments meaningful?
 
 We don't just care about a single treatment--we are interested in whether these is meaningful variation among all of our treatments.  We are going to end today with a preview of the approach we can take towards this question, with a resampling/permutation approach to **ANOVA**.  
 
@@ -364,7 +352,7 @@ It is very apparent that the between-group variation in our real sample is much 
 
 As a final note, our permutation approach here does not require any of the assumptions that ANOVA typically makes.  It does not matter that (as we showed above) our data is very non-normal.  Instead, we have just reasoned out a way to examine sources of variation and compare them without making any assumptions of how or why our data is shaped how it is.  However, please do note that working out these permutations for complex designs is quite difficult, and often computationally expensive.  When your designs become more complex, better-designed models for simulation like Bayesian approaches [@mcelreath2020] will work much better!
 
-# What do we know about statistics?
+## What do we know about statistics?
 
 Finally, as we move into inference, I want to quickly review some ideas about statistical inference for scientific research that we typically take for granted.
 
@@ -405,4 +393,4 @@ These types of charts, and the statistical tests they lead to, are the result of
 
 So, on that note, and with what we've learned today, I look forward to trying out applications of this code with you on Thursday!
 
-# References {-}
+## References {-}
