@@ -505,53 +505,53 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td align="right">0.0000000</td>
-<td align="right">2.0682589</td>
-<td align="right">4.5344593</td>
+<td align="right">-1.8657872</td>
+<td align="right">0.3836563</td>
 </tr>
 <tr class="even">
 <td align="right">0.1010101</td>
-<td align="right">-0.5107589</td>
-<td align="right">6.9360219</td>
+<td align="right">2.0983197</td>
+<td align="right">11.0932355</td>
 </tr>
 <tr class="odd">
 <td align="right">0.2020202</td>
-<td align="right">0.4720956</td>
-<td align="right">4.8988215</td>
+<td align="right">-2.5495845</td>
+<td align="right">3.3347217</td>
 </tr>
 <tr class="even">
 <td align="right">0.3030303</td>
-<td align="right">-0.3000479</td>
-<td align="right">0.0306867</td>
+<td align="right">-0.0182186</td>
+<td align="right">17.8533560</td>
 </tr>
 <tr class="odd">
 <td align="right">0.4040404</td>
-<td align="right">1.3924595</td>
-<td align="right">-1.2062444</td>
+<td align="right">0.4889473</td>
+<td align="right">5.9810998</td>
 </tr>
 <tr class="even">
 <td align="right">0.5050505</td>
-<td align="right">2.0274664</td>
-<td align="right">6.6145562</td>
+<td align="right">-0.3673802</td>
+<td align="right">4.1581445</td>
 </tr>
 <tr class="odd">
 <td align="right">0.6060606</td>
-<td align="right">0.2755515</td>
-<td align="right">1.9985821</td>
+<td align="right">0.6102208</td>
+<td align="right">-7.1973778</td>
 </tr>
 <tr class="even">
 <td align="right">0.7070707</td>
-<td align="right">-0.1746053</td>
-<td align="right">1.8200248</td>
+<td align="right">1.4773892</td>
+<td align="right">-0.9214029</td>
 </tr>
 <tr class="odd">
 <td align="right">0.8080808</td>
-<td align="right">-0.6239426</td>
-<td align="right">19.0606150</td>
+<td align="right">-0.4066367</td>
+<td align="right">-0.7430923</td>
 </tr>
 <tr class="even">
 <td align="right">0.9090909</td>
-<td align="right">2.3611370</td>
-<td align="right">13.4974901</td>
+<td align="right">2.2441730</td>
+<td align="right">-2.3167009</td>
 </tr>
 </tbody>
 </table>
@@ -1798,10 +1798,10 @@ div.csl-indent {
 <p><code>ggplot2</code> has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it. You can also build your own scales using the <code>scale_*_manual()</code> functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment. That sounds jargon-y, so here is an example:</p>
 <div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="exploring-your-data-visually.html#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll pick 14 random colors from the colors R knows about</span></span>
 <span id="cb524-2"><a href="exploring-your-data-visually.html#cb524-2" aria-hidden="true" tabindex="-1"></a>random_colors <span class="ot">&lt;-</span> <span class="fu">print</span>(<span class="fu">colors</span>()[<span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">colors</span>()), <span class="at">size =</span> <span class="dv">14</span>)])</span></code></pre></div>
-<pre><code>##  [1] &quot;grey76&quot;        &quot;powderblue&quot;    &quot;steelblue3&quot;    &quot;lavenderblush&quot;
-##  [5] &quot;deeppink2&quot;     &quot;grey79&quot;        &quot;orchid1&quot;       &quot;gray14&quot;       
-##  [9] &quot;gold&quot;          &quot;darkorchid2&quot;   &quot;navajowhite&quot;   &quot;gray74&quot;       
-## [13] &quot;slategray3&quot;    &quot;grey28&quot;</code></pre>
+<pre><code>##  [1] &quot;coral3&quot;        &quot;mediumorchid2&quot; &quot;grey50&quot;        &quot;maroon3&quot;      
+##  [5] &quot;cyan2&quot;         &quot;gray42&quot;        &quot;grey86&quot;        &quot;grey88&quot;       
+##  [9] &quot;firebrick1&quot;    &quot;firebrick&quot;     &quot;lightsalmon2&quot;  &quot;plum3&quot;        
+## [13] &quot;darkorange&quot;    &quot;grey40&quot;</code></pre>
 <div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="exploring-your-data-visually.html#cb526-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> </span>
 <span id="cb526-2"><a href="exploring-your-data-visually.html#cb526-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> random_colors)</span></code></pre></div>
 <p><img src="05-exploratory-dataviz_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>

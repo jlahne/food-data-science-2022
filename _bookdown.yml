@@ -13,3 +13,4 @@ rmd_files: ["index.Rmd",
             "09-linear-model.Rmd",
             "10-multiple-factors.Rmd",
             "11-data-literacy.Rmd"]
+output_dir: "docs"

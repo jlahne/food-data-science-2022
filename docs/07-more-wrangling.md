@@ -570,7 +570,7 @@ toc()
 ```
 
 ```
-## 0.001 sec elapsed
+## 0.002 sec elapsed
 ```
 
 ```r

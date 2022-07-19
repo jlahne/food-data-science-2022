@@ -200,7 +200,7 @@ read.csv
 ##     fill = TRUE, comment.char = "", ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## <bytecode: 0x7fc563774390>
+## <bytecode: 0x7fbed1ad0990>
 ## <environment: namespace:utils>
 ```
 
@@ -718,18 +718,18 @@ tibble(x = 1:10,
 
 ```
 ## # A tibble: 10 × 3
-##        x      y z    
-##    <int>  <dbl> <chr>
-##  1     1 0.0682 a    
-##  2     2 0.673  b    
-##  3     3 0.325  c    
-##  4     4 0.935  d    
-##  5     5 0.0501 e    
-##  6     6 0.527  f    
-##  7     7 0.872  g    
-##  8     8 0.500  h    
-##  9     9 0.454  i    
-## 10    10 0.786  j
+##        x     y z    
+##    <int> <dbl> <chr>
+##  1     1 0.403 a    
+##  2     2 0.689 b    
+##  3     3 0.342 c    
+##  4     4 0.126 d    
+##  5     5 0.167 e    
+##  6     6 0.113 f    
+##  7     7 0.224 g    
+##  8     8 0.148 h    
+##  9     9 0.566 i    
+## 10    10 0.407 j
 ```
 
 ### Pick columns: `select()` {#select}

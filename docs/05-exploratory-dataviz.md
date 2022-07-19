@@ -48,16 +48,16 @@ For example, **what patterns can we see in this table of the data we just plotte
 
 |         x|         y1|         y2|
 |---------:|----------:|----------:|
-| 0.0000000|  2.0682589|  4.5344593|
-| 0.1010101| -0.5107589|  6.9360219|
-| 0.2020202|  0.4720956|  4.8988215|
-| 0.3030303| -0.3000479|  0.0306867|
-| 0.4040404|  1.3924595| -1.2062444|
-| 0.5050505|  2.0274664|  6.6145562|
-| 0.6060606|  0.2755515|  1.9985821|
-| 0.7070707| -0.1746053|  1.8200248|
-| 0.8080808| -0.6239426| 19.0606150|
-| 0.9090909|  2.3611370| 13.4974901|
+| 0.0000000| -1.8657872|  0.3836563|
+| 0.1010101|  2.0983197| 11.0932355|
+| 0.2020202| -2.5495845|  3.3347217|
+| 0.3030303| -0.0182186| 17.8533560|
+| 0.4040404|  0.4889473|  5.9810998|
+| 0.5050505| -0.3673802|  4.1581445|
+| 0.6060606|  0.6102208| -7.1973778|
+| 0.7070707|  1.4773892| -0.9214029|
+| 0.8080808| -0.4066367| -0.7430923|
+| 0.9090909|  2.2441730| -2.3167009|
 
 When visualizing data *for yourself*, the goal is to quickly and accurately be able to make plots that you want to see, so that you're not fiddling with options or struggling to actually see the data.  You aren't looking for "publication quality" visualization--you want to be able to look at your data clearly and quickly.
 
@@ -742,10 +742,10 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 14)])
 ```
 
 ```
-##  [1] "grey76"        "powderblue"    "steelblue3"    "lavenderblush"
-##  [5] "deeppink2"     "grey79"        "orchid1"       "gray14"       
-##  [9] "gold"          "darkorchid2"   "navajowhite"   "gray74"       
-## [13] "slategray3"    "grey28"
+##  [1] "coral3"        "mediumorchid2" "grey50"        "maroon3"      
+##  [5] "cyan2"         "gray42"        "grey86"        "grey88"       
+##  [9] "firebrick1"    "firebrick"     "lightsalmon2"  "plum3"        
+## [13] "darkorange"    "grey40"
 ```
 
 ```r

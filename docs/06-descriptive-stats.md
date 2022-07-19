@@ -40,18 +40,18 @@ slice_sample(cider_dryness, n = 10) %>% knitr::kable()
 
 
 
-|Sample_Name    |Panelist_Code    |Panelist_Name    |Panelist_Display_Name |Panelist_Email         | Dryness| Liking|
-|:--------------|:----------------|:----------------|:---------------------|:----------------------|-------:|------:|
-|1911 Chilled   |lukes17_vtu      |Luke Shanholtz   |Luke                  |lukes17@vt.edu         |     3.5|      7|
-|Eden Chilled   |blittleson_vtu   |Brenna Littleson |NA                    |blittleson@vt.edu      |     2.0|      2|
-|Buskey Chilled |drsoffa20_vtu    |NA               |NA                    |drsoffa20@vt.edu       |     3.7|      8|
-|Eden RT        |rebekahm20_vtu   |NA               |NA                    |rebekahm20@vt.edu      |     3.2|      4|
-|1911 Chilled   |ejcole_vtu       |Elizabeth Cole   |Elizabeth             |ejcole@vt.edu          |     1.0|      5|
-|Eden Chilled   |jkess_vtu        |Julia Kesselring |Julia                 |jkess@vt.edu           |     1.0|      1|
-|Eden Chilled   |noahsmith319_vtu |Noah Smith       |Noah                  |noahsmith319@gmail.com |     4.3|      6|
-|Eden RT        |vturesearch001   |NA               |NA                    |NA                     |     4.3|      4|
-|Buskey Chilled |sophiedrew_vtu   |Sophie Drew      |Sophie                |sophiedrew@vt.edu      |     1.7|      7|
-|Eden Chilled   |emilyey6_vtu     |Emily Yando      |Emily                 |emilyey6@vt.edu        |     2.6|      3|
+|Sample_Name    |Panelist_Code        |Panelist_Name    |Panelist_Display_Name |Panelist_Email          | Dryness| Liking|
+|:--------------|:--------------------|:----------------|:---------------------|:-----------------------|-------:|------:|
+|Buskey Chilled |kwater_vtu           |Kim Waterman     |Kim                   |kwater@vt.edu           |     3.5|      7|
+|Buskey RT      |dhsawhney_vtu        |Dhruv Sawhney    |Dhruv                 |dhsawhney@vt.edu        |     3.6|      6|
+|Buskey Chilled |vturesearch002       |NA               |NA                    |NA                      |     4.0|      7|
+|Eden RT        |mswright@vt.edu      |Melissa Wright   |Melissa               |mswright@vt.edu         |     2.3|      4|
+|Eden Chilled   |kgillespie599_vtu    |Kelli Gillespie  |Kelli                 |kgillespie599@vt.edu    |     2.5|      4|
+|1911 RT        |marshallbrooks99_vtu |Marshall Brooks  |Marshall              |marshallbrooks99@vt.edu |     4.1|      8|
+|Eden RT        |noahsmith319_vtu     |Noah Smith       |Noah                  |noahsmith319@gmail.com  |     2.3|      8|
+|Eden RT        |jkess_vtu            |Julia Kesselring |Julia                 |jkess@vt.edu            |     3.9|      8|
+|Eden RT        |kwater_vtu           |Kim Waterman     |Kim                   |kwater@vt.edu           |     3.5|      6|
+|1911 Chilled   |lukes17_vtu          |Luke Shanholtz   |Luke                  |lukes17@vt.edu          |     3.5|      7|
 
 ## Review exercise: How did I import these datasets?
 
@@ -69,13 +69,13 @@ slice_sample(apples, n = 5) %>% knitr::kable()
 
 
 
-|Variety        |Rep   |  His|   Asn|  Ser|  Gln|  Arg|  Gly|  Asp|  Glu|  Thr|  Ala| GABA|  Pro|  Cys|  Lys|  Tyr|  Met|  Val|  Ile|  Leu|   Phe|
-|:--------------|:-----|----:|-----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|-----:|
-|Northern Spy   |Rep_1 | 0.51|  2.52| 0.17| 0.00| 0.23| 0.00| 1.60| 1.05| 0.35| 0.34| 0.00| 0.00| 0.35| 0.53| 1.24| 1.34| 1.52| 2.04| 1.25| 12.47|
-|York           |Rep_2 | 0.00| 13.62| 0.64| 1.12| 0.42| 0.07| 3.32| 1.84| 0.25| 0.46| 0.17| 0.00| 0.28| 0.44| 0.73| 1.02| 1.32| 1.68| 1.07|  3.43|
-|Winesap        |Rep_2 | 0.40|  4.97| 0.50| 1.13| 0.96| 0.00| 4.39| 2.74| 0.31| 0.74| 0.24| 0.28| 0.33| 0.59| 0.92| 1.20| 1.84| 1.95| 1.45|  4.34|
-|Newtown Pippin |Rep_1 | 0.33| 26.13| 1.01| 1.36| 0.67| 0.13| 5.14| 3.23| 0.57| 1.03| 0.54| 0.28| 0.36| 0.60| 0.94| 1.38| 0.85| 2.12| 1.39|  4.50|
-|Field Red      |Rep_3 | 0.32|  4.31| 0.30| 0.00| 0.48| 0.00| 1.98| 1.37| 0.21| 0.30| 0.15| 0.00| 0.36| 0.52| 1.11| 1.07| 1.73| 1.98| 1.78| 13.39|
+|Variety          |Rep   |  His|   Asn|  Ser|  Gln|  Arg|  Gly|  Asp|  Glu|  Thr|  Ala| GABA| Pro|  Cys|  Lys|  Tyr|  Met|  Val|  Ile|  Leu|   Phe|
+|:----------------|:-----|----:|-----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|---:|----:|----:|----:|----:|----:|----:|----:|-----:|
+|Golden Delicious |Rep_3 | 0.26|  1.02| 0.13| 0.00| 0.58| 0.00| 1.73| 0.97| 0.32| 0.26| 0.00|   0| 0.35| 0.52| 0.81| 1.00| 1.60| 1.59| 1.56| 12.49|
+|Northern Spy     |Rep_2 | 0.64|  2.47| 0.19| 0.00| 0.25| 0.00| 1.69| 1.10| 0.35| 0.39| 0.00|   0| 0.29| 0.45| 0.71| 0.91| 1.56| 1.99| 1.20| 13.11|
+|Rome             |Rep_1 | 0.36|  1.57| 0.20| 0.00| 0.43| 0.08| 1.23| 0.91| 0.34| 0.23| 0.00|   0| 0.33| 0.54| 0.80| 1.02| 1.63| 1.92| 1.46| 12.68|
+|Northern Spy     |Rep_1 | 0.51|  2.52| 0.17| 0.00| 0.23| 0.00| 1.60| 1.05| 0.35| 0.34| 0.00|   0| 0.35| 0.53| 1.24| 1.34| 1.52| 2.04| 1.25| 12.47|
+|York             |Rep_3 | 0.75| 13.67| 0.64| 1.05| 0.25| 0.07| 3.33| 1.84| 0.25| 0.46| 0.19|   0| 0.25| 0.47| 0.80| 1.08| 0.55| 1.50| 1.00|  3.49|
 
 ## What kind of data do you have?
 
@@ -656,13 +656,13 @@ cider_dryness %>%
 
 ```
 ## # A tibble: 5 × 7
-##   Sample_Name    Panelist_Code    Panelist_Name Panelis…¹ Panel…² Dryness Liking
-##   <chr>          <chr>            <chr>         <chr>     <chr>     <dbl>  <dbl>
-## 1 Eden RT        klbyrwa_vtu      <NA>          <NA>      klbyrw…     3.3      7
-## 2 Buskey Chilled peggylaynepe_vtu Peggy Layne   Peggy     peggyl…     2        7
-## 3 1911 Chilled   noahsmith319_vtu Noah Smith    Noah      noahsm…     1.8      4
-## 4 1911 Chilled   sok_vtu          Sean O'Keefe  Sean      sok@vt…     3.3      7
-## 5 Eden Chilled   taybenn_vtu      <NA>          <NA>      tayben…     2        7
+##   Sample_Name    Panelist_Code     Panelist_Name Paneli…¹ Panel…² Dryness Liking
+##   <chr>          <chr>             <chr>         <chr>    <chr>     <dbl>  <dbl>
+## 1 Eden RT        joshuabm_vtu      Joshua Mouser Joshua   joshua…     2.2      3
+## 2 Eden RT        cierrajames22_vtu Cierra James  Cierra   cierra…     1.2      3
+## 3 1911 Chilled   nalex98_vtu       <NA>          <NA>     nalex9…     4        7
+## 4 Buskey Chilled noahsmith319_vtu  Noah Smith    Noah     noahsm…     1.5      8
+## 5 Eden RT        klobeda_vtu       Katy Lobeda   Katy     klobed…     3        4
 ## # … with abbreviated variable names ¹​Panelist_Display_Name, ²​Panelist_Email
 ```
 
@@ -1382,7 +1382,7 @@ In R, we can get covariance between two variables by using the `cov()` function.
 ```
 
 ```
-## [1] -0.376665
+## [1] -0.4508431
 ```
 
 ```r
@@ -1467,7 +1467,7 @@ cor(apples$Asp, apples$Glu[sample(1:42)])
 ```
 
 ```
-## [1] -0.3678495
+## [1] -0.168038
 ```
 
 And, typically, we will generate correlation matrices instead:
