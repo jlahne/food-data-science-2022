@@ -26,7 +26,7 @@ Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" /
 <meta name="author" content="Jacob Lahne" />
 
 
-<meta name="date" content="2022-07-19" />
+<meta name="date" content="2022-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -499,7 +499,7 @@ div.csl-indent {
 <pre><code>## function (x, na.rm = FALSE) 
 ## sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 ##     na.rm = na.rm))
-## &lt;bytecode: 0x7fcf2ccd79d8&gt;
+## &lt;bytecode: 0x7fa7690a9ae8&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <p>While that’s not pretty, we can actually learn a lot from it–but don’t worry, I’m going to spare you for now. The main point here is that you can see some elements you’re probably starting to recognize: other R functions, <code>if()</code> and <code>else</code> statements… this is something we can examine.</p>
 <p>To return to our quasimathematical definition, we <em>also</em> can see that <code>sd()</code> takes some inputs and gives us some outputs.</p>
@@ -657,7 +657,7 @@ Now, when you start typing a function, you can</p>
 ##   (our_data - our_mean) / our_sd # remember that R will do vector math with scalars, so this &quot;recycles&quot; the scalars to the length of our_data
 ##   
 ## }
-## &lt;bytecode: 0x7fcf2962ee20&gt;</code></pre>
+## &lt;bytecode: 0x7fa7679db0f8&gt;</code></pre>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="control-flow-and-functions.html#cb282-1" aria-hidden="true" tabindex="-1"></a>make_it_normalized <span class="ot">&lt;-</span> <span class="cf">function</span>(our_data){</span>
 <span id="cb282-2"><a href="control-flow-and-functions.html#cb282-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb282-3"><a href="control-flow-and-functions.html#cb282-3" aria-hidden="true" tabindex="-1"></a>  our_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(our_data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># why do I set na.rm?</span></span>
@@ -1353,7 +1353,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-control-flow.Rmd",
+"link": "https://github.com/jlahne/food-data-science-2022/edit/BRANCH/03-control-flow.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -141,8 +141,8 @@ robotstxt("https://cocktailvirgin.blogspot.com")
 ##     spiderbar::can_fetch(obj = self$robexclobj, path = paths, 
 ##         user_agent = bot)
 ## }
-## <bytecode: 0x7fca689c3200>
-## <environment: 0x7fca689c2668>
+## <bytecode: 0x7fd21d4f36d0>
+## <environment: 0x7fd21d4f2b38>
 ## 
 ## attr(,"class")
 ## [1] "robotstxt"

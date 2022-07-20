@@ -19,6 +19,8 @@ github-repo: rstudio/bookdown-demo
 
 This **bookdown** compiles lectures I wrote for my first attempt to teach a Data Science course to Food and Ag Science students at Virginia Tech.  In general, the material here is aimed at advanced undergrads or first-year graduate students who are working in quantitative sciences, have taken 1-2 statistics courses, but do not have formal experience with coding or data science.  
 
+If you want to know more about how this was built, you can take a look at the [github repo through this link](https://github.com/jlahne/food-data-science-2022) or by clicking the **edit** button above.
+
 If you want to know more about the course, you can take a look at the short description and learning objectives below:
 
 ## Course description {-}

@@ -62,7 +62,7 @@ sd # Note that by not including the '()' I am asking for the OBJECT 'sd', not th
 ## function (x, na.rm = FALSE) 
 ## sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 ##     na.rm = na.rm))
-## <bytecode: 0x7fcf2ccd79d8>
+## <bytecode: 0x7fa7690a9ae8>
 ## <environment: namespace:stats>
 ```
 
@@ -375,7 +375,7 @@ make_it_normalized
 ##   (our_data - our_mean) / our_sd # remember that R will do vector math with scalars, so this "recycles" the scalars to the length of our_data
 ##   
 ## }
-## <bytecode: 0x7fcf2962ee20>
+## <bytecode: 0x7fa7679db0f8>
 ```
 
 ```r

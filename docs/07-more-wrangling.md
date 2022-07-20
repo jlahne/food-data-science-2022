@@ -582,7 +582,7 @@ toc()
 ```
 
 ```
-## 0.004 sec elapsed
+## 0.005 sec elapsed
 ```
 
 These both work fine, but you can see that there is more *overhead* for the loop - storing and erasing variables as it proceeds along the chain.  You can imagine that, in a language that is built for the former, doing the latter is going to be less quick (and less memory-efficient, which is not going to be a problem for you in most initial applications, but can be a serious barrier).
@@ -1349,16 +1349,16 @@ tidy_cider_liking %>%
 ## # A tibble: 294 × 3
 ##    Panelist_Name          cider_name       liking
 ##    <chr>                  <chr>             <dbl>
-##  1 Paulette Cairns        Bold rock             8
-##  2 Paulette Cairns        Buskeys               4
-##  3 Paulette Cairns        Blue Bee              1
-##  4 Paulette Cairns        Potters               5
-##  5 Paulette Cairns        Cobbler Mountain      5
-##  6 Paulette Cairns        Big Fish              3
-##  7 Renata Vieira Carneiro Bold rock             8
-##  8 Renata Vieira Carneiro Buskeys               8
-##  9 Renata Vieira Carneiro Blue Bee              4
-## 10 Renata Vieira Carneiro Potters               4
+##  1 Renata Vieira Carneiro Bold rock             8
+##  2 Renata Vieira Carneiro Buskeys               8
+##  3 Renata Vieira Carneiro Blue Bee              4
+##  4 Renata Vieira Carneiro Potters               4
+##  5 Renata Vieira Carneiro Cobbler Mountain      6
+##  6 Renata Vieira Carneiro Big Fish              4
+##  7 Jennifer Acuff         Bold rock             4
+##  8 Jennifer Acuff         Buskeys               6
+##  9 Jennifer Acuff         Blue Bee              5
+## 10 Jennifer Acuff         Potters               6
 ## # … with 284 more rows
 ## # ℹ Use `print(n = ...)` to see more rows
 ```
@@ -1370,18 +1370,18 @@ tidy_cider_cata %>%
 
 ```
 ## # A tibble: 7,644 × 4
-##    Sample_Name Panelist_Name   cata_attribute  checked
-##    <chr>       <chr>           <chr>             <dbl>
-##  1 Bold rock   Paulette Cairns FermentedApples       0
-##  2 Bold rock   Paulette Cairns OverripeApples        0
-##  3 Bold rock   Paulette Cairns FreshApples           1
-##  4 Bold rock   Paulette Cairns Alcohol               0
-##  5 Bold rock   Paulette Cairns WineLike              0
-##  6 Bold rock   Paulette Cairns Floral                0
-##  7 Bold rock   Paulette Cairns Tart                  0
-##  8 Bold rock   Paulette Cairns Candied               0
-##  9 Bold rock   Paulette Cairns Fruity                1
-## 10 Bold rock   Paulette Cairns Berries               0
+##    Sample_Name Panelist_Name          cata_attribute  checked
+##    <chr>       <chr>                  <chr>             <dbl>
+##  1 Bold rock   Renata Vieira Carneiro FermentedApples       0
+##  2 Bold rock   Renata Vieira Carneiro OverripeApples        0
+##  3 Bold rock   Renata Vieira Carneiro FreshApples           0
+##  4 Bold rock   Renata Vieira Carneiro Alcohol               0
+##  5 Bold rock   Renata Vieira Carneiro WineLike              0
+##  6 Bold rock   Renata Vieira Carneiro Floral                0
+##  7 Bold rock   Renata Vieira Carneiro Tart                  0
+##  8 Bold rock   Renata Vieira Carneiro Candied               0
+##  9 Bold rock   Renata Vieira Carneiro Fruity                1
+## 10 Bold rock   Renata Vieira Carneiro Berries               0
 ## # … with 7,634 more rows
 ## # ℹ Use `print(n = ...)` to see more rows
 ```

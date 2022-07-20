@@ -26,7 +26,7 @@ Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" /
 <meta name="author" content="Jacob Lahne" />
 
 
-<meta name="date" content="2022-07-19" />
+<meta name="date" content="2022-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -505,53 +505,53 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td align="right">0.0000000</td>
-<td align="right">-1.8657872</td>
-<td align="right">0.3836563</td>
+<td align="right">-1.0732050</td>
+<td align="right">7.052848</td>
 </tr>
 <tr class="even">
 <td align="right">0.1010101</td>
-<td align="right">2.0983197</td>
-<td align="right">11.0932355</td>
+<td align="right">0.8424211</td>
+<td align="right">14.435391</td>
 </tr>
 <tr class="odd">
 <td align="right">0.2020202</td>
-<td align="right">-2.5495845</td>
-<td align="right">3.3347217</td>
+<td align="right">-0.8863774</td>
+<td align="right">-2.450347</td>
 </tr>
 <tr class="even">
 <td align="right">0.3030303</td>
-<td align="right">-0.0182186</td>
-<td align="right">17.8533560</td>
+<td align="right">0.0636583</td>
+<td align="right">4.702260</td>
 </tr>
 <tr class="odd">
 <td align="right">0.4040404</td>
-<td align="right">0.4889473</td>
-<td align="right">5.9810998</td>
+<td align="right">1.0923066</td>
+<td align="right">-7.675656</td>
 </tr>
 <tr class="even">
 <td align="right">0.5050505</td>
-<td align="right">-0.3673802</td>
-<td align="right">4.1581445</td>
+<td align="right">-0.8925829</td>
+<td align="right">2.081866</td>
 </tr>
 <tr class="odd">
 <td align="right">0.6060606</td>
-<td align="right">0.6102208</td>
-<td align="right">-7.1973778</td>
+<td align="right">1.3127660</td>
+<td align="right">-9.135962</td>
 </tr>
 <tr class="even">
 <td align="right">0.7070707</td>
-<td align="right">1.4773892</td>
-<td align="right">-0.9214029</td>
+<td align="right">-0.1070425</td>
+<td align="right">8.676918</td>
 </tr>
 <tr class="odd">
 <td align="right">0.8080808</td>
-<td align="right">-0.4066367</td>
-<td align="right">-0.7430923</td>
+<td align="right">2.5435814</td>
+<td align="right">2.404805</td>
 </tr>
 <tr class="even">
 <td align="right">0.9090909</td>
-<td align="right">2.2441730</td>
-<td align="right">-2.3167009</td>
+<td align="right">2.3143139</td>
+<td align="right">1.352820</td>
 </tr>
 </tbody>
 </table>
@@ -1798,10 +1798,10 @@ div.csl-indent {
 <p><code>ggplot2</code> has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it. You can also build your own scales using the <code>scale_*_manual()</code> functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment. That sounds jargon-y, so here is an example:</p>
 <div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="exploring-your-data-visually.html#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll pick 14 random colors from the colors R knows about</span></span>
 <span id="cb524-2"><a href="exploring-your-data-visually.html#cb524-2" aria-hidden="true" tabindex="-1"></a>random_colors <span class="ot">&lt;-</span> <span class="fu">print</span>(<span class="fu">colors</span>()[<span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">colors</span>()), <span class="at">size =</span> <span class="dv">14</span>)])</span></code></pre></div>
-<pre><code>##  [1] &quot;coral3&quot;        &quot;mediumorchid2&quot; &quot;grey50&quot;        &quot;maroon3&quot;      
-##  [5] &quot;cyan2&quot;         &quot;gray42&quot;        &quot;grey86&quot;        &quot;grey88&quot;       
-##  [9] &quot;firebrick1&quot;    &quot;firebrick&quot;     &quot;lightsalmon2&quot;  &quot;plum3&quot;        
-## [13] &quot;darkorange&quot;    &quot;grey40&quot;</code></pre>
+<pre><code>##  [1] &quot;mediumpurple4&quot;   &quot;lightpink&quot;       &quot;peachpuff2&quot;      &quot;darkseagreen2&quot;  
+##  [5] &quot;burlywood4&quot;      &quot;orangered4&quot;      &quot;lightsteelblue3&quot; &quot;gray65&quot;         
+##  [9] &quot;gray61&quot;          &quot;gray9&quot;           &quot;gray40&quot;          &quot;seashell4&quot;      
+## [13] &quot;grey65&quot;          &quot;lightyellow4&quot;</code></pre>
 <div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="exploring-your-data-visually.html#cb526-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> </span>
 <span id="cb526-2"><a href="exploring-your-data-visually.html#cb526-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> random_colors)</span></code></pre></div>
 <p><img src="05-exploratory-dataviz_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
@@ -2095,7 +2095,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-exploratory-dataviz.Rmd",
+"link": "https://github.com/jlahne/food-data-science-2022/edit/BRANCH/05-exploratory-dataviz.Rmd",
 "text": "Edit"
 },
 "history": {

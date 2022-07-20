@@ -26,7 +26,7 @@ Virginia Tech Course FST 5984: SS Data Analytics for Food and Ag Science.</p>" /
 <meta name="author" content="Jacob Lahne" />
 
 
-<meta name="date" content="2022-07-19" />
+<meta name="date" content="2022-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,7 +626,7 @@ cat_acquisition_order,name,weight\n
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x7fbed1ad0990&gt;
+## &lt;bytecode: 0x7f8195ee82e0&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>So <code>read.csv()</code> just tells <code>read.table()</code> a bunch of useful defaults so we don’t have to set them. Let’s try it on both of our files.</p>
 <div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="wrangling-your-data.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span></code></pre></div>
@@ -970,16 +970,16 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <pre><code>## # A tibble: 10 × 3
 ##        x     y z    
 ##    &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-##  1     1 0.403 a    
-##  2     2 0.689 b    
-##  3     3 0.342 c    
-##  4     4 0.126 d    
-##  5     5 0.167 e    
-##  6     6 0.113 f    
-##  7     7 0.224 g    
-##  8     8 0.148 h    
-##  9     9 0.566 i    
-## 10    10 0.407 j</code></pre>
+##  1     1 0.666 a    
+##  2     2 0.141 b    
+##  3     3 0.865 c    
+##  4     4 0.284 d    
+##  5     5 0.911 e    
+##  6     6 0.607 f    
+##  7     7 0.967 g    
+##  8     8 0.533 h    
+##  9     9 0.875 i    
+## 10    10 0.893 j</code></pre>
 </div>
 <div id="select" class="section level3 hasAnchor" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Pick columns: <code>select()</code><a href="wrangling-your-data.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1553,7 +1553,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-data-wrangling.Rmd",
+"link": "https://github.com/jlahne/food-data-science-2022/edit/BRANCH/04-data-wrangling.Rmd",
 "text": "Edit"
 },
 "history": {

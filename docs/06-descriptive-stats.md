@@ -40,18 +40,18 @@ slice_sample(cider_dryness, n = 10) %>% knitr::kable()
 
 
 
-|Sample_Name    |Panelist_Code        |Panelist_Name    |Panelist_Display_Name |Panelist_Email          | Dryness| Liking|
-|:--------------|:--------------------|:----------------|:---------------------|:-----------------------|-------:|------:|
-|Buskey Chilled |kwater_vtu           |Kim Waterman     |Kim                   |kwater@vt.edu           |     3.5|      7|
-|Buskey RT      |dhsawhney_vtu        |Dhruv Sawhney    |Dhruv                 |dhsawhney@vt.edu        |     3.6|      6|
-|Buskey Chilled |vturesearch002       |NA               |NA                    |NA                      |     4.0|      7|
-|Eden RT        |mswright@vt.edu      |Melissa Wright   |Melissa               |mswright@vt.edu         |     2.3|      4|
-|Eden Chilled   |kgillespie599_vtu    |Kelli Gillespie  |Kelli                 |kgillespie599@vt.edu    |     2.5|      4|
-|1911 RT        |marshallbrooks99_vtu |Marshall Brooks  |Marshall              |marshallbrooks99@vt.edu |     4.1|      8|
-|Eden RT        |noahsmith319_vtu     |Noah Smith       |Noah                  |noahsmith319@gmail.com  |     2.3|      8|
-|Eden RT        |jkess_vtu            |Julia Kesselring |Julia                 |jkess@vt.edu            |     3.9|      8|
-|Eden RT        |kwater_vtu           |Kim Waterman     |Kim                   |kwater@vt.edu           |     3.5|      6|
-|1911 Chilled   |lukes17_vtu          |Luke Shanholtz   |Luke                  |lukes17@vt.edu          |     3.5|      7|
+|Sample_Name    |Panelist_Code       |Panelist_Name     |Panelist_Display_Name |Panelist_Email      | Dryness| Liking|
+|:--------------|:-------------------|:-----------------|:---------------------|:-------------------|-------:|------:|
+|Buskey Chilled |vturesearch001      |NA                |NA                    |NA                  |     3.5|      4|
+|Buskey Chilled |emilyey6_vtu        |Emily Yando       |Emily                 |emilyey6@vt.edu     |     2.9|      7|
+|Eden RT        |vturesearch001      |NA                |NA                    |NA                  |     4.3|      4|
+|Buskey Chilled |theta_vtu           |Thet Aung         |Thet                  |theta@vt.edu        |     1.3|      4|
+|1911 Chilled   |nalex98_vtu         |NA                |NA                    |nalex98@vt.edu      |     4.0|      7|
+|Eden RT        |theta_vtu           |Thet Aung         |Thet                  |theta@vt.edu        |     1.7|      3|
+|Buskey RT      |joell.eifert@vt.edu |Joell Eifert      |Joell                 |joell.eifert@vt.edu |     1.8|      5|
+|Buskey RT      |joshuabm_vtu        |Joshua Mouser     |Joshua                |joshuabm@vt.edu     |     2.0|      4|
+|Eden Chilled   |cdavis98_vtu        |NA                |NA                    |cdavis98@vt.edu     |     3.5|      8|
+|Buskey RT      |ccamryn3_vtu        |Camryn Grace Cook |Camryn                |ccamryn3@vt.edu     |     3.8|      6|
 
 ## Review exercise: How did I import these datasets?
 
@@ -69,13 +69,13 @@ slice_sample(apples, n = 5) %>% knitr::kable()
 
 
 
-|Variety          |Rep   |  His|   Asn|  Ser|  Gln|  Arg|  Gly|  Asp|  Glu|  Thr|  Ala| GABA| Pro|  Cys|  Lys|  Tyr|  Met|  Val|  Ile|  Leu|   Phe|
-|:----------------|:-----|----:|-----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|---:|----:|----:|----:|----:|----:|----:|----:|-----:|
-|Golden Delicious |Rep_3 | 0.26|  1.02| 0.13| 0.00| 0.58| 0.00| 1.73| 0.97| 0.32| 0.26| 0.00|   0| 0.35| 0.52| 0.81| 1.00| 1.60| 1.59| 1.56| 12.49|
-|Northern Spy     |Rep_2 | 0.64|  2.47| 0.19| 0.00| 0.25| 0.00| 1.69| 1.10| 0.35| 0.39| 0.00|   0| 0.29| 0.45| 0.71| 0.91| 1.56| 1.99| 1.20| 13.11|
-|Rome             |Rep_1 | 0.36|  1.57| 0.20| 0.00| 0.43| 0.08| 1.23| 0.91| 0.34| 0.23| 0.00|   0| 0.33| 0.54| 0.80| 1.02| 1.63| 1.92| 1.46| 12.68|
-|Northern Spy     |Rep_1 | 0.51|  2.52| 0.17| 0.00| 0.23| 0.00| 1.60| 1.05| 0.35| 0.34| 0.00|   0| 0.35| 0.53| 1.24| 1.34| 1.52| 2.04| 1.25| 12.47|
-|York             |Rep_3 | 0.75| 13.67| 0.64| 1.05| 0.25| 0.07| 3.33| 1.84| 0.25| 0.46| 0.19|   0| 0.25| 0.47| 0.80| 1.08| 0.55| 1.50| 1.00|  3.49|
+|Variety          |Rep   |  His|   Asn|  Ser|  Gln|  Arg|  Gly|  Asp|  Glu|  Thr|  Ala| GABA|  Pro|  Cys|  Lys|  Tyr|  Met|  Val|  Ile|  Leu|   Phe|
+|:----------------|:-----|----:|-----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|-----:|
+|Northern Spy     |Rep_3 | 0.00|  2.43| 0.19| 0.00| 0.26| 0.00| 1.61| 1.07| 0.35| 0.33| 0.00| 0.00| 0.36| 0.51| 0.93| 1.04| 1.69| 1.96| 1.38| 12.93|
+|Arkansas Black   |Rep_2 | 0.17|  9.87| 0.64| 1.55| 0.46| 0.09| 2.67| 2.20| 0.20| 0.63| 0.25| 0.20| 0.29| 0.48| 0.82| 1.08| 0.63| 1.47| 1.32|  3.29|
+|Arkansas Black   |Rep_1 | 0.62| 10.42| 0.68| 1.60| 0.36| 0.09| 2.92| 2.37| 0.20| 0.72| 0.35| 0.26| 0.22| 0.43| 0.67| 0.98| 0.55| 1.59| 1.24|  3.25|
+|Shenandoah       |Rep_1 | 1.32| 14.66| 0.75| 1.62| 0.64| 0.00| 4.48| 2.57| 0.29| 0.89| 0.45| 0.41| 0.20| 0.41| 0.57| 0.87| 0.62| 1.86| 1.27|  3.63|
+|Golden Delicious |Rep_2 | 0.25|  0.98| 0.13| 0.59| 0.54| 0.00| 1.74| 0.97| 0.31| 0.24| 0.00| 0.14| 0.34| 0.52| 0.76| 1.01| 1.54| 1.88| 1.41| 12.13|
 
 ## What kind of data do you have?
 
@@ -656,13 +656,13 @@ cider_dryness %>%
 
 ```
 ## # A tibble: 5 × 7
-##   Sample_Name    Panelist_Code     Panelist_Name Paneli…¹ Panel…² Dryness Liking
-##   <chr>          <chr>             <chr>         <chr>    <chr>     <dbl>  <dbl>
-## 1 Eden RT        joshuabm_vtu      Joshua Mouser Joshua   joshua…     2.2      3
-## 2 Eden RT        cierrajames22_vtu Cierra James  Cierra   cierra…     1.2      3
-## 3 1911 Chilled   nalex98_vtu       <NA>          <NA>     nalex9…     4        7
-## 4 Buskey Chilled noahsmith319_vtu  Noah Smith    Noah     noahsm…     1.5      8
-## 5 Eden RT        klobeda_vtu       Katy Lobeda   Katy     klobed…     3        4
+##   Sample_Name    Panelist_Code Panelist_Name  Panelist_…¹ Panel…² Dryness Liking
+##   <chr>          <chr>         <chr>          <chr>       <chr>     <dbl>  <dbl>
+## 1 Eden Chilled   rrboyer_vtu   Renee Boyer    Renee       rrboye…     4.1      5
+## 2 Eden RT        lukes17_vtu   Luke Shanholtz Luke        lukes1…     2.5      5
+## 3 Buskey Chilled Rmawn_vtu     Rachel Mawn    Rachel      Rmawn@…     3.3      7
+## 4 Buskey Chilled kwater_vtu    Kim Waterman   Kim         kwater…     3.5      7
+## 5 1911 RT        cdavis98_vtu  <NA>           <NA>        cdavis…     3.9      7
 ## # … with abbreviated variable names ¹​Panelist_Display_Name, ²​Panelist_Email
 ```
 
@@ -741,42 +741,20 @@ A more powerful approach that requires installing a separate package is the `ski
 
 
 ```r
-skim(cider_dryness)
+skim(cider_dryness) %>% knitr::kable()
 ```
 
 
-Table: (\#tab:unnamed-chunk-32)Data summary
 
-|                         |              |
-|:------------------------|:-------------|
-|Name                     |cider_dryness |
-|Number of rows           |294           |
-|Number of columns        |7             |
-|_______________________  |              |
-|Column type frequency:   |              |
-|character                |5             |
-|numeric                  |2             |
-|________________________ |              |
-|Group variables          |None          |
-
-
-**Variable type: character**
-
-|skim_variable         | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:---------------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|Sample_Name           |         0|          1.00|   7|  14|     0|        6|          0|
-|Panelist_Code         |         0|          1.00|   7|  20|     0|       49|          0|
-|Panelist_Name         |        96|          0.67|   9|  21|     0|       33|          0|
-|Panelist_Display_Name |       108|          0.63|   3|   9|     0|       29|          0|
-|Panelist_Email        |        18|          0.94|  10|  26|     0|       46|          0|
-
-
-**Variable type: numeric**
-
-|skim_variable | n_missing| complete_rate| mean|   sd| p0| p25| p50| p75| p100|hist  |
-|:-------------|---------:|-------------:|----:|----:|--:|---:|---:|---:|----:|:-----|
-|Dryness       |         3|          0.99| 2.93| 0.93|  1| 2.2|   3| 3.5|    5|▅▇▇▇▂ |
-|Liking        |         3|          0.99| 5.31| 2.02|  1| 4.0|   6| 7.0|    8|▂▂▆▅▇ |
+|skim_type |skim_variable         | n_missing| complete_rate| character.min| character.max| character.empty| character.n_unique| character.whitespace| numeric.mean| numeric.sd| numeric.p0| numeric.p25| numeric.p50| numeric.p75| numeric.p100|numeric.hist |
+|:---------|:---------------------|---------:|-------------:|-------------:|-------------:|---------------:|------------------:|--------------------:|------------:|----------:|----------:|-----------:|-----------:|-----------:|------------:|:------------|
+|character |Sample_Name           |         0|     1.0000000|             7|            14|               0|                  6|                    0|           NA|         NA|         NA|          NA|          NA|          NA|           NA|NA           |
+|character |Panelist_Code         |         0|     1.0000000|             7|            20|               0|                 49|                    0|           NA|         NA|         NA|          NA|          NA|          NA|           NA|NA           |
+|character |Panelist_Name         |        96|     0.6734694|             9|            21|               0|                 33|                    0|           NA|         NA|         NA|          NA|          NA|          NA|           NA|NA           |
+|character |Panelist_Display_Name |       108|     0.6326531|             3|             9|               0|                 29|                    0|           NA|         NA|         NA|          NA|          NA|          NA|           NA|NA           |
+|character |Panelist_Email        |        18|     0.9387755|            10|            26|               0|                 46|                    0|           NA|         NA|         NA|          NA|          NA|          NA|           NA|NA           |
+|numeric   |Dryness               |         3|     0.9897959|            NA|            NA|              NA|                 NA|                   NA|     2.925430|  0.9271607|          1|         2.2|           3|         3.5|            5|▅▇▇▇▂        |
+|numeric   |Liking                |         3|     0.9897959|            NA|            NA|              NA|                 NA|                   NA|     5.305842|  2.0221021|          1|         4.0|           6|         7.0|            8|▂▂▆▅▇        |
 
 In one command we get details about the size and shape of our data, as well as column summaries that are customaized for the different types of data (in this case, character and numeric).  But `skim()` is actually even more powerful: for example, it supports `group_by()` to give us group summaries for some grouping variable.
 
@@ -1382,7 +1360,7 @@ In R, we can get covariance between two variables by using the `cov()` function.
 ```
 
 ```
-## [1] -0.4508431
+## [1] -0.02715041
 ```
 
 ```r
@@ -1467,7 +1445,7 @@ cor(apples$Asp, apples$Glu[sample(1:42)])
 ```
 
 ```
-## [1] -0.168038
+## [1] 0.2159502
 ```
 
 And, typically, we will generate correlation matrices instead:

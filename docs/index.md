@@ -2,7 +2,7 @@
 title: "FST 5984: SS Data Analytics for Food and Ag Science"
 subtitle: "Compiled course lectures from Spring 2022"
 author: "Jacob Lahne"
-date: "2022-07-19"
+date: "2022-07-20"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: "Files/lecture bibliography.bib"
@@ -18,6 +18,8 @@ github-repo: rstudio/bookdown-demo
 # Preface {-}
 
 This **bookdown** compiles lectures I wrote for my first attempt to teach a Data Science course to Food and Ag Science students at Virginia Tech.  In general, the material here is aimed at advanced undergrads or first-year graduate students who are working in quantitative sciences, have taken 1-2 statistics courses, but do not have formal experience with coding or data science.  
+
+If you want to know more about how this was built, you can take a look at the [github repo through this link](https://github.com/jlahne/food-data-science-2022) or by clicking the **edit** button above.
 
 If you want to know more about the course, you can take a look at the short description and learning objectives below:
 
