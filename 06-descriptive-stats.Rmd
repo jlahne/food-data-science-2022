@@ -312,7 +312,7 @@ So `summary()` is a useful but unpredictable first step for understanding data.
 A more powerful approach that requires installing a separate package is the `skim()` function, from `skimr`.  This is actually one of my favorite R tools, because it tells you so much so easily:
 
 ```{r, results = "asis"}
-skim(cider_dryness) %>% knitr::kable()
+skim(cider_dryness)
 ```
 
 In one command we get details about the size and shape of our data, as well as column summaries that are customaized for the different types of data (in this case, character and numeric).  But `skim()` is actually even more powerful: for example, it supports `group_by()` to give us group summaries for some grouping variable.

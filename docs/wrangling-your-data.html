@@ -530,9 +530,9 @@ cat_acquisition_order,name,weight\n
 <div id="read.table" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> <code>read.table()</code><a href="wrangling-your-data.html#read.table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The most basic utitlity in R for reading in delimited data is the <code>read.table()</code> function. If you run <code>?read.table</code> you’ll see that this is a function with a ton of options, because it is made to be very flexible and not assume a lot about the file you’re trying to read.</p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="wrangling-your-data.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>,</span>
-<span id="cb387-2"><a href="wrangling-your-data.html#cb387-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb387-3"><a href="wrangling-your-data.html#cb387-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>) <span class="co"># Note that this line tells read.table() how to break up your file - what happens if we exclude it with this file?</span></span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="wrangling-your-data.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>,</span>
+<span id="cb388-2"><a href="wrangling-your-data.html#cb388-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb388-3"><a href="wrangling-your-data.html#cb388-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>) <span class="co"># Note that this line tells read.table() how to break up your file - what happens if we exclude it with this file?</span></span></code></pre></div>
 <pre><code>##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
 ## 1       0.2     1                5                            2.79
 ## 2       0.2     1                5                            2.73
@@ -621,15 +621,15 @@ cat_acquisition_order,name,weight\n
 <div id="read.csv" class="section level3 hasAnchor" number="4.1.3">
 <h3><span class="header-section-number">4.1.3</span> <code>read.csv()</code><a href="wrangling-your-data.html#read.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When we already know that the kind of data we’ll want to deal with is comma-separated, it’s much easier to use <code>read.csv()</code>, which does exactly what it sounds like. It is a <em>wrapper function</em> for <code>read.table()</code>–when you see something called a “wrapper”, it means it is actually just that function set up with some useful defaults. We can see that here:</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="wrangling-your-data.html#cb389-1" aria-hidden="true" tabindex="-1"></a>read.csv</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="wrangling-your-data.html#cb390-1" aria-hidden="true" tabindex="-1"></a>read.csv</span></code></pre></div>
 <pre><code>## function (file, header = TRUE, sep = &quot;,&quot;, quote = &quot;\&quot;&quot;, dec = &quot;.&quot;, 
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x7f8195ee82e0&gt;
+## &lt;bytecode: 0x7fdd2776b4e0&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>So <code>read.csv()</code> just tells <code>read.table()</code> a bunch of useful defaults so we don’t have to set them. Let’s try it on both of our files.</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="wrangling-your-data.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="wrangling-your-data.html#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span></code></pre></div>
 <pre><code>##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
 ## 1       0.2     1                5                            2.79
 ## 2       0.2     1                5                            2.73
@@ -712,7 +712,7 @@ cat_acquisition_order,name,weight\n
 ## 79    100.0   100              500                          151.17
 ## 80    100.0   100              500                          145.19
 ## 81    100.0   100              500                          151.45</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="wrangling-your-data.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="wrangling-your-data.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ## 1        1           0          50         -50          10
 ## 2        2          70          80         -20          20
@@ -739,28 +739,28 @@ cat_acquisition_order,name,weight\n
 ## 23      23          10         100        -100          85
 ## 24      24          10          75          35          55</code></pre>
 <p>It’s been a little while since we did this, but what happens if we want that data?</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="wrangling-your-data.html#cb395-1" aria-hidden="true" tabindex="-1"></a>polyphenol testing <span class="co"># We read the data and just threw it away!</span></span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="wrangling-your-data.html#cb396-1" aria-hidden="true" tabindex="-1"></a>polyphenol testing <span class="co"># We read the data and just threw it away!</span></span></code></pre></div>
 <pre><code>## Error: &lt;text&gt;:1:12: unexpected symbol
 ## 1: polyphenol testing
 ##                ^</code></pre>
 <p>Remember, <strong>we have to store R objects using <code>&lt;-</code>.</strong></p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="wrangling-your-data.html#cb397-1" aria-hidden="true" tabindex="-1"></a>polyphenols <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span>
-<span id="cb397-2"><a href="wrangling-your-data.html#cb397-2" aria-hidden="true" tabindex="-1"></a>soups <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="wrangling-your-data.html#cb398-1" aria-hidden="true" tabindex="-1"></a>polyphenols <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/polyphenol testing.csv&quot;</span>)</span>
+<span id="cb398-2"><a href="wrangling-your-data.html#cb398-2" aria-hidden="true" tabindex="-1"></a>soups <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
 <p>Now we can access these objects and learn about them.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="wrangling-your-data.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(polyphenols) <span class="co"># the read.*() functions create data.frame objects</span></span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="wrangling-your-data.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(polyphenols) <span class="co"># the read.*() functions create data.frame objects</span></span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="wrangling-your-data.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polyphenols, <span class="at">n =</span> <span class="dv">5</span>) <span class="co"># display the first n lines of an object--defaults to n = 6</span></span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="wrangling-your-data.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polyphenols, <span class="at">n =</span> <span class="dv">5</span>) <span class="co"># display the first n lines of an object--defaults to n = 6</span></span></code></pre></div>
 <pre><code>##   Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
 ## 1      0.2     1                5                            2.79
 ## 2      0.2     1                5                            2.73
 ## 3      0.2     1                5                            2.74
 ## 4      0.2     1              200                           57.73
 ## 5      0.2     1              200                           58.19</code></pre>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="wrangling-your-data.html#cb402-1" aria-hidden="true" tabindex="-1"></a>soups<span class="sc">$</span>minestrone1 <span class="co"># header = TRUE in read.csv() means that all the columns are named properly</span></span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="wrangling-your-data.html#cb403-1" aria-hidden="true" tabindex="-1"></a>soups<span class="sc">$</span>minestrone1 <span class="co"># header = TRUE in read.csv() means that all the columns are named properly</span></span></code></pre></div>
 <pre><code>##  [1]   0  70  80  20  65  30  75  70  40  15 -50  75 -25  20  70  20  15  40  55
 ## [20]  20  20  20  10  10</code></pre>
 <p>And we can start to do basic data analysis. Let’s look at a boxplot of soup rating:</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="wrangling-your-data.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(soups[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># We use the [, -1] syntax to remove the first column of soups--why?</span></span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="wrangling-your-data.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(soups[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># We use the [, -1] syntax to remove the first column of soups--why?</span></span></code></pre></div>
 <p><img src="04-data-wrangling_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="hard" class="section level3 hasAnchor" number="4.1.4">
@@ -781,7 +781,7 @@ But it seems like this is becoming less standard practice, according to <a href=
 <div id="dealing-with-other-ways-of-storing-data" class="section level4 hasAnchor" number="4.1.4.2">
 <h4><span class="header-section-number">4.1.4.2</span> Dealing with other ways of storing data<a href="wrangling-your-data.html#dealing-with-other-ways-of-storing-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>So once we find the file we can read it, right?</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="wrangling-your-data.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">read.csv</span>(<span class="st">&quot;Files/cider sorting.csv&quot;</span>)) <span class="co"># The file is very large, so I am not going to display it, but instead look at its structure via str()</span></span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="wrangling-your-data.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">read.csv</span>(<span class="st">&quot;Files/cider sorting.csv&quot;</span>)) <span class="co"># The file is very large, so I am not going to display it, but instead look at its structure via str()</span></span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    3817 obs. of  7 variables:
 ##  $ Test.Name    : chr  &quot;102918_VA Cider Sort&quot; &quot;Section Name&quot; &quot;Sample Number&quot; &quot;1&quot; ...
 ##  $ Description  : chr  &quot;New Test&quot; &quot;1. First Section: Sorting Task&quot; &quot;Sample Name&quot; &quot;Big Fish Cider Co.&quot; ...
@@ -833,8 +833,8 @@ But it seems like this is becoming less standard practice, according to <a href=
 <h2><span class="header-section-number">4.2</span> Making your life in R easier with the <code>tidyverse</code><a href="wrangling-your-data.html#making-your-life-in-r-easier-with-the-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Having talked about getting data into R, we’re going to take a detour and talk about how to start to make your life easier, especially when dealing with these kinds of <code>data.frame</code> objects. The <code>tidyverse</code> is a shortcut package that you should already be familiar with from your reading in <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a>. It loads a number of individual packages, including two that make many of the R operations we’ve been learning about for the first month of class more natural and comfortable. You can learn about all of them at the tidyverse <a href="https://tidyverse.tidyverse.org/">package page</a>.</p>
 <p>Remember that, if you haven’t already, you will need to install and load the <code>tidyverse</code> package to make this work.</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="wrangling-your-data.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
-<span id="cb408-2"><a href="wrangling-your-data.html#cb408-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="wrangling-your-data.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb409-2"><a href="wrangling-your-data.html#cb409-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="naming-long-tidy-vs-wide-data" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Naming: long (“tidy”) vs wide data<a href="wrangling-your-data.html#naming-long-tidy-vs-wide-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The name of the “<code>tidyverse</code>” comes from the core concept of “tidy” data. According to <span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span>, <a href="https://r4ds.had.co.nz/tidy-data.html#tidy-data-1">tidy data has the following properties</a>:</p>
@@ -844,7 +844,7 @@ But it seems like this is becoming less standard practice, according to <a href=
 <li>Each value must have its own cell.</li>
 </ol>
 <p>The result of this is the style of data we see in the <code>polyphenols</code> dataset, which we will use the <a href="wrangling-your-data.html#tibble"><code>tibble()</code> function</a> to make clearer:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="wrangling-your-data.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(polyphenols) </span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="wrangling-your-data.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(polyphenols) </span></code></pre></div>
 <pre><code>## # A tibble: 81 × 4
 ##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
 ##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt;
@@ -861,7 +861,7 @@ But it seems like this is becoming less standard practice, according to <a href=
 ## # … with 71 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>“Tidy” data is a synonym for “long” or “tall” data. <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">This is in contrast</a> to the “wide” data of the <code>soups</code> dataset:</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="wrangling-your-data.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(soups)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="wrangling-your-data.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(soups)</span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -902,27 +902,27 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="section level4 hasAnchor" number="4.2.2.1">
 <h4><span class="header-section-number">4.2.2.1</span> Pipes require that the lefthand side be a single functional command<a href="wrangling-your-data.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This means that we can’t directly do something like rewrite <code>sqrt(1 + 2)</code> with <code>%&gt;%</code>:</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="wrangling-your-data.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="wrangling-your-data.html#cb415-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
 <pre><code>## [1] 2.414214</code></pre>
 <p>Instead, if we want to pass binary operationse in a pipe, we need to enclose them in <code>()</code> on the line they are in:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="wrangling-your-data.html#cb416-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="wrangling-your-data.html#cb417-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
 <pre><code>## [1] 1.732051</code></pre>
 <p>More complex piping is possible using the curly braces (<code>{}</code>), which create new R environments, but this is more advanced than you will generally need to be.</p>
 </div>
 <div id="pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="section level4 hasAnchor" number="4.2.2.2">
 <h4><span class="header-section-number">4.2.2.2</span> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side<a href="wrangling-your-data.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This sounds like a weird logic puzzle, but it’s not, as we can see if we look at some simple math. Let’s define a function for use in a pipe that computes the difference between two numbers:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="wrangling-your-data.html#cb418-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
-<span id="cb418-2"><a href="wrangling-your-data.html#cb418-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="wrangling-your-data.html#cb419-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
+<span id="cb419-2"><a href="wrangling-your-data.html#cb419-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>If we want to rewrite that as a pipe, we can write:</p>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="wrangling-your-data.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="wrangling-your-data.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>But we can’t write</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="wrangling-your-data.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="wrangling-your-data.html#cb423-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
 <pre><code>## [1] -1</code></pre>
 <p>We can explicitly force the pipe to work the way we want it to by using <code>.</code> <strong>as the placeholder for the result of the lefthand side</strong>:</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="wrangling-your-data.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="wrangling-your-data.html#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>So, when you’re using pipes, make sure that the output of the lefthand side <em>should</em> be going into the first argument of the righthand side–this is often but not always the case, especially with non-<code>tidyverse</code> functions.</p>
 </div>
@@ -938,10 +938,10 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="tibble" class="section level3 hasAnchor" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> The <code>tibble()</code><a href="wrangling-your-data.html#tibble" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>OK, with those bits of syntax out of the way, let’s talk about what tidyverse can get us. We’ll start with something simple, but nice. The <em>augmented</em> version of <code>data.frame</code> that is provided by <code>tidyverse</code> (via the <code>tibble</code> package) is called a “<code>tibble</code>”.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="wrangling-your-data.html#cb426-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(soups)</span>
-<span id="cb426-2"><a href="wrangling-your-data.html#cb426-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(soup_tbl)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="wrangling-your-data.html#cb427-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(soups)</span>
+<span id="cb427-2"><a href="wrangling-your-data.html#cb427-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(soup_tbl)</span></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="wrangling-your-data.html#cb428-1" aria-hidden="true" tabindex="-1"></a>soup_tbl</span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="wrangling-your-data.html#cb429-1" aria-hidden="true" tabindex="-1"></a>soup_tbl</span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -964,29 +964,29 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <li>Tibbles disallow row names, which is a good habit to get into but can cause some compatibility issues with non-<code>tidyverse</code> functions</li>
 </ul>
 <p>Tibbles can be created using pretty simple syntax that is parallel but simpler than data frames:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="wrangling-your-data.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb430-2"><a href="wrangling-your-data.html#cb430-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">10</span>),</span>
-<span id="cb430-3"><a href="wrangling-your-data.html#cb430-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">z =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="wrangling-your-data.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb431-2"><a href="wrangling-your-data.html#cb431-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">10</span>),</span>
+<span id="cb431-3"><a href="wrangling-your-data.html#cb431-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">z =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
-##        x     y z    
-##    &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-##  1     1 0.666 a    
-##  2     2 0.141 b    
-##  3     3 0.865 c    
-##  4     4 0.284 d    
-##  5     5 0.911 e    
-##  6     6 0.607 f    
-##  7     7 0.967 g    
-##  8     8 0.533 h    
-##  9     9 0.875 i    
-## 10    10 0.893 j</code></pre>
+##        x      y z    
+##    &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
+##  1     1 0.732  a    
+##  2     2 0.394  b    
+##  3     3 0.799  c    
+##  4     4 0.0283 d    
+##  5     5 0.300  e    
+##  6     6 0.549  f    
+##  7     7 0.0612 g    
+##  8     8 0.229  h    
+##  9     9 0.728  i    
+## 10    10 0.787  j</code></pre>
 </div>
 <div id="select" class="section level3 hasAnchor" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Pick columns: <code>select()</code><a href="wrangling-your-data.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here’s where <code>tidyverse</code> starts getting kind of spicy! R’s system for <strong>indexing</strong> data frames is clear and sensible for those who are used to programming languages, but it is not necessarily easy to read.</p>
 <p>A common situation in R is wanting to select some rows and some columns of our data–this is called “<strong>subsetting</strong>” our data. We might want to do it manually (when we are doing exploration) or write a function that will do it automatically (maybe as part of a conditional statement or a loop). We give an example of wanting to do this in our <a href="wrangling-your-data.html#tidyselect">pseudocode example for pipes, above</a>. But this is less easy than it might be for the beginner in R.</p>
 <p>In our pseudocode example, we wanted to pick all columns in <code>soup</code> that were about “minestrone”. In base R, we can get at these in a number of ways, but the most “foolproof” way is the following:</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="wrangling-your-data.html#cb432-1" aria-hidden="true" tabindex="-1"></a>soup_tbl[, <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;minestrone&quot;</span>, <span class="at">x =</span> <span class="fu">names</span>(soups), <span class="at">fixed =</span> <span class="cn">TRUE</span>, <span class="at">value =</span> <span class="cn">FALSE</span>)] <span class="co"># I picked the tbl version for printing</span></span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="wrangling-your-data.html#cb433-1" aria-hidden="true" tabindex="-1"></a>soup_tbl[, <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;minestrone&quot;</span>, <span class="at">x =</span> <span class="fu">names</span>(soups), <span class="at">fixed =</span> <span class="cn">TRUE</span>, <span class="at">value =</span> <span class="cn">FALSE</span>)] <span class="co"># I picked the tbl version for printing</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 2
 ##    minestrone1 minestrone2
 ##          &lt;int&gt;       &lt;int&gt;
@@ -1010,12 +1010,12 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="exercise-indexing-the-old-fashioned-way" class="section level4 hasAnchor" number="4.2.4.1">
 <h4><span class="header-section-number">4.2.4.1</span> Exercise: Indexing the old-fashioned way<a href="wrangling-your-data.html#exercise-indexing-the-old-fashioned-way" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For the exercises above, use the following chunk to actually do both.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="wrangling-your-data.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric indexing</span></span>
-<span id="cb434-2"><a href="wrangling-your-data.html#cb434-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb434-3"><a href="wrangling-your-data.html#cb434-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reconstructing from extracted vectors</span></span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="wrangling-your-data.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric indexing</span></span>
+<span id="cb435-2"><a href="wrangling-your-data.html#cb435-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-3"><a href="wrangling-your-data.html#cb435-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reconstructing from extracted vectors</span></span></code></pre></div>
 <p>The <code>select()</code> function in <code>tidyverse</code> (actually from the <code>dplyr</code> package) is the smarter, easier way to do this. It works on data frames, and it can be read as “from &lt;data frame&gt;, select the columns that meet the criteria we’ve set.”</p>
 <p>The simplest way to use <code>select()</code> is just to name the columns you want!</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="wrangling-your-data.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(soup_tbl, minestrone1, minestrone2) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="wrangling-your-data.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(soup_tbl, minestrone1, minestrone2) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 2
 ##    minestrone1 minestrone2
 ##          &lt;int&gt;       &lt;int&gt;
@@ -1033,8 +1033,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>But <code>select()</code> has a bunch of <strong>helper functions</strong> that make it easy to do more foolproof selection. Look them up by running, for example, <code>?one_of</code>. We’re going to use <code>contains()</code>, which is the easy-to-read version of the <code>grep()</code> command I ran above.</p>
 <p>We’ll also do this with a pipe (<code>%&gt;%</code>) just to practice.</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="wrangling-your-data.html#cb437-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb437-2"><a href="wrangling-your-data.html#cb437-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;minestrone&quot;</span>)) <span class="co"># note that this IS quoted, because I am asking for all columns with the string &quot;minestrone&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="wrangling-your-data.html#cb438-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb438-2"><a href="wrangling-your-data.html#cb438-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;minestrone&quot;</span>)) <span class="co"># note that this IS quoted, because I am asking for all columns with the string &quot;minestrone&quot;</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 2
 ##    minestrone1 minestrone2
 ##          &lt;int&gt;       &lt;int&gt;
@@ -1051,8 +1051,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## # … with 14 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>We can also use logical negation (<code>!</code>, which we learned about last class) to, for example, get everything that isn’t “hotandsour”.</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="wrangling-your-data.html#cb439-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb439-2"><a href="wrangling-your-data.html#cb439-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>)) <span class="co"># Note that this ALSO returns the subject #, which we might or might not want</span></span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="wrangling-your-data.html#cb440-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb440-2"><a href="wrangling-your-data.html#cb440-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>)) <span class="co"># Note that this ALSO returns the subject #, which we might or might not want</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 3
 ##    subject minestrone1 minestrone2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1068,8 +1068,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## 10      10          15          65
 ## # … with 14 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="wrangling-your-data.html#cb441-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb441-2"><a href="wrangling-your-data.html#cb441-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;subject&quot;</span>)) <span class="co"># we can combine logical conditions using &amp; (&quot;and&quot;) or | (&quot;or&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="wrangling-your-data.html#cb442-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb442-2"><a href="wrangling-your-data.html#cb442-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;subject&quot;</span>)) <span class="co"># we can combine logical conditions using &amp; (&quot;and&quot;) or | (&quot;or&quot;)</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 2
 ##    minestrone1 minestrone2
 ##          &lt;int&gt;       &lt;int&gt;
@@ -1092,7 +1092,7 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <h3><span class="header-section-number">4.2.5</span> Pick rows: <code>filter()</code><a href="wrangling-your-data.html#pick-rows-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So <code>select()</code> lets us pick which columns we want. Can we also use it to pick particular observations? No. But for that, there’s <code>filter()</code>.</p>
 <p>In the <a href="wrangling-your-data.html#tidyselect">pseudocode above</a>, we stated we wanted to only get the first 10 subjects. Just like selecting columns we can do this using base R with a combination of indexing approaches. Here is, again, the most foolproof way to select the first 10 subjects in the <code>soups</code> data:</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="wrangling-your-data.html#cb443-1" aria-hidden="true" tabindex="-1"></a>soup_tbl[<span class="fu">which</span>(soup_tbl<span class="sc">$</span>subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="wrangling-your-data.html#cb444-1" aria-hidden="true" tabindex="-1"></a>soup_tbl[<span class="fu">which</span>(soup_tbl<span class="sc">$</span>subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), ]</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1113,9 +1113,9 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="exercise" class="section level4 hasAnchor" number="4.2.5.1">
 <h4><span class="header-section-number">4.2.5.1</span> Exercise<a href="wrangling-your-data.html#exercise" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For the above less foolproof way, write R code to select only the first 10 rows of <code>soup_tbl</code>. Then, tell me why this is a less foolproof way to select the first 10 subjects.</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="wrangling-your-data.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only the first 10 rows of soup_tbl</span></span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="wrangling-your-data.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only the first 10 rows of soup_tbl</span></span></code></pre></div>
 <p>The <code>filter()</code> function works to do this in a more human way. Read it as “In <data frame>, give me only the rows that meet the filter conditions.” So, for our example:</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="wrangling-your-data.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(soup_tbl, subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># once again, notice the lack of quoting</span></span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="wrangling-your-data.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(soup_tbl, subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># once again, notice the lack of quoting</span></span></code></pre></div>
 <pre><code>## # A tibble: 10 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1130,9 +1130,9 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ##  9       9          40          90         -60          20
 ## 10      10          15          65          25          20</code></pre>
 <p>We can combine <code>filter()</code> and <code>select()</code> using pipes (<code>%&gt;%</code>) to get most of our <a href="wrangling-your-data.html#tidyselect">pseudocode</a> done.</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="wrangling-your-data.html#cb448-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span>                           <span class="co"># pass soup_tbl from left to right</span></span>
-<span id="cb448-2"><a href="wrangling-your-data.html#cb448-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>)) <span class="sc">%&gt;%</span>   <span class="co"># drop the &quot;hotandsour&quot; columns</span></span>
-<span id="cb448-3"><a href="wrangling-your-data.html#cb448-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)            <span class="co"># filter to only the first 10 subjects</span></span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="wrangling-your-data.html#cb449-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span>                           <span class="co"># pass soup_tbl from left to right</span></span>
+<span id="cb449-2"><a href="wrangling-your-data.html#cb449-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="st">&quot;hotandsour&quot;</span>)) <span class="sc">%&gt;%</span>   <span class="co"># drop the &quot;hotandsour&quot; columns</span></span>
+<span id="cb449-3"><a href="wrangling-your-data.html#cb449-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(subject <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)            <span class="co"># filter to only the first 10 subjects</span></span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
 ##    subject minestrone1 minestrone2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1147,11 +1147,11 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ##  9       9          40          90
 ## 10      10          15          65</code></pre>
 <p>In the code chunk below, right this so that it first selects <em>for</em> “minestrone”, rather than dropping “hotandsour”. What happens?</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="wrangling-your-data.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rewrite the above code chunk to first select for &quot;minestrone&quot;.  What happens, and why?</span></span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="wrangling-your-data.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rewrite the above code chunk to first select for &quot;minestrone&quot;.  What happens, and why?</span></span></code></pre></div>
 <p>These are trivial examples, but they quickly become more powerful. In our <em>tidy</em> <code>polyphenols</code> dataset, we have 3 treatment variables (<code>Catechin</code>, <code>PC.B2</code>, and <code>Chlorogenic.acid</code>). A very common application for <code>filter()</code> would be to get a subset of our data that only matches certain treatment conditions:</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="wrangling-your-data.html#cb451-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(polyphenols) <span class="co"># for printing purposes</span></span>
-<span id="cb451-2"><a href="wrangling-your-data.html#cb451-2" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb451-3"><a href="wrangling-your-data.html#cb451-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># get only the observations where Chlorogenic.acid == 5.  Note the double &#39;==&#39; for testing equality.</span></span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="wrangling-your-data.html#cb452-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(polyphenols) <span class="co"># for printing purposes</span></span>
+<span id="cb452-2"><a href="wrangling-your-data.html#cb452-2" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb452-3"><a href="wrangling-your-data.html#cb452-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># get only the observations where Chlorogenic.acid == 5.  Note the double &#39;==&#39; for testing equality.</span></span></code></pre></div>
 <pre><code>## # A tibble: 27 × 4
 ##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
 ##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt;
@@ -1173,8 +1173,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <h3><span class="header-section-number">4.2.6</span> Make new columns: <code>mutate()</code><a href="wrangling-your-data.html#make-new-columns-mutate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You hopefully are starting to be excited by the relative ease of doing some things in R with <code>tidyverse</code> that are otherwise a little bit abstruse. Here’s where I think things get really, really cool. The <code>mutate()</code> function <em>creates a new column in the existing dataset</em>.</p>
 <p>We can do this easily in base R by setting a new name for a column and using the assign (<code>&lt;-</code>) operator, but this is clumsy. Often, we want to create a new column temporarily, or to combine several existing columns. We can do this using the <code>mutate()</code> function.</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="wrangling-your-data.html#cb453-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb453-2"><a href="wrangling-your-data.html#cb453-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minestrone_liker =</span> <span class="fu">ifelse</span>(minestrone1 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> minestrone2 <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="wrangling-your-data.html#cb454-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb454-2"><a href="wrangling-your-data.html#cb454-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minestrone_liker =</span> <span class="fu">ifelse</span>(minestrone1 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> minestrone2 <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 24 × 6
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2 minestrone_liker
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;           
@@ -1192,10 +1192,10 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>What does the above function do?</p>
 <p><code>mutate()</code> is a very easy way to edit your data mid-pipe. So we might want to do some calculations, create a temporary variable using <code>mutate()</code>, and then continue our pipe.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="wrangling-your-data.html#cb455-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb455-2"><a href="wrangling-your-data.html#cb455-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb455-3"><a href="wrangling-your-data.html#cb455-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_outlier =</span> <span class="fu">ifelse</span>(equivalents.in.gallic.acid.mg.L <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(equivalents.in.gallic.acid.mg.L), <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb455-4"><a href="wrangling-your-data.html#cb455-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_outlier)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="wrangling-your-data.html#cb456-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb456-2"><a href="wrangling-your-data.html#cb456-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb456-3"><a href="wrangling-your-data.html#cb456-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_outlier =</span> <span class="fu">ifelse</span>(equivalents.in.gallic.acid.mg.L <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(equivalents.in.gallic.acid.mg.L), <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb456-4"><a href="wrangling-your-data.html#cb456-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_outlier)</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 5
 ##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L is_outlier
 ##       &lt;dbl&gt; &lt;int&gt;            &lt;int&gt;                           &lt;dbl&gt; &lt;lgl&gt;     
@@ -1217,8 +1217,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <h3><span class="header-section-number">4.2.7</span> Create quick data summaries: <code>group_by()</code>, <code>count()</code>, and <code>summarize()</code><a href="wrangling-your-data.html#create-quick-data-summaries-group_by-count-and-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We are only scratching the surface of what we can do with <code>tidyverse</code>, and you will both be reading more about this and we’ll be returning throughout the semester as we learn more application. But here is an exploratory data analysis application that we will see here and will come back to us frequently.</p>
 <p>The <code>group_by()</code> function takes a data frame and groups it by whatever variable is specified. It looks for <em>distinct values</em>, so it will work with even numeric variables (although not well, if they are not truly grouping variables).</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="wrangling-your-data.html#cb457-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb457-2"><a href="wrangling-your-data.html#cb457-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin) <span class="co"># note no quotes</span></span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="wrangling-your-data.html#cb458-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb458-2"><a href="wrangling-your-data.html#cb458-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin) <span class="co"># note no quotes</span></span></code></pre></div>
 <pre><code>## # A tibble: 81 × 4
 ## # Groups:   Catechin [3]
 ##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L
@@ -1236,10 +1236,10 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## # … with 71 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>By itself, this does not appear to do anything, although if you look closely at the output from printing the tibble you’ll notice that it now lists <code>Groups: Catechin [3]</code>. But this now allows us to use <code>filter()</code>, <code>mutate()</code>, and a host of other <code>tidyverse</code> functions in “grouped” mode, which means when we do all of those they will act WITHIN the group you have defined. So we can see the effect, we will first filter <code>polyphenol_tbl</code>, and then create a new variable with a <em>grouped</em> <code>mutate()</code> that is the average for that group.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="wrangling-your-data.html#cb459-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb459-2"><a href="wrangling-your-data.html#cb459-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># this is purely for ease of printing this example</span></span>
-<span id="cb459-3"><a href="wrangling-your-data.html#cb459-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin) <span class="sc">%&gt;%</span></span>
-<span id="cb459-4"><a href="wrangling-your-data.html#cb459-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">average_eq_gc =</span> <span class="fu">mean</span>(equivalents.in.gallic.acid.mg.L))</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="wrangling-your-data.html#cb460-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb460-2"><a href="wrangling-your-data.html#cb460-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Chlorogenic.acid <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># this is purely for ease of printing this example</span></span>
+<span id="cb460-3"><a href="wrangling-your-data.html#cb460-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin) <span class="sc">%&gt;%</span></span>
+<span id="cb460-4"><a href="wrangling-your-data.html#cb460-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">average_eq_gc =</span> <span class="fu">mean</span>(equivalents.in.gallic.acid.mg.L))</span></code></pre></div>
 <pre><code>## # A tibble: 27 × 5
 ## # Groups:   Catechin [3]
 ##    Catechin PC.B2 Chlorogenic.acid equivalents.in.gallic.acid.mg.L average_eq_gc
@@ -1257,9 +1257,9 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## # … with 17 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>But that’s not all! Now that we have the idea of a group, we can use it for all kinds of useful things. For example, the <code>count()</code> function will just return the number of rows in each group. Let’s use that to check if our <code>polyphenol_tbl</code> was from a balanced design (e.g., has the same number of observations at every treatment level and intersection):</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="wrangling-your-data.html#cb461-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb461-2"><a href="wrangling-your-data.html#cb461-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin, Chlorogenic.acid, PC.B2) <span class="sc">%&gt;%</span> <span class="co"># note that we can group by multiple variables</span></span>
-<span id="cb461-3"><a href="wrangling-your-data.html#cb461-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="co"># looks balanced, with triplicates at every treatment factor level</span></span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="wrangling-your-data.html#cb462-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb462-2"><a href="wrangling-your-data.html#cb462-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin, Chlorogenic.acid, PC.B2) <span class="sc">%&gt;%</span> <span class="co"># note that we can group by multiple variables</span></span>
+<span id="cb462-3"><a href="wrangling-your-data.html#cb462-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="co"># looks balanced, with triplicates at every treatment factor level</span></span></code></pre></div>
 <pre><code>## # A tibble: 27 × 4
 ## # Groups:   Catechin, Chlorogenic.acid, PC.B2 [27]
 ##    Catechin Chlorogenic.acid PC.B2     n
@@ -1278,10 +1278,10 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>The <code>count()</code> function gets way more useful when we have large data that is unbalanced, and we want to be able to easily pull counts without knowing what they are beforehand.</p>
 <p>Much more useful, but slightly more complex is the <code>summarize()</code> function, which applies <em>arbitrary functions</em> to the subsets defined by <code>group_by()</code>. So, say we want to find the average and standard deviation at each of the groups we defined before, instead of the count:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="wrangling-your-data.html#cb463-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb463-2"><a href="wrangling-your-data.html#cb463-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin, PC.B2, Chlorogenic.acid) <span class="sc">%&gt;%</span></span>
-<span id="cb463-3"><a href="wrangling-your-data.html#cb463-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_eq_gc =</span> <span class="fu">mean</span>(equivalents.in.gallic.acid.mg.L),</span>
-<span id="cb463-4"><a href="wrangling-your-data.html#cb463-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_eq_gc =</span> <span class="fu">sd</span>(equivalents.in.gallic.acid.mg.L))</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="wrangling-your-data.html#cb464-1" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb464-2"><a href="wrangling-your-data.html#cb464-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Catechin, PC.B2, Chlorogenic.acid) <span class="sc">%&gt;%</span></span>
+<span id="cb464-3"><a href="wrangling-your-data.html#cb464-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_eq_gc =</span> <span class="fu">mean</span>(equivalents.in.gallic.acid.mg.L),</span>
+<span id="cb464-4"><a href="wrangling-your-data.html#cb464-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_eq_gc =</span> <span class="fu">sd</span>(equivalents.in.gallic.acid.mg.L))</span></code></pre></div>
 <pre><code>## # A tibble: 27 × 5
 ## # Groups:   Catechin, PC.B2 [9]
 ##    Catechin PC.B2 Chlorogenic.acid mean_eq_gc sd_eq_gc
@@ -1311,17 +1311,17 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="rename" class="section level4 hasAnchor" number="4.2.8.1">
 <h4><span class="header-section-number">4.2.8.1</span> <code>rename()</code><a href="wrangling-your-data.html#rename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A common need in data analysis is renaming your columns, because they are called something clear but not machine-readable/easily typable in your data file, and they turn into a mess in R. We have that problem in our <code>polyphenol_tbl</code> dataset:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="wrangling-your-data.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(polyphenol_tbl)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="wrangling-your-data.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(polyphenol_tbl)</span></code></pre></div>
 <pre><code>## [1] &quot;Catechin&quot;                        &quot;PC.B2&quot;                          
 ## [3] &quot;Chlorogenic.acid&quot;                &quot;equivalents.in.gallic.acid.mg.L&quot;</code></pre>
 <p>Even with tab-completion, those are a pain to deal with. Renaming these in base R is a huge pain, in fact. You have to copy them to a new column by using the <code>&lt;-</code> operator, then remove the original column using the <code>[]</code> operator with negative indices.</p>
 <p>In <code>tidyverse</code>, the <code>rename()</code> function is there to help. It works in two, equally useful ways.</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="wrangling-your-data.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="co"># New names go on the left hand side, old names on the right</span></span>
-<span id="cb467-2"><a href="wrangling-your-data.html#cb467-2" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb467-3"><a href="wrangling-your-data.html#cb467-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">chlor =</span> Chlorogenic.acid,</span>
-<span id="cb467-4"><a href="wrangling-your-data.html#cb467-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">pcb2 =</span> PC.B2,</span>
-<span id="cb467-5"><a href="wrangling-your-data.html#cb467-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cat =</span> Catechin,</span>
-<span id="cb467-6"><a href="wrangling-your-data.html#cb467-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">eq_ga =</span> equivalents.in.gallic.acid.mg.L)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="wrangling-your-data.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="co"># New names go on the left hand side, old names on the right</span></span>
+<span id="cb468-2"><a href="wrangling-your-data.html#cb468-2" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb468-3"><a href="wrangling-your-data.html#cb468-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">chlor =</span> Chlorogenic.acid,</span>
+<span id="cb468-4"><a href="wrangling-your-data.html#cb468-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">pcb2 =</span> PC.B2,</span>
+<span id="cb468-5"><a href="wrangling-your-data.html#cb468-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cat =</span> Catechin,</span>
+<span id="cb468-6"><a href="wrangling-your-data.html#cb468-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">eq_ga =</span> equivalents.in.gallic.acid.mg.L)</span></code></pre></div>
 <pre><code>## # A tibble: 81 × 4
 ##      cat  pcb2 chlor  eq_ga
 ##    &lt;dbl&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
@@ -1337,19 +1337,19 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## 10   0.2    30     5  15.2 
 ## # … with 71 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="wrangling-your-data.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, we can rename by INDEX, with new name on the left and column #</span></span>
-<span id="cb469-2"><a href="wrangling-your-data.html#cb469-2" aria-hidden="true" tabindex="-1"></a><span class="co"># on the right.  This is easier for programming, but is less safe because you</span></span>
-<span id="cb469-3"><a href="wrangling-your-data.html#cb469-3" aria-hidden="true" tabindex="-1"></a><span class="co"># have to be certain you&#39;re matching columns correctly.</span></span>
-<span id="cb469-4"><a href="wrangling-your-data.html#cb469-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb469-5"><a href="wrangling-your-data.html#cb469-5" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="ot">&lt;-</span> polyphenol_tbl <span class="sc">%&gt;%</span> <span class="co"># don&#39;t forget we have to actually save the changes if we want them to stick</span></span>
-<span id="cb469-6"><a href="wrangling-your-data.html#cb469-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">cat =</span> <span class="dv">1</span>, <span class="at">pcb2 =</span> <span class="dv">2</span>, <span class="at">chlor =</span> <span class="dv">3</span>, <span class="at">eq_ga =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="wrangling-your-data.html#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, we can rename by INDEX, with new name on the left and column #</span></span>
+<span id="cb470-2"><a href="wrangling-your-data.html#cb470-2" aria-hidden="true" tabindex="-1"></a><span class="co"># on the right.  This is easier for programming, but is less safe because you</span></span>
+<span id="cb470-3"><a href="wrangling-your-data.html#cb470-3" aria-hidden="true" tabindex="-1"></a><span class="co"># have to be certain you&#39;re matching columns correctly.</span></span>
+<span id="cb470-4"><a href="wrangling-your-data.html#cb470-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb470-5"><a href="wrangling-your-data.html#cb470-5" aria-hidden="true" tabindex="-1"></a>polyphenol_tbl <span class="ot">&lt;-</span> polyphenol_tbl <span class="sc">%&gt;%</span> <span class="co"># don&#39;t forget we have to actually save the changes if we want them to stick</span></span>
+<span id="cb470-6"><a href="wrangling-your-data.html#cb470-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">cat =</span> <span class="dv">1</span>, <span class="at">pcb2 =</span> <span class="dv">2</span>, <span class="at">chlor =</span> <span class="dv">3</span>, <span class="at">eq_ga =</span> <span class="dv">4</span>)</span></code></pre></div>
 </div>
 <div id="arrange" class="section level4 hasAnchor" number="4.2.8.2">
 <h4><span class="header-section-number">4.2.8.2</span> <code>arrange()</code><a href="wrangling-your-data.html#arrange" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Another thing we often want to do is sort the rows of a data table according to some criterion. Doing this in base R requires the use of <code>sort()</code>, which works only on vectors, not on data frames, and so requires a similar approach to the <a href="#filter">base R filtering approach we saw above</a>.</p>
 <p>The <code>tidyverse</code> version is very simple: <code>arrange()</code> just requires that you tell it a data frame and one or more columns to sort by.</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="wrangling-your-data.html#cb470-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb470-2"><a href="wrangling-your-data.html#cb470-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hotandsour1) <span class="co"># show us the data in ascending order of liking for hotandsour1</span></span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="wrangling-your-data.html#cb471-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb471-2"><a href="wrangling-your-data.html#cb471-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hotandsour1) <span class="co"># show us the data in ascending order of liking for hotandsour1</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1365,8 +1365,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## 10       1           0          50         -50          10
 ## # … with 14 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="wrangling-your-data.html#cb472-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb472-2"><a href="wrangling-your-data.html#cb472-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>hotandsour1) <span class="co"># writing &quot;-&quot; before the sorting column goes in descending order</span></span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="wrangling-your-data.html#cb473-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb473-2"><a href="wrangling-your-data.html#cb473-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>hotandsour1) <span class="co"># writing &quot;-&quot; before the sorting column goes in descending order</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1382,8 +1382,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## 10      15          70          90         -25         -60
 ## # … with 14 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="wrangling-your-data.html#cb474-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb474-2"><a href="wrangling-your-data.html#cb474-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hotandsour1, <span class="sc">-</span>hotandsour2) <span class="co"># this sorts first ascending by hotandsour1, then within that descending by hotandsour2</span></span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="wrangling-your-data.html#cb475-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb475-2"><a href="wrangling-your-data.html#cb475-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hotandsour1, <span class="sc">-</span>hotandsour2) <span class="co"># this sorts first ascending by hotandsour1, then within that descending by hotandsour2</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    subject minestrone1 minestrone2 hotandsour1 hotandsour2
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1408,8 +1408,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <li>We might be outputting data to a <code>knitr::kable()</code> or other display mode</li>
 </ol>
 <p>We can reorder columns using similar syntax to our base R select operations above, but this requires many steps. Again, the simple <code>tidyverse</code> solution is a single function: <code>relocate()</code>:</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="wrangling-your-data.html#cb476-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb476-2"><a href="wrangling-your-data.html#cb476-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(hotandsour2) <span class="co"># by default the column(s) are moved to the &quot;front&quot; of the table</span></span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="wrangling-your-data.html#cb477-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb477-2"><a href="wrangling-your-data.html#cb477-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(hotandsour2) <span class="co"># by default the column(s) are moved to the &quot;front&quot; of the table</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    hotandsour2 subject minestrone1 minestrone2 hotandsour1
 ##          &lt;int&gt;   &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1425,8 +1425,8 @@ t-test(soups_3)                             # Run our t_test on the third data s
 ## 10          20      10          15          65          25
 ## # … with 14 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="wrangling-your-data.html#cb478-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb478-2"><a href="wrangling-your-data.html#cb478-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(hotandsour2, <span class="at">.after =</span> subject) <span class="co"># .before and .after (note the &quot;.&quot;) can be used to move to specific spots</span></span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="wrangling-your-data.html#cb479-1" aria-hidden="true" tabindex="-1"></a>soup_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb479-2"><a href="wrangling-your-data.html#cb479-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(hotandsour2, <span class="at">.after =</span> subject) <span class="co"># .before and .after (note the &quot;.&quot;) can be used to move to specific spots</span></span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    subject hotandsour2 minestrone1 minestrone2 hotandsour1
 ##      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
@@ -1447,7 +1447,7 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="reading-data-tidily-read_" class="section level3 hasAnchor" number="4.2.9">
 <h3><span class="header-section-number">4.2.9</span> Reading data tidily: <code>read_*()</code><a href="wrangling-your-data.html#reading-data-tidily-read_" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We started today talking about reading data. The <code>readr</code> package in <code>tidyverse</code> gives a set of tidy options for reading data. They have nice defaults and (usually) require less user input. The most common one is <code>read_csv()</code>–note its similarity to <code>read.csv()</code>, except for the substitution of “_” in the name (this is common in <code>tidyverse</code> equivalent functions).</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="wrangling-your-data.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="wrangling-your-data.html#cb481-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;Files/Week 4/soup pilot data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 24 Columns: 5
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -1474,12 +1474,12 @@ t-test(soups_3)                             # Run our t_test on the third data s
 <div id="excel" class="section level4 hasAnchor" number="4.2.9.1">
 <h4><span class="header-section-number">4.2.9.1</span> Solving (some) messy spreadsheet problems: <code>readxl</code> package<a href="wrangling-your-data.html#excel" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>However, I promised we’d solve some file problems before the end of the day. Even though Excel can read .csv files, they are not the same thing as <em>spreadsheet</em> files. Specifically, they have no real notion of “index” in the way that Excel files do (the whole “A1” scheme for referencing cells). But the author of the <code>readxl</code> package for R saw the value in those indices for dealing with messy data storage. So here we are going to use <code>readxl::read_excel()</code> to read in Michael Wesolowski’s thesis data WITHOUT having to edit the underlying file:</p>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="wrangling-your-data.html#cb483-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to run this if you haven&#39;t installed readxl</span></span>
-<span id="cb483-2"><a href="wrangling-your-data.html#cb483-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span>
-<span id="cb483-3"><a href="wrangling-your-data.html#cb483-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="wrangling-your-data.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&quot;Files/Week 4/Thesis Data Mastersheet.xls&quot;</span>,</span>
-<span id="cb484-2"><a href="wrangling-your-data.html#cb484-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sheet =</span> <span class="st">&quot;Tomato&quot;</span>,</span>
-<span id="cb484-3"><a href="wrangling-your-data.html#cb484-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">range =</span> <span class="st">&quot;A6:J78&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="wrangling-your-data.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to run this if you haven&#39;t installed readxl</span></span>
+<span id="cb484-2"><a href="wrangling-your-data.html#cb484-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb484-3"><a href="wrangling-your-data.html#cb484-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="wrangling-your-data.html#cb485-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&quot;Files/Week 4/Thesis Data Mastersheet.xls&quot;</span>,</span>
+<span id="cb485-2"><a href="wrangling-your-data.html#cb485-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sheet =</span> <span class="st">&quot;Tomato&quot;</span>,</span>
+<span id="cb485-3"><a href="wrangling-your-data.html#cb485-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">range =</span> <span class="st">&quot;A6:J78&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 72 × 10
 ##    Time …¹ Trial…² Repli…³ Plate…⁴ Count Addit…⁵ Total…⁶ Total…⁷ Log C…⁸ Avera…⁹
 ##    &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -1553,7 +1553,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jlahne/food-data-science-2022/edit/BRANCH/04-data-wrangling.Rmd",
+"link": "https://github.com/jlahne/food-data-science-2022/edit/master/04-data-wrangling.Rmd",
 "text": "Edit"
 },
 "history": {

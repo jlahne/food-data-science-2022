@@ -469,7 +469,7 @@ div.csl-indent {
 <p>Hard cider is a fermented, alcoholic beverage often compared to wine and beer that is growing in popularity throughout the United States. However, the growing popularity of cider has been accompanied by inconsistent communication regarding consumers’ perception of dryness and sweetness in hard cider. To date, there is no conclusive methodology to measure cider dryness and sweetness in a way that is relevant and accurate for most ciders and cider-drinkers. At the same time, there is no industry standard for the serving temperature of hard cider, although temperature is known to impact the sensory experience and particularly the apparent dryness of other alcoholic beverages. Recently, the New York Cider Association developed the Merlyn Dryness Scale as a way to scale cider dryness using basic cider chemistry (pH, RS, TA, polyphenol content, malic acid, and CO2) , but this approach has not been validated in sensory experiments. Thus, the aim of this research is to validate the Merlyn Dryness Scale by comparing the chemical analyses of various cider samples to the sensory evaluations of those cider samples, and to assess the effect of serving temperature on cider dryness perception. Chemical analyses performed for the research include determining the pH, RS, TA, and total polyphenol content.</p>
 </blockquote>
 <p>This dataset contains two different data tables. The first–<code>cider_chem</code>–is a table of chemistry data for the ciders, as described above.</p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="describing-your-data.html#cb546-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cider_chem)</span></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="describing-your-data.html#cb547-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cider_chem)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="9%" />
@@ -527,14 +527,14 @@ div.csl-indent {
 </tbody>
 </table>
 <p>The second–<code>cider_dryness</code>–is a (much larger) table of subjects’ sensory judgments of the same ciders.</p>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="describing-your-data.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(cider_dryness, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="describing-your-data.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(cider_dryness, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="13%" />
 <col width="18%" />
-<col width="16%" />
+<col width="15%" />
 <col width="19%" />
-<col width="18%" />
+<col width="20%" />
 <col width="7%" />
 <col width="6%" />
 </colgroup>
@@ -551,126 +551,126 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Buskey Chilled</td>
-<td align="left">vturesearch001</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">3.5</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Buskey Chilled</td>
-<td align="left">emilyey6_vtu</td>
-<td align="left">Emily Yando</td>
-<td align="left">Emily</td>
-<td align="left"><a href="mailto:emilyey6@vt.edu" class="email">emilyey6@vt.edu</a></td>
-<td align="right">2.9</td>
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="left">Eden RT</td>
-<td align="left">vturesearch001</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">4.3</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Buskey Chilled</td>
-<td align="left">theta_vtu</td>
-<td align="left">Thet Aung</td>
-<td align="left">Thet</td>
-<td align="left"><a href="mailto:theta@vt.edu" class="email">theta@vt.edu</a></td>
-<td align="right">1.3</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
 <td align="left">1911 Chilled</td>
-<td align="left">nalex98_vtu</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left"><a href="mailto:nalex98@vt.edu" class="email">nalex98@vt.edu</a></td>
-<td align="right">4.0</td>
+<td align="left">lahne_vtu</td>
+<td align="left">Jacob Lahne</td>
+<td align="left">Jacob</td>
+<td align="left"><a href="mailto:jlahne@vt.edu" class="email">jlahne@vt.edu</a></td>
+<td align="right">2.8</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Buskey Chilled</td>
+<td align="left">akyle99_vtu</td>
+<td align="left">Kyle Adie</td>
+<td align="left">Kyle</td>
+<td align="left"><a href="mailto:akyle99@vt.edu" class="email">akyle99@vt.edu</a></td>
+<td align="right">2.5</td>
 <td align="right">7</td>
 </tr>
-<tr class="even">
-<td align="left">Eden RT</td>
-<td align="left">theta_vtu</td>
-<td align="left">Thet Aung</td>
-<td align="left">Thet</td>
-<td align="left"><a href="mailto:theta@vt.edu" class="email">theta@vt.edu</a></td>
-<td align="right">1.7</td>
-<td align="right">3</td>
-</tr>
 <tr class="odd">
-<td align="left">Buskey RT</td>
-<td align="left"><a href="mailto:joell.eifert@vt.edu" class="email">joell.eifert@vt.edu</a></td>
-<td align="left">Joell Eifert</td>
-<td align="left">Joell</td>
-<td align="left"><a href="mailto:joell.eifert@vt.edu" class="email">joell.eifert@vt.edu</a></td>
-<td align="right">1.8</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">Buskey RT</td>
-<td align="left">joshuabm_vtu</td>
-<td align="left">Joshua Mouser</td>
-<td align="left">Joshua</td>
-<td align="left"><a href="mailto:joshuabm@vt.edu" class="email">joshuabm@vt.edu</a></td>
-<td align="right">2.0</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Eden Chilled</td>
-<td align="left">cdavis98_vtu</td>
+<td align="left">1911 RT</td>
+<td align="left">klbyrwa_vtu</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left"><a href="mailto:cdavis98@vt.edu" class="email">cdavis98@vt.edu</a></td>
-<td align="right">3.5</td>
+<td align="left"><a href="mailto:klbyrwa@vt.edu" class="email">klbyrwa@vt.edu</a></td>
+<td align="right">4.4</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">1911 RT</td>
+<td align="left">kaylinf_vtu</td>
+<td align="left">Kaylin Fitzgerald</td>
+<td align="left">Kaylin</td>
+<td align="left"><a href="mailto:kaylinf@vt.edu" class="email">kaylinf@vt.edu</a></td>
+<td align="right">4.0</td>
 <td align="right">8</td>
 </tr>
+<tr class="odd">
+<td align="left">Buskey Chilled</td>
+<td align="left">Rmawn_vtu</td>
+<td align="left">Rachel Mawn</td>
+<td align="left">Rachel</td>
+<td align="left"><a href="mailto:Rmawn@vt.edu" class="email">Rmawn@vt.edu</a></td>
+<td align="right">3.3</td>
+<td align="right">7</td>
+</tr>
 <tr class="even">
-<td align="left">Buskey RT</td>
-<td align="left">ccamryn3_vtu</td>
-<td align="left">Camryn Grace Cook</td>
-<td align="left">Camryn</td>
-<td align="left"><a href="mailto:ccamryn3@vt.edu" class="email">ccamryn3@vt.edu</a></td>
-<td align="right">3.8</td>
+<td align="left">Eden RT</td>
+<td align="left">taybenn_vtu</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left"><a href="mailto:taybenn@vt.edu" class="email">taybenn@vt.edu</a></td>
+<td align="right">3.0</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">1911 RT</td>
+<td align="left">sok_vtu</td>
+<td align="left">Sean O’Keefe</td>
+<td align="left">Sean</td>
+<td align="left"><a href="mailto:sok@vt.edu" class="email">sok@vt.edu</a></td>
+<td align="right">3.3</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Eden Chilled</td>
+<td align="left">peggylaynepe_vtu</td>
+<td align="left">Peggy Layne</td>
+<td align="left">Peggy</td>
+<td align="left"><a href="mailto:peggylaynepe@gmail.com" class="email">peggylaynepe@gmail.com</a></td>
+<td align="right">2.5</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Buskey Chilled</td>
+<td align="left"><a href="mailto:ann.sandbrook@vt.edu" class="email">ann.sandbrook@vt.edu</a></td>
+<td align="left">Ann Sandbrook</td>
+<td align="left">Ann</td>
+<td align="left"><a href="mailto:ann.sandbrook@vt.edu" class="email">ann.sandbrook@vt.edu</a></td>
+<td align="right">2.0</td>
 <td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Buskey Chilled</td>
+<td align="left">gerberm_vtu</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left"><a href="mailto:gerberm@vt.edu" class="email">gerberm@vt.edu</a></td>
+<td align="right">3.7</td>
+<td align="right">7</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="review-exercise-how-did-i-import-these-datasets" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Review exercise: How did I import these datasets?<a href="describing-your-data.html#review-exercise-how-did-i-import-these-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="describing-your-data.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use this R chunk to write code that reads the appropriate files into R.</span></span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="describing-your-data.html#cb549-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use this R chunk to write code that reads the appropriate files into R.</span></span></code></pre></div>
 <p>We may also make recourse to the polyphenol data from last week to give us some data in a different format to play with. As a reminder, those data describe amino-acid contents in different apple varieties, and look like:</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="describing-your-data.html#cb549-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(apples, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="describing-your-data.html#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(apples, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <colgroup>
-<col width="13%" />
+<col width="12%" />
 <col width="4%" />
-<col width="3%" />
 <col width="4%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
 <col width="4%" />
 </colgroup>
 <thead>
@@ -702,29 +702,101 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td align="left">Northern Spy</td>
-<td align="left">Rep_3</td>
-<td align="right">0.00</td>
-<td align="right">2.43</td>
+<td align="left">Rep_2</td>
+<td align="right">0.64</td>
+<td align="right">2.47</td>
 <td align="right">0.19</td>
 <td align="right">0.00</td>
-<td align="right">0.26</td>
+<td align="right">0.25</td>
 <td align="right">0.00</td>
-<td align="right">1.61</td>
-<td align="right">1.07</td>
-<td align="right">0.35</td>
-<td align="right">0.33</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.36</td>
-<td align="right">0.51</td>
-<td align="right">0.93</td>
-<td align="right">1.04</td>
 <td align="right">1.69</td>
-<td align="right">1.96</td>
-<td align="right">1.38</td>
-<td align="right">12.93</td>
+<td align="right">1.10</td>
+<td align="right">0.35</td>
+<td align="right">0.39</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.29</td>
+<td align="right">0.45</td>
+<td align="right">0.71</td>
+<td align="right">0.91</td>
+<td align="right">1.56</td>
+<td align="right">1.99</td>
+<td align="right">1.20</td>
+<td align="right">13.11</td>
 </tr>
 <tr class="even">
+<td align="left">Newtown Pippin</td>
+<td align="left">Rep_1</td>
+<td align="right">0.33</td>
+<td align="right">26.13</td>
+<td align="right">1.01</td>
+<td align="right">1.36</td>
+<td align="right">0.67</td>
+<td align="right">0.13</td>
+<td align="right">5.14</td>
+<td align="right">3.23</td>
+<td align="right">0.57</td>
+<td align="right">1.03</td>
+<td align="right">0.54</td>
+<td align="right">0.28</td>
+<td align="right">0.36</td>
+<td align="right">0.60</td>
+<td align="right">0.94</td>
+<td align="right">1.38</td>
+<td align="right">0.85</td>
+<td align="right">2.12</td>
+<td align="right">1.39</td>
+<td align="right">4.50</td>
+</tr>
+<tr class="odd">
+<td align="left">Field Red</td>
+<td align="left">Rep_2</td>
+<td align="right">0.66</td>
+<td align="right">3.97</td>
+<td align="right">0.31</td>
+<td align="right">0.00</td>
+<td align="right">0.43</td>
+<td align="right">0.00</td>
+<td align="right">2.07</td>
+<td align="right">1.41</td>
+<td align="right">0.21</td>
+<td align="right">0.35</td>
+<td align="right">0.18</td>
+<td align="right">0.00</td>
+<td align="right">0.41</td>
+<td align="right">0.53</td>
+<td align="right">1.12</td>
+<td align="right">1.02</td>
+<td align="right">1.88</td>
+<td align="right">1.77</td>
+<td align="right">1.80</td>
+<td align="right">13.26</td>
+</tr>
+<tr class="even">
+<td align="left">Newtown Pippin</td>
+<td align="left">Rep_3</td>
+<td align="right">0.35</td>
+<td align="right">26.01</td>
+<td align="right">1.00</td>
+<td align="right">1.36</td>
+<td align="right">0.64</td>
+<td align="right">0.12</td>
+<td align="right">5.22</td>
+<td align="right">3.27</td>
+<td align="right">0.63</td>
+<td align="right">1.01</td>
+<td align="right">0.54</td>
+<td align="right">0.29</td>
+<td align="right">0.35</td>
+<td align="right">0.60</td>
+<td align="right">0.94</td>
+<td align="right">1.32</td>
+<td align="right">0.85</td>
+<td align="right">2.10</td>
+<td align="right">1.52</td>
+<td align="right">4.35</td>
+</tr>
+<tr class="odd">
 <td align="left">Arkansas Black</td>
 <td align="left">Rep_2</td>
 <td align="right">0.17</td>
@@ -748,78 +820,6 @@ div.csl-indent {
 <td align="right">1.32</td>
 <td align="right">3.29</td>
 </tr>
-<tr class="odd">
-<td align="left">Arkansas Black</td>
-<td align="left">Rep_1</td>
-<td align="right">0.62</td>
-<td align="right">10.42</td>
-<td align="right">0.68</td>
-<td align="right">1.60</td>
-<td align="right">0.36</td>
-<td align="right">0.09</td>
-<td align="right">2.92</td>
-<td align="right">2.37</td>
-<td align="right">0.20</td>
-<td align="right">0.72</td>
-<td align="right">0.35</td>
-<td align="right">0.26</td>
-<td align="right">0.22</td>
-<td align="right">0.43</td>
-<td align="right">0.67</td>
-<td align="right">0.98</td>
-<td align="right">0.55</td>
-<td align="right">1.59</td>
-<td align="right">1.24</td>
-<td align="right">3.25</td>
-</tr>
-<tr class="even">
-<td align="left">Shenandoah</td>
-<td align="left">Rep_1</td>
-<td align="right">1.32</td>
-<td align="right">14.66</td>
-<td align="right">0.75</td>
-<td align="right">1.62</td>
-<td align="right">0.64</td>
-<td align="right">0.00</td>
-<td align="right">4.48</td>
-<td align="right">2.57</td>
-<td align="right">0.29</td>
-<td align="right">0.89</td>
-<td align="right">0.45</td>
-<td align="right">0.41</td>
-<td align="right">0.20</td>
-<td align="right">0.41</td>
-<td align="right">0.57</td>
-<td align="right">0.87</td>
-<td align="right">0.62</td>
-<td align="right">1.86</td>
-<td align="right">1.27</td>
-<td align="right">3.63</td>
-</tr>
-<tr class="odd">
-<td align="left">Golden Delicious</td>
-<td align="left">Rep_2</td>
-<td align="right">0.25</td>
-<td align="right">0.98</td>
-<td align="right">0.13</td>
-<td align="right">0.59</td>
-<td align="right">0.54</td>
-<td align="right">0.00</td>
-<td align="right">1.74</td>
-<td align="right">0.97</td>
-<td align="right">0.31</td>
-<td align="right">0.24</td>
-<td align="right">0.00</td>
-<td align="right">0.14</td>
-<td align="right">0.34</td>
-<td align="right">0.52</td>
-<td align="right">0.76</td>
-<td align="right">1.01</td>
-<td align="right">1.54</td>
-<td align="right">1.88</td>
-<td align="right">1.41</td>
-<td align="right">12.13</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -838,21 +838,21 @@ div.csl-indent {
 <div id="types-of-data-and-data-structures" class="section level4 hasAnchor" number="6.3.1.1">
 <h4><span class="header-section-number">6.3.1.1</span> Types of data and data structures<a href="describing-your-data.html#types-of-data-and-data-structures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We learned about data types in lesson 1 and 2–you might recall a discussion of <em>integers</em>, <em>characters</em>, <em>numeric</em>, etc vectors, and of complex data structures like <em>matrices</em>, <em>lists</em>, and <em>data frames</em>. In general, it’s worth remembering that vectors and matrices can contain only one kind of data–that is, a matrix can have <em>numeric</em> data in all of its cells, or <em>character</em> data, but it cannot have some numeric and some character data.</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="describing-your-data.html#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="describing-your-data.html#cb551-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,] &quot;a&quot;  &quot;c&quot; 
 ## [2,] &quot;b&quot;  &quot;d&quot;</code></pre>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="describing-your-data.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="describing-your-data.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    3
 ## [2,]    2    4</code></pre>
 <p>The <strong>data types</strong> of these comparatively simple data objects are going to always be the kind of thing they contain:</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="describing-your-data.html#cb554-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="st">&quot;a string&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="describing-your-data.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="st">&quot;a string&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="describing-your-data.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">matrix</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">nrow =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="describing-your-data.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">matrix</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">nrow =</span> <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Lists, on the other hand, can contain any number of different types of objects (including complex data structures):</p>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="describing-your-data.html#cb558-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">a_character =</span> <span class="st">&quot;hi!&quot;</span>, <span class="at">a_number =</span> <span class="fl">3.5</span>, <span class="at">an_integer =</span> 3L, <span class="at">a_logical =</span> <span class="cn">TRUE</span>, <span class="at">a_matrix =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="describing-your-data.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">a_character =</span> <span class="st">&quot;hi!&quot;</span>, <span class="at">a_number =</span> <span class="fl">3.5</span>, <span class="at">an_integer =</span> 3L, <span class="at">a_logical =</span> <span class="cn">TRUE</span>, <span class="at">a_matrix =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## $a_character
 ## [1] &quot;hi!&quot;
 ## 
@@ -870,33 +870,33 @@ div.csl-indent {
 ## [1,]    1    3
 ## [2,]    2    4</code></pre>
 <p>Therefore, the type of a list is always just <code>list</code>:</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="describing-your-data.html#cb560-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="describing-your-data.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <p>Data frames (and tibbles) are special kinds of lists.</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="describing-your-data.html#cb562-1" aria-hidden="true" tabindex="-1"></a>example_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>), <span class="at">z =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>), <span class="fu">list</span>(<span class="at">b =</span> <span class="st">&quot;jazz&quot;</span>)))</span>
-<span id="cb562-2"><a href="describing-your-data.html#cb562-2" aria-hidden="true" tabindex="-1"></a>example_tibble</span></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="describing-your-data.html#cb563-1" aria-hidden="true" tabindex="-1"></a>example_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>), <span class="at">z =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>), <span class="fu">list</span>(<span class="at">b =</span> <span class="st">&quot;jazz&quot;</span>)))</span>
+<span id="cb563-2"><a href="describing-your-data.html#cb563-2" aria-hidden="true" tabindex="-1"></a>example_tibble</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##       x y     z               
 ##   &lt;int&gt; &lt;lgl&gt; &lt;list&gt;          
 ## 1     1 TRUE  &lt;named list [1]&gt;
 ## 2     2 FALSE &lt;named list [1]&gt;</code></pre>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="describing-your-data.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(example_tibble)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="describing-your-data.html#cb565-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(example_tibble)</span></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <p>The main things to remember about these structures are:</p>
 <ol style="list-style-type: decimal">
 <li>They are “rectangular” - e.g., they enable numerical indexing in the same way that we can with matrices (<code>[]</code>) or using the special data-frame access: <code>$</code>.</li>
 </ol>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="describing-your-data.html#cb566-1" aria-hidden="true" tabindex="-1"></a>example_tibble[<span class="dv">1</span>, ] <span class="co"># get the first row of our tibble</span></span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="describing-your-data.html#cb567-1" aria-hidden="true" tabindex="-1"></a>example_tibble[<span class="dv">1</span>, ] <span class="co"># get the first row of our tibble</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##       x y     z               
 ##   &lt;int&gt; &lt;lgl&gt; &lt;list&gt;          
 ## 1     1 TRUE  &lt;named list [1]&gt;</code></pre>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="describing-your-data.html#cb568-1" aria-hidden="true" tabindex="-1"></a>example_tibble<span class="sc">$</span>x <span class="co"># get the first column of our example tibble</span></span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="describing-your-data.html#cb569-1" aria-hidden="true" tabindex="-1"></a>example_tibble<span class="sc">$</span>x <span class="co"># get the first column of our example tibble</span></span></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>That means that each column of a data frame must be the same length:</li>
 </ol>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="describing-your-data.html#cb570-1" aria-hidden="true" tabindex="-1"></a>example_tibble<span class="sc">$</span>new <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="describing-your-data.html#cb571-1" aria-hidden="true" tabindex="-1"></a>example_tibble<span class="sc">$</span>new <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span></code></pre></div>
 <pre><code>## Error:
 ## ! Assigned data `1:5` must be compatible with existing data.
 ## ✖ Existing data has 2 rows.
@@ -905,36 +905,36 @@ div.csl-indent {
 <ol start="3" style="list-style-type: decimal">
 <li>All data stored in each <em>column</em> must be of the same <em>type</em> (although as can be seen in our example, we can make a “list of lists” column).</li>
 </ol>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="describing-your-data.html#cb572-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(example_tibble<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="describing-your-data.html#cb573-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(example_tibble<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 </div>
 <div id="sizes" class="section level4 hasAnchor" number="6.3.1.2">
 <h4><span class="header-section-number">6.3.1.2</span> Sizes<a href="describing-your-data.html#sizes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Frequently, we will need to know something about the size of our data sets. For example, we might need to know how many observations we have total in our data set, which may correspond to the number of rows (if our data is in “long” format), we might need to know the number of columns we have so that we can use indexing to access them properly (although using named accessing through <code>select()</code> will generally be more readable), or we might need to know numbers of rows or columns so that we can use <code>for</code> loops or other control-flow tools.</p>
 <p>For vectors, the most useful function is <code>length()</code>. This returns, as you might expect, the length of the vector in terms of how many things are in it:</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="describing-your-data.html#cb574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="describing-your-data.html#cb575-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="describing-your-data.html#cb576-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(letters)</span></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="describing-your-data.html#cb577-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(letters)</span></code></pre></div>
 <pre><code>## [1] 26</code></pre>
 <p>However, <code>length()</code> is less useful for complex data objects: for data frames, counterintuitively, R treats their length as the number of columns; for lists the length is the number of top-level entries.</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="describing-your-data.html#cb578-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(cider_chem)</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="describing-your-data.html#cb579-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(cider_chem)</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="describing-your-data.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(cider_dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="describing-your-data.html#cb581-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(cider_dryness)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <p>For matrices, data frames, etc, the <code>nrow()</code> and <code>ncol()</code> functions are more useful. Respectively, they tell us the number of rows and columns in the object:</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="describing-your-data.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(cider_dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="describing-your-data.html#cb583-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(cider_dryness)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="describing-your-data.html#cb584-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(cider_chem)</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="describing-your-data.html#cb585-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(cider_chem)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>For “rectangular” data structures, we can also ask about the dimensions all at once using the <code>dim()</code> function:</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="describing-your-data.html#cb586-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cider_chem)</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="describing-your-data.html#cb587-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cider_chem)</span></code></pre></div>
 <pre><code>## [1] 3 8</code></pre>
 <p>Less important, for our purposes, is the actual (memory) size of files: how many bytes they take up. Unless you are working with big data (on the scale of at least hundreds of megabytes), R will happily deal with whatever size data you need.</p>
 </div>
 <div id="names" class="section level4 hasAnchor" number="6.3.1.3">
 <h4><span class="header-section-number">6.3.1.3</span> Names<a href="describing-your-data.html#names" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In most of the use cases we have for R, we will be working with data objects that have names. When we print objects we can see that there are names assigned to different parts of the data:</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="describing-your-data.html#cb588-1" aria-hidden="true" tabindex="-1"></a>apples <span class="co"># what are the names here?</span></span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="describing-your-data.html#cb589-1" aria-hidden="true" tabindex="-1"></a>apples <span class="co"># what are the names here?</span></span></code></pre></div>
 <pre><code>## # A tibble: 42 × 22
 ##    Variety     Rep     His   Asn   Ser   Gln   Arg   Gly   Asp   Glu   Thr   Ala
 ##    &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -952,31 +952,31 @@ div.csl-indent {
 ## #   Lys &lt;dbl&gt;, Tyr &lt;dbl&gt;, Met &lt;dbl&gt;, Val &lt;dbl&gt;, Ile &lt;dbl&gt;, Leu &lt;dbl&gt;, Phe &lt;dbl&gt;
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>Simple objects can also have names:</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="describing-your-data.html#cb590-1" aria-hidden="true" tabindex="-1"></a>simple_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">10</span>) <span class="co"># what type of object is this?</span></span>
-<span id="cb590-2"><a href="describing-your-data.html#cb590-2" aria-hidden="true" tabindex="-1"></a>simple_names</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="describing-your-data.html#cb591-1" aria-hidden="true" tabindex="-1"></a>simple_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">10</span>) <span class="co"># what type of object is this?</span></span>
+<span id="cb591-2"><a href="describing-your-data.html#cb591-2" aria-hidden="true" tabindex="-1"></a>simple_names</span></code></pre></div>
 <pre><code>##  a  b  c 
 ##  1  2 10</code></pre>
 <p>We can get the names of an object through <code>names()</code>:</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="describing-your-data.html#cb592-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(simple_names)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="describing-your-data.html#cb593-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(simple_names)</span></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="describing-your-data.html#cb594-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(apples)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="describing-your-data.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(apples)</span></code></pre></div>
 <pre><code>##  [1] &quot;Variety&quot; &quot;Rep&quot;     &quot;His&quot;     &quot;Asn&quot;     &quot;Ser&quot;     &quot;Gln&quot;     &quot;Arg&quot;    
 ##  [8] &quot;Gly&quot;     &quot;Asp&quot;     &quot;Glu&quot;     &quot;Thr&quot;     &quot;Ala&quot;     &quot;GABA&quot;    &quot;Pro&quot;    
 ## [15] &quot;Cys&quot;     &quot;Lys&quot;     &quot;Tyr&quot;     &quot;Met&quot;     &quot;Val&quot;     &quot;Ile&quot;     &quot;Leu&quot;    
 ## [22] &quot;Phe&quot;</code></pre>
 <p>We can also <em>set</em> names in an object using the same function, combined with <code>&lt;-</code>:</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="describing-your-data.html#cb596-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(simple_names) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;new 1&quot;</span>, <span class="st">&quot;new 2&quot;</span>, <span class="st">&quot;new 3&quot;</span>)</span>
-<span id="cb596-2"><a href="describing-your-data.html#cb596-2" aria-hidden="true" tabindex="-1"></a>simple_names</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="describing-your-data.html#cb597-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(simple_names) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;new 1&quot;</span>, <span class="st">&quot;new 2&quot;</span>, <span class="st">&quot;new 3&quot;</span>)</span>
+<span id="cb597-2"><a href="describing-your-data.html#cb597-2" aria-hidden="true" tabindex="-1"></a>simple_names</span></code></pre></div>
 <pre><code>## new 1 new 2 new 3 
 ##     1     2    10</code></pre>
 <p>For complex objects, we have equivalents of <code>nrow()</code>/<code>ncol()</code>/<code>dim()</code>:</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="describing-your-data.html#cb598-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cider_chem)</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="describing-your-data.html#cb599-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cider_chem)</span></code></pre></div>
 <pre><code>## [1] &quot;Cider&quot;             &quot;pH&quot;                &quot;TA (g/L)&quot;         
 ## [4] &quot;CO2&quot;               &quot;TRS (g/L)&quot;         &quot;MAL(g/L)&quot;         
 ## [7] &quot;Polyphenols (ppm)&quot; &quot;Merlyn Rating&quot;</code></pre>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="describing-your-data.html#cb600-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cider_chem) <span class="co"># note that tibbles do not support row names</span></span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="describing-your-data.html#cb601-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cider_chem) <span class="co"># note that tibbles do not support row names</span></span></code></pre></div>
 <pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="describing-your-data.html#cb602-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(cider_chem) </span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="describing-your-data.html#cb603-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(cider_chem) </span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
 ## 
@@ -987,9 +987,9 @@ div.csl-indent {
 <p>All of these can be combined with <code>&lt;-</code> to modify the existing assignments.</p>
 <p>Data frames and matrices allow rownames, but these are discouraged in tibbles. Wickham &amp; Grolemund -<span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span> argue that row names are more confusing and less useful than a named column in a dataframe, but a number of non-<code>tidyverse</code> packages in R do rely on them. Therefore, it is useful to know a little bit about them, even though I do agree that they are less useful than a named column.</p>
 <p>For example, we might want to transform our <code>cider_chem</code> tibble into a data frame with row names corresponding to the sample names</p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="describing-your-data.html#cb604-1" aria-hidden="true" tabindex="-1"></a>cider_chem_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cider_chem)</span>
-<span id="cb604-2"><a href="describing-your-data.html#cb604-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cider_chem_df) <span class="ot">&lt;-</span> cider_chem<span class="sc">$</span>Cider</span>
-<span id="cb604-3"><a href="describing-your-data.html#cb604-3" aria-hidden="true" tabindex="-1"></a>cider_chem_df</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="describing-your-data.html#cb605-1" aria-hidden="true" tabindex="-1"></a>cider_chem_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cider_chem)</span>
+<span id="cb605-2"><a href="describing-your-data.html#cb605-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cider_chem_df) <span class="ot">&lt;-</span> cider_chem<span class="sc">$</span>Cider</span>
+<span id="cb605-3"><a href="describing-your-data.html#cb605-3" aria-hidden="true" tabindex="-1"></a>cider_chem_df</span></code></pre></div>
 <pre><code>##         Cider   pH TA (g/L)  CO2 TRS (g/L) MAL(g/L) Polyphenols (ppm)
 ## Eden     Eden 3.69     4.27 4.54     18.67     3.62            203.56
 ## Buskey Buskey 3.94     3.10 4.53     15.67     2.05            245.57
@@ -1000,8 +1000,8 @@ div.csl-indent {
 ## 1911           4.225</code></pre>
 <p>Row names must be unique, which can be a problem for long data frames (as opposed to wide), because usually the observations in a long data frame are uniquely identified by a <em>combination</em> of columns, rather than a single one–this is one of the reasons that Wickham &amp; Grolemund -<span class="citation">Wickham and Grolemund (<a href="#ref-wickham2017" role="doc-biblioref">2017</a>)</span> argue against their use.</p>
 <p>Rather than the somewhat annoying set of code commands above, <code>tibble</code> does provide a nice one-step function appropriate for piping for transforming a tibble to a data frame with rownames: <code>column_to_rownames()</code>. This also has the nice side effect of deleting the (now redundant) column from the new data frame</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="describing-your-data.html#cb606-1" aria-hidden="true" tabindex="-1"></a>cider_chem <span class="sc">%&gt;%</span></span>
-<span id="cb606-2"><a href="describing-your-data.html#cb606-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Cider&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="describing-your-data.html#cb607-1" aria-hidden="true" tabindex="-1"></a>cider_chem <span class="sc">%&gt;%</span></span>
+<span id="cb607-2"><a href="describing-your-data.html#cb607-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Cider&quot;</span>)</span></code></pre></div>
 <pre><code>##          pH TA (g/L)  CO2 TRS (g/L) MAL(g/L) Polyphenols (ppm) Merlyn Rating
 ## Eden   3.69     4.27 4.54     18.67     3.62            203.56         4.374
 ## Buskey 3.94     3.10 4.53     15.67     2.05            245.57         5.055
@@ -1014,7 +1014,7 @@ div.csl-indent {
 <h2><span class="header-section-number">6.4</span> Examining big data frames<a href="describing-your-data.html#examining-big-data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For the most part, we are going to be dealing with data frames that have more rows than we can easily inspect in the R Console, or even the viewer. As you may have already found, we can open a simple “spreadsheet” view of dataframes by clicking on a dataset in the Environment pane–what this actually does is run <code>View(&lt;data&gt;)</code> in the Console.</p>
 <p>Personally, I don’t think this is the most effective way to inspect our data. We’ve already discussed the use of <code>str()</code> as a more effective way to get a summary of the <em>structure</em> of a data frame:</p>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="describing-your-data.html#cb608-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cider_dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="describing-your-data.html#cb609-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cider_dryness)</span></code></pre></div>
 <pre><code>## spec_tbl_df [294 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Sample_Name          : chr [1:294] &quot;1911 Chilled&quot; &quot;Buskey Chilled&quot; &quot;Eden Chilled&quot; &quot;1911 RT&quot; ...
 ##  $ Panelist_Code        : chr [1:294] &quot;ejcole_vtu&quot; &quot;ejcole_vtu&quot; &quot;ejcole_vtu&quot; &quot;ejcole_vtu&quot; ...
@@ -1043,7 +1043,7 @@ div.csl-indent {
 <div id="dplyrglimpse" class="section level3 hasAnchor" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> <code>dplyr::glimpse()</code><a href="describing-your-data.html#dplyrglimpse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>dplyr</code> package offers a somewhat beefed up version of <code>str()</code> called <code>glimpse()</code>. It gives us the same info about the size of the object and info about the types of the columns, but leaves out attributes and class information. This can be more readable, but isn’t necessarily that much better:</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="describing-your-data.html#cb610-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cider_dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="describing-your-data.html#cb611-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cider_dryness)</span></code></pre></div>
 <pre><code>## Rows: 294
 ## Columns: 7
 ## $ Sample_Name           &lt;chr&gt; &quot;1911 Chilled&quot;, &quot;Buskey Chilled&quot;, &quot;Eden Chilled&quot;…
@@ -1055,12 +1055,12 @@ div.csl-indent {
 ## $ Liking                &lt;dbl&gt; 5, 5, NA, NA, NA, 5, 6, 7, 4, 2, 7, 5, 8, 6, 7, …</code></pre>
 <p>However, for various reasons we will need different ways to look at parts of our data. One frequent situation I find myself in is the need to make sure that a calculated column (perhaps made via <code>mutate()</code>) is working properly. To do so, we might want to not just look at the top of the data set (printed normally via when we put the name of a tibble into the Console), since that might be systematically different than later observations.</p>
 <p>We can of course use indexing to access any part of the tibble, but this is going to get tedious fast:</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="describing-your-data.html#cb612-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explain what calculation I am making here.</span></span>
-<span id="cb612-2"><a href="describing-your-data.html#cb612-2" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb612-3"><a href="describing-your-data.html#cb612-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Panelist_Name) <span class="sc">%&gt;%</span> <span class="co"># this has introduced a subtle error, why?</span></span>
-<span id="cb612-4"><a href="describing-your-data.html#cb612-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">liking_by_subject =</span> <span class="fu">mean</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># why does this show us the error?</span></span>
-<span id="cb612-5"><a href="describing-your-data.html#cb612-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb612-6"><a href="describing-your-data.html#cb612-6" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">94</span><span class="sc">:</span><span class="dv">103</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="describing-your-data.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explain what calculation I am making here.</span></span>
+<span id="cb613-2"><a href="describing-your-data.html#cb613-2" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb613-3"><a href="describing-your-data.html#cb613-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Panelist_Name) <span class="sc">%&gt;%</span> <span class="co"># this has introduced a subtle error, why?</span></span>
+<span id="cb613-4"><a href="describing-your-data.html#cb613-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">liking_by_subject =</span> <span class="fu">mean</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># why does this show us the error?</span></span>
+<span id="cb613-5"><a href="describing-your-data.html#cb613-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb613-6"><a href="describing-your-data.html#cb613-6" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">94</span><span class="sc">:</span><span class="dv">103</span>,]</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 8
 ##    Sample_Name    Panelist_Code  Paneli…¹ Panel…² Panel…³ Dryness Liking likin…⁴
 ##    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
@@ -1081,7 +1081,7 @@ div.csl-indent {
 <div id="headtail" class="section level3 hasAnchor" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> <code>head()</code>/<code>tail()</code><a href="describing-your-data.html#headtail" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In base R, there are functions to access the first or last <em>N</em> rows. The default is for <code>n = 6</code>.</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="describing-your-data.html#cb614-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cider_dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="describing-your-data.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cider_dryness)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 7
 ##   Sample_Name    Panelist_Code Panelist_Name  Panelist_…¹ Panel…² Dryness Liking
 ##   &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
@@ -1092,7 +1092,7 @@ div.csl-indent {
 ## 5 Buskey RT      ejcole_vtu    Elizabeth Cole Elizabeth   ejcole…    NA       NA
 ## 6 Eden RT        ejcole_vtu    Elizabeth Cole Elizabeth   ejcole…     3        5
 ## # … with abbreviated variable names ¹​Panelist_Display_Name, ²​Panelist_Email</code></pre>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="describing-your-data.html#cb616-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(cider_dryness, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="describing-your-data.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(cider_dryness, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 7
 ##    Sample_Name    Panelist_Code        Panelist…¹ Panel…² Panel…³ Dryness Liking
 ##    &lt;chr&gt;          &lt;chr&gt;                &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
@@ -1115,8 +1115,8 @@ div.csl-indent {
 <p>More powerful but slightly more complicated are the <code>slice_*()</code> functions from <code>dplyr</code> (part of the <code>tidyverse</code>). These offer more powerful ways to get a subset of data, and can actually be used in a more powerful, functional workflow.</p>
 <p><code>slice_head()</code> and <code>slice_tail()</code> are equivalents to <code>head()</code> and <code>tail()</code>, but they also work with <code>group_by()</code>, so you can get the first/last <em>N</em> rows in each group.</p>
 <p>A next step up in power are <code>slice_max()</code> and <code>slice_min()</code>, which give you the <em>N</em> rows with the highest/lowest value of a specified variable:</p>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="describing-your-data.html#cb618-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb618-2"><a href="describing-your-data.html#cb618-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">order_by =</span> Dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="describing-your-data.html#cb619-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb619-2"><a href="describing-your-data.html#cb619-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">order_by =</span> Dryness)</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 7
 ##    Sample_Name  Panelist_Code     Panelist_Name   Panel…¹ Panel…² Dryness Liking
 ##    &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
@@ -1133,16 +1133,16 @@ div.csl-indent {
 ## 11 Eden Chilled vturesearch001    &lt;NA&gt;            &lt;NA&gt;    &lt;NA&gt;        4.6      2
 ## # … with abbreviated variable names ¹​Panelist_Display_Name, ²​Panelist_Email</code></pre>
 <p>Finally, <code>slice_sample()</code> gets a random set of rows from the dataset. This is a great way to pull a representative sample from throughout the dataset:</p>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="describing-your-data.html#cb620-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb620-2"><a href="describing-your-data.html#cb620-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="describing-your-data.html#cb621-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb621-2"><a href="describing-your-data.html#cb621-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 7
-##   Sample_Name    Panelist_Code Panelist_Name  Panelist_…¹ Panel…² Dryness Liking
-##   &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Eden Chilled   rrboyer_vtu   Renee Boyer    Renee       rrboye…     4.1      5
-## 2 Eden RT        lukes17_vtu   Luke Shanholtz Luke        lukes1…     2.5      5
-## 3 Buskey Chilled Rmawn_vtu     Rachel Mawn    Rachel      Rmawn@…     3.3      7
-## 4 Buskey Chilled kwater_vtu    Kim Waterman   Kim         kwater…     3.5      7
-## 5 1911 RT        cdavis98_vtu  &lt;NA&gt;           &lt;NA&gt;        cdavis…     3.9      7
+##   Sample_Name    Panelist_Code     Panelist_Name  Panel…¹ Panel…² Dryness Liking
+##   &lt;chr&gt;          &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1911 Chilled   emilyplunkett_vtu &lt;NA&gt;           &lt;NA&gt;    emilyp…     4.8      4
+## 2 Buskey RT      Rmawn_vtu         Rachel Mawn    Rachel  Rmawn@…     3.5      3
+## 3 Eden Chilled   emilyplunkett_vtu &lt;NA&gt;           &lt;NA&gt;    emilyp…     3.3      7
+## 4 1911 Chilled   jkess_vtu         Julia Kesselr… Julia   jkess@…     2.8      1
+## 5 Buskey Chilled meenak99_vtu      &lt;NA&gt;           &lt;NA&gt;    meenak…     3.2      4
 ## # … with abbreviated variable names ¹​Panelist_Display_Name, ²​Panelist_Email</code></pre>
 <p>All of these also work with <code>group_by()</code>.</p>
 </div>
@@ -1153,7 +1153,7 @@ div.csl-indent {
 <div id="summary-1" class="section level3 hasAnchor" number="6.5.1">
 <h3><span class="header-section-number">6.5.1</span> <code>summary()</code><a href="describing-your-data.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The base R <code>summary()</code> function is a <em>generic</em> function in R–this means it will do different things depending on what kind of object we give it as its input. For example, when we give it a dataframe, it will give us information about the average and range of each column when the data is numeric, and not a whole lot when it is character data. It will also tell us a little bit about missing data (<code>NA</code>s).</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="describing-your-data.html#cb622-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cider_dryness)</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="describing-your-data.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cider_dryness)</span></code></pre></div>
 <pre><code>##  Sample_Name        Panelist_Code      Panelist_Name      Panelist_Display_Name
 ##  Length:294         Length:294         Length:294         Length:294           
 ##  Class :character   Class :character   Class :character   Class :character     
@@ -1171,7 +1171,7 @@ div.csl-indent {
 ##                     Max.   :5.000   Max.   :8.000  
 ##                     NA&#39;s   :3       NA&#39;s   :3</code></pre>
 <p>However, if we give it a <code>model</code> object (like that produced from simple linear regression with <code>lm()</code>) we will get very different output:</p>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="describing-your-data.html#cb624-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Liking <span class="sc">~</span> Sample_Name, <span class="at">data =</span> cider_dryness))</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="describing-your-data.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Liking <span class="sc">~</span> Sample_Name, <span class="at">data =</span> cider_dryness))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Liking ~ Sample_Name, data = cider_dryness)
@@ -1200,156 +1200,162 @@ div.csl-indent {
 <div id="skimrskim" class="section level3 hasAnchor" number="6.5.2">
 <h3><span class="header-section-number">6.5.2</span> <code>skimr::skim()</code><a href="describing-your-data.html#skimrskim" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A more powerful approach that requires installing a separate package is the <code>skim()</code> function, from <code>skimr</code>. This is actually one of my favorite R tools, because it tells you so much so easily:</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="describing-your-data.html#cb626-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(cider_dryness) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
-<table style="width:100%;">
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="describing-your-data.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(cider_dryness)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-32">Table 6.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">cider_dryness</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">294</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">7</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">5</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
 <colgroup>
-<col width="4%" />
-<col width="9%" />
+<col width="27%" />
+<col width="12%" />
+<col width="17%" />
+<col width="5%" />
+<col width="5%" />
+<col width="7%" />
+<col width="11%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sample_Name</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">7</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Panelist_Code</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">7</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">49</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Panelist_Name</td>
+<td align="right">96</td>
+<td align="right">0.67</td>
+<td align="right">9</td>
+<td align="right">21</td>
+<td align="right">0</td>
+<td align="right">33</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Panelist_Display_Name</td>
+<td align="right">108</td>
+<td align="right">0.63</td>
+<td align="right">3</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">29</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Panelist_Email</td>
+<td align="right">18</td>
+<td align="right">0.94</td>
+<td align="right">10</td>
+<td align="right">26</td>
+<td align="right">0</td>
+<td align="right">46</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+<col width="6%" />
+<col width="6%" />
 <col width="4%" />
 <col width="5%" />
 <col width="5%" />
 <col width="5%" />
 <col width="6%" />
 <col width="8%" />
-<col width="8%" />
-<col width="5%" />
-<col width="4%" />
-<col width="4%" />
-<col width="5%" />
-<col width="5%" />
-<col width="5%" />
-<col width="5%" />
-<col width="5%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">skim_type</th>
 <th align="left">skim_variable</th>
 <th align="right">n_missing</th>
 <th align="right">complete_rate</th>
-<th align="right">character.min</th>
-<th align="right">character.max</th>
-<th align="right">character.empty</th>
-<th align="right">character.n_unique</th>
-<th align="right">character.whitespace</th>
-<th align="right">numeric.mean</th>
-<th align="right">numeric.sd</th>
-<th align="right">numeric.p0</th>
-<th align="right">numeric.p25</th>
-<th align="right">numeric.p50</th>
-<th align="right">numeric.p75</th>
-<th align="right">numeric.p100</th>
-<th align="left">numeric.hist</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">character</td>
-<td align="left">Sample_Name</td>
-<td align="right">0</td>
-<td align="right">1.0000000</td>
-<td align="right">7</td>
-<td align="right">14</td>
-<td align="right">0</td>
-<td align="right">6</td>
-<td align="right">0</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left">character</td>
-<td align="left">Panelist_Code</td>
-<td align="right">0</td>
-<td align="right">1.0000000</td>
-<td align="right">7</td>
-<td align="right">20</td>
-<td align="right">0</td>
-<td align="right">49</td>
-<td align="right">0</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">character</td>
-<td align="left">Panelist_Name</td>
-<td align="right">96</td>
-<td align="right">0.6734694</td>
-<td align="right">9</td>
-<td align="right">21</td>
-<td align="right">0</td>
-<td align="right">33</td>
-<td align="right">0</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left">character</td>
-<td align="left">Panelist_Display_Name</td>
-<td align="right">108</td>
-<td align="right">0.6326531</td>
-<td align="right">3</td>
-<td align="right">9</td>
-<td align="right">0</td>
-<td align="right">29</td>
-<td align="right">0</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">character</td>
-<td align="left">Panelist_Email</td>
-<td align="right">18</td>
-<td align="right">0.9387755</td>
-<td align="right">10</td>
-<td align="right">26</td>
-<td align="right">0</td>
-<td align="right">46</td>
-<td align="right">0</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left">numeric</td>
 <td align="left">Dryness</td>
 <td align="right">3</td>
-<td align="right">0.9897959</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">2.925430</td>
-<td align="right">0.9271607</td>
+<td align="right">0.99</td>
+<td align="right">2.93</td>
+<td align="right">0.93</td>
 <td align="right">1</td>
 <td align="right">2.2</td>
 <td align="right">3</td>
@@ -1357,18 +1363,12 @@ div.csl-indent {
 <td align="right">5</td>
 <td align="left">▅▇▇▇▂</td>
 </tr>
-<tr class="odd">
-<td align="left">numeric</td>
+<tr class="even">
 <td align="left">Liking</td>
 <td align="right">3</td>
-<td align="right">0.9897959</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">5.305842</td>
-<td align="right">2.0221021</td>
+<td align="right">0.99</td>
+<td align="right">5.31</td>
+<td align="right">2.02</td>
 <td align="right">1</td>
 <td align="right">4.0</td>
 <td align="right">6</td>
@@ -1379,12 +1379,12 @@ div.csl-indent {
 </tbody>
 </table>
 <p>In one command we get details about the size and shape of our data, as well as column summaries that are customaized for the different types of data (in this case, character and numeric). But <code>skim()</code> is actually even more powerful: for example, it supports <code>group_by()</code> to give us group summaries for some grouping variable.</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="describing-your-data.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s do a by-cider summary</span></span>
-<span id="cb627-2"><a href="describing-your-data.html#cb627-2" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb627-3"><a href="describing-your-data.html#cb627-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span></span>
-<span id="cb627-4"><a href="describing-your-data.html#cb627-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="describing-your-data.html#cb628-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s do a by-cider summary</span></span>
+<span id="cb628-2"><a href="describing-your-data.html#cb628-2" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb628-3"><a href="describing-your-data.html#cb628-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb628-4"><a href="describing-your-data.html#cb628-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-33">Table 6.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-33">Table 6.2: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -1921,7 +1921,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>We can even use <code>skim()</code> with it’s helper function <code>yank()</code> to make quick summary tables suitable for printing in a report:</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="describing-your-data.html#cb628-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span> <span class="fu">skim</span>() <span class="sc">%&gt;%</span> <span class="fu">yank</span>(<span class="at">skim_type =</span> <span class="st">&quot;numeric&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="describing-your-data.html#cb629-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span> <span class="fu">skim</span>() <span class="sc">%&gt;%</span> <span class="fu">yank</span>(<span class="at">skim_type =</span> <span class="st">&quot;numeric&quot;</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table style="width:100%;">
 <colgroup>
@@ -2133,11 +2133,11 @@ div.csl-indent {
 <p>Our <code>cider_dryness</code> data set is in <em>nearly</em> tidy format: we have two observations per row, <code>Liking</code> and <code>Dryness</code>. We could fix this by using <code>pivot_longer()</code> to flip those into two columns called, for example, “Attribute” and “Rating”, but right now we’ll ignore it and just focus on the <code>Liking</code> variable.</p>
 <p>Recall that the <code>group_by()</code> function tells R that there is some <em>column</em> in the dataset that is a grouping variable–we can even have more than one grouping column, and R will find all combinations. So, for example, in this dataset we have <code>Sample_Name</code>, which tells us about the cider (and its serving temperature). There are 6 total unique sample names (3 ciders and 2 serving temperatures).</p>
 <p>What <code>summarize()</code> does is lets us <strong>define a summary statistic we want for each group</strong>. So, in this case, let’s imagine we want to know the mean, median, and standard deviation for the <code>Liking</code> of each cider.</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="describing-your-data.html#cb629-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb629-2"><a href="describing-your-data.html#cb629-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span></span>
-<span id="cb629-3"><a href="describing-your-data.html#cb629-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb629-4"><a href="describing-your-data.html#cb629-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">median_liking =</span> <span class="fu">median</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb629-5"><a href="describing-your-data.html#cb629-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_liking =</span> <span class="fu">sd</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="describing-your-data.html#cb630-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb630-2"><a href="describing-your-data.html#cb630-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb630-3"><a href="describing-your-data.html#cb630-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_liking =</span> <span class="fu">mean</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb630-4"><a href="describing-your-data.html#cb630-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">median_liking =</span> <span class="fu">median</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb630-5"><a href="describing-your-data.html#cb630-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_liking =</span> <span class="fu">sd</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   Sample_Name    mean_liking median_liking sd_liking
 ##   &lt;chr&gt;                &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
@@ -2149,9 +2149,9 @@ div.csl-indent {
 ## 6 Eden RT               4.53           4        2.05</code></pre>
 <p>This is a very powerful pattern for quickly getting summarized tables for either further analysis or for output to reports and publications.</p>
 <p>Frequently, one of the things we most want to know is “how many observations are there in a particular group?” <code>summarize()</code> provides a helper function for that, which only works in these calls: <code>n()</code>. So we’d write:</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="describing-your-data.html#cb631-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb631-2"><a href="describing-your-data.html#cb631-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span></span>
-<span id="cb631-3"><a href="describing-your-data.html#cb631-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">number_of_obs =</span> <span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="describing-your-data.html#cb632-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb632-2"><a href="describing-your-data.html#cb632-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sample_Name) <span class="sc">%&gt;%</span></span>
+<span id="cb632-3"><a href="describing-your-data.html#cb632-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">number_of_obs =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   Sample_Name    number_of_obs
 ##   &lt;chr&gt;                  &lt;int&gt;
@@ -2162,8 +2162,8 @@ div.csl-indent {
 ## 5 Eden Chilled              49
 ## 6 Eden RT                   49</code></pre>
 <p>This is actually so important that there is a shortcut: <code>count()</code>, which allows us to skip the <code>group_by()</code> and just specify the counting variable within the function:</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="describing-your-data.html#cb633-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb633-2"><a href="describing-your-data.html#cb633-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Panelist_Code)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="describing-your-data.html#cb634-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb634-2"><a href="describing-your-data.html#cb634-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Panelist_Code)</span></code></pre></div>
 <pre><code>## # A tibble: 49 × 2
 ##    Panelist_Code            n
 ##    &lt;chr&gt;                &lt;int&gt;
@@ -2181,9 +2181,9 @@ div.csl-indent {
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>Of course, this can be used on grouped data separately, but it saves typing of lines of code. It also allows the user to specify multiple grouping variables within <code>count()</code> if desired.</p>
 <p>This is especially useful when you are dealing with datasets that may be incomplete, rather than the result of experimental designs that are forced to be complete. Let’s observe this by dropping missing data from our <code>cider_dryness</code> data using the useful <code>drop_na()</code> utility function.</p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="describing-your-data.html#cb635-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb635-2"><a href="describing-your-data.html#cb635-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Liking) <span class="sc">%&gt;%</span></span>
-<span id="cb635-3"><a href="describing-your-data.html#cb635-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Sample_Name)</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="describing-your-data.html#cb636-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb636-2"><a href="describing-your-data.html#cb636-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Liking) <span class="sc">%&gt;%</span></span>
+<span id="cb636-3"><a href="describing-your-data.html#cb636-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Sample_Name)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   Sample_Name        n
 ##   &lt;chr&gt;          &lt;int&gt;
@@ -2194,10 +2194,10 @@ div.csl-indent {
 ## 5 Eden Chilled      48
 ## 6 Eden RT           49</code></pre>
 <p>Now we can see that our data are incomplete, and we have to decide how we might want to deal with that. Let’s find out where our missing data <em>are</em>:</p>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="describing-your-data.html#cb637-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
-<span id="cb637-2"><a href="describing-your-data.html#cb637-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Liking) <span class="sc">%&gt;%</span></span>
-<span id="cb637-3"><a href="describing-your-data.html#cb637-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Panelist_Code) <span class="sc">%&gt;%</span></span>
-<span id="cb637-4"><a href="describing-your-data.html#cb637-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">6</span>) <span class="co"># why did we ask for panelists with less than 6 ratings?</span></span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="describing-your-data.html#cb638-1" aria-hidden="true" tabindex="-1"></a>cider_dryness <span class="sc">%&gt;%</span></span>
+<span id="cb638-2"><a href="describing-your-data.html#cb638-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Liking) <span class="sc">%&gt;%</span></span>
+<span id="cb638-3"><a href="describing-your-data.html#cb638-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Panelist_Code) <span class="sc">%&gt;%</span></span>
+<span id="cb638-4"><a href="describing-your-data.html#cb638-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">6</span>) <span class="co"># why did we ask for panelists with less than 6 ratings?</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   Panelist_Code     n
 ##   &lt;chr&gt;         &lt;int&gt;
@@ -2225,14 +2225,14 @@ div.csl-indent {
 <h4><span class="header-section-number">6.6.1.1</span> Mean<a href="describing-your-data.html#mean" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The (arithmetic) mean has the familiar form of <span class="math inline">\(\bar{x} = \frac{x_{1} + x_{2} + ... + x_{n}}{n}\)</span>. This is the <em>expected value</em> of our variable–the value which, given no other information except our sample, is our best guess for the value of x.</p>
 <p>In R, the <code>mean()</code> function takes a <em>vector</em> and returns the mean value. It will throw an error if there is missing data (e.g., <code>NA</code>).</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="describing-your-data.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="describing-your-data.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>## [1] 0.4214286</code></pre>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="describing-your-data.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking)</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="describing-your-data.html#cb642-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="describing-your-data.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># use na.rm = TRUE to drop NAs before the mean is calculated</span></span></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="describing-your-data.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># use na.rm = TRUE to drop NAs before the mean is calculated</span></span></code></pre></div>
 <pre><code>## [1] 5.305842</code></pre>
 <p>It is important to note that <code>mean()</code> works on <em>vectors</em>. What is wrong with the following function call?</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="describing-your-data.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="co"># What should the mean be?</span></span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="describing-your-data.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="co"># What should the mean be?</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>The mean is <em>biased</em> by the shape of our distribution: it is a good guess at central tendency when our data are clumped up around a central value, but it becomes less and less realistic when our data are</p>
 <ul>
@@ -2241,61 +2241,61 @@ div.csl-indent {
 <li>have multiple “clumps” (e.g., bimodal data)</li>
 </ul>
 <p>What do you think the mean tells us about the following artificial data sets?</p>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="describing-your-data.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s make some pathological data</span></span>
-<span id="cb647-2"><a href="describing-your-data.html#cb647-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">normal =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
-<span id="cb647-3"><a href="describing-your-data.html#cb647-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">spread_out =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">10</span>),</span>
-<span id="cb647-4"><a href="describing-your-data.html#cb647-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">long_tailed =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">90</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">5</span>)),</span>
-<span id="cb647-5"><a href="describing-your-data.html#cb647-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">bimodal =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>)),</span>
-<span id="cb647-6"><a href="describing-your-data.html#cb647-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">obs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb647-7"><a href="describing-your-data.html#cb647-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;x&quot;</span>, <span class="sc">-</span>obs) <span class="sc">%&gt;%</span></span>
-<span id="cb647-8"><a href="describing-your-data.html#cb647-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And now we&#39;ll plot it to look at how the means work</span></span>
-<span id="cb647-9"><a href="describing-your-data.html#cb647-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
-<span id="cb647-10"><a href="describing-your-data.html#cb647-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb647-11"><a href="describing-your-data.html#cb647-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This messy layer just calculates means for each group and plots them as a dashed line</span></span>
-<span id="cb647-12"><a href="describing-your-data.html#cb647-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_x), </span>
-<span id="cb647-13"><a href="describing-your-data.html#cb647-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(distribution) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x)),</span>
-<span id="cb647-14"><a href="describing-your-data.html#cb647-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb647-15"><a href="describing-your-data.html#cb647-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb647-16"><a href="describing-your-data.html#cb647-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>distribution, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb647-17"><a href="describing-your-data.html#cb647-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="describing-your-data.html#cb648-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s make some pathological data</span></span>
+<span id="cb648-2"><a href="describing-your-data.html#cb648-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">normal =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb648-3"><a href="describing-your-data.html#cb648-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">spread_out =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">10</span>),</span>
+<span id="cb648-4"><a href="describing-your-data.html#cb648-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">long_tailed =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">90</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">5</span>)),</span>
+<span id="cb648-5"><a href="describing-your-data.html#cb648-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">bimodal =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>)),</span>
+<span id="cb648-6"><a href="describing-your-data.html#cb648-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">obs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb648-7"><a href="describing-your-data.html#cb648-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;x&quot;</span>, <span class="sc">-</span>obs) <span class="sc">%&gt;%</span></span>
+<span id="cb648-8"><a href="describing-your-data.html#cb648-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And now we&#39;ll plot it to look at how the means work</span></span>
+<span id="cb648-9"><a href="describing-your-data.html#cb648-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb648-10"><a href="describing-your-data.html#cb648-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb648-11"><a href="describing-your-data.html#cb648-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This messy layer just calculates means for each group and plots them as a dashed line</span></span>
+<span id="cb648-12"><a href="describing-your-data.html#cb648-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_x), </span>
+<span id="cb648-13"><a href="describing-your-data.html#cb648-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(distribution) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x)),</span>
+<span id="cb648-14"><a href="describing-your-data.html#cb648-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb648-15"><a href="describing-your-data.html#cb648-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb648-16"><a href="describing-your-data.html#cb648-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>distribution, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb648-17"><a href="describing-your-data.html#cb648-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><img src="06-descriptive-stats_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <div id="other-means-harmonic-geometric-etc" class="section level5 hasAnchor" number="6.6.1.1.1">
 <h5><span class="header-section-number">6.6.1.1.1</span> Other means: harmonic, geometric, etc<a href="describing-your-data.html#other-means-harmonic-geometric-etc" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>There are other ways to calculate a mean that satisfy different definitions. For example, the <strong>geometric mean</strong> is the n-th root of the product of n numbers: <span class="math inline">\(\bar{x}_{geom} = \sqrt[n]{x_{1} * x_{2} * ... * x_{n}}\)</span>. The geometric mean makes sense when considering the central tendency of sets of numbers that will naturally be multiplied, or for other naturally exponential phenomena like growth rates. It can be calculated as <code>psych::geometric.mean()</code>.</p>
 <p>The third common mean is the <strong>harmonic mean</strong>, defined as the reciprocal of the arithmetic mean of the reciprocals of the given set of observations: <span class="math inline">\(\bar{x}_{harm} = \frac{n}{\frac{1}{x_{1}} + \frac{1}{x_{2}} + ... + \frac{1}{x_{n}}}\)</span>. The harmonic mean does not suffer from the influence of outliers in the same way as the arithmetic mean. It can be calculated as <code>psych::harmonic.mean()</code></p>
 <p>The relationship between the three means is generally <span class="math inline">\(\bar{x}_{harm} &lt; \bar{x}_{geom} &lt; \bar{x}\)</span>, except in the case where all observations are equal. For our dataset:</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="describing-your-data.html#cb648-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">harmonic.mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="describing-your-data.html#cb649-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">harmonic.mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <pre><code>## [1] 4.010369</code></pre>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="describing-your-data.html#cb650-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">geometric.mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="describing-your-data.html#cb651-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">geometric.mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 4.768266</code></pre>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="describing-your-data.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="describing-your-data.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 5.305842</code></pre>
 </div>
 </div>
 <div id="median" class="section level4 hasAnchor" number="6.6.1.2">
 <h4><span class="header-section-number">6.6.1.2</span> Median<a href="describing-your-data.html#median" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In contrast to the mean, the <strong>median</strong> is the central value in our observations when they are ordered from least to greatest. The median, therefore, is not affected by extreme outliers and long tails in the ways that the mean(s) typically are. For this reason the median is often called “<em>nonparametric</em>”–it is an equally good estimator of the central tendency even when our data is not <em>parameterized</em> by the “clumped around the center” distribution typical of the normal (bell-shaped) distribution.</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="describing-your-data.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">normal =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
-<span id="cb654-2"><a href="describing-your-data.html#cb654-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">long_tailed =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">90</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">5</span>)),</span>
-<span id="cb654-3"><a href="describing-your-data.html#cb654-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">obs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb654-4"><a href="describing-your-data.html#cb654-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;x&quot;</span>, <span class="sc">-</span>obs) <span class="sc">%&gt;%</span></span>
-<span id="cb654-5"><a href="describing-your-data.html#cb654-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And now we&#39;ll plot it to look at how the means work</span></span>
-<span id="cb654-6"><a href="describing-your-data.html#cb654-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
-<span id="cb654-7"><a href="describing-your-data.html#cb654-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb654-8"><a href="describing-your-data.html#cb654-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This messy layer just calculates means for each group and plots them as a dashed line</span></span>
-<span id="cb654-9"><a href="describing-your-data.html#cb654-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> median_x), </span>
-<span id="cb654-10"><a href="describing-your-data.html#cb654-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(distribution) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">median_x =</span> <span class="fu">median</span>(x)),</span>
-<span id="cb654-11"><a href="describing-your-data.html#cb654-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb654-12"><a href="describing-your-data.html#cb654-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb654-13"><a href="describing-your-data.html#cb654-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>distribution, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb654-14"><a href="describing-your-data.html#cb654-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="describing-your-data.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">normal =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb655-2"><a href="describing-your-data.html#cb655-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">long_tailed =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">90</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">5</span>)),</span>
+<span id="cb655-3"><a href="describing-your-data.html#cb655-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">obs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb655-4"><a href="describing-your-data.html#cb655-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;x&quot;</span>, <span class="sc">-</span>obs) <span class="sc">%&gt;%</span></span>
+<span id="cb655-5"><a href="describing-your-data.html#cb655-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And now we&#39;ll plot it to look at how the means work</span></span>
+<span id="cb655-6"><a href="describing-your-data.html#cb655-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb655-7"><a href="describing-your-data.html#cb655-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb655-8"><a href="describing-your-data.html#cb655-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This messy layer just calculates means for each group and plots them as a dashed line</span></span>
+<span id="cb655-9"><a href="describing-your-data.html#cb655-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> median_x), </span>
+<span id="cb655-10"><a href="describing-your-data.html#cb655-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(distribution) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">median_x =</span> <span class="fu">median</span>(x)),</span>
+<span id="cb655-11"><a href="describing-your-data.html#cb655-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb655-12"><a href="describing-your-data.html#cb655-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb655-13"><a href="describing-your-data.html#cb655-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>distribution, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb655-14"><a href="describing-your-data.html#cb655-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><img src="06-descriptive-stats_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>In R, we calculate the median using <code>median()</code>. The same arguments and warnings from <code>mean()</code> apply here.</p>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="describing-your-data.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="describing-your-data.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>## [1] 0.365</code></pre>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="describing-your-data.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(cider_dryness<span class="sc">$</span>Liking)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="describing-your-data.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(cider_dryness<span class="sc">$</span>Liking)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="describing-your-data.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># why is this wrong?</span></span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="describing-your-data.html#cb660-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># why is this wrong?</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 </div>
 <div id="mode" class="section level4 hasAnchor" number="6.6.1.3">
@@ -2308,28 +2308,28 @@ div.csl-indent {
 </ul>
 <p>We can sometimes represent these statistics as means or medians, but we are really talking about modes and categorical variables. Therefore, it’s a shame that R doesn’t actually have a function to easily calculate the mode!</p>
 <p>It is pretty easy to use the <code>group_by()</code>/<code>count()</code>/<code>slice_*()</code> to find the mode of a dataset:</p>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="describing-your-data.html#cb661-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How can we use these functions to find the most frequently occurring category?</span></span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="describing-your-data.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How can we use these functions to find the most frequently occurring category?</span></span></code></pre></div>
 <p>However, it might be better to define a function that works more like <code>mean()</code> and <code>median()</code>. This solution is given at <a href="https://stackoverflow.com/questions/2547402/how-to-find-the-statistical-mode">Stack Overflow</a>.</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="describing-your-data.html#cb662-1" aria-hidden="true" tabindex="-1"></a>Modes <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb662-2"><a href="describing-your-data.html#cb662-2" aria-hidden="true" tabindex="-1"></a>  ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
-<span id="cb662-3"><a href="describing-your-data.html#cb662-3" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">match</span>(x, ux))</span>
-<span id="cb662-4"><a href="describing-your-data.html#cb662-4" aria-hidden="true" tabindex="-1"></a>  ux[tab <span class="sc">==</span> <span class="fu">max</span>(tab)]</span>
-<span id="cb662-5"><a href="describing-your-data.html#cb662-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb662-6"><a href="describing-your-data.html#cb662-6" aria-hidden="true" tabindex="-1"></a><span class="fu">Modes</span>(cider_dryness<span class="sc">$</span>Liking)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="describing-your-data.html#cb663-1" aria-hidden="true" tabindex="-1"></a>Modes <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb663-2"><a href="describing-your-data.html#cb663-2" aria-hidden="true" tabindex="-1"></a>  ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
+<span id="cb663-3"><a href="describing-your-data.html#cb663-3" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">match</span>(x, ux))</span>
+<span id="cb663-4"><a href="describing-your-data.html#cb663-4" aria-hidden="true" tabindex="-1"></a>  ux[tab <span class="sc">==</span> <span class="fu">max</span>(tab)]</span>
+<span id="cb663-5"><a href="describing-your-data.html#cb663-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb663-6"><a href="describing-your-data.html#cb663-6" aria-hidden="true" tabindex="-1"></a><span class="fu">Modes</span>(cider_dryness<span class="sc">$</span>Liking)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <p>This introduces a nice utility function: <code>unique()</code> takes a vector and tells you what values are in it:</p>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="describing-your-data.html#cb664-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="describing-your-data.html#cb665-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="describing-your-data.html#cb666-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Liking), <span class="at">data =</span> cider_dryness) <span class="sc">+</span> </span>
-<span id="cb666-2"><a href="describing-your-data.html#cb666-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
-<span id="cb666-3"><a href="describing-your-data.html#cb666-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb666-4"><a href="describing-your-data.html#cb666-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb666-5"><a href="describing-your-data.html#cb666-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">Modes</span>(Liking)), <span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb666-6"><a href="describing-your-data.html#cb666-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;label&quot;</span>, </span>
-<span id="cb666-7"><a href="describing-your-data.html#cb666-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">Modes</span>(cider_dryness<span class="sc">$</span>Liking)), </span>
-<span id="cb666-8"><a href="describing-your-data.html#cb666-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.07</span>, <span class="fl">0.08</span>), </span>
-<span id="cb666-9"><a href="describing-your-data.html#cb666-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;median&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;mode&quot;</span>)) <span class="sc">+</span> </span>
-<span id="cb666-10"><a href="describing-your-data.html#cb666-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="describing-your-data.html#cb667-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Liking), <span class="at">data =</span> cider_dryness) <span class="sc">+</span> </span>
+<span id="cb667-2"><a href="describing-your-data.html#cb667-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb667-3"><a href="describing-your-data.html#cb667-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb667-4"><a href="describing-your-data.html#cb667-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb667-5"><a href="describing-your-data.html#cb667-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">Modes</span>(Liking)), <span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb667-6"><a href="describing-your-data.html#cb667-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;label&quot;</span>, </span>
+<span id="cb667-7"><a href="describing-your-data.html#cb667-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="fu">mean</span>(cider_dryness<span class="sc">$</span>Liking, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">Modes</span>(cider_dryness<span class="sc">$</span>Liking)), </span>
+<span id="cb667-8"><a href="describing-your-data.html#cb667-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.07</span>, <span class="fl">0.08</span>), </span>
+<span id="cb667-9"><a href="describing-your-data.html#cb667-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;median&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;mode&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb667-10"><a href="describing-your-data.html#cb667-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 3 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="06-descriptive-stats_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>Or, to sum it all up, we could calculate some kind of average of means…</p>
@@ -2347,11 +2347,11 @@ div.csl-indent {
 <p>The most common way to report variation is <strong>variance</strong> (and its square root, standard deviation). Variance is intimately related to the <em>arithmetic mean</em>: it is defined (for a sample) as the average squared distance from the mean: <span class="math inline">\(\sigma^2 = \frac{1}{n - 1}\sum{(x_{i}-\bar{x})^2}\)</span>. We define it this way in order to account for the fact that we expect both positive and negative differences from the mean; otherwise we’d end up with an average distance of 0.</p>
 <p>The <strong>standard deviation</strong> is just the (positive) square root of variance: <span class="math inline">\(sd = \sqrt{\sigma^2}\)</span>. Standard deviation, however, has the advantage of being in the <em>same units</em> as the mean (and the original variable), meaning that we can interpret standard deviation as the average distance an observation will be away from the mean, which is a more intuitive measurement.</p>
 <p>In R, we calculate variance with <code>var()</code> and standard deviation with <code>sd()</code>. Both take vectors and need to account for <code>NA</code>s.</p>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="describing-your-data.html#cb668-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="describing-your-data.html#cb669-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>## [1] 0.08257352</code></pre>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="describing-your-data.html#cb670-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="describing-your-data.html#cb671-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>## [1] 0.2873561</code></pre>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="describing-your-data.html#cb672-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(cider_dryness<span class="sc">$</span>Liking) <span class="co"># how do we fix this?</span></span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="describing-your-data.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(cider_dryness<span class="sc">$</span>Liking) <span class="co"># how do we fix this?</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 </div>
 <div id="quantiles-and-the-interquartile-range" class="section level4 hasAnchor" number="6.6.2.2">
@@ -2367,12 +2367,12 @@ div.csl-indent {
 </ul>
 <p>The IQR represents an alternative measure of variation. A traditional observation in intro statistics is that, when the data are normal-ish, “~2/3 of the observations fall within 1 sd of the mean”. But as we see in our <code>cider_dryness</code> and <code>apples</code> data we can have quite non-normal distributions. The IQR is another “nonparametric” estimate, in that it doesn’t rely on any assumptions of how our data are made (i.e., distributed)–rather, we just order our data and draw lines at the 25th and 75th percentiles. If the IQR is broad, we have a lot of “spread” (variation) in our data; if the IQR is narrow observations tend to be close to our central measure (the median or 50th percentile in this case). This can help inform our expectations and observations.</p>
 <p>We can get the IQR in quite a few ways. If we want the cut points for the percentiles (the values for the 25th and 75th percentiles), the <code>summary()</code> function on any numeric vectors actually returns that as part of its summarization. If we want the actual distance between the boundaries, the <code>IQR()</code> function returns that. The <code>fivenum()</code> function returns Tukey’s proposed data summary, which is the minimum, the maximimum, the median, and the 25th and 75th percentile observations.</p>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="describing-your-data.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="describing-your-data.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##  0.0000  0.2350  0.3650  0.4214  0.6025  1.3200</code></pre>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="describing-your-data.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="describing-your-data.html#cb677-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>## [1] 0.3675</code></pre>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="describing-your-data.html#cb678-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="describing-your-data.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(apples<span class="sc">$</span>His)</span></code></pre></div>
 <pre><code>## [1] 0.000 0.230 0.365 0.610 1.320</code></pre>
 <p>The main difference between <code>summary()</code> and <code>fivenum()</code> is that the latter will try to return percentile values that are actually observations in the dataset, whereas <code>summary()</code> will generally interpolate values that may not actually occur in the dataset.</p>
 </div>
@@ -2381,11 +2381,11 @@ div.csl-indent {
 <h3><span class="header-section-number">6.6.3</span> Linear Association<a href="describing-your-data.html#linear-association" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Linear association, in data analysis, is closely associated with the ideas of <strong>covariance</strong> and <strong>correlation</strong>. You’ve probably learned about these both in statistics courses, and I will be going into each briefly here. But my goal here is to motivate our thinking about these concepts with more concrete examples, as well as some thinking about the persistent power of the “<em>linear model</em>”, despite (or because of) its limitations. We’ll find that, as an explanatory and exploratory tool, linear models are quite powerful, even when they are obviously incorrect.</p>
 <p>Let’s start by looking at <strong>scatterplots</strong> of data from our <code>apples</code> dataset. Scatterplots have a strong, visual relationship to our idea of linear association. We look only at 8/20 measured amino acids for visual clarity.</p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="describing-your-data.html#cb680-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(apples) <span class="sc">+</span></span>
-<span id="cb680-2"><a href="describing-your-data.html#cb680-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> .panel_x, <span class="at">y =</span> .panel_y)) <span class="sc">+</span></span>
-<span id="cb680-3"><a href="describing-your-data.html#cb680-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_autodensity</span>() <span class="sc">+</span></span>
-<span id="cb680-4"><a href="describing-your-data.html#cb680-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_matrix</span>(<span class="fu">vars</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">layer.diag =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb680-5"><a href="describing-your-data.html#cb680-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="describing-your-data.html#cb681-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(apples) <span class="sc">+</span></span>
+<span id="cb681-2"><a href="describing-your-data.html#cb681-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> .panel_x, <span class="at">y =</span> .panel_y)) <span class="sc">+</span></span>
+<span id="cb681-3"><a href="describing-your-data.html#cb681-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_autodensity</span>() <span class="sc">+</span></span>
+<span id="cb681-4"><a href="describing-your-data.html#cb681-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_matrix</span>(<span class="fu">vars</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">layer.diag =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb681-5"><a href="describing-your-data.html#cb681-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="06-descriptive-stats_files/figure-html/unnamed-chunk-52-1.png" width="768" /></p>
 <p>In many cases, it appears that there is a cloud of points with no clear relationship in each box. In other cases (for example, <code>Asp ~ Glu</code> and <code>Asn ~ Ser</code>) there seem to be “associations” between the values.</p>
 <p>What do we mean by an association? Very broadly, we mean that the magnitude of one of the variables tells us something about the magnitude of the other. So, for example, it appears that higher values of Aspartate are related to higher values of Glutamate (with the exception of one very strong outlier). Although we don’t see any obvious examples in this visualization, we might also see the opposite kind of trends–if a high value of one variable is predictably paired with a low value of another, that would still be a linear association: just a negative one.</p>
@@ -2414,14 +2414,14 @@ div.csl-indent {
 </ol>
 <p>Oof, that was mathy. The main point is to get a conceptual handle on the idea of covariance, as it actually underlies a lot of the statistical inference we will do. We want to know if and when two variables tend to vary together, as it can help us form and test hypotheses about underlying causes.</p>
 <p>In R, we can get covariance between two variables by using the <code>cov()</code> function. We can get a single covariance by giving two vectors to <code>cov(x, y)</code>, but we need to be sure they are ordered by the intrinsic connecting variable. So in the case of <code>apples</code>, that is we need to have the same <code>Variety</code> and <code>Rep</code> ID variables for each observation:</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="describing-your-data.html#cb681-1" aria-hidden="true" tabindex="-1"></a>(correct_covariance <span class="ot">&lt;-</span> <span class="fu">cov</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu))</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="describing-your-data.html#cb682-1" aria-hidden="true" tabindex="-1"></a>(correct_covariance <span class="ot">&lt;-</span> <span class="fu">cov</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu))</span></code></pre></div>
 <pre><code>## [1] 0.8754642</code></pre>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="describing-your-data.html#cb683-1" aria-hidden="true" tabindex="-1"></a>(incorrect_covariance <span class="ot">&lt;-</span> <span class="fu">cov</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">42</span>)]))</span></code></pre></div>
-<pre><code>## [1] -0.02715041</code></pre>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="describing-your-data.html#cb685-1" aria-hidden="true" tabindex="-1"></a>correct_covariance <span class="sc">==</span> incorrect_covariance</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="describing-your-data.html#cb684-1" aria-hidden="true" tabindex="-1"></a>(incorrect_covariance <span class="ot">&lt;-</span> <span class="fu">cov</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">42</span>)]))</span></code></pre></div>
+<pre><code>## [1] -0.01823577</code></pre>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="describing-your-data.html#cb686-1" aria-hidden="true" tabindex="-1"></a>correct_covariance <span class="sc">==</span> incorrect_covariance</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>It is more common, when working with the type of multivariate datasets we usually have (and have in this case), to examine a “covariance matrix”–this is the numerical equivalent of the kind of scatterplot matrix we saw above. It is a symmetrical matrix (what does this mean?) in which each cell contains the covariance of the variables for the row and column, and the diagonal gives the variance of each variable:</p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="describing-your-data.html#cb687-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(apples[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="describing-your-data.html#cb688-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(apples[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##         His     Asn    Ser    Gln    Arg    Gly    Asp    Glu    Thr    Ala
 ## His   0.083   0.282  0.013  0.037  0.006  0.000  0.087  0.047 -0.006  0.027
 ## Asn   0.282  99.205  2.107  6.634 -0.286  0.304 12.785  4.419  0.398  3.966
@@ -2470,12 +2470,12 @@ div.csl-indent {
 <h4><span class="header-section-number">6.6.3.2</span> Correlation<a href="describing-your-data.html#correlation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The final point (#3) above leads us to the idea of linear or Pearson <strong>correlation</strong>, which can be thought of as “standardized covariance”. The standardization is done by dividing the covariance <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> by the standard deviations of each variable: <span class="math inline">\(cor(x, y) = \rho_{xy} = \frac{\sigma_{xy}}{\sigma_{x}*\sigma_{y}}\)</span>. This preserves the directionality (positive or negative) of the covariance, but accounts for differences in scale in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>–in fact, it means that <span class="math inline">\(\rho_{xy}\)</span> is bounded within <span class="math inline">\([-1, 1]\)</span>. If the correlation is equal to +1, it means that there is a perfect, positive (linear) association between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and if it is equal to -1 it means that there is a perfect negative association. If it is 0 it means there is no linear association.</p>
 <p>We can calculate correlations (and correlation matrices) in R using the <code>cor()</code> function. It works exactly the same as <code>cov()</code>, including the requirement that we be careful with making sure that the intrinsic variable(s) connecting <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> aren’t disrupted.</p>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="describing-your-data.html#cb689-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu)</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="describing-your-data.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu)</span></code></pre></div>
 <pre><code>## [1] 0.5703138</code></pre>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="describing-your-data.html#cb691-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">42</span>)])</span></code></pre></div>
-<pre><code>## [1] 0.2159502</code></pre>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="describing-your-data.html#cb692-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(apples<span class="sc">$</span>Asp, apples<span class="sc">$</span>Glu[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">42</span>)])</span></code></pre></div>
+<pre><code>## [1] 0.009757854</code></pre>
 <p>And, typically, we will generate correlation matrices instead:</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="describing-your-data.html#cb693-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(apples[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="describing-your-data.html#cb694-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(apples[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##         His    Asn    Ser    Gln    Arg    Gly    Asp    Glu    Thr    Ala
 ## His   1.000  0.099  0.170  0.155  0.057 -0.016  0.193  0.166 -0.203  0.171
 ## Asn   0.099  1.000  0.774  0.800 -0.084  0.570  0.818  0.454  0.377  0.732
@@ -2523,12 +2523,12 @@ div.csl-indent {
 <div id="caveats-with-linear-association" class="section level4 hasAnchor" number="6.6.3.3">
 <h4><span class="header-section-number">6.6.3.3</span> Caveats with linear association<a href="describing-your-data.html#caveats-with-linear-association" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Linear association is powerful and simple, and in fact when we start to get into ideas of inference in the next several weeks, we will see that its simplicity offers some advantages. But it also is very rigid and can ignore clear patterns in data. Kieran Healy -<span class="citation">Healy (<a href="#ref-healy2019" role="doc-biblioref">2019</a>)</span> argues that this is a good reason for relying equally on data visualization in exploratory data analysis, using the famous Anscombe dataset <span class="citation">(<a href="#ref-anscombe1973" role="doc-biblioref">Anscombe 1973</a>)</span>.</p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="describing-your-data.html#cb695-1" aria-hidden="true" tabindex="-1"></a>tidy_anscombe <span class="sc">%&gt;%</span></span>
-<span id="cb695-2"><a href="describing-your-data.html#cb695-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb695-3"><a href="describing-your-data.html#cb695-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb695-4"><a href="describing-your-data.html#cb695-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb695-5"><a href="describing-your-data.html#cb695-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>series, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb695-6"><a href="describing-your-data.html#cb695-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="describing-your-data.html#cb696-1" aria-hidden="true" tabindex="-1"></a>tidy_anscombe <span class="sc">%&gt;%</span></span>
+<span id="cb696-2"><a href="describing-your-data.html#cb696-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb696-3"><a href="describing-your-data.html#cb696-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb696-4"><a href="describing-your-data.html#cb696-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb696-5"><a href="describing-your-data.html#cb696-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>series, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb696-6"><a href="describing-your-data.html#cb696-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="06-descriptive-stats_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p>This is a set of 4 artificial datasets that are constructed with the constraint that for each, <span class="math inline">\(\rho_{xy}\)</span> is the same. But it is obvious that the same pattern is not at play in each. For each dataset, explain what pattern you see, and whether the drawn line showing correlation is a good fit:</p>
 <ol style="list-style-type: decimal">
@@ -2601,7 +2601,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jlahne/food-data-science-2022/edit/BRANCH/06-descriptive-stats.Rmd",
+"link": "https://github.com/jlahne/food-data-science-2022/edit/master/06-descriptive-stats.Rmd",
 "text": "Edit"
 },
 "history": {

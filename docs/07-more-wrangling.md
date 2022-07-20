@@ -582,7 +582,7 @@ toc()
 ```
 
 ```
-## 0.005 sec elapsed
+## 0.003 sec elapsed
 ```
 
 These both work fine, but you can see that there is more *overhead* for the loop - storing and erasing variables as it proceeds along the chain.  You can imagine that, in a language that is built for the former, doing the latter is going to be less quick (and less memory-efficient, which is not going to be a problem for you in most initial applications, but can be a serious barrier).

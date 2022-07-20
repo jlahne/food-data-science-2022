@@ -46,18 +46,18 @@ But looking at your data can be even more valuable: our ability to find patterns
 For example, **what patterns can we see in this table of the data we just plotted (a subset, obviously)?**
 
 
-|         x|         y1|        y2|
-|---------:|----------:|---------:|
-| 0.0000000| -1.0732050|  7.052848|
-| 0.1010101|  0.8424211| 14.435391|
-| 0.2020202| -0.8863774| -2.450347|
-| 0.3030303|  0.0636583|  4.702260|
-| 0.4040404|  1.0923066| -7.675656|
-| 0.5050505| -0.8925829|  2.081866|
-| 0.6060606|  1.3127660| -9.135962|
-| 0.7070707| -0.1070425|  8.676918|
-| 0.8080808|  2.5435814|  2.404805|
-| 0.9090909|  2.3143139|  1.352820|
+|         x|         y1|         y2|
+|---------:|----------:|----------:|
+| 0.0000000| -1.3214703| -2.5353760|
+| 0.1010101| -0.8269770| -7.5286794|
+| 0.2020202|  0.4996656| -1.2341072|
+| 0.3030303|  0.5917504|  5.1983819|
+| 0.4040404|  0.7527332| -2.2728104|
+| 0.5050505| -0.1505266|  8.3169781|
+| 0.6060606|  1.1242934|  5.6965722|
+| 0.7070707| -1.9397261|  7.8641251|
+| 0.8080808|  0.4597118|  9.6065223|
+| 0.9090909|  0.9153580|  0.9753971|
 
 When visualizing data *for yourself*, the goal is to quickly and accurately be able to make plots that you want to see, so that you're not fiddling with options or struggling to actually see the data.  You aren't looking for "publication quality" visualization--you want to be able to look at your data clearly and quickly.
 
@@ -742,10 +742,10 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 14)])
 ```
 
 ```
-##  [1] "mediumpurple4"   "lightpink"       "peachpuff2"      "darkseagreen2"  
-##  [5] "burlywood4"      "orangered4"      "lightsteelblue3" "gray65"         
-##  [9] "gray61"          "gray9"           "gray40"          "seashell4"      
-## [13] "grey65"          "lightyellow4"
+##  [1] "palegoldenrod" "deepskyblue2"  "purple1"       "goldenrod1"   
+##  [5] "orchid1"       "chocolate"     "seagreen2"     "mediumpurple" 
+##  [9] "sienna"        "orchid2"       "mediumorchid1" "steelblue3"   
+## [13] "olivedrab2"    "lightsalmon3"
 ```
 
 ```r

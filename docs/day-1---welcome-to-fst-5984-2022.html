@@ -510,23 +510,26 @@ div.csl-indent {
 <pre><code>## [1] 14.13173</code></pre>
 <p>We can ask R to do lots of neat stuff, like generate random numbers for us. For example, here are 100 random numbers from a normal distribution with mean of 0 and standard deviation of 1.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   [1] -0.21849830 -1.29560158  0.56792501  1.90556490  0.31693484  0.80194581
-##   [7] -1.83821262 -0.07578850  0.87795209  0.18260345 -1.37969102 -1.73194783
-##  [13]  1.30300927 -0.41565296 -0.97333735 -1.22410287 -0.10280629 -1.10162777
-##  [19] -0.71751353  0.54496164  0.18175657 -1.93255670 -0.95176404 -0.30532483
-##  [25]  0.87203030 -0.39983081  1.71056597  0.59039419 -0.91411145  0.09526206
-##  [31]  0.60670902  1.46240642  0.74937158  2.81465708  1.64628223 -0.79273097
-##  [37] -0.02469708 -0.58197719 -0.11452526 -1.06981314  1.38970041 -0.32946454
-##  [43] -1.31928672 -0.42060082 -1.29671912  1.02379565  1.50821552  0.99800071
-##  [49] -0.81807772 -1.62372185  0.76294475 -1.07681027 -0.70380318  0.71628969
-##  [55] -0.28161932 -0.45274036 -2.59292962 -0.22431266 -0.63751492  0.01753046
-##  [61] -0.55623740  0.78749362 -0.37900623 -0.26921388  0.77268294  0.55962547
-##  [67]  0.55011369  0.65194165 -0.27188836 -2.13660032  0.35211039 -0.63143936
-##  [73]  0.69677084 -1.43162943 -0.23203989 -0.79036348 -0.04519495  0.08631498
-##  [79] -0.51897473  0.57927172 -0.22379336  0.03547587 -0.04387363 -1.03430147
-##  [85] -0.78199725 -2.06245501 -0.95719055  0.69361278  0.74786145 -1.23855844
-##  [91]  0.24994083  2.14297991  1.35557070 -0.66542727 -0.71494525  1.58560594
-##  [97]  1.75175472  1.18087286  1.19515756 -0.81622879</code></pre>
+<pre><code>##   [1] -1.3572594946 -0.5532073915  0.5398173741  0.9358743125 -0.2607471767
+##   [6] -0.7924009217 -0.2938038129 -1.3060731396 -0.4469650196 -1.2201805390
+##  [11]  0.0346690435  0.2293843191 -0.5293076892  0.2256660572  1.3151642099
+##  [16] -1.6060439299 -0.5077579672  1.6528416449  0.6554347644  0.2735535096
+##  [21]  0.2776140673  0.2495769024 -1.9352797265 -0.9177436106  2.9350194350
+##  [26]  0.2138848632 -1.2313316930  0.1815047878 -0.0001928865  0.0285104869
+##  [31] -1.0831225369 -0.5141562216 -0.5179313311  1.3726723247 -0.8337516284
+##  [36] -0.3834555293 -0.1432776305  1.1041582059 -1.0650010122 -1.1719961068
+##  [41]  0.2589669502 -0.3220053612  0.6717785785 -0.0880113766 -0.7991680320
+##  [46]  0.3533267827 -0.5468060233 -1.1012836488  2.0499121881 -0.4690042893
+##  [51]  0.6343963317  0.1444403525 -0.6761447208  0.9897492236  1.4087605831
+##  [56]  0.5879784407 -0.5222958560  0.9795571866  2.0712832105 -3.4473855644
+##  [61] -0.7543109072 -0.4735069971 -1.0753115148  0.9973642103 -0.3950685142
+##  [66] -0.9101213626  0.6911403701 -0.1016053708  1.7202005883 -0.5006289379
+##  [71] -0.9358110461  1.9858916501 -0.8960202448  1.0559972864  0.8800741709
+##  [76]  0.5359729547  0.1950182227  0.7770604788 -0.3674226679  0.6429431680
+##  [81] -0.8575215799 -0.3857283399 -0.2907557431  1.3648062410 -1.6614424720
+##  [86] -0.1928847585 -1.0317387739 -0.2699448714  0.5574379955  1.2712481385
+##  [91]  0.7323656876  0.4263217270  0.7598277532  0.8928244464 -0.3192189969
+##  [96]  1.4492983613  1.1003609250 -1.8979135063 -0.5817651485 -1.7487197472</code></pre>
 <p>And, of course, we can look at <strong>structured data</strong>…</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb9-1" aria-hidden="true" tabindex="-1"></a>mtcars</span></code></pre></div>
 <pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
@@ -686,11 +689,12 @@ div.csl-indent {
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># is a random variable larger than 0?</span></span>
 <span id="cb43-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb43-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) </span>
 <span id="cb43-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb43-3" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&gt;</span> <span class="dv">0</span></span></code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if that random variable is larger than 0, print something to tell us</span></span>
 <span id="cb45-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;Well, there was a 50% chance!&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Well, there was a 50% chance!&quot;</code></pre>
 <p>As a note, R will helpfully transform logical variables into FALSE = 0 and TRUE = 1 if you try to do algebra with them. So for example:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>0 and 1 are <strong>integers</strong>.</p>
 </div>
@@ -703,45 +707,45 @@ div.csl-indent {
 <div id="numeric" class="section level4 hasAnchor" number="1.3.2.3">
 <h4><span class="header-section-number">1.3.2.3</span> Numeric<a href="day-1---welcome-to-fst-5984-2022.html#numeric" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We care especially about numbers, because most of our data analysis in food and ag sciences will be on numeric data. For computers, real numbers (numbers that can be represented with decimal precision) are called <code>numeric</code> or <code>double</code>. The second term (<code>double</code>) refers to the level of precision the computer actually offers, but this is beyond our scope (and my understanding!)–suffice it to say that, for our purposes, we will not be running into what are called “numerical overflow/underflow” errors.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb48-1" aria-hidden="true" tabindex="-1"></a>a_integer <span class="ot">&lt;-</span> 3L</span>
-<span id="cb48-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb48-2" aria-hidden="true" tabindex="-1"></a>a_double <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb48-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_integer)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb49-1" aria-hidden="true" tabindex="-1"></a>a_integer <span class="ot">&lt;-</span> 3L</span>
+<span id="cb49-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb49-2" aria-hidden="true" tabindex="-1"></a>a_double <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb49-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_integer)</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_double)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_double)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Do these two things equal each other?</span></span>
-<span id="cb52-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb52-2" aria-hidden="true" tabindex="-1"></a>a_double <span class="sc">==</span> a_integer</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Do these two things equal each other?</span></span>
+<span id="cb53-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb53-2" aria-hidden="true" tabindex="-1"></a>a_double <span class="sc">==</span> a_integer</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the square root of the (integer) 3 an integer?</span></span>
-<span id="cb54-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">sqrt</span>(a_integer))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the square root of the (integer) 3 an integer?</span></span>
+<span id="cb55-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">sqrt</span>(a_integer))</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 </div>
 <div id="character" class="section level4 hasAnchor" number="1.3.2.4">
 <h4><span class="header-section-number">1.3.2.4</span> Character<a href="day-1---welcome-to-fst-5984-2022.html#character" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Ok, but we have seen already us using things that definitely aren’t numbers. For these, R defines the <code>chatacter</code> data type (which I also often call <code>string</code> data, which is a term used by some other programming languages). In R, <code>character</code> data is quoted and not interpreted–it does not have mathematical or functional/object properties. It is the most general data type.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb56-1" aria-hidden="true" tabindex="-1"></a>a_integer <span class="ot">&lt;-</span> 3L</span>
-<span id="cb56-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb56-2" aria-hidden="true" tabindex="-1"></a>a_character <span class="ot">&lt;-</span> <span class="st">&quot;3&quot;</span></span>
-<span id="cb56-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb56-3" aria-hidden="true" tabindex="-1"></a>a_string <span class="ot">&lt;-</span> <span class="st">&quot;hello_world&quot;</span></span>
-<span id="cb56-4"><a href="day-1---welcome-to-fst-5984-2022.html#cb56-4" aria-hidden="true" tabindex="-1"></a>hello_world <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">print</span>(<span class="st">&quot;hello world&quot;</span>)</span>
-<span id="cb56-5"><a href="day-1---welcome-to-fst-5984-2022.html#cb56-5" aria-hidden="true" tabindex="-1"></a>a_string</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb57-1" aria-hidden="true" tabindex="-1"></a>a_integer <span class="ot">&lt;-</span> 3L</span>
+<span id="cb57-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb57-2" aria-hidden="true" tabindex="-1"></a>a_character <span class="ot">&lt;-</span> <span class="st">&quot;3&quot;</span></span>
+<span id="cb57-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb57-3" aria-hidden="true" tabindex="-1"></a>a_string <span class="ot">&lt;-</span> <span class="st">&quot;hello_world&quot;</span></span>
+<span id="cb57-4"><a href="day-1---welcome-to-fst-5984-2022.html#cb57-4" aria-hidden="true" tabindex="-1"></a>hello_world <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">print</span>(<span class="st">&quot;hello world&quot;</span>)</span>
+<span id="cb57-5"><a href="day-1---welcome-to-fst-5984-2022.html#cb57-5" aria-hidden="true" tabindex="-1"></a>a_string</span></code></pre></div>
 <pre><code>## [1] &quot;hello_world&quot;</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hello_world</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hello_world</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;hello world&quot;</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(hello_world)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(hello_world)</span></code></pre></div>
 <pre><code>## function() print(&quot;hello world&quot;)</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does R know that the character &quot;3&quot; represents the integer 3?  Sort of, but not enough to do math.</span></span>
-<span id="cb62-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb62-2" aria-hidden="true" tabindex="-1"></a>a_integer <span class="sc">+</span> a_character</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does R know that the character &quot;3&quot; represents the integer 3?  Sort of, but not enough to do math.</span></span>
+<span id="cb63-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb63-2" aria-hidden="true" tabindex="-1"></a>a_integer <span class="sc">+</span> a_character</span></code></pre></div>
 <pre><code>## Error in a_integer + a_character: non-numeric argument to binary operator</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb64-1" aria-hidden="true" tabindex="-1"></a>hello_ world <span class="co"># hmm, what went wrong here?</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb65-1" aria-hidden="true" tabindex="-1"></a>hello_ world <span class="co"># hmm, what went wrong here?</span></span></code></pre></div>
 <pre><code>## Error: &lt;text&gt;:1:8: unexpected symbol
 ## 1: hello_ world
 ##            ^</code></pre>
 <p>These can get kind of tricky, because R is interpreted as a language, and the interpreter tries to be smart. So if you ask R whether <code>3L == "3"</code>, it will tell you <code>TRUE</code>. This is because R uses “conversion”, and automatically runs conversion functions to try to compare different data types.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(3L)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(3L)</span></code></pre></div>
 <pre><code>## [1] &quot;3&quot;</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(3L) <span class="sc">==</span> <span class="st">&quot;3&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(3L) <span class="sc">==</span> <span class="st">&quot;3&quot;</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb70-1" aria-hidden="true" tabindex="-1"></a>3L <span class="sc">==</span> <span class="st">&quot;3&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb71-1" aria-hidden="true" tabindex="-1"></a>3L <span class="sc">==</span> <span class="st">&quot;3&quot;</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>We’ll talk more about <code>as_*()</code> functions to convert between data types in future classes.</p>
 </div>
@@ -750,7 +754,7 @@ div.csl-indent {
 <p>Yeah, this is where we’d talk about <code>vector</code>, <code>matrix</code> or more complex objects. We will get to these. But the general thing I want to emphasize is that these objects are <em>collections</em> of the simple objects we’re discussing here. In R, it’s turtles all the way down–complex things in R are built out of simple things in R. That doesn’t mean they’re <em>easy</em>–but it does mean that if we can get an idea of how simple things work, we can start to pick apart the complex things.</p>
 <p>To start with, we’ll talk about just one type of complex object: <strong><code>vector</code></strong>.</p>
 <p>Vectors are ordered lists of <strong>one type</strong> of data. In R, they are defined using the <code>c()</code> function:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>Vectors have a couple of properties.</p>
 <ol style="list-style-type: decimal">
@@ -761,10 +765,10 @@ div.csl-indent {
 </ol></li>
 <li>Vectors are <em>ordered</em>. This is important, because it will allow us, in a later class, to access items in the vector.</li>
 </ol>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb74-1" aria-hidden="true" tabindex="-1"></a>a_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;this&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;character&quot;</span>, <span class="st">&quot;vector&quot;</span>)</span>
-<span id="cb74-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb74-2" aria-hidden="true" tabindex="-1"></a>a_vector</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb75-1" aria-hidden="true" tabindex="-1"></a>a_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;this&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;character&quot;</span>, <span class="st">&quot;vector&quot;</span>)</span>
+<span id="cb75-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb75-2" aria-hidden="true" tabindex="-1"></a>a_vector</span></code></pre></div>
 <pre><code>## [1] &quot;this&quot;      &quot;is&quot;        &quot;a&quot;         &quot;character&quot; &quot;vector&quot;</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb76-1" aria-hidden="true" tabindex="-1"></a>a_vector[<span class="dv">3</span>] <span class="co"># What&#39;s the third word in this sentence?</span></span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb77-1" aria-hidden="true" tabindex="-1"></a>a_vector[<span class="dv">3</span>] <span class="co"># What&#39;s the third word in this sentence?</span></span></code></pre></div>
 <pre><code>## [1] &quot;a&quot;</code></pre>
 </div>
 </div>
@@ -773,34 +777,34 @@ div.csl-indent {
 <p>Short answer is that <code>print()</code> and anything else that is of the form <code>&lt;text&gt;()</code> is a <em>function</em>. We will be discussing functions more in later classes, because they are a big part of programming, but we can best understand them right now as bit of pre-written code that take input and spit out results.</p>
 <p>The term “function” comes from</p>
 <p>As we will learn, R functions are (mostly) written in R. So you can write new functions, like so (note the use of the <code>function()</code> function!):</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb78-1" aria-hidden="true" tabindex="-1"></a>hello_world <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
-<span id="cb78-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb78-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">&quot;hello world&quot;</span>)</span>
-<span id="cb78-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb78-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb78-4"><a href="day-1---welcome-to-fst-5984-2022.html#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hello_world</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb79-1" aria-hidden="true" tabindex="-1"></a>hello_world <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb79-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">&quot;hello world&quot;</span>)</span>
+<span id="cb79-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb79-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb79-4"><a href="day-1---welcome-to-fst-5984-2022.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hello_world</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;hello world&quot;</code></pre>
 <p>But another great side-effect of this is that you can look into how R functions <em>you didn’t write</em> work because they are written in R syntax. This is because if you ask R about the <em>object</em> rather than run the function, R will spit back the code that defines the function.</p>
 <p>…what?</p>
 <p>Well, what that means is that if you type <code>hello_world()</code> R will run the function called “hello_world”. But, if you type <code>hello_world</code> <strong>without the <code>()</code></strong>, R will spit back the R code that defines the function (because that is what’s assigned to that object above, where we started by writing <code>hello_world &lt;-</code>):</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb80-1" aria-hidden="true" tabindex="-1"></a>hello_world</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb81-1" aria-hidden="true" tabindex="-1"></a>hello_world</span></code></pre></div>
 <pre><code>## function(){
 ##     print(&quot;hello world&quot;)
 ## }</code></pre>
 <p>And functions can be awesome, and complicated. Here is one that will randomly draw 1000 observations from the normal distribution and then plot a density curve in order to give you a nice density curve (something that can be a pain to draw by yourself).</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-1" aria-hidden="true" tabindex="-1"></a>make_a_nice_bell_curve <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">plotnum =</span> <span class="cn">NULL</span>){</span>
-<span id="cb82-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(plotnum)){</span>
-<span id="cb82-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-3" aria-hidden="true" tabindex="-1"></a>    plotname <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;This is plot #&quot;</span>, plotnum)</span>
-<span id="cb82-4"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
-<span id="cb82-5"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-5" aria-hidden="true" tabindex="-1"></a>    plotname <span class="ot">&lt;-</span> <span class="st">&quot;A nice plot&quot;</span></span>
-<span id="cb82-6"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb82-7"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-8"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-8" aria-hidden="true" tabindex="-1"></a>  samples <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb82-9"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">density</span>(samples), <span class="at">main =</span> plotname)</span>
-<span id="cb82-10"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb82-11"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-12"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-12" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb82-13"><a href="day-1---welcome-to-fst-5984-2022.html#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="fu">make_a_nice_bell_curve</span>(<span class="at">plotnum =</span> i)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-1" aria-hidden="true" tabindex="-1"></a>make_a_nice_bell_curve <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">plotnum =</span> <span class="cn">NULL</span>){</span>
+<span id="cb83-2"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(plotnum)){</span>
+<span id="cb83-3"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-3" aria-hidden="true" tabindex="-1"></a>    plotname <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;This is plot #&quot;</span>, plotnum)</span>
+<span id="cb83-4"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-4" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb83-5"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-5" aria-hidden="true" tabindex="-1"></a>    plotname <span class="ot">&lt;-</span> <span class="st">&quot;A nice plot&quot;</span></span>
+<span id="cb83-6"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb83-7"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb83-8"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-8" aria-hidden="true" tabindex="-1"></a>  samples <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb83-9"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">density</span>(samples), <span class="at">main =</span> plotname)</span>
+<span id="cb83-10"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb83-11"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-12"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-12" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb83-13"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="fu">make_a_nice_bell_curve</span>(<span class="at">plotnum =</span> i)</span></code></pre></div>
 <p><img src="01-Introduction_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="day-1---welcome-to-fst-5984-2022.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
 <p>But we could just copy and paste the code above 3 times, or even just hit cmd + enter with those two commands highlighted. Why make a function? Well, we will learn a lot more about functions in the coming weeks, but here are some great reasons to get you started:</p>
 <ol style="list-style-type: decimal">
 <li>It’s much easier to use functions in control logic (like the <code>for</code> loop above)</li>
@@ -865,7 +869,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jlahne/food-data-science-2022/edit/BRANCH/01-Introduction.Rmd",
+"link": "https://github.com/jlahne/food-data-science-2022/edit/master/01-Introduction.Rmd",
 "text": "Edit"
 },
 "history": {
